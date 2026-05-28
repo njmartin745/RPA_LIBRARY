@@ -1,0 +1,59 @@
+{
+  "workflow_id": "VAL-000",
+  "name": "Minimal Runtime Validation",
+  "description": "Smallest possible end-to-end runtime validation workflow.",
+  "purpose": "Prove browser execution, navigation, waits, interaction, validation, logging, and shutdown.",
+  "version": "1.0.0",
+  "runtime_mode": "headed",
+  "steps": [
+    {
+      "step_id": "launch_browser",
+      "action": "open_browser",
+      "browser": "chrome",
+      "headless": false
+    },
+    {
+      "step_id": "navigate_example",
+      "action": "navigate",
+      "url": "https://example.com"
+    },
+    {
+      "step_id": "wait_for_page",
+      "action": "wait",
+      "wait_type": "document_ready",
+      "timeout_seconds": 15
+    },
+    {
+      "step_id": "validate_title",
+      "action": "validate_page_contains",
+      "expected_text": "Example Domain"
+    },
+    {
+      "step_id": "click_more_information",
+      "action": "click",
+      "selector_type": "css",
+      "selector": "a"
+    },
+    {
+      "step_id": "wait_after_click",
+      "action": "wait",
+      "wait_type": "document_ready",
+      "timeout_seconds": 15
+    },
+    {
+      "step_id": "validate_navigation",
+      "action": "validate_url_contains",
+      "expected_text": "iana.org"
+    },
+    {
+      "step_id": "log_success",
+      "action": "log",
+      "level": "INFO",
+      "message": "VAL-000 workflow completed successfully"
+    },
+    {
+      "step_id": "close_browser",
+      "action": "close_browser"
+    }
+  ]
+}
