@@ -1,0 +1,12 @@
+{"run_id": "SMOKE-01", "workflow_path": "WORKFLOWS\\wf_a.json", "workflow_name": "DEPLOY-1A-SMOKE", "attempt": 1, "status": "success", "error_category": null, "selector_ref": null, "diff_fingerprint": null}
+{"run_id": "SMOKE-02", "workflow_path": "WORKFLOWS\\wf_b.json", "workflow_name": "DEPLOY-1A-SMOKE", "attempt": 1, "status": "success", "error_category": null, "selector_ref": null, "diff_fingerprint": null}
+{"run_id": "SMOKE-03", "workflow_path": "WORKFLOWS\\wf_a.json", "workflow_name": "DEPLOY-1A-SMOKE", "attempt": 1, "status": "success", "error_category": null, "selector_ref": null, "diff_fingerprint": null}
+{"run_id": "SMOKE-04", "workflow_path": "WORKFLOWS\\wf_b.json", "workflow_name": "DEPLOY-1A-SMOKE", "attempt": 1, "status": "success", "error_category": null, "selector_ref": null, "diff_fingerprint": null}
+{"run_id": "SMOKE-01", "workflow_path": "WORKFLOWS\\wf_a.json", "workflow_name": "DEPLOY-1A-SMOKE", "attempt": 1, "status": "success", "error_category": null, "selector_ref": null, "diff_fingerprint": null}
+{"run_id": "SMOKE-02", "workflow_path": "WORKFLOWS\\wf_b.json", "workflow_name": "DEPLOY-1A-SMOKE", "attempt": 1, "status": "success", "error_category": null, "selector_ref": null, "diff_fingerprint": null}
+{"run_id": "SMOKE-03", "workflow_path": "WORKFLOWS\\wf_a.json", "workflow_name": "DEPLOY-1A-SMOKE", "attempt": 1, "status": "success", "error_category": null, "selector_ref": null, "diff_fingerprint": null}
+{"run_id": "SMOKE-04", "workflow_path": "WORKFLOWS\\wf_b.json", "workflow_name": "DEPLOY-1A-SMOKE", "attempt": 1, "status": "success", "error_category": null, "selector_ref": null, "diff_fingerprint": null}
+{"run_id": "SMOKE-01", "workflow_path": "WORKFLOWS\\wf_a.json", "workflow_name": "DEPLOY-1A-SMOKE", "attempt": 1, "status": "success", "error_category": null, "selector_ref": null, "diff_fingerprint": null}
+{"run_id": "SMOKE-02", "workflow_path": "WORKFLOWS\\wf_b.json", "workflow_name": "DEPLOY-1A-SMOKE", "attempt": 1, "status": "success", "error_category": null, "selector_ref": null, "diff_fingerprint": null}
+{"run_id": "SMOKE-03", "workflow_path": "WORKFLOWS\\wf_a.json", "workflow_name": "DEPLOY-1A-SMOKE", "attempt": 1, "status": "success", "error_category": null, "selector_ref": null, "diff_fingerprint": null}
+{"run_id": "SMOKE-04", "workflow_path": "WORKFLOWS\\wf_b.json", "workflow_name": "DEPLOY-1A-SMOKE", "attempt": 1, "status": "success", "error_category": null, "selector_ref": null, "diff_fingerprint": null}

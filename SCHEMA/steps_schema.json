@@ -1,0 +1,223 @@
+{
+  "schema_version": "SCHEMA-1A",
+  "generated_at": "2026-04-23T20:05:46.401267Z",
+  "notes": {
+    "var_placeholders": "String fields may support VAR placeholders like ${VAR}. Resolution behavior is defined by VAR-1A and related runtime utilities.",
+    "guards": "Some actions/steps may support guard conditions (ACT-1C). If guard-related fields are not inferred statically, consult ACT-1C docs/implementation.",
+    "blocks": "Block-style actions (PIPE-2B), such as if/group/try, may contain nested step lists (e.g., steps/then/else/catch)."
+  },
+  "supported_actions": [
+    {
+      "action": "open",
+      "description": "Open a URL in the current tab.",
+      "required_fields": [
+        "action",
+        "url"
+      ],
+      "optional_fields": [
+        "name"
+      ],
+      "field_types": {
+        "action": "string",
+        "name": "string",
+        "url": "string"
+      },
+      "allowed_values": {},
+      "examples": [],
+      "implemented_by": {
+        "module": "PIPE/pipe_1d_step_executor.py",
+        "option_id": "PIPE-1D"
+      }
+    },
+    {
+      "action": "click_selector",
+      "description": "Click a target element by selector_ref or (strategy, selector).",
+      "required_fields": [
+        "action"
+      ],
+      "optional_fields": [
+        "name",
+        "selector",
+        "selector_ref",
+        "strategy"
+      ],
+      "field_types": {
+        "action": "string",
+        "name": "string",
+        "selector": "string",
+        "selector_ref": "string",
+        "strategy": "string"
+      },
+      "allowed_values": {},
+      "examples": [],
+      "implemented_by": {
+        "module": "VAL/val_2a_deploy_bundle_validator.py",
+        "option_id": "VAL-2A"
+      }
+    },
+    {
+      "action": "type_selector_secret",
+      "description": "Type a secret value into a target element.",
+      "required_fields": [
+        "action",
+        "secret"
+      ],
+      "optional_fields": [
+        "name",
+        "selector",
+        "selector_ref",
+        "strategy"
+      ],
+      "field_types": {
+        "action": "string",
+        "name": "string",
+        "secret": "string",
+        "selector": "string",
+        "selector_ref": "string",
+        "strategy": "string"
+      },
+      "allowed_values": {},
+      "examples": [],
+      "implemented_by": {
+        "module": "",
+        "option_id": null
+      }
+    },
+    {
+      "action": "wait_for_selector",
+      "description": "Wait until a target selector is present/ready.",
+      "required_fields": [
+        "action"
+      ],
+      "optional_fields": [
+        "name",
+        "selector",
+        "selector_ref",
+        "strategy"
+      ],
+      "field_types": {
+        "action": "string",
+        "name": "string",
+        "selector": "string",
+        "selector_ref": "string",
+        "strategy": "string"
+      },
+      "allowed_values": {},
+      "examples": [],
+      "implemented_by": {
+        "module": "",
+        "option_id": null
+      }
+    },
+    {
+      "action": "exec_js",
+      "description": "Execute inline JavaScript and return a JSON-serializable value.",
+      "required_fields": [
+        "action",
+        "script"
+      ],
+      "optional_fields": [
+        "name"
+      ],
+      "field_types": {
+        "action": "string",
+        "name": "string",
+        "script": "string"
+      },
+      "allowed_values": {},
+      "examples": [],
+      "implemented_by": {
+        "module": "",
+        "option_id": null
+      }
+    },
+    {
+      "action": "exec_js_file",
+      "description": "Execute a JavaScript file from disk.",
+      "required_fields": [
+        "action",
+        "path"
+      ],
+      "optional_fields": [
+        "name"
+      ],
+      "field_types": {
+        "action": "string",
+        "name": "string",
+        "path": "string"
+      },
+      "allowed_values": {},
+      "examples": [],
+      "implemented_by": {
+        "module": "",
+        "option_id": null
+      }
+    },
+    {
+      "action": "repeat",
+      "description": "Repeat a nested block of steps a fixed number of times.",
+      "required_fields": [
+        "action",
+        "steps",
+        "times"
+      ],
+      "optional_fields": [
+        "name"
+      ],
+      "field_types": {
+        "action": "string",
+        "name": "string",
+        "steps": "list",
+        "times": "int"
+      },
+      "allowed_values": {},
+      "examples": [],
+      "implemented_by": {
+        "module": "",
+        "option_id": null
+      }
+    },
+    {
+      "action": "log",
+      "description": "Emit a log message (supports VAR placeholders).",
+      "required_fields": [
+        "action",
+        "message"
+      ],
+      "optional_fields": [
+        "name"
+      ],
+      "field_types": {
+        "action": "string",
+        "message": "string",
+        "name": "string"
+      },
+      "allowed_values": {},
+      "examples": [],
+      "implemented_by": {
+        "module": "",
+        "option_id": null
+      }
+    },
+    {
+      "action": "switch_back_to_main_tab",
+      "description": "Switch focus back to the main tab/window.",
+      "required_fields": [
+        "action"
+      ],
+      "optional_fields": [
+        "name"
+      ],
+      "field_types": {
+        "action": "string",
+        "name": "string"
+      },
+      "allowed_values": {},
+      "examples": [],
+      "implemented_by": {
+        "module": "",
+        "option_id": null
+      }
+    }
+  ]
+}

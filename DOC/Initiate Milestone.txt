@@ -1,0 +1,116 @@
+Start MILESTONE work.  
+  
+Phase 12 — Production Readiness
+ - [ ] 12.1 Define operational standards and documentation (DOC-1A)
+ - [ ] 12.1.1 Define SLOs and success criteria
+    Files to be created (12.1.1)
+        DOC/doc_12a_slos_success_criteria.py - Purpose: Defines operational SLOs + production success criteria as a stable, machine-readable structure, and provides deterministic renderers (Markdown/JSON) for operator-facing documentation.
+        dev/dev_smoke_12_1_1_slos_success_criteria.py - Purpose: Smoke test that imports the module, validates required content, renders Markdown/JSON, writes/reads a Markdown artifact, and prints PASS/FAIL.
+    Recomendations
+        If you want, I can optionally (with approval) add a small hook into the existing DOC index mechanism (e.g., registering this doc in DOC/library_index.json or whatever DOC/doc_1a_library_index.py expects) so operators can discover it automatically.
+ - [ ] 12.1.2 Create operator runbooks
+     Files to be created (12.1.2)
+        DOC/doc_12b_operator_runbooks.py - Purpose: Canonical, deterministic operator runbooks (start/run/triage/retry/rollback/artifacts) with Markdown/JSON renderers.
+        dev/dev_smoke_12_1_2_operator_runbooks.py - Purpose: Smoke test that imports, validates presence of runbooks, renders Markdown/JSON, writes/reads a Markdown artifact, and prints PASS/FAIL.
+ - [ ] 12.1.3 Define support and escalation paths
+    Files to be created (12.1.3)
+        DOC/doc_12c_support_escalation_paths.py - Purpose: Canonical, deterministic support model + escalation paths (severity definitions, response targets, escalation matrix, required incident metadata) with Markdown/JSON renderers.
+        dev/dev_smoke_12_1_3_support_escalation_paths.py - Purpose: Smoke test that imports, validates core objects exist, renders Markdown/JSON, writes/reads a Markdown artifact, and prints PASS/FAIL.
+ - [ ] 12.2 Implement release governance and change control (REGISTRY/BUILD governance)
+ - [ ] 12.2.1 Define versioning policy for workflows/selectors/framework
+    Files to be created (12.2.1)
+        REGISTRY/reg_12a_versioning_policy.py - Purpose: Canonical versioning policy for workflows/selectors/framework (SemVer rules + bump guidance + release checks) with deterministic Markdown/JSON renderers.
+        dev/dev_smoke_12_2_1_versioning_policy.py - Purpose: Smoke test for parsing/validation/bumping + doc rendering + deterministic file write/read; prints PASS/FAIL.
+ - [ ] 12.2.2 Require reviewable diffs for workflow/selector changes
+    Files to be created (12.2.2)
+        DIFF/diff_12a_reviewable_diffs.py - Purpose: Deterministic, canonical reviewable unified diffs for workflow/selector JSON (and fallback text). Provides a governance check helper that CI/BUILD can call later.
+        dev/dev_smoke_12_2_2_reviewable_diffs.py - Purpose: Smoke test for canonicalization + diff determinism; prints PASS/FAIL.
+ - [ ] 12.2.3 Establish promotion gates between environments
+    Files to be created (12.2.3)
+        REGISTRY/reg_12b_promotion_gates.py - Purpose: Canonical, deterministic promotion gate policy between environments (dev→stage→prod), plus a pure evaluator to decide pass/fail from supplied evidence; Markdown/JSON renderers for governance docs.
+        dev/dev_smoke_12_2_3_promotion_gates.py - Purpose: Smoke test that validates policy structure, renders Markdown/JSON, evaluates failing/passing promotions deterministically, writes/reads a Markdown artifact, prints PASS/FAIL.
+ - [ ] 12.3 Implement production deployment pipelines (PIPE/CLI)
+ - [ ] 12.3.1 CI pipeline: validation + smoke suites on every change
+    Files to be created (12.3.1)
+        REPORT/report_12a_release_manifest.py - Purpose: Deterministic release manifest generator (versions + immutable artifact hashes/sizes) with Markdown/JSON renderers. No timestamps (caller may add externally) to keep determinism.
+        dev/dev_smoke_12_3_1_release_manifest.py - Purpose: Smoke test for manifest determinism + stable hashing + Markdown/JSON rendering + write/read; prints PASS/FAIL.
+ - [ ] 12.3.2 Release pipeline: publish versioned bundles with immutable fingerprints
+    Files to be created (12.3.2)
+        REPORT/report_12b_bundle_fingerprint.py - Purpose: Deterministic bundle fingerprint computed from a ReleaseManifest (ignores artifact paths; uses versions + artifact sha256/size). Includes Markdown/JSON renderers.
+        dev/dev_smoke_12_3_2_bundle_fingerprint.py - Purpose: Smoke test proving fingerprint stability across different file paths with identical bytes; prints PASS/FAIL.
+ - [ ] 12.3.3 Scheduled execution pipeline (where applicable)
+    Files to be created (12.3.3)
+        REPORT/report_12c_promotion_record.py - Purpose: Deterministic promotion record artifact tying together: promotion decision (from policy evaluation), release manifest, bundle fingerprint, and evidence (optionally redacted). Markdown/JSON renderers.
+        dev/dev_smoke_12_3_3_promotion_record.py - Purpose: Smoke test for determinism + rendering + write/read; prints PASS/FAIL.
+ - [ ] 12.4 Implement runtime operational gates (DOCTOR/GUARD)
+ - [ ] 12.4.1 Require DOCTOR checks pre-run in production
+    Files to be created (12.4.1)
+        DOCTOR/doctor_12a_pre_run_checks.py - Purpose: Canonical, deterministic DOCTOR pre-run policy (especially for prod) + a pure evaluator that decides pass/fail from supplied evidence; includes deterministic Markdown/JSON renderers.
+        dev/dev_smoke_12_4_1_doctor_pre_run_checks.py - Purpose: Smoke test for deterministic policy/evaluation/rendering + write/read; prints PASS/FAIL.
+ - [ ] 12.4.2 Enforce GUARD policies in production defaults
+    Files to be created (12.4.2)
+        GUARD/guard_12a_prod_defaults.py - Purpose: Canonical, deterministic GUARD policy defaults (esp. for prod) and a pure evaluator over a workflow dict + selectors dict. Includes deterministic Markdown/JSON renderers.
+        dev/dev_smoke_12_4_2_guard_prod_defaults.py - Purpose: Smoke test for deterministic evaluation/rendering + write/read; prints PASS/FAIL.
+ - [ ] 12.4.3 Standardize rollback and recovery procedures
+    Files to be created (12.4.3)
+        DOC/doc_12d_rollback_recovery_procedures.py - Purpose: Canonical, deterministic rollback + recovery procedures as a machine-readable playbook, with deterministic Markdown/JSON renderers and a small validator.
+        dev/dev_smoke_12_4_3_rollback_recovery_procedures.py - Purpose: Smoke test for determinism + validation + render + write/read; prints PASS/FAIL. 
+ - [ ] 12.5 Implement monitoring, retention, and audit readiness (REPORT/HISTORY/REPLAY)
+ - [ ] 12.5.1 Standardize artifact retention policies
+    Files to be created (12.5.1)
+        REPORT/report_12d_artifact_retention_policy.py - Purpose: Canonical, deterministic artifact retention policy (by env + artifact kind) with a pure evaluator that produces a keep/delete plan from supplied artifact metadata and a caller-supplied now_date (no timestamps generated). Includes Markdown/JSON renderers.
+        dev/dev_smoke_12_5_1_artifact_retention_policy.py - Purpose: Smoke test for determinism + evaluation + render + write/read; prints PASS/FAIL.
+ - [ ] 12.5.2 Define alerting signals from run outcomes
+    Files to be created (12.5.2)
+        REPORT/report_12e_alerting_signals.py - Purpose: Canonical, deterministic alerting signals derived from run outcomes/aggregated metrics, with a pure evaluator + Markdown/JSON renderers.
+        dev/dev_smoke_12_5_2_alerting_signals.py - Purpose: Smoke test for determinism + evaluation + render + write/read; prints PASS/FAIL.
+ - [ ] 12.5.3 Ensure audit-friendly logging and replay capability
+    Files to be created (12.5.3)
+        HISTORY/history_12a_audit_logging_replay_spec.py - Purpose: Canonical, deterministic audit log + replay artifact spec, with pure validators, deterministic JSON/Markdown renderers, deterministic JSONL event serialization, and stable SHA256 hashing (no timestamps generated).
+        dev/dev_smoke_12_5_3_audit_logging_replay_spec.py - Purpose: Smoke test for determinism + validation + JSONL write/read + stable hashing; prints PASS/FAIL.
+ - [ ] Deviation 
+    Files to be created (12.5.4)
+        REPLAY/replay_12a_index_verifier.py - Purpose: Deterministic verification that an audit log JSONL (events) matches a ReplayIndex (hash chain) generated per HISTORY/history_12a_audit_logging_replay_spec.py.
+        dev/dev_smoke_12_5_4_replay_index_verifier.py - Purpose: Smoke test for parse/verify determinism + mismatch detection + write/read; prints PASS/FAIL.   
+ - [ ] Deviation 
+    Files to be created (12.5.5)
+        REPORT/report_12f_incident_packet_manifest.py - Purpose: Deterministic incident packet manifest (what to collect/share for an incident) with stable JSON/Markdown rendering and a stable SHA256 fingerprint over canonical JSON.
+        dev/dev_smoke_12_5_5_incident_packet_manifest.py - Purpose: Smoke test for determinism + validation + hash stability + write/read; prints PASS/FAIL.   
+- [ ] Deviation
+    Files to be created (12.5.6)
+        DOCTOR/doctor_12d_release_readiness_gate.py - Purpose: Deterministic release readiness gate (go/no-go) with a canonical policy, pure evaluation from caller-supplied check observations, plus JSON/Markdown renderers.
+        dev/dev_smoke_12_5_6_release_readiness_gate.py - Purpose: Smoke test for determinism + evaluation + render + write/read; prints PASS/FAIL.
+ - [ ] Deviation
+    Files to be created for Milestone 12.5.7
+        REPORT/report_12g_evidence_bundle_assembler.py - Purpose: Pure, deterministic assembler for a single “evidence bundle” object that can incorporate outputs from 12.5.2–12.5.6 (passed in as dicts), plus an optional deterministic artifact text hash inventory; includes stable JSON/Markdown renderers and a stable bundle fingerprint (SHA256 over canonical JSON, no timestamps generated).
+        dev/dev_smoke_12_5_7_evidence_bundle_assembler.py - Purpose: Smoke test that imports the module, assembles bundles deterministically (including stable hashes independent of input ordering), renders Markdown/JSON, writes/reads a Markdown artifact, and prints PASS/FAIL.
+ - [ ] 12.6 Add production readiness smoke tests and gates
+ - [ ] 12.6.1 Smoke test full deploy-to-run-to-report pipeline
+    Files to be created (12.6.1)
+        RUN/run_12a_prod_smoke_pipeline.py - Purpose: Deterministic “pipeline harness” that (a) builds a minimal allowed-actions workflow + selectors, (b) performs a strict allowed-actions check, (c) assembles an evidence bundle via REPORT/report_12g_evidence_bundle_assembler.py, (d) emits a single deterministic smoke report artifact (JSON/Markdown) + stable fingerprint. No Selenium, no timestamps generated.
+        dev/dev_smoke_12_6_1_prod_smoke_pipeline.py - Purpose: Smoke test that runs the harness twice with different input ordering and asserts deterministic report JSON/fingerprint/Markdown; writes/reads a Markdown artifact; prints PASS/FAIL.
+ - [ ] 12.6.2 Smoke test rollback and re-run determinism
+    Files to be created (12.6.2)
+        RUN/run_12b_rollback_rerun_determinism.py - Purpose: Deterministic harness that simulates deploy(A)→run(A1)→deploy(B)→run(B1)→rollback(A)→run(A2), proving A1 == A2 (canonical JSON + fingerprints) and B1 != A1; emits a single deterministic report artifact (JSON/Markdown) with stable SHA256 fingerprint.
+      dev/dev_smoke_12_6_2_rollback_rerun_determinism.py - Purpose: Smoke test that runs the harness twice and asserts determinism + rollback invariants; writes/reads a Markdown artifact; prints PASS/FAIL.
+ - [ ] 12.6.3 Smoke test operational gates enforcement
+    Files to be created (12.6.3)
+        RUN/run_12c_operational_gates_enforcement.py - Purpose: Deterministic harness that imports and exercises the existing operational gate modules (DOCTOR pre-run, GUARD prod defaults, DOCTOR release readiness gate) via signature-based callable discovery; produces a single deterministic report (JSON/Markdown) + stable fingerprint; embeds an evidence bundle (12.5.7) without timestamps.
+        dev/dev_smoke_12_6_3_operational_gates_enforcement.py - Purpose: Smoke test that runs the harness twice and asserts determinism (canonical JSON + fingerprint), verifies pass/fail expectations for “good” vs “bad” inputs, writes/reads a Markdown artifact, prints PASS/FAIL.
+
+  CURRENT POSITION:  
+- Completed: (none)  
+- Next desired: 12.1.1
+  
+Please generate the next milestone module in sequence consistent with this repo’s naming conventions and SCHEMA-1A / REGISTRY-1A compatibility.  
+Rules:  
+- Do not duplicate existing modules.  
+- New module must define __all__.  
+- New module must include a corresponding dev_smoke test in dev/.  
+- Only supported workflow actions are allowed:  
+  open, click_selector, type_selector_secret, wait_for_selector, exec_js, exec_js_file, repeat, log, switch_back_to_main_tab  
+- Prefer selector_ref over raw selectors when possible.  
+- List all files that will be created to complete this milestone along with their purpose
+- Shoot up a flare when a stage is complete
+- If for whatever reason, it is recomended that we deviate from the plan, please provide justification and seek approval
+Provide the full new module code + the dev_smoke file. dev_smoke should print pass/fail on run completion  

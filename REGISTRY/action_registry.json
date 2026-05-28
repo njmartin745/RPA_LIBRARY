@@ -1,0 +1,167 @@
+{
+  "generated_at": "2026-04-23T20:05:20.406427Z",
+  "schema_version": "SCHEMA-1A",
+  "schema_source": "SCHEMA/steps_schema.json",
+  "actions": [
+    {
+      "action": "click_selector",
+      "implemented_by": {
+        "module": "VAL/val_2a_deploy_bundle_validator.py",
+        "option_id": "VAL-2A"
+      },
+      "handler": null,
+      "required_fields": [
+        "action"
+      ],
+      "optional_fields": [
+        "name",
+        "selector",
+        "selector_ref",
+        "strategy"
+      ],
+      "examples": [],
+      "smoke_tests": []
+    },
+    {
+      "action": "exec_js",
+      "implemented_by": {
+        "module": "",
+        "option_id": null
+      },
+      "handler": null,
+      "required_fields": [
+        "action",
+        "script"
+      ],
+      "optional_fields": [
+        "name"
+      ],
+      "examples": [],
+      "smoke_tests": []
+    },
+    {
+      "action": "exec_js_file",
+      "implemented_by": {
+        "module": "",
+        "option_id": null
+      },
+      "handler": null,
+      "required_fields": [
+        "action",
+        "path"
+      ],
+      "optional_fields": [
+        "name"
+      ],
+      "examples": [],
+      "smoke_tests": []
+    },
+    {
+      "action": "log",
+      "implemented_by": {
+        "module": "",
+        "option_id": null
+      },
+      "handler": null,
+      "required_fields": [
+        "action",
+        "message"
+      ],
+      "optional_fields": [
+        "name"
+      ],
+      "examples": [],
+      "smoke_tests": []
+    },
+    {
+      "action": "open",
+      "implemented_by": {
+        "module": "PIPE/pipe_1d_step_executor.py",
+        "option_id": "PIPE-1D"
+      },
+      "handler": null,
+      "required_fields": [
+        "action",
+        "url"
+      ],
+      "optional_fields": [
+        "name"
+      ],
+      "examples": [],
+      "smoke_tests": []
+    },
+    {
+      "action": "repeat",
+      "implemented_by": {
+        "module": "",
+        "option_id": null
+      },
+      "handler": null,
+      "required_fields": [
+        "action",
+        "steps",
+        "times"
+      ],
+      "optional_fields": [
+        "name"
+      ],
+      "examples": [],
+      "smoke_tests": []
+    },
+    {
+      "action": "switch_back_to_main_tab",
+      "implemented_by": {
+        "module": "",
+        "option_id": null
+      },
+      "handler": null,
+      "required_fields": [
+        "action"
+      ],
+      "optional_fields": [
+        "name"
+      ],
+      "examples": [],
+      "smoke_tests": []
+    },
+    {
+      "action": "type_selector_secret",
+      "implemented_by": {
+        "module": "",
+        "option_id": null
+      },
+      "handler": null,
+      "required_fields": [
+        "action",
+        "secret"
+      ],
+      "optional_fields": [
+        "name",
+        "selector",
+        "selector_ref",
+        "strategy"
+      ],
+      "examples": [],
+      "smoke_tests": []
+    },
+    {
+      "action": "wait_for_selector",
+      "implemented_by": {
+        "module": "",
+        "option_id": null
+      },
+      "handler": null,
+      "required_fields": [
+        "action"
+      ],
+      "optional_fields": [
+        "name",
+        "selector",
+        "selector_ref",
+        "strategy"
+      ],
+      "examples": [],
+      "smoke_tests": []
+    }
+  ]
+}

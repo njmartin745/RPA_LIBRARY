@@ -1,0 +1,12 @@
+Start STABILIZATION work.  
+  
+TARGET_TASK: Enforce STEP_GRAMMAR correctness in BUILD/build_2a_nl_spec_generator.py so generated workflows never include unsupported actions (e.g., wait_seconds, look_for_selector) and generated workflows pass LINT/lint_1a_steps_validator.py.  
+  
+Please:  
+1) Identify the single highest-leverage minimal fix.  
+2) Provide an exact patch (unified diff or old/new blocks), touching as few files as possible.  
+3) Explain how the change guarantees only allowed actions are emitted:  
+   open, click_selector, type_selector_secret, wait_for_selector, exec_js, exec_js_file, repeat, log, switch_back_to_main_tab  
+4) Describe how to verify locally using existing dev_smoke tests (and only adjust smokes if absolutely necessary).  
+  
+Constraints: no new step types; no new modules unless unavoidable.  

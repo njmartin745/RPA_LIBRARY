@@ -1,0 +1,5558 @@
+{
+  "generated_at": "2026-05-07T17:56:02.498892Z",
+  "schema_version": "SCHEMA-1A",
+  "repo_overview": {
+    "top_level_packages": [],
+    "module_count": 386,
+    "smoke_test_count": 160
+  },
+  "paths": {
+    "library_index_json": "DOC/library_index.json",
+    "steps_schema_json": "SCHEMA/steps_schema.json",
+    "steps_examples_json": "SCHEMA/steps_examples.json",
+    "action_registry_json": "REGISTRY/action_registry.json"
+  },
+  "modules": [
+    {
+      "package": null,
+      "path": ".dev_tmp\\build_2c_smoke\\dev\\dev_smoke_open_example_com_and_verify_page_title.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": ".dev_tmp\\cli_2b_smoke\\dev\\dev_smoke_open_example_com_and_verify_page_title.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "ACT\\act_1a_action_engine.py",
+      "dotted": null,
+      "exports": [
+        "StepOutcome",
+        "ActionEngineError",
+        "run_actions",
+        "outcomes_as_dicts",
+        "outcomes_all_ok",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "ACT\\act_1b_logging_integration.py",
+      "dotted": null,
+      "exports": [
+        "run_actions_logged",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "ACT\\act_1c_conditional_guards.py",
+      "dotted": null,
+      "exports": [
+        "element_exists",
+        "text_equals",
+        "text_contains",
+        "attribute_equals",
+        "should_run_step"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "ACT\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "AGENT\\agent_1a_context_pack.py",
+      "dotted": null,
+      "exports": [
+        "generate_agent_context_pack",
+        "main"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "AGENT\\agent_2a_autonomous_loop.py",
+      "dotted": null,
+      "exports": [
+        "run_autonomous"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "AGENT\\agent_2b_scheduler.py",
+      "dotted": null,
+      "exports": [
+        "run_continuous",
+        "run_once_with_delay"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "AGENT\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "AUTH\\auth_1a_form_login_guarded.py",
+      "dotted": null,
+      "exports": [
+        "ensure_logged_in",
+        "login"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "AUTH\\auth_1b_session_restore.py",
+      "dotted": null,
+      "exports": [
+        "session_paths",
+        "save_cookies",
+        "load_cookies",
+        "restore_or_login"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "AUTH\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "base_app.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "BUILD\\build_1a_workflow_generator.py",
+      "dotted": null,
+      "exports": [
+        "generate_workflow",
+        "validate_spec",
+        "normalize_spec",
+        "suggest_missing_fields"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "BUILD\\build_1a_workflow_grammar_gate_entrypoints.py",
+      "dotted": null,
+      "exports": [
+        "get_workflow_grammar_gate_entrypoints",
+        "get_workflow_grammar_gate_console_scripts"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "BUILD\\build_1b_intake_questionnaire.py",
+      "dotted": null,
+      "exports": [
+        "default_questions",
+        "run_intake",
+        "build_spec_from_answers"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "BUILD\\build_1c_action_normalizer.py",
+      "dotted": null,
+      "exports": [
+        "ACTION_ALIASES",
+        "normalize_action_name",
+        "normalize_step_actions",
+        "normalize_steps_actions",
+        "normalize_workflow_actions",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "BUILD\\build_1c_smoke_stub_generator.py",
+      "dotted": null,
+      "exports": [
+        "generate_smoke_stub",
+        "load_workflow_metadata"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "BUILD\\build_2a_nl_spec_generator.py",
+      "dotted": null,
+      "exports": [
+        "SUPPORTED_ACTIONS",
+        "nl_to_build_spec",
+        "validate_generated_steps"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "BUILD\\build_2a_repeat_support.py",
+      "dotted": null,
+      "exports": [
+        "normalized_allowed_actions",
+        "normalize_and_filter_steps_keep_repeat",
+        "validate_steps_allow_repeat",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "BUILD\\build_2b_plan_optimizer.py",
+      "dotted": null,
+      "exports": [
+        "analyze_spec",
+        "apply_optimizations",
+        "optimize_spec"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "BUILD\\build_2c_full_bundle.py",
+      "dotted": null,
+      "exports": [
+        "build_from_nl"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "BUILD\\build_2d_determinism.py",
+      "dotted": null,
+      "exports": [
+        "canonicalize_for_json",
+        "stable_json_dumps",
+        "stable_fingerprint_sha256",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "BUILD\\build_2d_step_grammar_gate.py",
+      "dotted": null,
+      "exports": [
+        "ALLOWED_ACTIONS",
+        "GrammarViolation",
+        "find_unsupported_actions",
+        "assert_supported_actions",
+        "strip_unsupported_actions"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "BUILD\\build_2e_workflow_grammar_gate.py",
+      "dotted": null,
+      "exports": [
+        "WorkflowGateResult",
+        "find_workflow_unsupported_actions",
+        "assert_workflow_supported_actions",
+        "sanitize_workflow_steps"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "BUILD\\build_2f_workflow_file_grammar_gate.py",
+      "dotted": null,
+      "exports": [
+        "WorkflowFileGateResult",
+        "load_workflow_json_file",
+        "dump_workflow_json_text",
+        "gate_workflow_file_assert",
+        "gate_workflow_file_sanitize"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "BUILD\\build_2g_workflow_tree_grammar_gate.py",
+      "dotted": null,
+      "exports": [
+        "WorkflowTreeGateResult",
+        "list_workflow_json_files",
+        "gate_workflow_tree_assert",
+        "gate_workflow_tree_sanitize"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "BUILD\\build_3a_deploy_bundle_format.py",
+      "dotted": null,
+      "exports": [
+        "DEPLOY_BUNDLE_SCHEMA_ID",
+        "build_deploy_bundle_from_capture_bundle",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "BUILD\\build_3b_bundle_fingerprint.py",
+      "dotted": null,
+      "exports": [
+        "DEFAULT_FINGERPRINT_DROP_TOP_LEVEL_KEYS",
+        "canonical_bytes_for_fingerprint",
+        "compute_sha256_hex",
+        "compute_bundle_fingerprint",
+        "stamp_bundle_version_and_fingerprint",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "BUILD\\build_3c_deploy_bundle_builder.py",
+      "dotted": null,
+      "exports": [
+        "build_stamp_validate_deploy_bundle_1a",
+        "build_stamp_validate_deploy_bundle_1a_with_report",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "BUILD\\build_3d_doc_index_artifact_bundler.py",
+      "dotted": null,
+      "exports": [
+        "write_doc_index_artifact_to_bundle_out_dir_1a",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "BUILD\\build_3e_bundle_build_manifest_integrator.py",
+      "dotted": null,
+      "exports": [
+        "discover_bundle_artifact_rel_paths_1a",
+        "build_bundle_out_dir_doc_index_and_manifest_1a",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "BUILD\\build_3f_deploy_bundle_stamper.py",
+      "dotted": null,
+      "exports": [
+        "ensure_deploy_bundle_version_fingerprint_1a",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "BUILD\\build_3g_deploy_bundle_writer.py",
+      "dotted": null,
+      "exports": [
+        "dumps_deploy_bundle_1a_json",
+        "write_deploy_bundle_1a_to_path",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "BUILD\\build_3h_capture_to_deploy_bundle_pipeline.py",
+      "dotted": null,
+      "exports": [
+        "load_json_mapping_from_path",
+        "build_write_deploy_bundle_1a_from_capture_bundle",
+        "build_write_deploy_bundle_1a_from_capture_bundle_path",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "BUILD\\__init__.py",
+      "dotted": null,
+      "exports": [
+        "generate_workflow",
+        "validate_spec",
+        "normalize_spec",
+        "suggest_missing_fields"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "CAPTURE\\capture_1a_semi_auto.py",
+      "dotted": null,
+      "exports": [
+        "capture_session"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "CAPTURE\\capture_1a_step_recorder.py",
+      "dotted": null,
+      "exports": [
+        "SUPPORTED_STEP_ACTIONS",
+        "Capture1AStepRecorder",
+        "event_to_schema_step",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "CAPTURE\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "CLI\\cli_1a_capture_to_deploy_bundle.py",
+      "dotted": null,
+      "exports": [
+        "build_arg_parser_1a",
+        "main",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "CLI\\cli_1a_run_pipeline.py",
+      "dotted": null,
+      "exports": [
+        "run_pipeline"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "CLI\\cli_1a_workflow_grammar_gate.py",
+      "dotted": null,
+      "exports": [
+        "cli_workflow_grammar_gate"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "CLI\\cli_pack_1a.py",
+      "dotted": null,
+      "exports": [
+        "main"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "CLI\\cli_1b_capture_to_deploy_bundle.py",
+      "dotted": null,
+      "exports": [
+        "build_arg_parser_1a",
+        "main",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "CLI\\cli_1b_config_loader.py",
+      "dotted": null,
+      "exports": [
+        "load_config"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "CLI\\cli_1c_args_overrides.py",
+      "dotted": null,
+      "exports": [
+        "build_arg_parser",
+        "apply_overrides"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "CLI\\cli_1c_capture_to_deploy_bundle.py",
+      "dotted": null,
+      "exports": [
+        "build_arg_parser_1a",
+        "main",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "CLI\\cli_1d_capture_to_deploy_bundle_auto.py",
+      "dotted": null,
+      "exports": [
+        "discover_capture_bundle_1a_path",
+        "build_arg_parser_1d",
+        "main",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "CLI\\cli_1e_deploy_bundle_info.py",
+      "dotted": null,
+      "exports": [
+        "build_arg_parser_1e",
+        "summarize_deploy_bundle_1a",
+        "main",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "CLI\\cli_1e_run_deploy_bundle.py",
+      "dotted": null,
+      "exports": [
+        "run_deploy_bundle_path_1a",
+        "build_arg_parser",
+        "main",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "CLI\\cli_1f_generate_reports.py",
+      "dotted": null,
+      "exports": [
+        "build_arg_parser",
+        "run_cli_generate_reports",
+        "main",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "CLI\\cli_1f_run_deploy_bundle_with_report.py",
+      "dotted": null,
+      "exports": [
+        "run_deploy_bundle_path_1a_with_optional_validation_report",
+        "build_arg_parser",
+        "main",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "CLI\\cli_1g_run_deploy_bundle_with_report_fail_fast.py",
+      "dotted": null,
+      "exports": [
+        "build_arg_parser",
+        "main",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "CLI\\cli_1g_workflow_grammar_gate.py",
+      "dotted": null,
+      "exports": [
+        "build_arg_parser",
+        "run_cli",
+        "main"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "CLI\\cli_1h_run_deploy_bundle_cli_resolver.py",
+      "dotted": null,
+      "exports": [
+        "resolve_latest_run_deploy_bundle_cli_module",
+        "resolve_latest_run_deploy_bundle_main",
+        "main",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "CLI\\cli_1h_workflow_grammar_gate_pipeline.py",
+      "dotted": null,
+      "exports": [
+        "build_arg_parser",
+        "cli_main"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "CLI\\cli_1i_build_doc_index_artifact.py",
+      "dotted": null,
+      "exports": [
+        "build_arg_parser",
+        "build_doc_index_artifact_from_repo_1a",
+        "main",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "CLI\\cli_1i_bundle_doc_index_and_manifest_cli.py",
+      "dotted": null,
+      "exports": [
+        "build_arg_parser_1a",
+        "run_cli_1a",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "CLI\\cli_2b_unified.py",
+      "dotted": null,
+      "exports": [
+        "main"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "CLI\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DEPLOY\\deploy_1a_service_runner.py",
+      "dotted": null,
+      "exports": [
+        "run_service",
+        "run_single_job"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_agent_1a_context_pack.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_auth_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_build_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_build_1a_workflow_grammar_gate_entrypoints.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_capture_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_cli_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_cli_1a_workflow_grammar_gate.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_deploy_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_diff_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_diff_1a_capture_edit_diff.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_diff_1a_workflow_grammar_gate_report_diff.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_doc_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_doc_1a_library_index.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_doc_1a_workflow_grammar_gate.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_doctor_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_doctor_1a_workflow_grammar_gate.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_entry_1a_workflow_grammar_gate.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_guard_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_guard_1a_workflow_grammar_gate_guard.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_guard_1a_workflow_grammar_guard.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_heal_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_history_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_history_1a_workflow_grammar_gate_history.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_learn_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_lint_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_log_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_nav_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_obs_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_out_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_pack_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_pipe_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_pipe_1a_workflow_grammar_gate_pipeline.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_plan_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_reason_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_registry_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_replay_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_report_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_report_1a_workflow_grammar_gate_report.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_run_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_run_1a_workflow_grammar_gate.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_run_1a_workflow_grammar_gate_run.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_schema_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_selector_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_snap_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_snap_1a_workflow_capture.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_val_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_var_1a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_workflow_1a_loader.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_act_1b_logging.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_auth_1b.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_build_1b.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_cli_1b.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_cli_1b_config_loader.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_doctor_1b_workflow_grammar_gate.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_input_1b_excel_provider.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_learn_1b.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_log_1b.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_out_1b.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_pipe_1b.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_report_1b_workflow_grammar_gate_report_text.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_snap_1b_selector_pack.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_val_1b.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_act_1c.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_build_1c.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_cli_1c.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_pipe_1c.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_report_1c_workflow_grammar_gate_report_summary.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_snap_1c_capture_bundle.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_state_1c.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_pipe_1d_a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_snap_1d_bundle_io.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_state_1d.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_cli_1e_run_deploy_bundle.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_doc_1e_cli_run_deploy_bundle_cli_resolver_entry.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_pipe_1e.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_report_1e_build_manifest_artifact.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_report_1e_deploy_bundle_validation_report_writer.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_run_1e_deploy_bundle_runner_adapter.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_snap_1e_bundle_export.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_workflow_1e_steps_normalizer.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_cli_1f_run_deploy_bundle_with_report.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_doc_1f_doc_index_aggregator.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_snap_1f_materialize_selectors.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_workflow_1f_selector_ref_first.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_cli_1g_run_deploy_bundle_with_report_fail_fast.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_cli_1g_workflow_grammar_gate.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_doc_1g_doc_index_entry_contract.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_workflow_1g_deploy_bundle_loader.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_cli_1h_run_deploy_bundle_cli_resolver.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_cli_1h_workflow_grammar_gate_pipeline.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_doc_1h_doc_index_collect_validate.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_cli_1i_build_doc_index_artifact.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_cli_1i_bundle_doc_index_and_manifest_cli.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_doc_doc_index_entry_cli_1i_bundle_doc_index_and_manifest_cli.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_agent_2a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_build_2a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_pipe_2a.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_val_2a_deploy_bundle_validator.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_workflow_workflow_2a_capture_actions_to_schema_steps.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_agent_2b.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_build_2b.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_cli_2b.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_pipe_2b.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_workflow_workflow_2b_capture_js_event_recorder.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_build_2c.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_pipe_2c.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_workflow_workflow_2c_capture_events_to_schema_steps_encoder.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_build_2d.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_pipe_2d.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_build_2e.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_pipe_2e.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_build_2f.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_build_2g.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_build_3a_deploy_bundle_format.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_build_3b_bundle_fingerprint.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_build_3c_deploy_bundle_builder.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_build_3d_doc_index_artifact_bundler.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_build_3e_bundle_build_manifest_integrator.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_10_1_1_failure_capture.py",
+      "dotted": null,
+      "exports": [
+        "main"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_10_1_2_screenshot_capture.py",
+      "dotted": null,
+      "exports": [
+        "main"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_10_1_3_snapshot_persistence.py",
+      "dotted": null,
+      "exports": [
+        "main"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_10_2_1_run_manifest.py",
+      "dotted": null,
+      "exports": [
+        "main"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_10_2_2_step_outcomes.py",
+      "dotted": null,
+      "exports": [
+        "main"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_10_2_3_error_normalization.py",
+      "dotted": null,
+      "exports": [
+        "main"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_10_3_1_run_report.py",
+      "dotted": null,
+      "exports": [
+        "main"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_10_3_2_run_report_markdown.py",
+      "dotted": null,
+      "exports": [
+        "main"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_10_3_3_junit_xml.py",
+      "dotted": null,
+      "exports": [
+        "main"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_10_4_1_generate_reports.py",
+      "dotted": null,
+      "exports": [
+        "main"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_10_4_2_post_run_reporting.py",
+      "dotted": null,
+      "exports": [
+        "main"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_10_4_3_cli_generate_reports.py",
+      "dotted": null,
+      "exports": [
+        "main"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_12_1_1_slos_success_criteria.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_12_1_2_operator_runbooks.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_12_1_3_support_escalation_paths.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_12_2_1_versioning_policy.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_12_2_2_reviewable_diffs.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_12_2_3_promotion_gates.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_12_3_1_release_manifest.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_12_3_2_bundle_fingerprint.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_12_3_3_promotion_record.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_12_4_1_doctor_pre_run_checks.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_12_4_2_guard_prod_defaults.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_12_4_3_rollback_recovery_procedures.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_12_5_1_artifact_retention_policy.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_12_5_2_alerting_signals.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_12_5_3_audit_logging_replay_spec.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_12_5_4_replay_index_verifier.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_12_5_5_incident_packet_manifest.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_12_5_6_release_readiness_gate.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_12_5_7_evidence_bundle_assembler.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_12_6_1_prod_smoke_pipeline.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_12_6_2_rollback_rerun_determinism.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_12_6_3_operational_gates_enforcement.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_9_4_3_deterministic_generation.py",
+      "dotted": null,
+      "exports": [
+        "main"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_9_4_3_run_history_loader.py",
+      "dotted": null,
+      "exports": [
+        "main"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_act_action_engine.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_act_download_wait.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_entry_bootstrap.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_go_to_google_search_for_something_click_result_then_go_back_and_search_again.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_go_to_google_search_for_weather_click_first_result.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_login_to_a_site_and_download_a_report.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_login_to_portal_and_export_report.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_open_a_slow_website_and_click_something_immediately.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_open_example_com_and_click_login_button_that_does_not_exist.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_open_example_com_click_login_and_verify_page_title.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_open_google_and_click_search.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_phase_11_5_1_capture_to_workflow_validity.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_phase_11_5_2_bundle_packaging_determinism.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_phase_11_5_3_deploy_run_path_minimal.py",
+      "dotted": null,
+      "exports": [
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\dev_smoke_state_input.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "dev\\sitecustomize.py",
+      "dotted": null,
+      "exports": [
+        "ensure_repo_root_on_syspath",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DIFF\\diff_12a_reviewable_diffs.py",
+      "dotted": null,
+      "exports": [
+        "DiffKind",
+        "DiffResult",
+        "read_text_file",
+        "normalize_newlines",
+        "canonicalize_text",
+        "unified_diff_text",
+        "diff_texts_reviewable",
+        "diff_files_reviewable",
+        "check_reviewable_diff_required",
+        "write_text_file"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DIFF\\diff_1a_capture_edit_diff.py",
+      "dotted": null,
+      "exports": [
+        "canonical_json_dumps",
+        "compute_json_changes",
+        "render_unified_json_diff",
+        "diff_capture_edit",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DIFF\\diff_1a_config_changes.py",
+      "dotted": null,
+      "exports": [
+        "compute_fingerprint",
+        "write_fingerprint",
+        "diff_fingerprints",
+        "write_diff_report"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DIFF\\diff_1a_workflow_grammar_gate_report_diff.py",
+      "dotted": null,
+      "exports": [
+        "DIFF_SCHEMA_ID",
+        "diff_workflow_grammar_gate_reports"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DIFF\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DOC\\doc_12a_slos_success_criteria.py",
+      "dotted": null,
+      "exports": [
+        "SLO",
+        "SuccessCriterion",
+        "get_slos",
+        "get_success_criteria",
+        "render_slos_markdown",
+        "render_success_criteria_markdown",
+        "render_operational_standards_markdown",
+        "slos_to_json",
+        "success_criteria_to_json",
+        "write_text_file",
+        "write_operational_standards_markdown"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DOC\\doc_12b_operator_runbooks.py",
+      "dotted": null,
+      "exports": [
+        "RunbookStep",
+        "Runbook",
+        "get_operator_runbooks",
+        "render_runbooks_markdown",
+        "runbooks_to_json",
+        "write_text_file",
+        "write_operator_runbooks_markdown"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DOC\\doc_12c_support_escalation_paths.py",
+      "dotted": null,
+      "exports": [
+        "SupportRole",
+        "SeverityLevel",
+        "ResponseTarget",
+        "EscalationRule",
+        "IncidentTicketRequirements",
+        "get_support_roles",
+        "get_severity_levels",
+        "get_response_targets",
+        "get_escalation_matrix",
+        "get_incident_ticket_requirements",
+        "render_support_escalation_markdown",
+        "support_escalation_to_json",
+        "write_text_file",
+        "write_support_escalation_markdown"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DOC\\doc_12d_rollback_recovery_procedures.py",
+      "dotted": null,
+      "exports": [
+        "PlaybookStep",
+        "Procedure",
+        "RollbackRecoveryPlaybook",
+        "get_rollback_recovery_playbook",
+        "validate_playbook",
+        "playbook_to_json",
+        "render_playbook_markdown",
+        "write_text_file",
+        "write_playbook_json",
+        "write_playbook_markdown"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DOC\\doc_1a_library_index.py",
+      "dotted": null,
+      "exports": [
+        "generate_library_index"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DOC\\doc_1a_workflow_grammar_gate.py",
+      "dotted": null,
+      "exports": [
+        "build_workflow_grammar_gate_markdown"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DOC\\runbook_1a_generator.py",
+      "dotted": null,
+      "exports": [
+        "generate_runbook"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DOC\\doc_1e_cli_run_deploy_bundle_cli_resolver_entry.py",
+      "dotted": null,
+      "exports": [
+        "DOC_INDEX_ENTRY_1A",
+        "get_doc_index_entry_1a",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DOC\\doc_1f_doc_index_aggregator.py",
+      "dotted": null,
+      "exports": [
+        "iter_doc_module_names_in_dir_1a",
+        "load_doc_index_entry_from_module_1a",
+        "collect_doc_index_entries_1a",
+        "merge_doc_index_entries_1a",
+        "build_doc_index_artifact_1a",
+        "write_doc_index_artifact_1a",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DOC\\doc_1g_doc_index_entry_contract.py",
+      "dotted": null,
+      "exports": [
+        "DOC_INDEX_ENTRY_KIND_1A",
+        "DOC_INDEX_LAYERS_1A",
+        "validate_doc_index_entry_1a",
+        "validate_doc_index_entries_1a",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DOC\\doc_1h_doc_index_collect_validate.py",
+      "dotted": null,
+      "exports": [
+        "format_doc_index_validation_errors_1a",
+        "collect_and_validate_doc_index_entries_1a",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DOC\\doc_index_entry_cli_1i_bundle_doc_index_and_manifest_cli.py",
+      "dotted": null,
+      "exports": [
+        "DOC_INDEX_ENTRY_1A",
+        "DOC_INDEX_ENTRY",
+        "DOC_INDEX_ENTRIES_1A",
+        "DOC_INDEX_ENTRIES",
+        "get_doc_index_entries_1a",
+        "get_doc_index_entries",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DOC\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DOCTOR\\doctor_12a_pre_run_checks.py",
+      "dotted": null,
+      "exports": [
+        "DoctorCheck",
+        "DoctorPolicy",
+        "DoctorDecision",
+        "get_doctor_policy",
+        "evaluate_doctor_policy",
+        "policy_to_json",
+        "render_policy_markdown",
+        "decision_to_json",
+        "render_decision_markdown",
+        "write_text_file",
+        "write_policy_json",
+        "write_policy_markdown",
+        "write_decision_json",
+        "write_decision_markdown"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DOCTOR\\doctor_12d_release_readiness_gate.py",
+      "dotted": null,
+      "exports": [
+        "CheckSpec",
+        "ReadinessPolicy",
+        "CheckObservation",
+        "CheckResult",
+        "ReadinessDecision",
+        "get_readiness_policy",
+        "validate_readiness_policy",
+        "evaluate_readiness",
+        "policy_to_json",
+        "render_policy_markdown",
+        "decision_to_json",
+        "render_decision_markdown",
+        "write_text_file",
+        "write_policy_json",
+        "write_policy_markdown",
+        "write_decision_json",
+        "write_decision_markdown"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DOCTOR\\doctor_1a_check.py",
+      "dotted": null,
+      "exports": [
+        "run_preflight",
+        "format_preflight_report"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DOCTOR\\doctor_1a_workflow_grammar_gate.py",
+      "dotted": null,
+      "exports": [
+        "DoctorWorkflowGrammarGateOutcome",
+        "doctor_check_workflow_grammar",
+        "doctor_fix_workflow_grammar"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DOCTOR\\doctor_1b_workflow_grammar_gate.py",
+      "dotted": null,
+      "exports": [
+        "WorkflowGrammarGateDiagnosis",
+        "doctor_workflow_grammar_gate_diagnosis"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "DOCTOR\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "ENTRY\\entry_1a_webdriver_bootstrap.py",
+      "dotted": null,
+      "exports": [
+        "parse_headless",
+        "default_download_dir",
+        "resolve_driver_path",
+        "make_driver",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "ENTRY\\entry_1a_workflow_grammar_gate.py",
+      "dotted": null,
+      "exports": [
+        "main"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "ENTRY\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "GUARD\\guard_12a_prod_defaults.py",
+      "dotted": null,
+      "exports": [
+        "GuardProfile",
+        "GuardPolicy",
+        "GuardViolation",
+        "GuardDecision",
+        "get_guard_policy",
+        "evaluate_guard_policy",
+        "policy_to_json",
+        "render_policy_markdown",
+        "decision_to_json",
+        "render_decision_markdown",
+        "write_text_file",
+        "write_policy_json",
+        "write_policy_markdown",
+        "write_decision_json",
+        "write_decision_markdown"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "GUARD\\guard_1a_runtime.py",
+      "dotted": null,
+      "exports": [
+        "wrap_step_runner",
+        "guarded_call",
+        "normalize_guard_cfg"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "GUARD\\guard_1a_workflow_grammar_gate_guard.py",
+      "dotted": null,
+      "exports": [
+        "WorkflowGrammarGateGuardDecision",
+        "guard_workflow_grammar_gate_report"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "GUARD\\guard_1a_workflow_grammar_guard.py",
+      "dotted": null,
+      "exports": [
+        "GuardOnViolationMode",
+        "WorkflowGrammarGuardConfig",
+        "format_grammar_violations_summary",
+        "guard_workflow_dict_for_execution",
+        "guard_workflow_path_for_execution"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "GUARD\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "HEAL\\heal_1a_patch_workflow.py",
+      "dotted": null,
+      "exports": [
+        "apply_diagnosis_patch"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "HEAL\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "HISTORY\\history_12a_audit_logging_replay_spec.py",
+      "dotted": null,
+      "exports": [
+        "AuditLogSpec",
+        "AuditEvent",
+        "ReplayIndex",
+        "get_audit_log_spec",
+        "validate_audit_event",
+        "validate_replay_index",
+        "canonical_event_dict",
+        "event_to_canonical_json",
+        "events_to_jsonl",
+        "sha256_hex",
+        "build_replay_index",
+        "spec_to_json",
+        "render_spec_markdown",
+        "replay_index_to_json",
+        "render_replay_index_markdown",
+        "write_text_file",
+        "write_jsonl_file"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "HISTORY\\history_1a_run_manifest.py",
+      "dotted": null,
+      "exports": [
+        "build_run_manifest",
+        "write_run_manifest",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "HISTORY\\history_1a_store.py",
+      "dotted": null,
+      "exports": [
+        "sanitize_run_record",
+        "append_run_history",
+        "read_run_history",
+        "summarize_history"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "HISTORY\\history_1a_workflow_grammar_gate_history.py",
+      "dotted": null,
+      "exports": [
+        "HISTORY_SCHEMA_ID",
+        "derive_run_id_workflow_grammar_gate",
+        "build_workflow_grammar_gate_history_record",
+        "append_workflow_grammar_gate_history_jsonl",
+        "read_workflow_grammar_gate_history_jsonl"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "HISTORY\\history_1b_step_outcomes.py",
+      "dotted": null,
+      "exports": [
+        "build_step_outcome",
+        "append_step_outcome",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "HISTORY\\history_1c_error_normalization.py",
+      "dotted": null,
+      "exports": [
+        "normalize_exception",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "HISTORY\\history_1c_run_history_loader.py",
+      "dotted": null,
+      "exports": [
+        "load_run_history",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "HISTORY\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "INPUT\\input_1b_excel_provider.py",
+      "dotted": null,
+      "exports": [
+        "ExcelIdSpec",
+        "extract_ids_from_excel",
+        "load_worklist_ids",
+        "iter_worklist_ids",
+        "write_manifest_jsonl",
+        "build_manifest_from_excel",
+        "read_ids_from_excel",
+        "excel_to_ids",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "INPUT\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "LEARN\\learn_1a_failure_patterns.py",
+      "dotted": null,
+      "exports": [
+        "load_history",
+        "extract_failure_patterns",
+        "rank_patterns",
+        "generate_recommendations"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "LEARN\\learn_1b_selector_intelligence.py",
+      "dotted": null,
+      "exports": [
+        "analyze_selector_stability",
+        "score_selector",
+        "generate_selector_recommendations"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "LEARN\\__init__.py",
+      "dotted": null,
+      "exports": [
+        "load_history",
+        "extract_failure_patterns",
+        "rank_patterns",
+        "generate_recommendations"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "LINT\\lint_1a_steps_validator.py",
+      "dotted": null,
+      "exports": [
+        "load_steps_schema",
+        "validate_steps_data",
+        "validate_steps_file",
+        "format_report_text"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "LINT\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "LINT\\lint_steps.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "LOG\\log_1a_structured_logging.py",
+      "dotted": null,
+      "exports": [
+        "setup_logging",
+        "get_logger",
+        "bind_context",
+        "clear_context",
+        "redact",
+        "log_event",
+        "log_exception"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "LOG\\log_1b_error_taxonomy.py",
+      "dotted": null,
+      "exports": [
+        "AUTH_ERROR",
+        "TIMEOUT",
+        "SELECTOR_NOT_FOUND",
+        "STALE_ELEMENT",
+        "CLICK_INTERCEPTED",
+        "JS_ERROR",
+        "DOWNLOAD_TIMEOUT",
+        "FILESYSTEM_ERROR",
+        "CONFIG_ERROR",
+        "UNKNOWN_ERROR",
+        "classify_exception",
+        "format_error_for_manifest"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "LOG\\log_1b_logger_reset.py",
+      "dotted": null,
+      "exports": [
+        "reset_logger",
+        "setup_logging_force",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "LOG\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "LOOP\\loop_1b_per_item.py",
+      "dotted": null,
+      "exports": [
+        "ItemOutcome",
+        "run_per_item_loop",
+        "iterate_items"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "LOOP\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "NAV\\nav_1a_selenium_helpers.py",
+      "dotted": null,
+      "exports": [
+        "wait_for_visible",
+        "wait_for_clickable",
+        "click",
+        "type_text",
+        "switch_to_frame",
+        "switch_to_default_content",
+        "wait_for_download"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "NAV\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "OBS\\obs_1a_run_timeline.py",
+      "dotted": null,
+      "exports": [
+        "create_run_timeline",
+        "record_step_event",
+        "finalize_timeline"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "OBS\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "OUT\\out_1a_download_wait.py",
+      "dotted": null,
+      "exports": [
+        "ensure_download_dir",
+        "wait_for_download"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "OUT\\out_1b_artifact_manager.py",
+      "dotted": null,
+      "exports": [
+        "ensure_dir",
+        "safe_slug",
+        "build_artifact_name",
+        "move_artifact",
+        "normalize_download"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "OUT\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "PIPE\\pipe_1a_run_orchestrator.py",
+      "dotted": null,
+      "exports": [
+        "run_worklist",
+        "manifest_append",
+        "ManifestWriter",
+        "open_manifest",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "PIPE\\pipe_1a_workflow_grammar_gate_pipeline.py",
+      "dotted": null,
+      "exports": [
+        "PipelineMode",
+        "WorkflowGrammarGatePipelineResult",
+        "run_workflow_grammar_gate_pipeline"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "PIPE\\pipe_1b_worklist_config.py",
+      "dotted": null,
+      "exports": [
+        "resolve_worklist_spec",
+        "load_ids"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "PIPE\\pipe_1c_steps_loader.py",
+      "dotted": null,
+      "exports": [
+        "load_steps_file",
+        "render_steps",
+        "load_steps_from_cfg"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "PIPE\\pipe_1d_step_executor.py",
+      "dotted": null,
+      "exports": [
+        "execute_step"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "PIPE\\pipe_1e_runner.py",
+      "dotted": null,
+      "exports": [
+        "run_pipeline",
+        "exit_code_for_summary",
+        "main"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "PIPE\\pipe_1f_env_overrides.py",
+      "dotted": null,
+      "exports": [
+        "apply_env_overrides",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "PIPE\\pipe_1g_env_force_overrides.py",
+      "dotted": null,
+      "exports": [
+        "apply_env_force_overrides",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "PIPE\\pipe_1h_log_jsonl_path_policy.py",
+      "dotted": null,
+      "exports": [
+        "select_log_jsonl_path",
+        "maybe_cleanup_log_jsonl_path",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "PIPE\\pipe_2a_var_aware_steps.py",
+      "dotted": null,
+      "exports": [
+        "render_step",
+        "render_cfg_inplace",
+        "execute_step_var_aware",
+        "execute_steps_var_aware"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "PIPE\\pipe_2b_step_blocks.py",
+      "dotted": null,
+      "exports": [
+        "run_steps"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "PIPE\\pipe_2c_error_plumbing.py",
+      "dotted": null,
+      "exports": [
+        "run_with_error_plumbing"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "PIPE\\pipe_2d_artifact_integration.py",
+      "dotted": null,
+      "exports": [
+        "handle_download_artifact"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "PIPE\\pipe_2e_run_summary.py",
+      "dotted": null,
+      "exports": [
+        "start_run_summary",
+        "record_item_success",
+        "record_item_failure",
+        "record_artifact",
+        "finish_run_summary"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "PIPE\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "PLAN\\plan_1a_step_planner.py",
+      "dotted": null,
+      "exports": [
+        "load_schema_and_examples",
+        "plan_from_intent",
+        "write_plan_outputs",
+        "generate_workflow_skeleton",
+        "main"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "PLAN\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REASON\\reason_1a_diagnose.py",
+      "dotted": null,
+      "exports": [
+        "diagnose_failure"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REASON\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REGISTRY\\reg_12a_versioning_policy.py",
+      "dotted": null,
+      "exports": [
+        "SemVer",
+        "ComponentPolicy",
+        "VersioningPolicy",
+        "parse_semver",
+        "is_valid_semver",
+        "compare_semver",
+        "bump_semver",
+        "get_versioning_policy",
+        "check_release_versions",
+        "render_versioning_policy_markdown",
+        "versioning_policy_to_json",
+        "write_text_file",
+        "write_versioning_policy_markdown"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REGISTRY\\reg_12b_promotion_gates.py",
+      "dotted": null,
+      "exports": [
+        "Gate",
+        "PromotionPath",
+        "PromotionPolicy",
+        "PromotionDecision",
+        "get_promotion_policy",
+        "evaluate_promotion",
+        "render_promotion_policy_markdown",
+        "promotion_policy_to_json",
+        "write_text_file",
+        "write_promotion_policy_markdown"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REGISTRY\\registry_1a_generate.py",
+      "dotted": null,
+      "exports": [
+        "generate_action_registry",
+        "main"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REGISTRY\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REPLAY\\replay_12a_index_verifier.py",
+      "dotted": null,
+      "exports": [
+        "ReplayMismatch",
+        "ReplayVerificationResult",
+        "parse_events_jsonl",
+        "events_to_canonical_hashes",
+        "verify_events_against_replay_index",
+        "result_to_json",
+        "render_result_markdown",
+        "write_text_file"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REPLAY\\replay_1a_run_replay.py",
+      "dotted": null,
+      "exports": [
+        "replay_run"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REPLAY\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REPORT\\report_12a_release_manifest.py",
+      "dotted": null,
+      "exports": [
+        "ArtifactRef",
+        "ManifestComponent",
+        "ReleaseManifest",
+        "read_bytes_file",
+        "sha256_bytes_hex",
+        "artifact_ref_from_path",
+        "build_release_manifest",
+        "manifest_to_json",
+        "render_manifest_markdown",
+        "write_text_file",
+        "write_manifest_json",
+        "write_manifest_markdown"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REPORT\\report_12b_bundle_fingerprint.py",
+      "dotted": null,
+      "exports": [
+        "BundleFingerprint",
+        "canonical_fingerprint_input",
+        "compute_bundle_fingerprint",
+        "fingerprint_to_json",
+        "render_fingerprint_markdown",
+        "write_text_file",
+        "write_fingerprint_json",
+        "write_fingerprint_markdown"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REPORT\\report_12c_promotion_record.py",
+      "dotted": null,
+      "exports": [
+        "PromotionRecord",
+        "normalize_evidence_for_json",
+        "redact_evidence",
+        "build_promotion_record",
+        "promotion_record_to_json",
+        "render_promotion_record_markdown",
+        "write_text_file",
+        "write_promotion_record_json",
+        "write_promotion_record_markdown"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REPORT\\report_12d_artifact_retention_policy.py",
+      "dotted": null,
+      "exports": [
+        "RetentionRule",
+        "RetentionPolicy",
+        "ArtifactMeta",
+        "RetentionAction",
+        "RetentionDecision",
+        "get_retention_policy",
+        "validate_retention_policy",
+        "parse_date_iso",
+        "evaluate_retention_policy",
+        "policy_to_json",
+        "render_policy_markdown",
+        "decision_to_json",
+        "render_decision_markdown",
+        "write_text_file",
+        "write_policy_json",
+        "write_policy_markdown",
+        "write_decision_json",
+        "write_decision_markdown"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REPORT\\report_12e_alerting_signals.py",
+      "dotted": null,
+      "exports": [
+        "SignalThresholds",
+        "AlertPolicy",
+        "TriggeredAlert",
+        "AlertDecision",
+        "get_alert_policy",
+        "validate_alert_policy",
+        "evaluate_alert_policy",
+        "policy_to_json",
+        "render_policy_markdown",
+        "decision_to_json",
+        "render_decision_markdown",
+        "write_text_file",
+        "write_policy_json",
+        "write_policy_markdown",
+        "write_decision_json",
+        "write_decision_markdown"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REPORT\\report_12f_incident_packet_manifest.py",
+      "dotted": null,
+      "exports": [
+        "ArtifactRef",
+        "IncidentPacket",
+        "get_incident_packet_template",
+        "validate_incident_packet",
+        "canonical_packet_dict",
+        "packet_to_json",
+        "render_packet_markdown",
+        "sha256_hex",
+        "packet_fingerprint_sha256",
+        "write_text_file",
+        "write_packet_json",
+        "write_packet_markdown"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REPORT\\report_12g_evidence_bundle_assembler.py",
+      "dotted": null,
+      "exports": [
+        "EVIDENCE_BUNDLE_SCHEMA_ID",
+        "canonical_json_dumps",
+        "sha256_hex_of_text",
+        "build_artifact_text_inventory",
+        "compute_bundle_fingerprint_sha256",
+        "assemble_evidence_bundle",
+        "render_evidence_bundle_markdown",
+        "validate_evidence_bundle_basic"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REPORT\\report_1a_generate.py",
+      "dotted": null,
+      "exports": [
+        "generate_report"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REPORT\\report_1a_run_report.py",
+      "dotted": null,
+      "exports": [
+        "load_json_file",
+        "load_jsonl_file",
+        "build_run_report",
+        "write_run_report",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REPORT\\report_1a_step_logs_from_jsonl.py",
+      "dotted": null,
+      "exports": [
+        "build_step_logs_from_jsonl",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REPORT\\report_1a_workflow_grammar_gate_report.py",
+      "dotted": null,
+      "exports": [
+        "build_grammar_gate_report",
+        "dump_grammar_gate_report_json_text"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REPORT\\report_1b_run_report_markdown.py",
+      "dotted": null,
+      "exports": [
+        "build_run_report_markdown",
+        "write_run_report_markdown",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REPORT\\report_1b_workflow_grammar_gate_report_text.py",
+      "dotted": null,
+      "exports": [
+        "format_grammar_gate_report_text"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REPORT\\report_1c_junit_xml.py",
+      "dotted": null,
+      "exports": [
+        "build_junit_xml",
+        "write_junit_xml",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REPORT\\report_1c_workflow_grammar_gate_report_summary.py",
+      "dotted": null,
+      "exports": [
+        "build_grammar_gate_report_summary",
+        "format_grammar_gate_summary_line"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REPORT\\report_1d_generate_reports.py",
+      "dotted": null,
+      "exports": [
+        "generate_standard_reports",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REPORT\\report_1e_build_manifest_artifact.py",
+      "dotted": null,
+      "exports": [
+        "sha256_file_1a",
+        "build_build_manifest_artifact_1a",
+        "write_build_manifest_artifact_1a",
+        "build_and_write_build_manifest_for_bundle_out_dir_1a",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REPORT\\report_1e_deploy_bundle_validation_report_writer.py",
+      "dotted": null,
+      "exports": [
+        "derive_deploy_bundle_validation_report_path_1a",
+        "build_deploy_bundle_validation_report_1a",
+        "write_deploy_bundle_validation_report_1a",
+        "write_deploy_bundle_validation_report_alongside_1a",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "REPORT\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "RUN\\run_12a_prod_smoke_pipeline.py",
+      "dotted": null,
+      "exports": [
+        "PROD_SMOKE_PIPELINE_SCHEMA_ID",
+        "ALLOWED_WORKFLOW_ACTIONS",
+        "build_minimal_smoke_workflow_bundle",
+        "validate_workflow_allowed_actions",
+        "assemble_prod_smoke_pipeline_report",
+        "render_prod_smoke_pipeline_report_markdown",
+        "validate_prod_smoke_pipeline_report_basic",
+        "compute_prod_smoke_pipeline_report_fingerprint_sha256"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "RUN\\run_12b_rollback_rerun_determinism.py",
+      "dotted": null,
+      "exports": [
+        "ROLLBACK_RERUN_SCHEMA_ID",
+        "build_versioned_workflow_bundle",
+        "assemble_deployment_record",
+        "assemble_run_record",
+        "assemble_rollback_record",
+        "assemble_rollback_rerun_determinism_report",
+        "render_rollback_rerun_determinism_report_markdown",
+        "validate_rollback_rerun_determinism_report_basic"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "RUN\\run_12c_operational_gates_enforcement.py",
+      "dotted": null,
+      "exports": [
+        "OP_GATES_ENFORCEMENT_SCHEMA_ID",
+        "GateInvocationError",
+        "assemble_operational_gates_enforcement_report",
+        "render_operational_gates_enforcement_report_markdown",
+        "validate_operational_gates_enforcement_report_basic"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "RUN\\run_1a_workflow_grammar_gate.py",
+      "dotted": null,
+      "exports": [
+        "RunWorkflowGateOutcome",
+        "gate_workflow_dict_for_run",
+        "gate_workflow_path_for_run"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "RUN\\run_1a_workflow_grammar_gate_run.py",
+      "dotted": null,
+      "exports": [
+        "WorkflowGrammarGateRunResult",
+        "run_workflow_grammar_gate"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "RUN\\run_1a_workflow_runner.py",
+      "dotted": null,
+      "exports": [
+        "run_workflow"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "RUN\\run_1b_workflow_runner_with_snap.py",
+      "dotted": null,
+      "exports": [
+        "run_workflow_with_snap"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "RUN\\run_1c_workflow_runner_with_guard.py",
+      "dotted": null,
+      "exports": [
+        "run_workflow_with_guard"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "RUN\\run_1d_runner_with_history.py",
+      "dotted": null,
+      "exports": [
+        "run_workflow_with_history"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "RUN\\run_1e_deploy_bundle_runner_adapter.py",
+      "dotted": null,
+      "exports": [
+        "resolve_default_workflow_runner_callable",
+        "run_deploy_bundle_1a",
+        "run_deploy_bundle_1a_with_meta",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "RUN\\run_1e_post_run_reporting.py",
+      "dotted": null,
+      "exports": [
+        "maybe_generate_post_run_reports",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "RUN\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "RUN\\dev_run_workflow.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "SCHEMA\\schema_1a_generate.py",
+      "dotted": null,
+      "exports": [
+        "generate_steps_schema",
+        "main"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "SCHEMA\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "SELECTOR\\selector_1a_registry.py",
+      "dotted": null,
+      "exports": [
+        "load_selectors",
+        "get_selector",
+        "resolve_selector"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "SELECTOR\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "SNAP\\snap_1a_capture.py",
+      "dotted": null,
+      "exports": [
+        "capture_failure_artifacts"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "SNAP\\snap_1a_failure_capture.py",
+      "dotted": null,
+      "exports": [
+        "capture_failure_snapshot",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "SNAP\\snap_1a_workflow_capture.py",
+      "dotted": null,
+      "exports": [
+        "ALLOWED_WORKFLOW_ACTIONS",
+        "CapturedEvent",
+        "capture_install_js",
+        "install_capture_listeners",
+        "fetch_captured_events",
+        "captured_events_to_steps",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "SNAP\\snap_1b_screenshot_capture.py",
+      "dotted": null,
+      "exports": [
+        "capture_screenshot_png_bytes",
+        "capture_screenshot_b64",
+        "capture_screenshot_payload",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "SNAP\\snap_1b_selector_pack.py",
+      "dotted": null,
+      "exports": [
+        "SELECTOR_PACK_SCHEMA_ID",
+        "selectors_from_captured_events",
+        "build_selector_ref_map",
+        "build_selector_pack",
+        "selector_pack_from_captured_events",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "SNAP\\snap_1c_capture_bundle.py",
+      "dotted": null,
+      "exports": [
+        "CAPTURE_BUNDLE_SCHEMA_ID",
+        "emit_capture_bundle",
+        "build_capture_bundle_from_events",
+        "validate_capture_bundle",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "SNAP\\snap_1c_persist_artifacts.py",
+      "dotted": null,
+      "exports": [
+        "persist_snapshot_artifacts",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "SNAP\\snap_1d_bundle_io.py",
+      "dotted": null,
+      "exports": [
+        "capture_bundle_to_json",
+        "capture_bundle_from_json",
+        "save_capture_bundle_json",
+        "load_capture_bundle_json",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "SNAP\\snap_1e_bundle_export.py",
+      "dotted": null,
+      "exports": [
+        "export_capture_bundle_assets",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "SNAP\\snap_1f_materialize_selectors.py",
+      "dotted": null,
+      "exports": [
+        "selector_pack_ref_to_selector",
+        "materialize_selector_refs_in_steps",
+        "materialize_selector_refs_in_bundle",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "SNAP\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "STATE\\state_1b_manifest_jsonl.py",
+      "dotted": null,
+      "exports": [
+        "utc_ts",
+        "append_jsonl_line",
+        "write_audit",
+        "load_ids_from_manifest",
+        "choose_active_manifest",
+        "manifest_append",
+        "ManifestWriter",
+        "open_manifest"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "STATE\\state_1c_retry_helpers.py",
+      "dotted": null,
+      "exports": [
+        "read_manifest_rows",
+        "extract_failed_ids",
+        "write_retry_manifest"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "STATE\\state_1d_manifest_row_helpers.py",
+      "dotted": null,
+      "exports": [
+        "now_utc_ts",
+        "build_row_base",
+        "row_queued",
+        "row_success",
+        "row_failure",
+        "write_row"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "STATE\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "VAL\\val_1a_ui_state.py",
+      "dotted": null,
+      "exports": [
+        "validate_ui_state"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "VAL\\val_1b_download_validation.py",
+      "dotted": null,
+      "exports": [
+        "validate_download"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "VAL\\val_2a_deploy_bundle_validator.py",
+      "dotted": null,
+      "exports": [
+        "ValidationIssue",
+        "validate_deploy_bundle_1a",
+        "assert_deploy_bundle_1a",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "VAL\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "VAR\\var_1a_runtime_store.py",
+      "dotted": null,
+      "exports": [
+        "get_var",
+        "set_var",
+        "render_vars"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "VAR\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "WORKFLOW\\workflow_1e_steps_normalizer.py",
+      "dotted": null,
+      "exports": [
+        "normalize_workflow_steps",
+        "normalize_workflow_dict",
+        "normalize_capture_bundle_workflow",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "WORKFLOW\\workflow_1f_selector_ref_first.py",
+      "dotted": null,
+      "exports": [
+        "selector_pack_selector_to_ref",
+        "enforce_selector_ref_first_in_steps",
+        "enforce_selector_ref_first_in_workflow",
+        "enforce_selector_ref_first_in_bundle",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "WORKFLOW\\workflow_2a_capture_actions_to_schema_steps.py",
+      "dotted": null,
+      "exports": [
+        "ALLOWED_CAPTURE_ACTIONS_1A",
+        "load_steps_schema_1a",
+        "find_step_variant_schema_by_action_1a",
+        "infer_discriminator_key_for_action_1a",
+        "make_step_open_1a",
+        "make_step_click_selector_1a",
+        "make_step_wait_for_selector_1a",
+        "make_step_type_selector_secret_1a",
+        "make_step_by_action_1a",
+        "make_steps_by_actions_1a",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "WORKFLOW\\workflow_2b_capture_js_event_recorder.py",
+      "dotted": null,
+      "exports": [
+        "CAPTURE_QUEUE_GLOBAL_1A",
+        "CAPTURE_EVENT_KINDS_1A",
+        "SUPPORTED_STEP_ACTIONS_1A",
+        "js_install_capture_listeners_1a",
+        "js_drain_capture_events_1a",
+        "install_capture_listeners_in_page_1a",
+        "drain_capture_events_from_page_1a",
+        "normalize_capture_event_1a",
+        "capture_events_to_schema_steps_1a",
+        "drain_capture_steps_from_page_1a",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "WORKFLOW\\workflow_2c_capture_events_to_schema_steps_encoder.py",
+      "dotted": null,
+      "exports": [
+        "capture_events_to_action_payloads_1a",
+        "encode_capture_events_to_schema_steps_1a",
+        "drain_capture_schema_steps_from_page_1a",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "WORKFLOWS\\workflow_1a_loader.py",
+      "dotted": null,
+      "exports": [
+        "load_workflow_file",
+        "load_validate_normalize_workflow",
+        "normalize_workflow",
+        "validate_workflow"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "WORKFLOWS\\workflow_1g_deploy_bundle_loader.py",
+      "dotted": null,
+      "exports": [
+        "load_json_mapping_from_path",
+        "load_deploy_bundle_1a",
+        "load_deploy_bundle_1a_from_path",
+        "extract_runnable_from_deploy_bundle_1a",
+        "dev_smoke"
+      ],
+      "doc": null
+    },
+    {
+      "package": null,
+      "path": "WORKFLOWS\\__init__.py",
+      "dotted": null,
+      "exports": [],
+      "doc": null
+    }
+  ],
+  "smoke_test_mapping": [
+    {
+      "path": "dev\\dev_smoke_10_1_1_failure_capture.py",
+      "validates": [
+        "SNAP\\snap_1a_capture.py",
+        "SNAP\\snap_1a_failure_capture.py",
+        "SNAP\\snap_1a_workflow_capture.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_10_1_2_screenshot_capture.py",
+      "validates": [
+        "SNAP\\snap_1b_screenshot_capture.py",
+        "SNAP\\snap_1b_selector_pack.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_10_1_3_snapshot_persistence.py",
+      "validates": [
+        "SNAP\\snap_1c_capture_bundle.py",
+        "SNAP\\snap_1c_persist_artifacts.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_10_2_1_run_manifest.py",
+      "validates": [
+        "HISTORY\\history_1a_run_manifest.py",
+        "HISTORY\\history_1a_store.py",
+        "HISTORY\\history_1a_workflow_grammar_gate_history.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_10_2_2_step_outcomes.py",
+      "validates": [
+        "HISTORY\\history_1b_step_outcomes.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_10_2_3_error_normalization.py",
+      "validates": [
+        "HISTORY\\history_1c_error_normalization.py",
+        "HISTORY\\history_1c_run_history_loader.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_10_3_1_run_report.py",
+      "validates": [
+        "REPORT\\report_1a_generate.py",
+        "REPORT\\report_1a_run_report.py",
+        "REPORT\\report_1a_step_logs_from_jsonl.py",
+        "REPORT\\report_1a_workflow_grammar_gate_report.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_10_3_2_run_report_markdown.py",
+      "validates": [
+        "REPORT\\report_1b_run_report_markdown.py",
+        "REPORT\\report_1b_workflow_grammar_gate_report_text.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_10_3_3_junit_xml.py",
+      "validates": [
+        "REPORT\\report_1c_junit_xml.py",
+        "REPORT\\report_1c_workflow_grammar_gate_report_summary.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_10_4_1_generate_reports.py",
+      "validates": [
+        "REPORT\\report_1d_generate_reports.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_10_4_2_post_run_reporting.py",
+      "validates": [
+        "RUN\\run_1e_deploy_bundle_runner_adapter.py",
+        "RUN\\run_1e_post_run_reporting.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_10_4_3_cli_generate_reports.py",
+      "validates": [
+        "CLI\\cli_1f_generate_reports.py",
+        "CLI\\cli_1f_run_deploy_bundle_with_report.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_12_1_1_slos_success_criteria.py",
+      "validates": [
+        "DOC\\doc_12a_slos_success_criteria.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_12_1_2_operator_runbooks.py",
+      "validates": [
+        "DOC\\doc_12b_operator_runbooks.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_12_1_3_support_escalation_paths.py",
+      "validates": [
+        "DOC\\doc_12c_support_escalation_paths.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_12_2_1_versioning_policy.py",
+      "validates": [
+        "REGISTRY\\reg_12a_versioning_policy.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_12_2_2_reviewable_diffs.py",
+      "validates": [
+        "DIFF\\diff_12a_reviewable_diffs.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_12_2_3_promotion_gates.py",
+      "validates": [
+        "REGISTRY\\reg_12b_promotion_gates.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_12_3_1_release_manifest.py",
+      "validates": [
+        "REPORT\\report_12a_release_manifest.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_12_3_2_bundle_fingerprint.py",
+      "validates": [
+        "REPORT\\report_12a_release_manifest.py",
+        "REPORT\\report_12b_bundle_fingerprint.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_12_3_3_promotion_record.py",
+      "validates": [
+        "REGISTRY\\reg_12b_promotion_gates.py",
+        "REPORT\\report_12a_release_manifest.py",
+        "REPORT\\report_12b_bundle_fingerprint.py",
+        "REPORT\\report_12c_promotion_record.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_12_4_1_doctor_pre_run_checks.py",
+      "validates": [
+        "DOCTOR\\doctor_12a_pre_run_checks.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_12_4_2_guard_prod_defaults.py",
+      "validates": [
+        "GUARD\\guard_12a_prod_defaults.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_12_4_3_rollback_recovery_procedures.py",
+      "validates": [
+        "DOC\\doc_12d_rollback_recovery_procedures.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_12_5_1_artifact_retention_policy.py",
+      "validates": [
+        "REPORT\\report_12d_artifact_retention_policy.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_12_5_2_alerting_signals.py",
+      "validates": [
+        "REPORT\\report_12e_alerting_signals.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_12_5_3_audit_logging_replay_spec.py",
+      "validates": [
+        "HISTORY\\history_12a_audit_logging_replay_spec.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_12_5_4_replay_index_verifier.py",
+      "validates": [
+        "HISTORY\\history_12a_audit_logging_replay_spec.py",
+        "REPLAY\\replay_12a_index_verifier.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_12_5_5_incident_packet_manifest.py",
+      "validates": [
+        "REPORT\\report_12f_incident_packet_manifest.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_12_5_6_release_readiness_gate.py",
+      "validates": [
+        "DOCTOR\\doctor_12d_release_readiness_gate.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_12_5_7_evidence_bundle_assembler.py",
+      "validates": [
+        "REPORT\\report_12g_evidence_bundle_assembler.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_12_6_1_prod_smoke_pipeline.py",
+      "validates": [
+        "REPORT\\report_12g_evidence_bundle_assembler.py",
+        "RUN\\run_12a_prod_smoke_pipeline.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_12_6_2_rollback_rerun_determinism.py",
+      "validates": [
+        "REPORT\\report_12g_evidence_bundle_assembler.py",
+        "RUN\\run_12b_rollback_rerun_determinism.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_12_6_3_operational_gates_enforcement.py",
+      "validates": [
+        "REPORT\\report_12g_evidence_bundle_assembler.py",
+        "RUN\\run_12c_operational_gates_enforcement.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_9_4_3_deterministic_generation.py",
+      "validates": [
+        "BUILD\\build_2d_determinism.py",
+        "BUILD\\build_2d_step_grammar_gate.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_9_4_3_run_history_loader.py",
+      "validates": [
+        "HISTORY\\history_1c_error_normalization.py",
+        "HISTORY\\history_1c_run_history_loader.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_act_1b_logging.py",
+      "validates": [
+        "ACT\\act_1a_action_engine.py",
+        "ACT\\act_1b_logging_integration.py",
+        "ENTRY\\entry_1a_webdriver_bootstrap.py",
+        "ENTRY\\entry_1a_workflow_grammar_gate.py",
+        "LOG\\log_1a_structured_logging.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_act_1c.py",
+      "validates": [
+        "ACT\\act_1c_conditional_guards.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_act_action_engine.py",
+      "validates": [
+        "ACT\\act_1a_action_engine.py",
+        "ENTRY\\entry_1a_webdriver_bootstrap.py",
+        "ENTRY\\entry_1a_workflow_grammar_gate.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_act_download_wait.py",
+      "validates": [
+        "ACT\\act_1a_action_engine.py",
+        "ENTRY\\entry_1a_webdriver_bootstrap.py",
+        "ENTRY\\entry_1a_workflow_grammar_gate.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_agent_1a_context_pack.py",
+      "validates": [
+        "AGENT\\agent_1a_context_pack.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_agent_2a.py",
+      "validates": [
+        "AGENT\\agent_2a_autonomous_loop.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_agent_2b.py",
+      "validates": [
+        "AGENT\\agent_2b_scheduler.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_auth_1a.py",
+      "validates": [
+        "AUTH\\auth_1a_form_login_guarded.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_auth_1b.py",
+      "validates": [
+        "AUTH\\auth_1b_session_restore.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_build_1a.py",
+      "validates": [
+        "BUILD\\build_1a_workflow_generator.py",
+        "BUILD\\build_1a_workflow_grammar_gate_entrypoints.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_build_1a_workflow_grammar_gate_entrypoints.py",
+      "validates": [
+        "BUILD\\build_1a_workflow_generator.py",
+        "BUILD\\build_1a_workflow_grammar_gate_entrypoints.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_build_1b.py",
+      "validates": [
+        "BUILD\\build_1a_workflow_generator.py",
+        "BUILD\\build_1a_workflow_grammar_gate_entrypoints.py",
+        "BUILD\\build_1b_intake_questionnaire.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_build_1c.py",
+      "validates": [
+        "BUILD\\build_1c_action_normalizer.py",
+        "BUILD\\build_1c_smoke_stub_generator.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_build_2a.py",
+      "validates": [
+        "BUILD\\build_2a_nl_spec_generator.py",
+        "BUILD\\build_2a_repeat_support.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_build_2b.py",
+      "validates": [
+        "BUILD\\build_2b_plan_optimizer.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_build_2c.py",
+      "validates": [
+        "BUILD\\build_2c_full_bundle.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_build_2d.py",
+      "validates": [
+        "BUILD\\build_2d_determinism.py",
+        "BUILD\\build_2d_step_grammar_gate.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_build_2e.py",
+      "validates": [
+        "BUILD\\build_2e_workflow_grammar_gate.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_build_2f.py",
+      "validates": [
+        "BUILD\\build_2f_workflow_file_grammar_gate.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_build_2g.py",
+      "validates": [
+        "BUILD\\build_2g_workflow_tree_grammar_gate.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_build_3a_deploy_bundle_format.py",
+      "validates": [
+        "BUILD\\build_3a_deploy_bundle_format.py",
+        "SNAP\\snap_1a_capture.py",
+        "SNAP\\snap_1a_failure_capture.py",
+        "SNAP\\snap_1a_workflow_capture.py",
+        "SNAP\\snap_1c_capture_bundle.py",
+        "SNAP\\snap_1c_persist_artifacts.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_build_3b_bundle_fingerprint.py",
+      "validates": [
+        "BUILD\\build_3b_bundle_fingerprint.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_build_3c_deploy_bundle_builder.py",
+      "validates": [
+        "BUILD\\build_3c_deploy_bundle_builder.py",
+        "SNAP\\snap_1a_capture.py",
+        "SNAP\\snap_1a_failure_capture.py",
+        "SNAP\\snap_1a_workflow_capture.py",
+        "SNAP\\snap_1c_capture_bundle.py",
+        "SNAP\\snap_1c_persist_artifacts.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_build_3d_doc_index_artifact_bundler.py",
+      "validates": [
+        "BUILD\\build_3d_doc_index_artifact_bundler.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_build_3e_bundle_build_manifest_integrator.py",
+      "validates": [
+        "BUILD\\build_3e_bundle_build_manifest_integrator.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_capture_1a.py",
+      "validates": [
+        "CAPTURE\\capture_1a_semi_auto.py",
+        "CAPTURE\\capture_1a_step_recorder.py",
+        "SELECTOR\\selector_1a_registry.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_cli_1a.py",
+      "validates": [
+        "CLI\\cli_1a_capture_to_deploy_bundle.py",
+        "CLI\\cli_1a_run_pipeline.py",
+        "CLI\\cli_1a_workflow_grammar_gate.py",
+        "CLI\\cli_pack_1a.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_cli_1a_workflow_grammar_gate.py",
+      "validates": [
+        "CLI\\cli_1a_capture_to_deploy_bundle.py",
+        "CLI\\cli_1a_run_pipeline.py",
+        "CLI\\cli_1a_workflow_grammar_gate.py",
+        "CLI\\cli_pack_1a.py",
+        "DOCTOR\\doctor_1b_workflow_grammar_gate.py",
+        "HISTORY\\history_1a_run_manifest.py",
+        "HISTORY\\history_1a_store.py",
+        "HISTORY\\history_1a_workflow_grammar_gate_history.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_cli_1b.py",
+      "validates": [
+        "CLI\\cli_1b_capture_to_deploy_bundle.py",
+        "CLI\\cli_1b_config_loader.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_cli_1b_config_loader.py",
+      "validates": [
+        "CLI\\cli_1b_capture_to_deploy_bundle.py",
+        "CLI\\cli_1b_config_loader.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_cli_1c.py",
+      "validates": [
+        "CLI\\cli_1c_args_overrides.py",
+        "CLI\\cli_1c_capture_to_deploy_bundle.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_cli_1e_run_deploy_bundle.py",
+      "validates": [
+        "BUILD\\build_3c_deploy_bundle_builder.py",
+        "CLI\\cli_1e_deploy_bundle_info.py",
+        "CLI\\cli_1e_run_deploy_bundle.py",
+        "SNAP\\snap_1a_capture.py",
+        "SNAP\\snap_1a_failure_capture.py",
+        "SNAP\\snap_1a_workflow_capture.py",
+        "SNAP\\snap_1c_capture_bundle.py",
+        "SNAP\\snap_1c_persist_artifacts.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_cli_1f_run_deploy_bundle_with_report.py",
+      "validates": [
+        "BUILD\\build_3c_deploy_bundle_builder.py",
+        "CLI\\cli_1f_generate_reports.py",
+        "CLI\\cli_1f_run_deploy_bundle_with_report.py",
+        "REPORT\\report_1e_build_manifest_artifact.py",
+        "REPORT\\report_1e_deploy_bundle_validation_report_writer.py",
+        "SNAP\\snap_1a_capture.py",
+        "SNAP\\snap_1a_failure_capture.py",
+        "SNAP\\snap_1a_workflow_capture.py",
+        "SNAP\\snap_1c_capture_bundle.py",
+        "SNAP\\snap_1c_persist_artifacts.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_cli_1g_run_deploy_bundle_with_report_fail_fast.py",
+      "validates": [
+        "BUILD\\build_3c_deploy_bundle_builder.py",
+        "CLI\\cli_1g_run_deploy_bundle_with_report_fail_fast.py",
+        "CLI\\cli_1g_workflow_grammar_gate.py",
+        "REPORT\\report_1e_build_manifest_artifact.py",
+        "REPORT\\report_1e_deploy_bundle_validation_report_writer.py",
+        "SNAP\\snap_1a_capture.py",
+        "SNAP\\snap_1a_failure_capture.py",
+        "SNAP\\snap_1a_workflow_capture.py",
+        "SNAP\\snap_1c_capture_bundle.py",
+        "SNAP\\snap_1c_persist_artifacts.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_cli_1g_workflow_grammar_gate.py",
+      "validates": [
+        "CLI\\cli_1g_run_deploy_bundle_with_report_fail_fast.py",
+        "CLI\\cli_1g_workflow_grammar_gate.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_cli_1h_run_deploy_bundle_cli_resolver.py",
+      "validates": [
+        "BUILD\\build_3c_deploy_bundle_builder.py",
+        "CLI\\cli_1h_run_deploy_bundle_cli_resolver.py",
+        "CLI\\cli_1h_workflow_grammar_gate_pipeline.py",
+        "REPORT\\report_1e_build_manifest_artifact.py",
+        "REPORT\\report_1e_deploy_bundle_validation_report_writer.py",
+        "SNAP\\snap_1a_capture.py",
+        "SNAP\\snap_1a_failure_capture.py",
+        "SNAP\\snap_1a_workflow_capture.py",
+        "SNAP\\snap_1c_capture_bundle.py",
+        "SNAP\\snap_1c_persist_artifacts.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_cli_1h_workflow_grammar_gate_pipeline.py",
+      "validates": [
+        "BUILD\\build_2g_workflow_tree_grammar_gate.py",
+        "CLI\\cli_1h_run_deploy_bundle_cli_resolver.py",
+        "CLI\\cli_1h_workflow_grammar_gate_pipeline.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_cli_1i_build_doc_index_artifact.py",
+      "validates": [
+        "CLI\\cli_1i_build_doc_index_artifact.py",
+        "CLI\\cli_1i_bundle_doc_index_and_manifest_cli.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_cli_1i_bundle_doc_index_and_manifest_cli.py",
+      "validates": [
+        "CLI\\cli_1i_build_doc_index_artifact.py",
+        "CLI\\cli_1i_bundle_doc_index_and_manifest_cli.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_cli_2b.py",
+      "validates": [
+        "CLI\\cli_2b_unified.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_deploy_1a.py",
+      "validates": [
+        "DEPLOY\\deploy_1a_service_runner.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_diff_1a.py",
+      "validates": [
+        "DIFF\\diff_1a_capture_edit_diff.py",
+        "DIFF\\diff_1a_config_changes.py",
+        "DIFF\\diff_1a_workflow_grammar_gate_report_diff.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_diff_1a_capture_edit_diff.py",
+      "validates": [
+        "DIFF\\diff_1a_capture_edit_diff.py",
+        "DIFF\\diff_1a_config_changes.py",
+        "DIFF\\diff_1a_workflow_grammar_gate_report_diff.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_diff_1a_workflow_grammar_gate_report_diff.py",
+      "validates": [
+        "DIFF\\diff_1a_capture_edit_diff.py",
+        "DIFF\\diff_1a_config_changes.py",
+        "DIFF\\diff_1a_workflow_grammar_gate_report_diff.py",
+        "DOCTOR\\doctor_1b_workflow_grammar_gate.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_doc_1a.py",
+      "validates": [
+        "DOC\\doc_1a_library_index.py",
+        "DOC\\doc_1a_workflow_grammar_gate.py",
+        "DOC\\runbook_1a_generator.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_doc_1a_library_index.py",
+      "validates": [
+        "DOC\\doc_1a_library_index.py",
+        "DOC\\doc_1a_workflow_grammar_gate.py",
+        "DOC\\runbook_1a_generator.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_doc_1a_workflow_grammar_gate.py",
+      "validates": [
+        "DOC\\doc_1a_library_index.py",
+        "DOC\\doc_1a_workflow_grammar_gate.py",
+        "DOC\\runbook_1a_generator.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_doc_1e_cli_run_deploy_bundle_cli_resolver_entry.py",
+      "validates": [
+        "DOC\\doc_1e_cli_run_deploy_bundle_cli_resolver_entry.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_doc_1f_doc_index_aggregator.py",
+      "validates": [
+        "DOC\\doc_1f_doc_index_aggregator.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_doc_1g_doc_index_entry_contract.py",
+      "validates": [
+        "DOC\\doc_1g_doc_index_entry_contract.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_doc_1h_doc_index_collect_validate.py",
+      "validates": [
+        "DOC\\doc_1h_doc_index_collect_validate.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_doc_doc_index_entry_cli_1i_bundle_doc_index_and_manifest_cli.py",
+      "validates": [
+        "BUILD\\build_3d_doc_index_artifact_bundler.py",
+        "DOC\\doc_1f_doc_index_aggregator.py",
+        "DOC\\doc_index_entry_cli_1i_bundle_doc_index_and_manifest_cli.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_doctor_1a.py",
+      "validates": [
+        "DOCTOR\\doctor_1a_check.py",
+        "DOCTOR\\doctor_1a_workflow_grammar_gate.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_doctor_1a_workflow_grammar_gate.py",
+      "validates": [
+        "BUILD\\build_2g_workflow_tree_grammar_gate.py",
+        "DOCTOR\\doctor_1a_check.py",
+        "DOCTOR\\doctor_1a_workflow_grammar_gate.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_doctor_1b_workflow_grammar_gate.py",
+      "validates": [
+        "BUILD\\build_2g_workflow_tree_grammar_gate.py",
+        "DOCTOR\\doctor_1b_workflow_grammar_gate.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_entry_1a_workflow_grammar_gate.py",
+      "validates": [
+        "ENTRY\\entry_1a_webdriver_bootstrap.py",
+        "ENTRY\\entry_1a_workflow_grammar_gate.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_entry_bootstrap.py",
+      "validates": [
+        "ENTRY\\entry_1a_webdriver_bootstrap.py",
+        "ENTRY\\entry_1a_workflow_grammar_gate.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_guard_1a.py",
+      "validates": [
+        "GUARD\\guard_1a_runtime.py",
+        "GUARD\\guard_1a_workflow_grammar_gate_guard.py",
+        "GUARD\\guard_1a_workflow_grammar_guard.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_guard_1a_workflow_grammar_gate_guard.py",
+      "validates": [
+        "DOCTOR\\doctor_1b_workflow_grammar_gate.py",
+        "GUARD\\guard_1a_runtime.py",
+        "GUARD\\guard_1a_workflow_grammar_gate_guard.py",
+        "GUARD\\guard_1a_workflow_grammar_guard.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_guard_1a_workflow_grammar_guard.py",
+      "validates": [
+        "GUARD\\guard_1a_runtime.py",
+        "GUARD\\guard_1a_workflow_grammar_gate_guard.py",
+        "GUARD\\guard_1a_workflow_grammar_guard.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_heal_1a.py",
+      "validates": [
+        "HEAL\\heal_1a_patch_workflow.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_history_1a.py",
+      "validates": [
+        "HISTORY\\history_1a_run_manifest.py",
+        "HISTORY\\history_1a_store.py",
+        "HISTORY\\history_1a_workflow_grammar_gate_history.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_history_1a_workflow_grammar_gate_history.py",
+      "validates": [
+        "DOCTOR\\doctor_1b_workflow_grammar_gate.py",
+        "HISTORY\\history_1a_run_manifest.py",
+        "HISTORY\\history_1a_store.py",
+        "HISTORY\\history_1a_workflow_grammar_gate_history.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_input_1b_excel_provider.py",
+      "validates": [
+        "INPUT\\input_1b_excel_provider.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_learn_1a.py",
+      "validates": [
+        "LEARN\\learn_1a_failure_patterns.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_learn_1b.py",
+      "validates": [
+        "LEARN\\learn_1b_selector_intelligence.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_lint_1a.py",
+      "validates": [
+        "LINT\\lint_1a_steps_validator.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_log_1a.py",
+      "validates": [
+        "LOG\\log_1a_structured_logging.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_log_1b.py",
+      "validates": [
+        "LOG\\log_1b_error_taxonomy.py",
+        "LOG\\log_1b_logger_reset.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_nav_1a.py",
+      "validates": [
+        "ENTRY\\entry_1a_webdriver_bootstrap.py",
+        "ENTRY\\entry_1a_workflow_grammar_gate.py",
+        "NAV\\nav_1a_selenium_helpers.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_obs_1a.py",
+      "validates": [
+        "OBS\\obs_1a_run_timeline.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_out_1a.py",
+      "validates": [
+        "OUT\\out_1a_download_wait.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_out_1b.py",
+      "validates": [
+        "OUT\\out_1b_artifact_manager.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_phase_11_5_1_capture_to_workflow_validity.py",
+      "validates": [
+        "SNAP\\snap_1a_capture.py",
+        "SNAP\\snap_1a_failure_capture.py",
+        "SNAP\\snap_1a_workflow_capture.py",
+        "SNAP\\snap_1b_screenshot_capture.py",
+        "SNAP\\snap_1b_selector_pack.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_phase_11_5_2_bundle_packaging_determinism.py",
+      "validates": [
+        "SNAP\\snap_1a_capture.py",
+        "SNAP\\snap_1a_failure_capture.py",
+        "SNAP\\snap_1a_workflow_capture.py",
+        "SNAP\\snap_1b_screenshot_capture.py",
+        "SNAP\\snap_1b_selector_pack.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_phase_11_5_3_deploy_run_path_minimal.py",
+      "validates": [
+        "SNAP\\snap_1a_capture.py",
+        "SNAP\\snap_1a_failure_capture.py",
+        "SNAP\\snap_1a_workflow_capture.py",
+        "SNAP\\snap_1b_screenshot_capture.py",
+        "SNAP\\snap_1b_selector_pack.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_pipe_1a.py",
+      "validates": [
+        "PIPE\\pipe_1a_run_orchestrator.py",
+        "PIPE\\pipe_1a_workflow_grammar_gate_pipeline.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_pipe_1a_workflow_grammar_gate_pipeline.py",
+      "validates": [
+        "BUILD\\build_2g_workflow_tree_grammar_gate.py",
+        "PIPE\\pipe_1a_run_orchestrator.py",
+        "PIPE\\pipe_1a_workflow_grammar_gate_pipeline.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_pipe_1b.py",
+      "validates": [
+        "PIPE\\pipe_1b_worklist_config.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_pipe_1c.py",
+      "validates": [
+        "PIPE\\pipe_1a_run_orchestrator.py",
+        "PIPE\\pipe_1a_workflow_grammar_gate_pipeline.py",
+        "PIPE\\pipe_1c_steps_loader.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_pipe_1d_a.py",
+      "validates": [
+        "PIPE\\pipe_1c_steps_loader.py",
+        "PIPE\\pipe_1d_step_executor.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_pipe_1e.py",
+      "validates": [
+        "PIPE\\pipe_1e_runner.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_pipe_2a.py",
+      "validates": [
+        "PIPE\\pipe_2a_var_aware_steps.py",
+        "VAR\\var_1a_runtime_store.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_pipe_2b.py",
+      "validates": [
+        "PIPE\\pipe_2b_step_blocks.py",
+        "VAR\\var_1a_runtime_store.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_pipe_2c.py",
+      "validates": [
+        "LOG\\log_1b_error_taxonomy.py",
+        "LOG\\log_1b_logger_reset.py",
+        "PIPE\\pipe_2b_step_blocks.py",
+        "PIPE\\pipe_2c_error_plumbing.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_pipe_2d.py",
+      "validates": [
+        "PIPE\\pipe_2d_artifact_integration.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_pipe_2e.py",
+      "validates": [
+        "PIPE\\pipe_2e_run_summary.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_plan_1a.py",
+      "validates": [
+        "LINT\\lint_1a_steps_validator.py",
+        "PLAN\\plan_1a_step_planner.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_reason_1a.py",
+      "validates": [
+        "REASON\\reason_1a_diagnose.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_registry_1a.py",
+      "validates": [
+        "REGISTRY\\registry_1a_generate.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_replay_1a.py",
+      "validates": [
+        "REPLAY\\replay_1a_run_replay.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_report_1a.py",
+      "validates": [
+        "REPORT\\report_1a_generate.py",
+        "REPORT\\report_1a_run_report.py",
+        "REPORT\\report_1a_step_logs_from_jsonl.py",
+        "REPORT\\report_1a_workflow_grammar_gate_report.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_report_1a_workflow_grammar_gate_report.py",
+      "validates": [
+        "BUILD\\build_2g_workflow_tree_grammar_gate.py",
+        "REPORT\\report_1a_generate.py",
+        "REPORT\\report_1a_run_report.py",
+        "REPORT\\report_1a_step_logs_from_jsonl.py",
+        "REPORT\\report_1a_workflow_grammar_gate_report.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_report_1b_workflow_grammar_gate_report_text.py",
+      "validates": [
+        "BUILD\\build_2g_workflow_tree_grammar_gate.py",
+        "REPORT\\report_1a_generate.py",
+        "REPORT\\report_1a_run_report.py",
+        "REPORT\\report_1a_step_logs_from_jsonl.py",
+        "REPORT\\report_1a_workflow_grammar_gate_report.py",
+        "REPORT\\report_1b_run_report_markdown.py",
+        "REPORT\\report_1b_workflow_grammar_gate_report_text.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_report_1c_workflow_grammar_gate_report_summary.py",
+      "validates": [
+        "DOCTOR\\doctor_1b_workflow_grammar_gate.py",
+        "REPORT\\report_1c_junit_xml.py",
+        "REPORT\\report_1c_workflow_grammar_gate_report_summary.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_report_1e_build_manifest_artifact.py",
+      "validates": [
+        "BUILD\\build_3d_doc_index_artifact_bundler.py",
+        "REPORT\\report_1e_build_manifest_artifact.py",
+        "REPORT\\report_1e_deploy_bundle_validation_report_writer.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_report_1e_deploy_bundle_validation_report_writer.py",
+      "validates": [
+        "BUILD\\build_3c_deploy_bundle_builder.py",
+        "REPORT\\report_1e_build_manifest_artifact.py",
+        "REPORT\\report_1e_deploy_bundle_validation_report_writer.py",
+        "SNAP\\snap_1a_capture.py",
+        "SNAP\\snap_1a_failure_capture.py",
+        "SNAP\\snap_1a_workflow_capture.py",
+        "SNAP\\snap_1c_capture_bundle.py",
+        "SNAP\\snap_1c_persist_artifacts.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_run_1a.py",
+      "validates": [
+        "RUN\\run_1a_workflow_grammar_gate.py",
+        "RUN\\run_1a_workflow_grammar_gate_run.py",
+        "RUN\\run_1a_workflow_runner.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_run_1a_workflow_grammar_gate.py",
+      "validates": [
+        "RUN\\run_1a_workflow_grammar_gate.py",
+        "RUN\\run_1a_workflow_grammar_gate_run.py",
+        "RUN\\run_1a_workflow_runner.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_run_1a_workflow_grammar_gate_run.py",
+      "validates": [
+        "DOCTOR\\doctor_1b_workflow_grammar_gate.py",
+        "HISTORY\\history_1a_run_manifest.py",
+        "HISTORY\\history_1a_store.py",
+        "HISTORY\\history_1a_workflow_grammar_gate_history.py",
+        "RUN\\run_1a_workflow_grammar_gate.py",
+        "RUN\\run_1a_workflow_grammar_gate_run.py",
+        "RUN\\run_1a_workflow_runner.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_run_1e_deploy_bundle_runner_adapter.py",
+      "validates": [
+        "BUILD\\build_3c_deploy_bundle_builder.py",
+        "RUN\\run_1e_deploy_bundle_runner_adapter.py",
+        "RUN\\run_1e_post_run_reporting.py",
+        "SNAP\\snap_1a_capture.py",
+        "SNAP\\snap_1a_failure_capture.py",
+        "SNAP\\snap_1a_workflow_capture.py",
+        "SNAP\\snap_1c_capture_bundle.py",
+        "SNAP\\snap_1c_persist_artifacts.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_schema_1a.py",
+      "validates": [
+        "SCHEMA\\schema_1a_generate.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_selector_1a.py",
+      "validates": [
+        "SELECTOR\\selector_1a_registry.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_snap_1a.py",
+      "validates": [
+        "SNAP\\snap_1a_capture.py",
+        "SNAP\\snap_1a_failure_capture.py",
+        "SNAP\\snap_1a_workflow_capture.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_snap_1a_workflow_capture.py",
+      "validates": [
+        "SNAP\\snap_1a_capture.py",
+        "SNAP\\snap_1a_failure_capture.py",
+        "SNAP\\snap_1a_workflow_capture.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_snap_1b_selector_pack.py",
+      "validates": [
+        "SNAP\\snap_1a_capture.py",
+        "SNAP\\snap_1a_failure_capture.py",
+        "SNAP\\snap_1a_workflow_capture.py",
+        "SNAP\\snap_1b_screenshot_capture.py",
+        "SNAP\\snap_1b_selector_pack.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_snap_1c_capture_bundle.py",
+      "validates": [
+        "SNAP\\snap_1a_capture.py",
+        "SNAP\\snap_1a_failure_capture.py",
+        "SNAP\\snap_1a_workflow_capture.py",
+        "SNAP\\snap_1c_capture_bundle.py",
+        "SNAP\\snap_1c_persist_artifacts.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_snap_1d_bundle_io.py",
+      "validates": [
+        "SNAP\\snap_1a_capture.py",
+        "SNAP\\snap_1a_failure_capture.py",
+        "SNAP\\snap_1a_workflow_capture.py",
+        "SNAP\\snap_1c_capture_bundle.py",
+        "SNAP\\snap_1c_persist_artifacts.py",
+        "SNAP\\snap_1d_bundle_io.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_snap_1e_bundle_export.py",
+      "validates": [
+        "SNAP\\snap_1a_capture.py",
+        "SNAP\\snap_1a_failure_capture.py",
+        "SNAP\\snap_1a_workflow_capture.py",
+        "SNAP\\snap_1c_capture_bundle.py",
+        "SNAP\\snap_1c_persist_artifacts.py",
+        "SNAP\\snap_1d_bundle_io.py",
+        "SNAP\\snap_1e_bundle_export.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_snap_1f_materialize_selectors.py",
+      "validates": [
+        "SNAP\\snap_1a_capture.py",
+        "SNAP\\snap_1a_failure_capture.py",
+        "SNAP\\snap_1a_workflow_capture.py",
+        "SNAP\\snap_1c_capture_bundle.py",
+        "SNAP\\snap_1c_persist_artifacts.py",
+        "SNAP\\snap_1f_materialize_selectors.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_state_1c.py",
+      "validates": [
+        "STATE\\state_1c_retry_helpers.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_state_1d.py",
+      "validates": [
+        "LOG\\log_1b_error_taxonomy.py",
+        "LOG\\log_1b_logger_reset.py",
+        "STATE\\state_1d_manifest_row_helpers.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_state_input.py",
+      "validates": [
+        "STATE\\state_1b_manifest_jsonl.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_val_1a.py",
+      "validates": [
+        "VAL\\val_1a_ui_state.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_val_1b.py",
+      "validates": [
+        "VAL\\val_1b_download_validation.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_val_2a_deploy_bundle_validator.py",
+      "validates": [
+        "BUILD\\build_3a_deploy_bundle_format.py",
+        "BUILD\\build_3b_bundle_fingerprint.py",
+        "SNAP\\snap_1a_capture.py",
+        "SNAP\\snap_1a_failure_capture.py",
+        "SNAP\\snap_1a_workflow_capture.py",
+        "SNAP\\snap_1c_capture_bundle.py",
+        "SNAP\\snap_1c_persist_artifacts.py",
+        "VAL\\val_2a_deploy_bundle_validator.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_var_1a.py",
+      "validates": [
+        "VAR\\var_1a_runtime_store.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_workflow_1a_loader.py",
+      "validates": [
+        "WORKFLOWS\\workflow_1a_loader.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_workflow_1e_steps_normalizer.py",
+      "validates": [
+        "WORKFLOW\\workflow_1e_steps_normalizer.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_workflow_1f_selector_ref_first.py",
+      "validates": [
+        "WORKFLOW\\workflow_1f_selector_ref_first.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_workflow_1g_deploy_bundle_loader.py",
+      "validates": [
+        "BUILD\\build_3c_deploy_bundle_builder.py",
+        "SNAP\\snap_1a_capture.py",
+        "SNAP\\snap_1a_failure_capture.py",
+        "SNAP\\snap_1a_workflow_capture.py",
+        "SNAP\\snap_1c_capture_bundle.py",
+        "SNAP\\snap_1c_persist_artifacts.py",
+        "WORKFLOWS\\workflow_1g_deploy_bundle_loader.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_workflow_workflow_2a_capture_actions_to_schema_steps.py",
+      "validates": [
+        "WORKFLOW\\workflow_2a_capture_actions_to_schema_steps.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_workflow_workflow_2b_capture_js_event_recorder.py",
+      "validates": [
+        "WORKFLOW\\workflow_2b_capture_js_event_recorder.py"
+      ]
+    },
+    {
+      "path": "dev\\dev_smoke_workflow_workflow_2c_capture_events_to_schema_steps_encoder.py",
+      "validates": [
+        "WORKFLOW\\workflow_2c_capture_events_to_schema_steps_encoder.py"
+      ]
+    }
+  ],
+  "smoke_tests_discovered": [
+    "dev/dev_smoke_10_1_1_failure_capture.py",
+    "dev/dev_smoke_10_1_2_screenshot_capture.py",
+    "dev/dev_smoke_10_1_3_snapshot_persistence.py",
+    "dev/dev_smoke_10_2_1_run_manifest.py",
+    "dev/dev_smoke_10_2_2_step_outcomes.py",
+    "dev/dev_smoke_10_2_3_error_normalization.py",
+    "dev/dev_smoke_10_3_1_run_report.py",
+    "dev/dev_smoke_10_3_2_run_report_markdown.py",
+    "dev/dev_smoke_10_3_3_junit_xml.py",
+    "dev/dev_smoke_10_4_1_generate_reports.py",
+    "dev/dev_smoke_10_4_2_post_run_reporting.py",
+    "dev/dev_smoke_10_4_3_cli_generate_reports.py",
+    "dev/dev_smoke_12_1_1_slos_success_criteria.py",
+    "dev/dev_smoke_12_1_2_operator_runbooks.py",
+    "dev/dev_smoke_12_1_3_support_escalation_paths.py",
+    "dev/dev_smoke_12_2_1_versioning_policy.py",
+    "dev/dev_smoke_12_2_2_reviewable_diffs.py",
+    "dev/dev_smoke_12_2_3_promotion_gates.py",
+    "dev/dev_smoke_12_3_1_release_manifest.py",
+    "dev/dev_smoke_12_3_2_bundle_fingerprint.py",
+    "dev/dev_smoke_12_3_3_promotion_record.py",
+    "dev/dev_smoke_12_4_1_doctor_pre_run_checks.py",
+    "dev/dev_smoke_12_4_2_guard_prod_defaults.py",
+    "dev/dev_smoke_12_4_3_rollback_recovery_procedures.py",
+    "dev/dev_smoke_12_5_1_artifact_retention_policy.py",
+    "dev/dev_smoke_12_5_2_alerting_signals.py",
+    "dev/dev_smoke_12_5_3_audit_logging_replay_spec.py",
+    "dev/dev_smoke_12_5_4_replay_index_verifier.py",
+    "dev/dev_smoke_12_5_5_incident_packet_manifest.py",
+    "dev/dev_smoke_12_5_6_release_readiness_gate.py",
+    "dev/dev_smoke_12_5_7_evidence_bundle_assembler.py",
+    "dev/dev_smoke_12_6_1_prod_smoke_pipeline.py",
+    "dev/dev_smoke_12_6_2_rollback_rerun_determinism.py",
+    "dev/dev_smoke_12_6_3_operational_gates_enforcement.py",
+    "dev/dev_smoke_9_4_3_deterministic_generation.py",
+    "dev/dev_smoke_9_4_3_run_history_loader.py",
+    "dev/dev_smoke_act_1b_logging.py",
+    "dev/dev_smoke_act_1c.py",
+    "dev/dev_smoke_act_action_engine.py",
+    "dev/dev_smoke_act_download_wait.py",
+    "dev/dev_smoke_agent_1a_context_pack.py",
+    "dev/dev_smoke_agent_2a.py",
+    "dev/dev_smoke_agent_2b.py",
+    "dev/dev_smoke_auth_1a.py",
+    "dev/dev_smoke_auth_1b.py",
+    "dev/dev_smoke_build_1a.py",
+    "dev/dev_smoke_build_1a_workflow_grammar_gate_entrypoints.py",
+    "dev/dev_smoke_build_1b.py",
+    "dev/dev_smoke_build_1c.py",
+    "dev/dev_smoke_build_2a.py",
+    "dev/dev_smoke_build_2b.py",
+    "dev/dev_smoke_build_2c.py",
+    "dev/dev_smoke_build_2d.py",
+    "dev/dev_smoke_build_2e.py",
+    "dev/dev_smoke_build_2f.py",
+    "dev/dev_smoke_build_2g.py",
+    "dev/dev_smoke_build_3a_deploy_bundle_format.py",
+    "dev/dev_smoke_build_3b_bundle_fingerprint.py",
+    "dev/dev_smoke_build_3c_deploy_bundle_builder.py",
+    "dev/dev_smoke_build_3d_doc_index_artifact_bundler.py",
+    "dev/dev_smoke_build_3e_bundle_build_manifest_integrator.py",
+    "dev/dev_smoke_capture_1a.py",
+    "dev/dev_smoke_cli_1a.py",
+    "dev/dev_smoke_cli_1a_workflow_grammar_gate.py",
+    "dev/dev_smoke_cli_1b.py",
+    "dev/dev_smoke_cli_1b_config_loader.py",
+    "dev/dev_smoke_cli_1c.py",
+    "dev/dev_smoke_cli_1e_run_deploy_bundle.py",
+    "dev/dev_smoke_cli_1f_run_deploy_bundle_with_report.py",
+    "dev/dev_smoke_cli_1g_run_deploy_bundle_with_report_fail_fast.py",
+    "dev/dev_smoke_cli_1g_workflow_grammar_gate.py",
+    "dev/dev_smoke_cli_1h_run_deploy_bundle_cli_resolver.py",
+    "dev/dev_smoke_cli_1h_workflow_grammar_gate_pipeline.py",
+    "dev/dev_smoke_cli_1i_build_doc_index_artifact.py",
+    "dev/dev_smoke_cli_1i_bundle_doc_index_and_manifest_cli.py",
+    "dev/dev_smoke_cli_2b.py",
+    "dev/dev_smoke_deploy_1a.py",
+    "dev/dev_smoke_diff_1a.py",
+    "dev/dev_smoke_diff_1a_capture_edit_diff.py",
+    "dev/dev_smoke_diff_1a_workflow_grammar_gate_report_diff.py",
+    "dev/dev_smoke_doc_1a.py",
+    "dev/dev_smoke_doc_1a_library_index.py",
+    "dev/dev_smoke_doc_1a_workflow_grammar_gate.py",
+    "dev/dev_smoke_doc_1e_cli_run_deploy_bundle_cli_resolver_entry.py",
+    "dev/dev_smoke_doc_1f_doc_index_aggregator.py",
+    "dev/dev_smoke_doc_1g_doc_index_entry_contract.py",
+    "dev/dev_smoke_doc_1h_doc_index_collect_validate.py",
+    "dev/dev_smoke_doc_doc_index_entry_cli_1i_bundle_doc_index_and_manifest_cli.py",
+    "dev/dev_smoke_doctor_1a.py",
+    "dev/dev_smoke_doctor_1a_workflow_grammar_gate.py",
+    "dev/dev_smoke_doctor_1b_workflow_grammar_gate.py",
+    "dev/dev_smoke_entry_1a_workflow_grammar_gate.py",
+    "dev/dev_smoke_entry_bootstrap.py",
+    "dev/dev_smoke_go_to_google_search_for_something_click_result_then_go_back_and_search_again.py",
+    "dev/dev_smoke_go_to_google_search_for_weather_click_first_result.py",
+    "dev/dev_smoke_guard_1a.py",
+    "dev/dev_smoke_guard_1a_workflow_grammar_gate_guard.py",
+    "dev/dev_smoke_guard_1a_workflow_grammar_guard.py",
+    "dev/dev_smoke_heal_1a.py",
+    "dev/dev_smoke_history_1a.py",
+    "dev/dev_smoke_history_1a_workflow_grammar_gate_history.py",
+    "dev/dev_smoke_input_1b_excel_provider.py",
+    "dev/dev_smoke_learn_1a.py",
+    "dev/dev_smoke_learn_1b.py",
+    "dev/dev_smoke_lint_1a.py",
+    "dev/dev_smoke_log_1a.py",
+    "dev/dev_smoke_log_1b.py",
+    "dev/dev_smoke_login_to_a_site_and_download_a_report.py",
+    "dev/dev_smoke_login_to_portal_and_export_report.py",
+    "dev/dev_smoke_nav_1a.py",
+    "dev/dev_smoke_obs_1a.py",
+    "dev/dev_smoke_open_a_slow_website_and_click_something_immediately.py",
+    "dev/dev_smoke_open_example_com_and_click_login_button_that_does_not_exist.py",
+    "dev/dev_smoke_open_example_com_click_login_and_verify_page_title.py",
+    "dev/dev_smoke_open_google_and_click_search.py",
+    "dev/dev_smoke_out_1a.py",
+    "dev/dev_smoke_out_1b.py",
+    "dev/dev_smoke_pack_1a.py",
+    "dev/dev_smoke_phase_11_5_1_capture_to_workflow_validity.py",
+    "dev/dev_smoke_phase_11_5_2_bundle_packaging_determinism.py",
+    "dev/dev_smoke_phase_11_5_3_deploy_run_path_minimal.py",
+    "dev/dev_smoke_pipe_1a.py",
+    "dev/dev_smoke_pipe_1a_workflow_grammar_gate_pipeline.py",
+    "dev/dev_smoke_pipe_1b.py",
+    "dev/dev_smoke_pipe_1c.py",
+    "dev/dev_smoke_pipe_1d_a.py",
+    "dev/dev_smoke_pipe_1e.py",
+    "dev/dev_smoke_pipe_2a.py",
+    "dev/dev_smoke_pipe_2b.py",
+    "dev/dev_smoke_pipe_2c.py",
+    "dev/dev_smoke_pipe_2d.py",
+    "dev/dev_smoke_pipe_2e.py",
+    "dev/dev_smoke_plan_1a.py",
+    "dev/dev_smoke_reason_1a.py",
+    "dev/dev_smoke_registry_1a.py",
+    "dev/dev_smoke_replay_1a.py",
+    "dev/dev_smoke_report_1a.py",
+    "dev/dev_smoke_report_1a_workflow_grammar_gate_report.py",
+    "dev/dev_smoke_report_1b_workflow_grammar_gate_report_text.py",
+    "dev/dev_smoke_report_1c_workflow_grammar_gate_report_summary.py",
+    "dev/dev_smoke_report_1e_build_manifest_artifact.py",
+    "dev/dev_smoke_report_1e_deploy_bundle_validation_report_writer.py",
+    "dev/dev_smoke_run_1a.py",
+    "dev/dev_smoke_run_1a_workflow_grammar_gate.py",
+    "dev/dev_smoke_run_1a_workflow_grammar_gate_run.py",
+    "dev/dev_smoke_run_1e_deploy_bundle_runner_adapter.py",
+    "dev/dev_smoke_schema_1a.py",
+    "dev/dev_smoke_selector_1a.py",
+    "dev/dev_smoke_snap_1a.py",
+    "dev/dev_smoke_snap_1a_workflow_capture.py",
+    "dev/dev_smoke_snap_1b_selector_pack.py",
+    "dev/dev_smoke_snap_1c_capture_bundle.py",
+    "dev/dev_smoke_snap_1d_bundle_io.py",
+    "dev/dev_smoke_snap_1e_bundle_export.py",
+    "dev/dev_smoke_snap_1f_materialize_selectors.py",
+    "dev/dev_smoke_state_1c.py",
+    "dev/dev_smoke_state_1d.py",
+    "dev/dev_smoke_state_input.py",
+    "dev/dev_smoke_val_1a.py",
+    "dev/dev_smoke_val_1b.py",
+    "dev/dev_smoke_val_2a_deploy_bundle_validator.py",
+    "dev/dev_smoke_var_1a.py",
+    "dev/dev_smoke_workflow_1a_loader.py",
+    "dev/dev_smoke_workflow_1e_steps_normalizer.py",
+    "dev/dev_smoke_workflow_1f_selector_ref_first.py",
+    "dev/dev_smoke_workflow_1g_deploy_bundle_loader.py",
+    "dev/dev_smoke_workflow_workflow_2a_capture_actions_to_schema_steps.py",
+    "dev/dev_smoke_workflow_workflow_2b_capture_js_event_recorder.py",
+    "dev/dev_smoke_workflow_workflow_2c_capture_events_to_schema_steps_encoder.py"
+  ],
+  "actions": [
+    {
+      "action": "click_selector",
+      "description": "Click a target element by selector_ref or (strategy, selector).",
+      "implemented_by": {
+        "module": "VAL/val_2a_deploy_bundle_validator.py",
+        "option_id": "VAL-2A"
+      },
+      "required_fields": [
+        "action"
+      ],
+      "optional_fields": [
+        "name",
+        "selector",
+        "selector_ref",
+        "strategy"
+      ],
+      "field_types": {
+        "action": "string",
+        "name": "string",
+        "selector": "string",
+        "selector_ref": "string",
+        "strategy": "string"
+      },
+      "allowed_values": {}
+    },
+    {
+      "action": "exec_js",
+      "description": "Execute inline JavaScript and return a JSON-serializable value.",
+      "implemented_by": {
+        "module": "",
+        "option_id": null
+      },
+      "required_fields": [
+        "action",
+        "script"
+      ],
+      "optional_fields": [
+        "name"
+      ],
+      "field_types": {
+        "action": "string",
+        "name": "string",
+        "script": "string"
+      },
+      "allowed_values": {}
+    },
+    {
+      "action": "exec_js_file",
+      "description": "Execute a JavaScript file from disk.",
+      "implemented_by": {
+        "module": "",
+        "option_id": null
+      },
+      "required_fields": [
+        "action",
+        "path"
+      ],
+      "optional_fields": [
+        "name"
+      ],
+      "field_types": {
+        "action": "string",
+        "name": "string",
+        "path": "string"
+      },
+      "allowed_values": {}
+    },
+    {
+      "action": "log",
+      "description": "Emit a log message (supports VAR placeholders).",
+      "implemented_by": {
+        "module": "",
+        "option_id": null
+      },
+      "required_fields": [
+        "action",
+        "message"
+      ],
+      "optional_fields": [
+        "name"
+      ],
+      "field_types": {
+        "action": "string",
+        "message": "string",
+        "name": "string"
+      },
+      "allowed_values": {}
+    },
+    {
+      "action": "open",
+      "description": "Open a URL in the current tab.",
+      "implemented_by": {
+        "module": "PIPE/pipe_1d_step_executor.py",
+        "option_id": "PIPE-1D"
+      },
+      "required_fields": [
+        "action",
+        "url"
+      ],
+      "optional_fields": [
+        "name"
+      ],
+      "field_types": {
+        "action": "string",
+        "name": "string",
+        "url": "string"
+      },
+      "allowed_values": {}
+    },
+    {
+      "action": "repeat",
+      "description": "Repeat a nested block of steps a fixed number of times.",
+      "implemented_by": {
+        "module": "",
+        "option_id": null
+      },
+      "required_fields": [
+        "action",
+        "steps",
+        "times"
+      ],
+      "optional_fields": [
+        "name"
+      ],
+      "field_types": {
+        "action": "string",
+        "name": "string",
+        "steps": "list",
+        "times": "int"
+      },
+      "allowed_values": {}
+    },
+    {
+      "action": "switch_back_to_main_tab",
+      "description": "Switch focus back to the main tab/window.",
+      "implemented_by": {
+        "module": "",
+        "option_id": null
+      },
+      "required_fields": [
+        "action"
+      ],
+      "optional_fields": [
+        "name"
+      ],
+      "field_types": {
+        "action": "string",
+        "name": "string"
+      },
+      "allowed_values": {}
+    },
+    {
+      "action": "type_selector_secret",
+      "description": "Type a secret value into a target element.",
+      "implemented_by": {
+        "module": "",
+        "option_id": null
+      },
+      "required_fields": [
+        "action",
+        "secret"
+      ],
+      "optional_fields": [
+        "name",
+        "selector",
+        "selector_ref",
+        "strategy"
+      ],
+      "field_types": {
+        "action": "string",
+        "name": "string",
+        "secret": "string",
+        "selector": "string",
+        "selector_ref": "string",
+        "strategy": "string"
+      },
+      "allowed_values": {}
+    },
+    {
+      "action": "wait_for_selector",
+      "description": "Wait until a target selector is present/ready.",
+      "implemented_by": {
+        "module": "",
+        "option_id": null
+      },
+      "required_fields": [
+        "action"
+      ],
+      "optional_fields": [
+        "name",
+        "selector",
+        "selector_ref",
+        "strategy"
+      ],
+      "field_types": {
+        "action": "string",
+        "name": "string",
+        "selector": "string",
+        "selector_ref": "string",
+        "strategy": "string"
+      },
+      "allowed_values": {}
+    }
+  ],
+  "examples": {
+    "schema_version": "SCHEMA-1A",
+    "generated_at": "2026-04-23T20:05:46.401267Z",
+    "examples_by_action": {
+      "open": [],
+      "click_selector": [],
+      "type_selector_secret": [],
+      "wait_for_selector": [],
+      "exec_js": [],
+      "exec_js_file": [],
+      "repeat": [],
+      "log": [],
+      "switch_back_to_main_tab": []
+    }
+  },
+  "registry": {
+    "generated_at": "2026-04-23T20:05:20.406427Z",
+    "schema_version": "SCHEMA-1A",
+    "schema_source": "SCHEMA/steps_schema.json",
+    "actions": [
+      {
+        "action": "click_selector",
+        "implemented_by": {
+          "module": "VAL/val_2a_deploy_bundle_validator.py",
+          "option_id": "VAL-2A"
+        },
+        "handler": null,
+        "required_fields": [
+          "action"
+        ],
+        "optional_fields": [
+          "name",
+          "selector",
+          "selector_ref",
+          "strategy"
+        ],
+        "examples": [],
+        "smoke_tests": []
+      },
+      {
+        "action": "exec_js",
+        "implemented_by": {
+          "module": "",
+          "option_id": null
+        },
+        "handler": null,
+        "required_fields": [
+          "action",
+          "script"
+        ],
+        "optional_fields": [
+          "name"
+        ],
+        "examples": [],
+        "smoke_tests": []
+      },
+      {
+        "action": "exec_js_file",
+        "implemented_by": {
+          "module": "",
+          "option_id": null
+        },
+        "handler": null,
+        "required_fields": [
+          "action",
+          "path"
+        ],
+        "optional_fields": [
+          "name"
+        ],
+        "examples": [],
+        "smoke_tests": []
+      },
+      {
+        "action": "log",
+        "implemented_by": {
+          "module": "",
+          "option_id": null
+        },
+        "handler": null,
+        "required_fields": [
+          "action",
+          "message"
+        ],
+        "optional_fields": [
+          "name"
+        ],
+        "examples": [],
+        "smoke_tests": []
+      },
+      {
+        "action": "open",
+        "implemented_by": {
+          "module": "PIPE/pipe_1d_step_executor.py",
+          "option_id": "PIPE-1D"
+        },
+        "handler": null,
+        "required_fields": [
+          "action",
+          "url"
+        ],
+        "optional_fields": [
+          "name"
+        ],
+        "examples": [],
+        "smoke_tests": []
+      },
+      {
+        "action": "repeat",
+        "implemented_by": {
+          "module": "",
+          "option_id": null
+        },
+        "handler": null,
+        "required_fields": [
+          "action",
+          "steps",
+          "times"
+        ],
+        "optional_fields": [
+          "name"
+        ],
+        "examples": [],
+        "smoke_tests": []
+      },
+      {
+        "action": "switch_back_to_main_tab",
+        "implemented_by": {
+          "module": "",
+          "option_id": null
+        },
+        "handler": null,
+        "required_fields": [
+          "action"
+        ],
+        "optional_fields": [
+          "name"
+        ],
+        "examples": [],
+        "smoke_tests": []
+      },
+      {
+        "action": "type_selector_secret",
+        "implemented_by": {
+          "module": "",
+          "option_id": null
+        },
+        "handler": null,
+        "required_fields": [
+          "action",
+          "secret"
+        ],
+        "optional_fields": [
+          "name",
+          "selector",
+          "selector_ref",
+          "strategy"
+        ],
+        "examples": [],
+        "smoke_tests": []
+      },
+      {
+        "action": "wait_for_selector",
+        "implemented_by": {
+          "module": "",
+          "option_id": null
+        },
+        "handler": null,
+        "required_fields": [
+          "action"
+        ],
+        "optional_fields": [
+          "name",
+          "selector",
+          "selector_ref",
+          "strategy"
+        ],
+        "examples": [],
+        "smoke_tests": []
+      }
+    ]
+  },
+  "selector_summary": {
+    "present": false,
+    "path": "C:\\Users\\nmart224\\OneDrive - UHG\\Agent\\RPA_LIBRARY\\data\\selectors.json"
+  },
+  "known_entrypoints": [
+    "python CLI/cli_1a_run_pipeline.py --help",
+    "python LINT/lint_steps.py path/to/steps.json"
+  ],
+  "canonical_e2e_run": {
+    "name": "Production Smoke Pipeline",
+    "kind": "prod_smoke",
+    "entrypoint": "PIPE/pipe_1e_runner.py",
+    "smoke_test": "dev/dev_smoke_12_6_1_prod_smoke_pipeline.py",
+    "description": "Canonical end-to-end run validating workflow execution, artifact generation, and production readiness gates.",
+    "readiness_criteria": [
+      "workflow grammar gates pass",
+      "pipeline execution completes",
+      "release manifest is generated",
+      "bundle fingerprint is generated",
+      "DOCTOR gates pass",
+      "GUARD gates pass"
+    ]
+  }
+}

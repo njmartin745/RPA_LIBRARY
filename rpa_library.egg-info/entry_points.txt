@@ -1,0 +1,2 @@
+[console_scripts]
+workflow-grammar-gate = ENTRY.entry_1a_workflow_grammar_gate:main

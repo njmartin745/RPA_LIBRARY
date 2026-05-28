@@ -1,0 +1,55 @@
+=== DEBUG SESSION START ===
+ 
+SYSTEM CONTEXT
+- Modular Selenium RPA framework
+- All modules previously passed smoke tests
+- Issue occurs during integration/runtime (not unit tests)
+ 
+CURRENT ERROR
+(paste full terminal error output here)
+ 
+EXPECTED BEHAVIOR
+(describe what should have happened)
+ 
+ACTUAL BEHAVIOR
+(describe what happened instead)
+ 
+SCOPE
+- Only fix the failing integration
+- Do NOT redesign architecture
+- Do NOT create new modules
+- Minimal, surgical fix only
+ 
+FILES UNDER REVIEW
+ 
+=== FILE: <file_path_1> ===
+(paste full file)
+ 
+=== FILE: <file_path_2> ===
+(paste full file)
+ 
+(continue as needed)
+ 
+TASK
+ 
+1. Identify the root cause (not symptoms)
+2. Show EXACT code changes required (diff-style or full replacement)
+3. Explain why the issue occurred
+4. Ensure fix aligns with existing architecture (no rewrites)
+5. If multiple fixes possible, choose simplest stable solution
+ 
+CONSTRAINTS
+ 
+- Do not introduce new dependencies
+- Do not break existing module interfaces
+- Maintain deterministic behavior
+- Respect existing naming conventions
+ 
+OUTPUT FORMAT
+ 
+1. Root Cause
+2. Fix (exact code)
+3. Explanation
+4. Validation steps (how to confirm fix)
+ 
+=== DEBUG SESSION END ===

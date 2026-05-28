@@ -1,0 +1,80 @@
+YOU ARE IN A MODULAR SELENIUM RPA FRAMEWORK.  
+  
+SESSION MODE (choose ONE; delete the other block before running)  
+- MODE: MILESTONE  
+  - TARGET_MILESTONE: 12.1.1 
+  - COMPLETED_MILESTONES: none
+  - GOAL: Continue generating the next milestone module in sequence while maintaining compatibility with the existing framework.  
+- MODE: STABILIZATION  
+  - TARGET_TASK: <one sentence; e.g., "Enforce STEP_GRAMMAR in BUILD-2A outputs">  
+  - AFFECTED_MODULES: <list paths or []>  
+  - PRIORITY FOCUS (in order):  
+    1) Enforce valid STEP_GRAMMAR in BUILD-2A outputs  
+    2) Improve DOC-1A smoke test mapping (library index)  
+    3) Ensure generated workflows pass LINT validation  
+  
+ARCHITECTURE (hard constraints)  
+- Layers: ENTRY, INPUT, STATE, LOOP, ACT, NAV, VAL, OUT, VAR, LOG, PIPE, AUTH, DOC, REGISTRY, SELECTOR, AGENT, WORKFLOW, RUN, REASON, HEAL, SNAP, REPLAY, REPORT, GUARD, DIFF, HISTORY, DOCTOR, CLI, BUILD  
+- Each module has a single responsibility.  
+- Modules are additive and must not be rewritten unless explicitly requested.  
+  
+DEVELOPMENT RULES (hard constraints)  
+- Follow Phase A + Auto 1 Module behavior.  
+- Do NOT duplicate or recreate existing modules.  
+- All new modules must define __all__.  
+- Every module must include a dev_smoke test.  
+- Keep helper functions pure where possible.  
+- Deterministic behavior only (no randomness).  
+  
+WORKFLOW RULES (hard constraints)  
+- Allowed actions ONLY:  
+  open  
+  click_selector  
+  type_selector_secret  
+  wait_for_selector  
+  exec_js  
+  exec_js_file  
+  repeat  
+  log  
+  switch_back_to_main_tab  
+- Do NOT invent new step types.  
+- Prefer selector_ref instead of raw selectors when possible.  
+  
+CONSTRAINTS  
+- Do NOT expand the action grammar.  
+- Keep system deterministic and stable.  
+- If MODE=STABILIZATION: modify existing modules only (no new modules unless absolutely required).  
+- If MODE=MILESTONE: add the next module in sequence; do not rewrite existing modules unless explicitly requested.  
+  
+REPO CONTEXT  
+- Repo root: RPA_LIBRARY (Windows / PowerShell)  
+- Python: 3.12+ compatible  
+  
+AUTHORITATIVE FILES (do not guess behavior—use these)  
+- Generation:  
+  - BUILD/build_2a_nl_spec_generator.py  
+  - BUILD/build_1a_workflow_generator.py  
+  - BUILD/build_2c_full_bundle.py  
+- Validation:  
+  - LINT/lint_1a_steps_validator.py  
+- Schema/registry:  
+  - SCHEMA/schema_1a_steps.json  
+  - SCHEMA/steps_schema.json  
+  - REGISTRY/action_registry.json  
+- Docs/index:  
+  - DOC/doc_1a_library_index.py  
+  - DOC/library_index.json  
+  - dev/ (contains dev_smoke_*.py)  
+- Execution compatibility references:  
+  - WORKFLOWS/workflow_1a_loader.py  
+  - PIPE/pipe_1d_step_executor.py (or whichever dispatches actions)  
+  - RUN/run_1a_workflow_runner.py (+ run_1b/1c/1d if used)  
+  
+KNOWN ISSUE (treat as current)  
+- Legacy workflows may include unsupported actions (e.g., wait_seconds, look_for_selector). Newly generated workflows must not include unsupported actions.  
+  
+OUTPUT REQUIREMENTS  
+- Keep outputs minimal and structured.  
+- Provide exact code updates for only the files you modify.  
+- Ensure generated workflows pass LINT validation and only contain allowed actions.  
+- Do not introduce new architecture layers.  

@@ -1,0 +1,15 @@
+{
+  "schema_version": "SCHEMA-1A",
+  "generated_at": "2026-04-23T20:05:46.401267Z",
+  "examples_by_action": {
+    "open": [],
+    "click_selector": [],
+    "type_selector_secret": [],
+    "wait_for_selector": [],
+    "exec_js": [],
+    "exec_js_file": [],
+    "repeat": [],
+    "log": [],
+    "switch_back_to_main_tab": []
+  }
+}

@@ -1,0 +1,666 @@
+# AGENT_PACKET (AGENT-1A)
+
+- Generated: `2026-05-07T17:56:02.498892Z`
+- Schema version: `SCHEMA-1A`
+
+## Repo overview
+
+- Top-level packages: 
+- Module count: `386`
+- Smoke test count (from DOC index): `160`
+
+## Key artifacts
+
+- library_index_json: `DOC/library_index.json`
+- steps_schema_json: `SCHEMA/steps_schema.json`
+- steps_examples_json: `SCHEMA/steps_examples.json`
+- action_registry_json: `REGISTRY/action_registry.json`
+
+## How to run (common commands)
+
+- Smoke tests (recommended):
+  - `python dev/dev_smoke_10_1_1_failure_capture.py`
+  - `python dev/dev_smoke_10_1_2_screenshot_capture.py`
+  - `python dev/dev_smoke_10_1_3_snapshot_persistence.py`
+  - `python dev/dev_smoke_10_2_1_run_manifest.py`
+  - `python dev/dev_smoke_10_2_2_step_outcomes.py`
+  - `python dev/dev_smoke_10_2_3_error_normalization.py`
+  - `python dev/dev_smoke_10_3_1_run_report.py`
+  - `python dev/dev_smoke_10_3_2_run_report_markdown.py`
+  - `python dev/dev_smoke_10_3_3_junit_xml.py`
+  - `python dev/dev_smoke_10_4_1_generate_reports.py`
+  - `python dev/dev_smoke_10_4_2_post_run_reporting.py`
+  - `python dev/dev_smoke_10_4_3_cli_generate_reports.py`
+  - `python dev/dev_smoke_12_1_1_slos_success_criteria.py`
+  - `python dev/dev_smoke_12_1_2_operator_runbooks.py`
+  - `python dev/dev_smoke_12_1_3_support_escalation_paths.py`
+  - `python dev/dev_smoke_12_2_1_versioning_policy.py`
+  - `python dev/dev_smoke_12_2_2_reviewable_diffs.py`
+  - `python dev/dev_smoke_12_2_3_promotion_gates.py`
+  - `python dev/dev_smoke_12_3_1_release_manifest.py`
+  - `python dev/dev_smoke_12_3_2_bundle_fingerprint.py`
+  - _(more available; see dev/)_
+
+- Regenerate artifacts:
+  - `python SCHEMA/schema_1a_generate.py`
+  - `python DOC/doc_1a_library_index.py`
+  - `python REGISTRY/registry_1a_generate.py`
+
+- Entry points:
+  - `python CLI/cli_1a_run_pipeline.py --help`
+  - `python LINT/lint_steps.py path/to/steps.json`
+
+## Action inventory (from SCHEMA)
+
+- Action count: `9`
+- `click_selector` — `VAL/val_2a_deploy_bundle_validator.py`
+  - required: `action`
+- `exec_js`
+  - required: `action`, `script`
+- `exec_js_file`
+  - required: `action`, `path`
+- `log`
+  - required: `action`, `message`
+- `open` — `PIPE/pipe_1d_step_executor.py`
+  - required: `action`, `url`
+- `repeat`
+  - required: `action`, `steps`, `times`
+- `switch_back_to_main_tab`
+  - required: `action`
+- `type_selector_secret`
+  - required: `action`, `secret`
+- `wait_for_selector`
+  - required: `action`
+
+## Public module exports (from DOC index)
+
+
+## Smoke-test mapping (from DOC index)
+
+- `dev\dev_smoke_10_1_1_failure_capture.py`
+  - validates: `SNAP\snap_1a_capture.py`
+  - validates: `SNAP\snap_1a_failure_capture.py`
+  - validates: `SNAP\snap_1a_workflow_capture.py`
+- `dev\dev_smoke_10_1_2_screenshot_capture.py`
+  - validates: `SNAP\snap_1b_screenshot_capture.py`
+  - validates: `SNAP\snap_1b_selector_pack.py`
+- `dev\dev_smoke_10_1_3_snapshot_persistence.py`
+  - validates: `SNAP\snap_1c_capture_bundle.py`
+  - validates: `SNAP\snap_1c_persist_artifacts.py`
+- `dev\dev_smoke_10_2_1_run_manifest.py`
+  - validates: `HISTORY\history_1a_run_manifest.py`
+  - validates: `HISTORY\history_1a_store.py`
+  - validates: `HISTORY\history_1a_workflow_grammar_gate_history.py`
+- `dev\dev_smoke_10_2_2_step_outcomes.py`
+  - validates: `HISTORY\history_1b_step_outcomes.py`
+- `dev\dev_smoke_10_2_3_error_normalization.py`
+  - validates: `HISTORY\history_1c_error_normalization.py`
+  - validates: `HISTORY\history_1c_run_history_loader.py`
+- `dev\dev_smoke_10_3_1_run_report.py`
+  - validates: `REPORT\report_1a_generate.py`
+  - validates: `REPORT\report_1a_run_report.py`
+  - validates: `REPORT\report_1a_step_logs_from_jsonl.py`
+  - validates: `REPORT\report_1a_workflow_grammar_gate_report.py`
+- `dev\dev_smoke_10_3_2_run_report_markdown.py`
+  - validates: `REPORT\report_1b_run_report_markdown.py`
+  - validates: `REPORT\report_1b_workflow_grammar_gate_report_text.py`
+- `dev\dev_smoke_10_3_3_junit_xml.py`
+  - validates: `REPORT\report_1c_junit_xml.py`
+  - validates: `REPORT\report_1c_workflow_grammar_gate_report_summary.py`
+- `dev\dev_smoke_10_4_1_generate_reports.py`
+  - validates: `REPORT\report_1d_generate_reports.py`
+- `dev\dev_smoke_10_4_2_post_run_reporting.py`
+  - validates: `RUN\run_1e_deploy_bundle_runner_adapter.py`
+  - validates: `RUN\run_1e_post_run_reporting.py`
+- `dev\dev_smoke_10_4_3_cli_generate_reports.py`
+  - validates: `CLI\cli_1f_generate_reports.py`
+  - validates: `CLI\cli_1f_run_deploy_bundle_with_report.py`
+- `dev\dev_smoke_12_1_1_slos_success_criteria.py`
+  - validates: `DOC\doc_12a_slos_success_criteria.py`
+- `dev\dev_smoke_12_1_2_operator_runbooks.py`
+  - validates: `DOC\doc_12b_operator_runbooks.py`
+- `dev\dev_smoke_12_1_3_support_escalation_paths.py`
+  - validates: `DOC\doc_12c_support_escalation_paths.py`
+- `dev\dev_smoke_12_2_1_versioning_policy.py`
+  - validates: `REGISTRY\reg_12a_versioning_policy.py`
+- `dev\dev_smoke_12_2_2_reviewable_diffs.py`
+  - validates: `DIFF\diff_12a_reviewable_diffs.py`
+- `dev\dev_smoke_12_2_3_promotion_gates.py`
+  - validates: `REGISTRY\reg_12b_promotion_gates.py`
+- `dev\dev_smoke_12_3_1_release_manifest.py`
+  - validates: `REPORT\report_12a_release_manifest.py`
+- `dev\dev_smoke_12_3_2_bundle_fingerprint.py`
+  - validates: `REPORT\report_12a_release_manifest.py`
+  - validates: `REPORT\report_12b_bundle_fingerprint.py`
+- `dev\dev_smoke_12_3_3_promotion_record.py`
+  - validates: `REGISTRY\reg_12b_promotion_gates.py`
+  - validates: `REPORT\report_12a_release_manifest.py`
+  - validates: `REPORT\report_12b_bundle_fingerprint.py`
+  - validates: `REPORT\report_12c_promotion_record.py`
+- `dev\dev_smoke_12_4_1_doctor_pre_run_checks.py`
+  - validates: `DOCTOR\doctor_12a_pre_run_checks.py`
+- `dev\dev_smoke_12_4_2_guard_prod_defaults.py`
+  - validates: `GUARD\guard_12a_prod_defaults.py`
+- `dev\dev_smoke_12_4_3_rollback_recovery_procedures.py`
+  - validates: `DOC\doc_12d_rollback_recovery_procedures.py`
+- `dev\dev_smoke_12_5_1_artifact_retention_policy.py`
+  - validates: `REPORT\report_12d_artifact_retention_policy.py`
+- `dev\dev_smoke_12_5_2_alerting_signals.py`
+  - validates: `REPORT\report_12e_alerting_signals.py`
+- `dev\dev_smoke_12_5_3_audit_logging_replay_spec.py`
+  - validates: `HISTORY\history_12a_audit_logging_replay_spec.py`
+- `dev\dev_smoke_12_5_4_replay_index_verifier.py`
+  - validates: `HISTORY\history_12a_audit_logging_replay_spec.py`
+  - validates: `REPLAY\replay_12a_index_verifier.py`
+- `dev\dev_smoke_12_5_5_incident_packet_manifest.py`
+  - validates: `REPORT\report_12f_incident_packet_manifest.py`
+- `dev\dev_smoke_12_5_6_release_readiness_gate.py`
+  - validates: `DOCTOR\doctor_12d_release_readiness_gate.py`
+- `dev\dev_smoke_12_5_7_evidence_bundle_assembler.py`
+  - validates: `REPORT\report_12g_evidence_bundle_assembler.py`
+- `dev\dev_smoke_12_6_1_prod_smoke_pipeline.py`
+  - validates: `REPORT\report_12g_evidence_bundle_assembler.py`
+  - validates: `RUN\run_12a_prod_smoke_pipeline.py`
+- `dev\dev_smoke_12_6_2_rollback_rerun_determinism.py`
+  - validates: `REPORT\report_12g_evidence_bundle_assembler.py`
+  - validates: `RUN\run_12b_rollback_rerun_determinism.py`
+- `dev\dev_smoke_12_6_3_operational_gates_enforcement.py`
+  - validates: `REPORT\report_12g_evidence_bundle_assembler.py`
+  - validates: `RUN\run_12c_operational_gates_enforcement.py`
+- `dev\dev_smoke_9_4_3_deterministic_generation.py`
+  - validates: `BUILD\build_2d_determinism.py`
+  - validates: `BUILD\build_2d_step_grammar_gate.py`
+- `dev\dev_smoke_9_4_3_run_history_loader.py`
+  - validates: `HISTORY\history_1c_error_normalization.py`
+  - validates: `HISTORY\history_1c_run_history_loader.py`
+- `dev\dev_smoke_act_1b_logging.py`
+  - validates: `ACT\act_1a_action_engine.py`
+  - validates: `ACT\act_1b_logging_integration.py`
+  - validates: `ENTRY\entry_1a_webdriver_bootstrap.py`
+  - validates: `ENTRY\entry_1a_workflow_grammar_gate.py`
+  - validates: `LOG\log_1a_structured_logging.py`
+- `dev\dev_smoke_act_1c.py`
+  - validates: `ACT\act_1c_conditional_guards.py`
+- `dev\dev_smoke_act_action_engine.py`
+  - validates: `ACT\act_1a_action_engine.py`
+  - validates: `ENTRY\entry_1a_webdriver_bootstrap.py`
+  - validates: `ENTRY\entry_1a_workflow_grammar_gate.py`
+- `dev\dev_smoke_act_download_wait.py`
+  - validates: `ACT\act_1a_action_engine.py`
+  - validates: `ENTRY\entry_1a_webdriver_bootstrap.py`
+  - validates: `ENTRY\entry_1a_workflow_grammar_gate.py`
+- `dev\dev_smoke_agent_1a_context_pack.py`
+  - validates: `AGENT\agent_1a_context_pack.py`
+- `dev\dev_smoke_agent_2a.py`
+  - validates: `AGENT\agent_2a_autonomous_loop.py`
+- `dev\dev_smoke_agent_2b.py`
+  - validates: `AGENT\agent_2b_scheduler.py`
+- `dev\dev_smoke_auth_1a.py`
+  - validates: `AUTH\auth_1a_form_login_guarded.py`
+- `dev\dev_smoke_auth_1b.py`
+  - validates: `AUTH\auth_1b_session_restore.py`
+- `dev\dev_smoke_build_1a.py`
+  - validates: `BUILD\build_1a_workflow_generator.py`
+  - validates: `BUILD\build_1a_workflow_grammar_gate_entrypoints.py`
+- `dev\dev_smoke_build_1a_workflow_grammar_gate_entrypoints.py`
+  - validates: `BUILD\build_1a_workflow_generator.py`
+  - validates: `BUILD\build_1a_workflow_grammar_gate_entrypoints.py`
+- `dev\dev_smoke_build_1b.py`
+  - validates: `BUILD\build_1a_workflow_generator.py`
+  - validates: `BUILD\build_1a_workflow_grammar_gate_entrypoints.py`
+  - validates: `BUILD\build_1b_intake_questionnaire.py`
+- `dev\dev_smoke_build_1c.py`
+  - validates: `BUILD\build_1c_action_normalizer.py`
+  - validates: `BUILD\build_1c_smoke_stub_generator.py`
+- `dev\dev_smoke_build_2a.py`
+  - validates: `BUILD\build_2a_nl_spec_generator.py`
+  - validates: `BUILD\build_2a_repeat_support.py`
+- `dev\dev_smoke_build_2b.py`
+  - validates: `BUILD\build_2b_plan_optimizer.py`
+- `dev\dev_smoke_build_2c.py`
+  - validates: `BUILD\build_2c_full_bundle.py`
+- `dev\dev_smoke_build_2d.py`
+  - validates: `BUILD\build_2d_determinism.py`
+  - validates: `BUILD\build_2d_step_grammar_gate.py`
+- `dev\dev_smoke_build_2e.py`
+  - validates: `BUILD\build_2e_workflow_grammar_gate.py`
+- `dev\dev_smoke_build_2f.py`
+  - validates: `BUILD\build_2f_workflow_file_grammar_gate.py`
+- `dev\dev_smoke_build_2g.py`
+  - validates: `BUILD\build_2g_workflow_tree_grammar_gate.py`
+- `dev\dev_smoke_build_3a_deploy_bundle_format.py`
+  - validates: `BUILD\build_3a_deploy_bundle_format.py`
+  - validates: `SNAP\snap_1a_capture.py`
+  - validates: `SNAP\snap_1a_failure_capture.py`
+  - validates: `SNAP\snap_1a_workflow_capture.py`
+  - validates: `SNAP\snap_1c_capture_bundle.py`
+  - validates: `SNAP\snap_1c_persist_artifacts.py`
+- `dev\dev_smoke_build_3b_bundle_fingerprint.py`
+  - validates: `BUILD\build_3b_bundle_fingerprint.py`
+- `dev\dev_smoke_build_3c_deploy_bundle_builder.py`
+  - validates: `BUILD\build_3c_deploy_bundle_builder.py`
+  - validates: `SNAP\snap_1a_capture.py`
+  - validates: `SNAP\snap_1a_failure_capture.py`
+  - validates: `SNAP\snap_1a_workflow_capture.py`
+  - validates: `SNAP\snap_1c_capture_bundle.py`
+  - validates: `SNAP\snap_1c_persist_artifacts.py`
+- `dev\dev_smoke_build_3d_doc_index_artifact_bundler.py`
+  - validates: `BUILD\build_3d_doc_index_artifact_bundler.py`
+- `dev\dev_smoke_build_3e_bundle_build_manifest_integrator.py`
+  - validates: `BUILD\build_3e_bundle_build_manifest_integrator.py`
+- `dev\dev_smoke_capture_1a.py`
+  - validates: `CAPTURE\capture_1a_semi_auto.py`
+  - validates: `CAPTURE\capture_1a_step_recorder.py`
+  - validates: `SELECTOR\selector_1a_registry.py`
+- `dev\dev_smoke_cli_1a.py`
+  - validates: `CLI\cli_1a_capture_to_deploy_bundle.py`
+  - validates: `CLI\cli_1a_run_pipeline.py`
+  - validates: `CLI\cli_1a_workflow_grammar_gate.py`
+  - validates: `CLI\cli_pack_1a.py`
+- `dev\dev_smoke_cli_1a_workflow_grammar_gate.py`
+  - validates: `CLI\cli_1a_capture_to_deploy_bundle.py`
+  - validates: `CLI\cli_1a_run_pipeline.py`
+  - validates: `CLI\cli_1a_workflow_grammar_gate.py`
+  - validates: `CLI\cli_pack_1a.py`
+  - validates: `DOCTOR\doctor_1b_workflow_grammar_gate.py`
+  - validates: `HISTORY\history_1a_run_manifest.py`
+  - validates: `HISTORY\history_1a_store.py`
+  - validates: `HISTORY\history_1a_workflow_grammar_gate_history.py`
+- `dev\dev_smoke_cli_1b.py`
+  - validates: `CLI\cli_1b_capture_to_deploy_bundle.py`
+  - validates: `CLI\cli_1b_config_loader.py`
+- `dev\dev_smoke_cli_1b_config_loader.py`
+  - validates: `CLI\cli_1b_capture_to_deploy_bundle.py`
+  - validates: `CLI\cli_1b_config_loader.py`
+- `dev\dev_smoke_cli_1c.py`
+  - validates: `CLI\cli_1c_args_overrides.py`
+  - validates: `CLI\cli_1c_capture_to_deploy_bundle.py`
+- `dev\dev_smoke_cli_1e_run_deploy_bundle.py`
+  - validates: `BUILD\build_3c_deploy_bundle_builder.py`
+  - validates: `CLI\cli_1e_deploy_bundle_info.py`
+  - validates: `CLI\cli_1e_run_deploy_bundle.py`
+  - validates: `SNAP\snap_1a_capture.py`
+  - validates: `SNAP\snap_1a_failure_capture.py`
+  - validates: `SNAP\snap_1a_workflow_capture.py`
+  - validates: `SNAP\snap_1c_capture_bundle.py`
+  - validates: `SNAP\snap_1c_persist_artifacts.py`
+- `dev\dev_smoke_cli_1f_run_deploy_bundle_with_report.py`
+  - validates: `BUILD\build_3c_deploy_bundle_builder.py`
+  - validates: `CLI\cli_1f_generate_reports.py`
+  - validates: `CLI\cli_1f_run_deploy_bundle_with_report.py`
+  - validates: `REPORT\report_1e_build_manifest_artifact.py`
+  - validates: `REPORT\report_1e_deploy_bundle_validation_report_writer.py`
+  - validates: `SNAP\snap_1a_capture.py`
+  - validates: `SNAP\snap_1a_failure_capture.py`
+  - validates: `SNAP\snap_1a_workflow_capture.py`
+  - validates: `SNAP\snap_1c_capture_bundle.py`
+  - validates: `SNAP\snap_1c_persist_artifacts.py`
+- `dev\dev_smoke_cli_1g_run_deploy_bundle_with_report_fail_fast.py`
+  - validates: `BUILD\build_3c_deploy_bundle_builder.py`
+  - validates: `CLI\cli_1g_run_deploy_bundle_with_report_fail_fast.py`
+  - validates: `CLI\cli_1g_workflow_grammar_gate.py`
+  - validates: `REPORT\report_1e_build_manifest_artifact.py`
+  - validates: `REPORT\report_1e_deploy_bundle_validation_report_writer.py`
+  - validates: `SNAP\snap_1a_capture.py`
+  - validates: `SNAP\snap_1a_failure_capture.py`
+  - validates: `SNAP\snap_1a_workflow_capture.py`
+  - validates: `SNAP\snap_1c_capture_bundle.py`
+  - validates: `SNAP\snap_1c_persist_artifacts.py`
+- `dev\dev_smoke_cli_1g_workflow_grammar_gate.py`
+  - validates: `CLI\cli_1g_run_deploy_bundle_with_report_fail_fast.py`
+  - validates: `CLI\cli_1g_workflow_grammar_gate.py`
+- `dev\dev_smoke_cli_1h_run_deploy_bundle_cli_resolver.py`
+  - validates: `BUILD\build_3c_deploy_bundle_builder.py`
+  - validates: `CLI\cli_1h_run_deploy_bundle_cli_resolver.py`
+  - validates: `CLI\cli_1h_workflow_grammar_gate_pipeline.py`
+  - validates: `REPORT\report_1e_build_manifest_artifact.py`
+  - validates: `REPORT\report_1e_deploy_bundle_validation_report_writer.py`
+  - validates: `SNAP\snap_1a_capture.py`
+  - validates: `SNAP\snap_1a_failure_capture.py`
+  - validates: `SNAP\snap_1a_workflow_capture.py`
+  - validates: `SNAP\snap_1c_capture_bundle.py`
+  - validates: `SNAP\snap_1c_persist_artifacts.py`
+- `dev\dev_smoke_cli_1h_workflow_grammar_gate_pipeline.py`
+  - validates: `BUILD\build_2g_workflow_tree_grammar_gate.py`
+  - validates: `CLI\cli_1h_run_deploy_bundle_cli_resolver.py`
+  - validates: `CLI\cli_1h_workflow_grammar_gate_pipeline.py`
+- `dev\dev_smoke_cli_1i_build_doc_index_artifact.py`
+  - validates: `CLI\cli_1i_build_doc_index_artifact.py`
+  - validates: `CLI\cli_1i_bundle_doc_index_and_manifest_cli.py`
+- `dev\dev_smoke_cli_1i_bundle_doc_index_and_manifest_cli.py`
+  - validates: `CLI\cli_1i_build_doc_index_artifact.py`
+  - validates: `CLI\cli_1i_bundle_doc_index_and_manifest_cli.py`
+- `dev\dev_smoke_cli_2b.py`
+  - validates: `CLI\cli_2b_unified.py`
+- `dev\dev_smoke_deploy_1a.py`
+  - validates: `DEPLOY\deploy_1a_service_runner.py`
+- `dev\dev_smoke_diff_1a.py`
+  - validates: `DIFF\diff_1a_capture_edit_diff.py`
+  - validates: `DIFF\diff_1a_config_changes.py`
+  - validates: `DIFF\diff_1a_workflow_grammar_gate_report_diff.py`
+- `dev\dev_smoke_diff_1a_capture_edit_diff.py`
+  - validates: `DIFF\diff_1a_capture_edit_diff.py`
+  - validates: `DIFF\diff_1a_config_changes.py`
+  - validates: `DIFF\diff_1a_workflow_grammar_gate_report_diff.py`
+- `dev\dev_smoke_diff_1a_workflow_grammar_gate_report_diff.py`
+  - validates: `DIFF\diff_1a_capture_edit_diff.py`
+  - validates: `DIFF\diff_1a_config_changes.py`
+  - validates: `DIFF\diff_1a_workflow_grammar_gate_report_diff.py`
+  - validates: `DOCTOR\doctor_1b_workflow_grammar_gate.py`
+- `dev\dev_smoke_doc_1a.py`
+  - validates: `DOC\doc_1a_library_index.py`
+  - validates: `DOC\doc_1a_workflow_grammar_gate.py`
+  - validates: `DOC\runbook_1a_generator.py`
+- `dev\dev_smoke_doc_1a_library_index.py`
+  - validates: `DOC\doc_1a_library_index.py`
+  - validates: `DOC\doc_1a_workflow_grammar_gate.py`
+  - validates: `DOC\runbook_1a_generator.py`
+- `dev\dev_smoke_doc_1a_workflow_grammar_gate.py`
+  - validates: `DOC\doc_1a_library_index.py`
+  - validates: `DOC\doc_1a_workflow_grammar_gate.py`
+  - validates: `DOC\runbook_1a_generator.py`
+- `dev\dev_smoke_doc_1e_cli_run_deploy_bundle_cli_resolver_entry.py`
+  - validates: `DOC\doc_1e_cli_run_deploy_bundle_cli_resolver_entry.py`
+- `dev\dev_smoke_doc_1f_doc_index_aggregator.py`
+  - validates: `DOC\doc_1f_doc_index_aggregator.py`
+- `dev\dev_smoke_doc_1g_doc_index_entry_contract.py`
+  - validates: `DOC\doc_1g_doc_index_entry_contract.py`
+- `dev\dev_smoke_doc_1h_doc_index_collect_validate.py`
+  - validates: `DOC\doc_1h_doc_index_collect_validate.py`
+- `dev\dev_smoke_doc_doc_index_entry_cli_1i_bundle_doc_index_and_manifest_cli.py`
+  - validates: `BUILD\build_3d_doc_index_artifact_bundler.py`
+  - validates: `DOC\doc_1f_doc_index_aggregator.py`
+  - validates: `DOC\doc_index_entry_cli_1i_bundle_doc_index_and_manifest_cli.py`
+- `dev\dev_smoke_doctor_1a.py`
+  - validates: `DOCTOR\doctor_1a_check.py`
+  - validates: `DOCTOR\doctor_1a_workflow_grammar_gate.py`
+- `dev\dev_smoke_doctor_1a_workflow_grammar_gate.py`
+  - validates: `BUILD\build_2g_workflow_tree_grammar_gate.py`
+  - validates: `DOCTOR\doctor_1a_check.py`
+  - validates: `DOCTOR\doctor_1a_workflow_grammar_gate.py`
+- `dev\dev_smoke_doctor_1b_workflow_grammar_gate.py`
+  - validates: `BUILD\build_2g_workflow_tree_grammar_gate.py`
+  - validates: `DOCTOR\doctor_1b_workflow_grammar_gate.py`
+- `dev\dev_smoke_entry_1a_workflow_grammar_gate.py`
+  - validates: `ENTRY\entry_1a_webdriver_bootstrap.py`
+  - validates: `ENTRY\entry_1a_workflow_grammar_gate.py`
+- `dev\dev_smoke_entry_bootstrap.py`
+  - validates: `ENTRY\entry_1a_webdriver_bootstrap.py`
+  - validates: `ENTRY\entry_1a_workflow_grammar_gate.py`
+- `dev\dev_smoke_guard_1a.py`
+  - validates: `GUARD\guard_1a_runtime.py`
+  - validates: `GUARD\guard_1a_workflow_grammar_gate_guard.py`
+  - validates: `GUARD\guard_1a_workflow_grammar_guard.py`
+- `dev\dev_smoke_guard_1a_workflow_grammar_gate_guard.py`
+  - validates: `DOCTOR\doctor_1b_workflow_grammar_gate.py`
+  - validates: `GUARD\guard_1a_runtime.py`
+  - validates: `GUARD\guard_1a_workflow_grammar_gate_guard.py`
+  - validates: `GUARD\guard_1a_workflow_grammar_guard.py`
+- `dev\dev_smoke_guard_1a_workflow_grammar_guard.py`
+  - validates: `GUARD\guard_1a_runtime.py`
+  - validates: `GUARD\guard_1a_workflow_grammar_gate_guard.py`
+  - validates: `GUARD\guard_1a_workflow_grammar_guard.py`
+- `dev\dev_smoke_heal_1a.py`
+  - validates: `HEAL\heal_1a_patch_workflow.py`
+- `dev\dev_smoke_history_1a.py`
+  - validates: `HISTORY\history_1a_run_manifest.py`
+  - validates: `HISTORY\history_1a_store.py`
+  - validates: `HISTORY\history_1a_workflow_grammar_gate_history.py`
+- `dev\dev_smoke_history_1a_workflow_grammar_gate_history.py`
+  - validates: `DOCTOR\doctor_1b_workflow_grammar_gate.py`
+  - validates: `HISTORY\history_1a_run_manifest.py`
+  - validates: `HISTORY\history_1a_store.py`
+  - validates: `HISTORY\history_1a_workflow_grammar_gate_history.py`
+- `dev\dev_smoke_input_1b_excel_provider.py`
+  - validates: `INPUT\input_1b_excel_provider.py`
+- `dev\dev_smoke_learn_1a.py`
+  - validates: `LEARN\learn_1a_failure_patterns.py`
+- `dev\dev_smoke_learn_1b.py`
+  - validates: `LEARN\learn_1b_selector_intelligence.py`
+- `dev\dev_smoke_lint_1a.py`
+  - validates: `LINT\lint_1a_steps_validator.py`
+- `dev\dev_smoke_log_1a.py`
+  - validates: `LOG\log_1a_structured_logging.py`
+- `dev\dev_smoke_log_1b.py`
+  - validates: `LOG\log_1b_error_taxonomy.py`
+  - validates: `LOG\log_1b_logger_reset.py`
+- `dev\dev_smoke_nav_1a.py`
+  - validates: `ENTRY\entry_1a_webdriver_bootstrap.py`
+  - validates: `ENTRY\entry_1a_workflow_grammar_gate.py`
+  - validates: `NAV\nav_1a_selenium_helpers.py`
+- `dev\dev_smoke_obs_1a.py`
+  - validates: `OBS\obs_1a_run_timeline.py`
+- `dev\dev_smoke_out_1a.py`
+  - validates: `OUT\out_1a_download_wait.py`
+- `dev\dev_smoke_out_1b.py`
+  - validates: `OUT\out_1b_artifact_manager.py`
+- `dev\dev_smoke_phase_11_5_1_capture_to_workflow_validity.py`
+  - validates: `SNAP\snap_1a_capture.py`
+  - validates: `SNAP\snap_1a_failure_capture.py`
+  - validates: `SNAP\snap_1a_workflow_capture.py`
+  - validates: `SNAP\snap_1b_screenshot_capture.py`
+  - validates: `SNAP\snap_1b_selector_pack.py`
+- `dev\dev_smoke_phase_11_5_2_bundle_packaging_determinism.py`
+  - validates: `SNAP\snap_1a_capture.py`
+  - validates: `SNAP\snap_1a_failure_capture.py`
+  - validates: `SNAP\snap_1a_workflow_capture.py`
+  - validates: `SNAP\snap_1b_screenshot_capture.py`
+  - validates: `SNAP\snap_1b_selector_pack.py`
+- `dev\dev_smoke_phase_11_5_3_deploy_run_path_minimal.py`
+  - validates: `SNAP\snap_1a_capture.py`
+  - validates: `SNAP\snap_1a_failure_capture.py`
+  - validates: `SNAP\snap_1a_workflow_capture.py`
+  - validates: `SNAP\snap_1b_screenshot_capture.py`
+  - validates: `SNAP\snap_1b_selector_pack.py`
+- `dev\dev_smoke_pipe_1a.py`
+  - validates: `PIPE\pipe_1a_run_orchestrator.py`
+  - validates: `PIPE\pipe_1a_workflow_grammar_gate_pipeline.py`
+- `dev\dev_smoke_pipe_1a_workflow_grammar_gate_pipeline.py`
+  - validates: `BUILD\build_2g_workflow_tree_grammar_gate.py`
+  - validates: `PIPE\pipe_1a_run_orchestrator.py`
+  - validates: `PIPE\pipe_1a_workflow_grammar_gate_pipeline.py`
+- `dev\dev_smoke_pipe_1b.py`
+  - validates: `PIPE\pipe_1b_worklist_config.py`
+- `dev\dev_smoke_pipe_1c.py`
+  - validates: `PIPE\pipe_1a_run_orchestrator.py`
+  - validates: `PIPE\pipe_1a_workflow_grammar_gate_pipeline.py`
+  - validates: `PIPE\pipe_1c_steps_loader.py`
+- `dev\dev_smoke_pipe_1d_a.py`
+  - validates: `PIPE\pipe_1c_steps_loader.py`
+  - validates: `PIPE\pipe_1d_step_executor.py`
+- `dev\dev_smoke_pipe_1e.py`
+  - validates: `PIPE\pipe_1e_runner.py`
+- `dev\dev_smoke_pipe_2a.py`
+  - validates: `PIPE\pipe_2a_var_aware_steps.py`
+  - validates: `VAR\var_1a_runtime_store.py`
+- `dev\dev_smoke_pipe_2b.py`
+  - validates: `PIPE\pipe_2b_step_blocks.py`
+  - validates: `VAR\var_1a_runtime_store.py`
+- `dev\dev_smoke_pipe_2c.py`
+  - validates: `LOG\log_1b_error_taxonomy.py`
+  - validates: `LOG\log_1b_logger_reset.py`
+  - validates: `PIPE\pipe_2b_step_blocks.py`
+  - validates: `PIPE\pipe_2c_error_plumbing.py`
+- `dev\dev_smoke_pipe_2d.py`
+  - validates: `PIPE\pipe_2d_artifact_integration.py`
+- `dev\dev_smoke_pipe_2e.py`
+  - validates: `PIPE\pipe_2e_run_summary.py`
+- `dev\dev_smoke_plan_1a.py`
+  - validates: `LINT\lint_1a_steps_validator.py`
+  - validates: `PLAN\plan_1a_step_planner.py`
+- `dev\dev_smoke_reason_1a.py`
+  - validates: `REASON\reason_1a_diagnose.py`
+- `dev\dev_smoke_registry_1a.py`
+  - validates: `REGISTRY\registry_1a_generate.py`
+- `dev\dev_smoke_replay_1a.py`
+  - validates: `REPLAY\replay_1a_run_replay.py`
+- `dev\dev_smoke_report_1a.py`
+  - validates: `REPORT\report_1a_generate.py`
+  - validates: `REPORT\report_1a_run_report.py`
+  - validates: `REPORT\report_1a_step_logs_from_jsonl.py`
+  - validates: `REPORT\report_1a_workflow_grammar_gate_report.py`
+- `dev\dev_smoke_report_1a_workflow_grammar_gate_report.py`
+  - validates: `BUILD\build_2g_workflow_tree_grammar_gate.py`
+  - validates: `REPORT\report_1a_generate.py`
+  - validates: `REPORT\report_1a_run_report.py`
+  - validates: `REPORT\report_1a_step_logs_from_jsonl.py`
+  - validates: `REPORT\report_1a_workflow_grammar_gate_report.py`
+- `dev\dev_smoke_report_1b_workflow_grammar_gate_report_text.py`
+  - validates: `BUILD\build_2g_workflow_tree_grammar_gate.py`
+  - validates: `REPORT\report_1a_generate.py`
+  - validates: `REPORT\report_1a_run_report.py`
+  - validates: `REPORT\report_1a_step_logs_from_jsonl.py`
+  - validates: `REPORT\report_1a_workflow_grammar_gate_report.py`
+  - validates: `REPORT\report_1b_run_report_markdown.py`
+  - validates: `REPORT\report_1b_workflow_grammar_gate_report_text.py`
+- `dev\dev_smoke_report_1c_workflow_grammar_gate_report_summary.py`
+  - validates: `DOCTOR\doctor_1b_workflow_grammar_gate.py`
+  - validates: `REPORT\report_1c_junit_xml.py`
+  - validates: `REPORT\report_1c_workflow_grammar_gate_report_summary.py`
+- `dev\dev_smoke_report_1e_build_manifest_artifact.py`
+  - validates: `BUILD\build_3d_doc_index_artifact_bundler.py`
+  - validates: `REPORT\report_1e_build_manifest_artifact.py`
+  - validates: `REPORT\report_1e_deploy_bundle_validation_report_writer.py`
+- `dev\dev_smoke_report_1e_deploy_bundle_validation_report_writer.py`
+  - validates: `BUILD\build_3c_deploy_bundle_builder.py`
+  - validates: `REPORT\report_1e_build_manifest_artifact.py`
+  - validates: `REPORT\report_1e_deploy_bundle_validation_report_writer.py`
+  - validates: `SNAP\snap_1a_capture.py`
+  - validates: `SNAP\snap_1a_failure_capture.py`
+  - validates: `SNAP\snap_1a_workflow_capture.py`
+  - validates: `SNAP\snap_1c_capture_bundle.py`
+  - validates: `SNAP\snap_1c_persist_artifacts.py`
+- `dev\dev_smoke_run_1a.py`
+  - validates: `RUN\run_1a_workflow_grammar_gate.py`
+  - validates: `RUN\run_1a_workflow_grammar_gate_run.py`
+  - validates: `RUN\run_1a_workflow_runner.py`
+- `dev\dev_smoke_run_1a_workflow_grammar_gate.py`
+  - validates: `RUN\run_1a_workflow_grammar_gate.py`
+  - validates: `RUN\run_1a_workflow_grammar_gate_run.py`
+  - validates: `RUN\run_1a_workflow_runner.py`
+- `dev\dev_smoke_run_1a_workflow_grammar_gate_run.py`
+  - validates: `DOCTOR\doctor_1b_workflow_grammar_gate.py`
+  - validates: `HISTORY\history_1a_run_manifest.py`
+  - validates: `HISTORY\history_1a_store.py`
+  - validates: `HISTORY\history_1a_workflow_grammar_gate_history.py`
+  - validates: `RUN\run_1a_workflow_grammar_gate.py`
+  - validates: `RUN\run_1a_workflow_grammar_gate_run.py`
+  - validates: `RUN\run_1a_workflow_runner.py`
+- `dev\dev_smoke_run_1e_deploy_bundle_runner_adapter.py`
+  - validates: `BUILD\build_3c_deploy_bundle_builder.py`
+  - validates: `RUN\run_1e_deploy_bundle_runner_adapter.py`
+  - validates: `RUN\run_1e_post_run_reporting.py`
+  - validates: `SNAP\snap_1a_capture.py`
+  - validates: `SNAP\snap_1a_failure_capture.py`
+  - validates: `SNAP\snap_1a_workflow_capture.py`
+  - validates: `SNAP\snap_1c_capture_bundle.py`
+  - validates: `SNAP\snap_1c_persist_artifacts.py`
+- `dev\dev_smoke_schema_1a.py`
+  - validates: `SCHEMA\schema_1a_generate.py`
+- `dev\dev_smoke_selector_1a.py`
+  - validates: `SELECTOR\selector_1a_registry.py`
+- `dev\dev_smoke_snap_1a.py`
+  - validates: `SNAP\snap_1a_capture.py`
+  - validates: `SNAP\snap_1a_failure_capture.py`
+  - validates: `SNAP\snap_1a_workflow_capture.py`
+- `dev\dev_smoke_snap_1a_workflow_capture.py`
+  - validates: `SNAP\snap_1a_capture.py`
+  - validates: `SNAP\snap_1a_failure_capture.py`
+  - validates: `SNAP\snap_1a_workflow_capture.py`
+- `dev\dev_smoke_snap_1b_selector_pack.py`
+  - validates: `SNAP\snap_1a_capture.py`
+  - validates: `SNAP\snap_1a_failure_capture.py`
+  - validates: `SNAP\snap_1a_workflow_capture.py`
+  - validates: `SNAP\snap_1b_screenshot_capture.py`
+  - validates: `SNAP\snap_1b_selector_pack.py`
+- `dev\dev_smoke_snap_1c_capture_bundle.py`
+  - validates: `SNAP\snap_1a_capture.py`
+  - validates: `SNAP\snap_1a_failure_capture.py`
+  - validates: `SNAP\snap_1a_workflow_capture.py`
+  - validates: `SNAP\snap_1c_capture_bundle.py`
+  - validates: `SNAP\snap_1c_persist_artifacts.py`
+- `dev\dev_smoke_snap_1d_bundle_io.py`
+  - validates: `SNAP\snap_1a_capture.py`
+  - validates: `SNAP\snap_1a_failure_capture.py`
+  - validates: `SNAP\snap_1a_workflow_capture.py`
+  - validates: `SNAP\snap_1c_capture_bundle.py`
+  - validates: `SNAP\snap_1c_persist_artifacts.py`
+  - validates: `SNAP\snap_1d_bundle_io.py`
+- `dev\dev_smoke_snap_1e_bundle_export.py`
+  - validates: `SNAP\snap_1a_capture.py`
+  - validates: `SNAP\snap_1a_failure_capture.py`
+  - validates: `SNAP\snap_1a_workflow_capture.py`
+  - validates: `SNAP\snap_1c_capture_bundle.py`
+  - validates: `SNAP\snap_1c_persist_artifacts.py`
+  - validates: `SNAP\snap_1d_bundle_io.py`
+  - validates: `SNAP\snap_1e_bundle_export.py`
+- `dev\dev_smoke_snap_1f_materialize_selectors.py`
+  - validates: `SNAP\snap_1a_capture.py`
+  - validates: `SNAP\snap_1a_failure_capture.py`
+  - validates: `SNAP\snap_1a_workflow_capture.py`
+  - validates: `SNAP\snap_1c_capture_bundle.py`
+  - validates: `SNAP\snap_1c_persist_artifacts.py`
+  - validates: `SNAP\snap_1f_materialize_selectors.py`
+- `dev\dev_smoke_state_1c.py`
+  - validates: `STATE\state_1c_retry_helpers.py`
+- `dev\dev_smoke_state_1d.py`
+  - validates: `LOG\log_1b_error_taxonomy.py`
+  - validates: `LOG\log_1b_logger_reset.py`
+  - validates: `STATE\state_1d_manifest_row_helpers.py`
+- `dev\dev_smoke_state_input.py`
+  - validates: `STATE\state_1b_manifest_jsonl.py`
+- `dev\dev_smoke_val_1a.py`
+  - validates: `VAL\val_1a_ui_state.py`
+- `dev\dev_smoke_val_1b.py`
+  - validates: `VAL\val_1b_download_validation.py`
+- `dev\dev_smoke_val_2a_deploy_bundle_validator.py`
+  - validates: `BUILD\build_3a_deploy_bundle_format.py`
+  - validates: `BUILD\build_3b_bundle_fingerprint.py`
+  - validates: `SNAP\snap_1a_capture.py`
+  - validates: `SNAP\snap_1a_failure_capture.py`
+  - validates: `SNAP\snap_1a_workflow_capture.py`
+  - validates: `SNAP\snap_1c_capture_bundle.py`
+  - validates: `SNAP\snap_1c_persist_artifacts.py`
+  - validates: `VAL\val_2a_deploy_bundle_validator.py`
+- `dev\dev_smoke_var_1a.py`
+  - validates: `VAR\var_1a_runtime_store.py`
+- `dev\dev_smoke_workflow_1a_loader.py`
+  - validates: `WORKFLOWS\workflow_1a_loader.py`
+- `dev\dev_smoke_workflow_1e_steps_normalizer.py`
+  - validates: `WORKFLOW\workflow_1e_steps_normalizer.py`
+- `dev\dev_smoke_workflow_1f_selector_ref_first.py`
+  - validates: `WORKFLOW\workflow_1f_selector_ref_first.py`
+- `dev\dev_smoke_workflow_1g_deploy_bundle_loader.py`
+  - validates: `BUILD\build_3c_deploy_bundle_builder.py`
+  - validates: `SNAP\snap_1a_capture.py`
+  - validates: `SNAP\snap_1a_failure_capture.py`
+  - validates: `SNAP\snap_1a_workflow_capture.py`
+  - validates: `SNAP\snap_1c_capture_bundle.py`
+  - validates: `SNAP\snap_1c_persist_artifacts.py`
+  - validates: `WORKFLOWS\workflow_1g_deploy_bundle_loader.py`
+- `dev\dev_smoke_workflow_workflow_2a_capture_actions_to_schema_steps.py`
+  - validates: `WORKFLOW\workflow_2a_capture_actions_to_schema_steps.py`
+- `dev\dev_smoke_workflow_workflow_2b_capture_js_event_recorder.py`
+  - validates: `WORKFLOW\workflow_2b_capture_js_event_recorder.py`
+- `dev\dev_smoke_workflow_workflow_2c_capture_events_to_schema_steps_encoder.py`
+  - validates: `WORKFLOW\workflow_2c_capture_events_to_schema_steps_encoder.py`
+
+## Canonical End-to-End Run
+
+- Name: **Production Smoke Pipeline**
+- Entry point: `PIPE/pipe_1e_runner.py`
+- Smoke test: `dev/dev_smoke_12_6_1_prod_smoke_pipeline.py`
+
+Canonical end-to-end run validating workflow execution, artifact generation, and production readiness gates.
+
+### Readiness Criteria
+- workflow grammar gates pass
+- pipeline execution completes
+- release manifest is generated
+- bundle fingerprint is generated
+- DOCTOR gates pass
+- GUARD gates pass
+
+## Selector inventory summary
+
+- selectors.json not present at `C:\Users\nmart224\OneDrive - UHG\Agent\RPA_LIBRARY\data\selectors.json`

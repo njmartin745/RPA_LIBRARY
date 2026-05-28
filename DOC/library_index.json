@@ -1,0 +1,4328 @@
+{
+  "generated_at": "2026-05-07T17:56:22.170400+00:00",
+  "modules": [
+    {
+      "exports": [],
+      "milestone": ".DEV_TMP",
+      "option_id": ".DEV_TMP-??",
+      "path": ".dev_tmp\\build_2c_smoke\\dev\\dev_smoke_open_example_com_and_verify_page_title.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": ".DEV_TMP",
+      "option_id": ".DEV_TMP-??",
+      "path": ".dev_tmp\\cli_2b_smoke\\dev\\dev_smoke_open_example_com_and_verify_page_title.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "StepOutcome",
+        "ActionEngineError",
+        "run_actions",
+        "outcomes_as_dicts",
+        "outcomes_all_ok",
+        "dev_smoke"
+      ],
+      "milestone": "ACT",
+      "option_id": "ACT-1A",
+      "path": "ACT\\act_1a_action_engine.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_act_1b_logging.py",
+        "dev\\dev_smoke_act_action_engine.py",
+        "dev\\dev_smoke_act_download_wait.py"
+      ]
+    },
+    {
+      "exports": [
+        "run_actions_logged",
+        "dev_smoke"
+      ],
+      "milestone": "ACT",
+      "option_id": "ACT-1B",
+      "path": "ACT\\act_1b_logging_integration.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_act_1b_logging.py"
+      ]
+    },
+    {
+      "exports": [
+        "element_exists",
+        "text_equals",
+        "text_contains",
+        "attribute_equals",
+        "should_run_step"
+      ],
+      "milestone": "ACT",
+      "option_id": "ACT-1C",
+      "path": "ACT\\act_1c_conditional_guards.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_act_1c.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "ACT",
+      "option_id": "ACT-??",
+      "path": "ACT\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "generate_agent_context_pack",
+        "main"
+      ],
+      "milestone": "AGENT",
+      "option_id": "AGENT-1A",
+      "path": "AGENT\\agent_1a_context_pack.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_agent_1a_context_pack.py"
+      ]
+    },
+    {
+      "exports": [
+        "run_autonomous"
+      ],
+      "milestone": "AGENT",
+      "option_id": "AGENT-2A",
+      "path": "AGENT\\agent_2a_autonomous_loop.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_agent_2a.py"
+      ]
+    },
+    {
+      "exports": [
+        "run_continuous",
+        "run_once_with_delay"
+      ],
+      "milestone": "AGENT",
+      "option_id": "AGENT-2B",
+      "path": "AGENT\\agent_2b_scheduler.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_agent_2b.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "AGENT",
+      "option_id": "AGENT-??",
+      "path": "AGENT\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "ensure_logged_in",
+        "login"
+      ],
+      "milestone": "AUTH",
+      "option_id": "AUTH-1A",
+      "path": "AUTH\\auth_1a_form_login_guarded.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_auth_1a.py"
+      ]
+    },
+    {
+      "exports": [
+        "session_paths",
+        "save_cookies",
+        "load_cookies",
+        "restore_or_login"
+      ],
+      "milestone": "AUTH",
+      "option_id": "AUTH-1B",
+      "path": "AUTH\\auth_1b_session_restore.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_auth_1b.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "AUTH",
+      "option_id": "AUTH-??",
+      "path": "AUTH\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "BASE_APP.PY",
+      "option_id": "BASE_APP.PY-??",
+      "path": "base_app.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "generate_workflow",
+        "validate_spec",
+        "normalize_spec",
+        "suggest_missing_fields"
+      ],
+      "milestone": "BUILD",
+      "option_id": "BUILD-1A",
+      "path": "BUILD\\build_1a_workflow_generator.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_build_1a.py",
+        "dev\\dev_smoke_build_1a_workflow_grammar_gate_entrypoints.py",
+        "dev\\dev_smoke_build_1b.py"
+      ]
+    },
+    {
+      "exports": [
+        "get_workflow_grammar_gate_entrypoints",
+        "get_workflow_grammar_gate_console_scripts"
+      ],
+      "milestone": "BUILD",
+      "option_id": "BUILD-1A",
+      "path": "BUILD\\build_1a_workflow_grammar_gate_entrypoints.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_build_1a.py",
+        "dev\\dev_smoke_build_1a_workflow_grammar_gate_entrypoints.py",
+        "dev\\dev_smoke_build_1b.py"
+      ]
+    },
+    {
+      "exports": [
+        "default_questions",
+        "run_intake",
+        "build_spec_from_answers"
+      ],
+      "milestone": "BUILD",
+      "option_id": "BUILD-1B",
+      "path": "BUILD\\build_1b_intake_questionnaire.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_build_1b.py"
+      ]
+    },
+    {
+      "exports": [
+        "ACTION_ALIASES",
+        "normalize_action_name",
+        "normalize_step_actions",
+        "normalize_steps_actions",
+        "normalize_workflow_actions",
+        "dev_smoke"
+      ],
+      "milestone": "BUILD",
+      "option_id": "BUILD-1C",
+      "path": "BUILD\\build_1c_action_normalizer.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_build_1c.py"
+      ]
+    },
+    {
+      "exports": [
+        "generate_smoke_stub",
+        "load_workflow_metadata"
+      ],
+      "milestone": "BUILD",
+      "option_id": "BUILD-1C",
+      "path": "BUILD\\build_1c_smoke_stub_generator.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_build_1c.py"
+      ]
+    },
+    {
+      "exports": [
+        "SUPPORTED_ACTIONS",
+        "nl_to_build_spec",
+        "validate_generated_steps"
+      ],
+      "milestone": "BUILD",
+      "option_id": "BUILD-2A",
+      "path": "BUILD\\build_2a_nl_spec_generator.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_build_2a.py"
+      ]
+    },
+    {
+      "exports": [
+        "normalized_allowed_actions",
+        "normalize_and_filter_steps_keep_repeat",
+        "validate_steps_allow_repeat",
+        "dev_smoke"
+      ],
+      "milestone": "BUILD",
+      "option_id": "BUILD-2A",
+      "path": "BUILD\\build_2a_repeat_support.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_build_2a.py"
+      ]
+    },
+    {
+      "exports": [
+        "analyze_spec",
+        "apply_optimizations",
+        "optimize_spec"
+      ],
+      "milestone": "BUILD",
+      "option_id": "BUILD-2B",
+      "path": "BUILD\\build_2b_plan_optimizer.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_build_2b.py"
+      ]
+    },
+    {
+      "exports": [
+        "build_from_nl"
+      ],
+      "milestone": "BUILD",
+      "option_id": "BUILD-2C",
+      "path": "BUILD\\build_2c_full_bundle.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_build_2c.py"
+      ]
+    },
+    {
+      "exports": [
+        "canonicalize_for_json",
+        "stable_json_dumps",
+        "stable_fingerprint_sha256",
+        "dev_smoke"
+      ],
+      "milestone": "BUILD",
+      "option_id": "BUILD-2D",
+      "path": "BUILD\\build_2d_determinism.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_9_4_3_deterministic_generation.py",
+        "dev\\dev_smoke_build_2d.py"
+      ]
+    },
+    {
+      "exports": [
+        "ALLOWED_ACTIONS",
+        "GrammarViolation",
+        "find_unsupported_actions",
+        "assert_supported_actions",
+        "strip_unsupported_actions"
+      ],
+      "milestone": "BUILD",
+      "option_id": "BUILD-2D",
+      "path": "BUILD\\build_2d_step_grammar_gate.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_9_4_3_deterministic_generation.py",
+        "dev\\dev_smoke_build_2d.py"
+      ]
+    },
+    {
+      "exports": [
+        "WorkflowGateResult",
+        "find_workflow_unsupported_actions",
+        "assert_workflow_supported_actions",
+        "sanitize_workflow_steps"
+      ],
+      "milestone": "BUILD",
+      "option_id": "BUILD-2E",
+      "path": "BUILD\\build_2e_workflow_grammar_gate.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_build_2e.py"
+      ]
+    },
+    {
+      "exports": [
+        "WorkflowFileGateResult",
+        "load_workflow_json_file",
+        "dump_workflow_json_text",
+        "gate_workflow_file_assert",
+        "gate_workflow_file_sanitize"
+      ],
+      "milestone": "BUILD",
+      "option_id": "BUILD-2F",
+      "path": "BUILD\\build_2f_workflow_file_grammar_gate.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_build_2f.py"
+      ]
+    },
+    {
+      "exports": [
+        "WorkflowTreeGateResult",
+        "list_workflow_json_files",
+        "gate_workflow_tree_assert",
+        "gate_workflow_tree_sanitize"
+      ],
+      "milestone": "BUILD",
+      "option_id": "BUILD-2G",
+      "path": "BUILD\\build_2g_workflow_tree_grammar_gate.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_build_2g.py",
+        "dev\\dev_smoke_cli_1h_workflow_grammar_gate_pipeline.py",
+        "dev\\dev_smoke_doctor_1a_workflow_grammar_gate.py",
+        "dev\\dev_smoke_doctor_1b_workflow_grammar_gate.py",
+        "dev\\dev_smoke_pipe_1a_workflow_grammar_gate_pipeline.py",
+        "dev\\dev_smoke_report_1a_workflow_grammar_gate_report.py",
+        "dev\\dev_smoke_report_1b_workflow_grammar_gate_report_text.py"
+      ]
+    },
+    {
+      "exports": [
+        "DEPLOY_BUNDLE_SCHEMA_ID",
+        "build_deploy_bundle_from_capture_bundle",
+        "dev_smoke"
+      ],
+      "milestone": "BUILD",
+      "option_id": "BUILD-3A",
+      "path": "BUILD\\build_3a_deploy_bundle_format.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_build_3a_deploy_bundle_format.py",
+        "dev\\dev_smoke_val_2a_deploy_bundle_validator.py"
+      ]
+    },
+    {
+      "exports": [
+        "DEFAULT_FINGERPRINT_DROP_TOP_LEVEL_KEYS",
+        "canonical_bytes_for_fingerprint",
+        "compute_sha256_hex",
+        "compute_bundle_fingerprint",
+        "stamp_bundle_version_and_fingerprint",
+        "dev_smoke"
+      ],
+      "milestone": "BUILD",
+      "option_id": "BUILD-3B",
+      "path": "BUILD\\build_3b_bundle_fingerprint.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_build_3b_bundle_fingerprint.py",
+        "dev\\dev_smoke_val_2a_deploy_bundle_validator.py"
+      ]
+    },
+    {
+      "exports": [
+        "build_stamp_validate_deploy_bundle_1a",
+        "build_stamp_validate_deploy_bundle_1a_with_report",
+        "dev_smoke"
+      ],
+      "milestone": "BUILD",
+      "option_id": "BUILD-3C",
+      "path": "BUILD\\build_3c_deploy_bundle_builder.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_build_3c_deploy_bundle_builder.py",
+        "dev\\dev_smoke_cli_1e_run_deploy_bundle.py",
+        "dev\\dev_smoke_cli_1f_run_deploy_bundle_with_report.py",
+        "dev\\dev_smoke_cli_1g_run_deploy_bundle_with_report_fail_fast.py",
+        "dev\\dev_smoke_cli_1h_run_deploy_bundle_cli_resolver.py",
+        "dev\\dev_smoke_report_1e_deploy_bundle_validation_report_writer.py",
+        "dev\\dev_smoke_run_1e_deploy_bundle_runner_adapter.py",
+        "dev\\dev_smoke_workflow_1g_deploy_bundle_loader.py"
+      ]
+    },
+    {
+      "exports": [
+        "write_doc_index_artifact_to_bundle_out_dir_1a",
+        "dev_smoke"
+      ],
+      "milestone": "BUILD",
+      "option_id": "BUILD-3D",
+      "path": "BUILD\\build_3d_doc_index_artifact_bundler.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_build_3d_doc_index_artifact_bundler.py",
+        "dev\\dev_smoke_doc_doc_index_entry_cli_1i_bundle_doc_index_and_manifest_cli.py",
+        "dev\\dev_smoke_report_1e_build_manifest_artifact.py"
+      ]
+    },
+    {
+      "exports": [
+        "discover_bundle_artifact_rel_paths_1a",
+        "build_bundle_out_dir_doc_index_and_manifest_1a",
+        "dev_smoke"
+      ],
+      "milestone": "BUILD",
+      "option_id": "BUILD-3E",
+      "path": "BUILD\\build_3e_bundle_build_manifest_integrator.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_build_3e_bundle_build_manifest_integrator.py"
+      ]
+    },
+    {
+      "exports": [
+        "ensure_deploy_bundle_version_fingerprint_1a",
+        "dev_smoke"
+      ],
+      "milestone": "BUILD",
+      "option_id": "BUILD-3F",
+      "path": "BUILD\\build_3f_deploy_bundle_stamper.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dumps_deploy_bundle_1a_json",
+        "write_deploy_bundle_1a_to_path",
+        "dev_smoke"
+      ],
+      "milestone": "BUILD",
+      "option_id": "BUILD-3G",
+      "path": "BUILD\\build_3g_deploy_bundle_writer.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "load_json_mapping_from_path",
+        "build_write_deploy_bundle_1a_from_capture_bundle",
+        "build_write_deploy_bundle_1a_from_capture_bundle_path",
+        "dev_smoke"
+      ],
+      "milestone": "BUILD",
+      "option_id": "BUILD-3H",
+      "path": "BUILD\\build_3h_capture_to_deploy_bundle_pipeline.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "generate_workflow",
+        "validate_spec",
+        "normalize_spec",
+        "suggest_missing_fields"
+      ],
+      "milestone": "BUILD",
+      "option_id": "BUILD-??",
+      "path": "BUILD\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "capture_session"
+      ],
+      "milestone": "CAPTURE",
+      "option_id": "CAPTURE-1A",
+      "path": "CAPTURE\\capture_1a_semi_auto.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_capture_1a.py"
+      ]
+    },
+    {
+      "exports": [
+        "SUPPORTED_STEP_ACTIONS",
+        "Capture1AStepRecorder",
+        "event_to_schema_step",
+        "dev_smoke"
+      ],
+      "milestone": "CAPTURE",
+      "option_id": "CAPTURE-1A",
+      "path": "CAPTURE\\capture_1a_step_recorder.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_capture_1a.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "CAPTURE",
+      "option_id": "CAPTURE-??",
+      "path": "CAPTURE\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "build_arg_parser_1a",
+        "main",
+        "dev_smoke"
+      ],
+      "milestone": "CLI",
+      "option_id": "CLI-1A",
+      "path": "CLI\\cli_1a_capture_to_deploy_bundle.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_cli_1a.py",
+        "dev\\dev_smoke_cli_1a_workflow_grammar_gate.py"
+      ]
+    },
+    {
+      "exports": [
+        "run_pipeline"
+      ],
+      "milestone": "CLI",
+      "option_id": "CLI-1A",
+      "path": "CLI\\cli_1a_run_pipeline.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_cli_1a.py",
+        "dev\\dev_smoke_cli_1a_workflow_grammar_gate.py"
+      ]
+    },
+    {
+      "exports": [
+        "cli_workflow_grammar_gate"
+      ],
+      "milestone": "CLI",
+      "option_id": "CLI-1A",
+      "path": "CLI\\cli_1a_workflow_grammar_gate.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_cli_1a.py",
+        "dev\\dev_smoke_cli_1a_workflow_grammar_gate.py"
+      ]
+    },
+    {
+      "exports": [
+        "main"
+      ],
+      "milestone": "CLI",
+      "option_id": "CLI-1A",
+      "path": "CLI\\cli_pack_1a.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_cli_1a.py",
+        "dev\\dev_smoke_cli_1a_workflow_grammar_gate.py"
+      ]
+    },
+    {
+      "exports": [
+        "build_arg_parser_1a",
+        "main",
+        "dev_smoke"
+      ],
+      "milestone": "CLI",
+      "option_id": "CLI-1B",
+      "path": "CLI\\cli_1b_capture_to_deploy_bundle.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_cli_1b.py",
+        "dev\\dev_smoke_cli_1b_config_loader.py"
+      ]
+    },
+    {
+      "exports": [
+        "load_config"
+      ],
+      "milestone": "CLI",
+      "option_id": "CLI-1B",
+      "path": "CLI\\cli_1b_config_loader.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_cli_1b.py",
+        "dev\\dev_smoke_cli_1b_config_loader.py"
+      ]
+    },
+    {
+      "exports": [
+        "build_arg_parser",
+        "apply_overrides"
+      ],
+      "milestone": "CLI",
+      "option_id": "CLI-1C",
+      "path": "CLI\\cli_1c_args_overrides.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_cli_1c.py"
+      ]
+    },
+    {
+      "exports": [
+        "build_arg_parser_1a",
+        "main",
+        "dev_smoke"
+      ],
+      "milestone": "CLI",
+      "option_id": "CLI-1C",
+      "path": "CLI\\cli_1c_capture_to_deploy_bundle.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_cli_1c.py"
+      ]
+    },
+    {
+      "exports": [
+        "discover_capture_bundle_1a_path",
+        "build_arg_parser_1d",
+        "main",
+        "dev_smoke"
+      ],
+      "milestone": "CLI",
+      "option_id": "CLI-1D",
+      "path": "CLI\\cli_1d_capture_to_deploy_bundle_auto.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "build_arg_parser_1e",
+        "summarize_deploy_bundle_1a",
+        "main",
+        "dev_smoke"
+      ],
+      "milestone": "CLI",
+      "option_id": "CLI-1E",
+      "path": "CLI\\cli_1e_deploy_bundle_info.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_cli_1e_run_deploy_bundle.py"
+      ]
+    },
+    {
+      "exports": [
+        "run_deploy_bundle_path_1a",
+        "build_arg_parser",
+        "main",
+        "dev_smoke"
+      ],
+      "milestone": "CLI",
+      "option_id": "CLI-1E",
+      "path": "CLI\\cli_1e_run_deploy_bundle.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_cli_1e_run_deploy_bundle.py"
+      ]
+    },
+    {
+      "exports": [
+        "build_arg_parser",
+        "run_cli_generate_reports",
+        "main",
+        "dev_smoke"
+      ],
+      "milestone": "CLI",
+      "option_id": "CLI-1F",
+      "path": "CLI\\cli_1f_generate_reports.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_4_3_cli_generate_reports.py",
+        "dev\\dev_smoke_cli_1f_run_deploy_bundle_with_report.py"
+      ]
+    },
+    {
+      "exports": [
+        "run_deploy_bundle_path_1a_with_optional_validation_report",
+        "build_arg_parser",
+        "main",
+        "dev_smoke"
+      ],
+      "milestone": "CLI",
+      "option_id": "CLI-1F",
+      "path": "CLI\\cli_1f_run_deploy_bundle_with_report.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_4_3_cli_generate_reports.py",
+        "dev\\dev_smoke_cli_1f_run_deploy_bundle_with_report.py"
+      ]
+    },
+    {
+      "exports": [
+        "build_arg_parser",
+        "main",
+        "dev_smoke"
+      ],
+      "milestone": "CLI",
+      "option_id": "CLI-1G",
+      "path": "CLI\\cli_1g_run_deploy_bundle_with_report_fail_fast.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_cli_1g_run_deploy_bundle_with_report_fail_fast.py",
+        "dev\\dev_smoke_cli_1g_workflow_grammar_gate.py"
+      ]
+    },
+    {
+      "exports": [
+        "build_arg_parser",
+        "run_cli",
+        "main"
+      ],
+      "milestone": "CLI",
+      "option_id": "CLI-1G",
+      "path": "CLI\\cli_1g_workflow_grammar_gate.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_cli_1g_run_deploy_bundle_with_report_fail_fast.py",
+        "dev\\dev_smoke_cli_1g_workflow_grammar_gate.py"
+      ]
+    },
+    {
+      "exports": [
+        "resolve_latest_run_deploy_bundle_cli_module",
+        "resolve_latest_run_deploy_bundle_main",
+        "main",
+        "dev_smoke"
+      ],
+      "milestone": "CLI",
+      "option_id": "CLI-1H",
+      "path": "CLI\\cli_1h_run_deploy_bundle_cli_resolver.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_cli_1h_run_deploy_bundle_cli_resolver.py",
+        "dev\\dev_smoke_cli_1h_workflow_grammar_gate_pipeline.py"
+      ]
+    },
+    {
+      "exports": [
+        "build_arg_parser",
+        "cli_main"
+      ],
+      "milestone": "CLI",
+      "option_id": "CLI-1H",
+      "path": "CLI\\cli_1h_workflow_grammar_gate_pipeline.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_cli_1h_run_deploy_bundle_cli_resolver.py",
+        "dev\\dev_smoke_cli_1h_workflow_grammar_gate_pipeline.py"
+      ]
+    },
+    {
+      "exports": [
+        "build_arg_parser",
+        "build_doc_index_artifact_from_repo_1a",
+        "main",
+        "dev_smoke"
+      ],
+      "milestone": "CLI",
+      "option_id": "CLI-1I",
+      "path": "CLI\\cli_1i_build_doc_index_artifact.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_cli_1i_build_doc_index_artifact.py",
+        "dev\\dev_smoke_cli_1i_bundle_doc_index_and_manifest_cli.py"
+      ]
+    },
+    {
+      "exports": [
+        "build_arg_parser_1a",
+        "run_cli_1a",
+        "dev_smoke"
+      ],
+      "milestone": "CLI",
+      "option_id": "CLI-1I",
+      "path": "CLI\\cli_1i_bundle_doc_index_and_manifest_cli.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_cli_1i_build_doc_index_artifact.py",
+        "dev\\dev_smoke_cli_1i_bundle_doc_index_and_manifest_cli.py"
+      ]
+    },
+    {
+      "exports": [
+        "main"
+      ],
+      "milestone": "CLI",
+      "option_id": "CLI-2B",
+      "path": "CLI\\cli_2b_unified.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_cli_2b.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "CLI",
+      "option_id": "CLI-??",
+      "path": "CLI\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "run_service",
+        "run_single_job"
+      ],
+      "milestone": "DEPLOY",
+      "option_id": "DEPLOY-1A",
+      "path": "DEPLOY\\deploy_1a_service_runner.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_deploy_1a.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_agent_1a_context_pack.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_auth_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_build_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_build_1a_workflow_grammar_gate_entrypoints.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_capture_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_cli_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_cli_1a_workflow_grammar_gate.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_deploy_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_diff_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_diff_1a_capture_edit_diff.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_diff_1a_workflow_grammar_gate_report_diff.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_doc_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_doc_1a_library_index.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_doc_1a_workflow_grammar_gate.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_doctor_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_doctor_1a_workflow_grammar_gate.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_entry_1a_workflow_grammar_gate.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_guard_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_guard_1a_workflow_grammar_gate_guard.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_guard_1a_workflow_grammar_guard.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_heal_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_history_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_history_1a_workflow_grammar_gate_history.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_learn_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_lint_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_log_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_nav_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_obs_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_out_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_pack_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_pipe_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_pipe_1a_workflow_grammar_gate_pipeline.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_plan_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_reason_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_registry_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_replay_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_report_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_report_1a_workflow_grammar_gate_report.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_run_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_run_1a_workflow_grammar_gate.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_run_1a_workflow_grammar_gate_run.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_schema_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_selector_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_snap_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_snap_1a_workflow_capture.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_val_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_var_1a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1A",
+      "path": "dev\\dev_smoke_workflow_1a_loader.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1B",
+      "path": "dev\\dev_smoke_act_1b_logging.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1B",
+      "path": "dev\\dev_smoke_auth_1b.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1B",
+      "path": "dev\\dev_smoke_build_1b.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1B",
+      "path": "dev\\dev_smoke_cli_1b.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1B",
+      "path": "dev\\dev_smoke_cli_1b_config_loader.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1B",
+      "path": "dev\\dev_smoke_doctor_1b_workflow_grammar_gate.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1B",
+      "path": "dev\\dev_smoke_input_1b_excel_provider.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1B",
+      "path": "dev\\dev_smoke_learn_1b.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1B",
+      "path": "dev\\dev_smoke_log_1b.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1B",
+      "path": "dev\\dev_smoke_out_1b.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1B",
+      "path": "dev\\dev_smoke_pipe_1b.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1B",
+      "path": "dev\\dev_smoke_report_1b_workflow_grammar_gate_report_text.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-1B",
+      "path": "dev\\dev_smoke_snap_1b_selector_pack.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1B",
+      "path": "dev\\dev_smoke_val_1b.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1C",
+      "path": "dev\\dev_smoke_act_1c.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1C",
+      "path": "dev\\dev_smoke_build_1c.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1C",
+      "path": "dev\\dev_smoke_cli_1c.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1C",
+      "path": "dev\\dev_smoke_pipe_1c.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1C",
+      "path": "dev\\dev_smoke_report_1c_workflow_grammar_gate_report_summary.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-1C",
+      "path": "dev\\dev_smoke_snap_1c_capture_bundle.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1C",
+      "path": "dev\\dev_smoke_state_1c.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1D",
+      "path": "dev\\dev_smoke_pipe_1d_a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-1D",
+      "path": "dev\\dev_smoke_snap_1d_bundle_io.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1D",
+      "path": "dev\\dev_smoke_state_1d.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-1E",
+      "path": "dev\\dev_smoke_cli_1e_run_deploy_bundle.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-1E",
+      "path": "dev\\dev_smoke_doc_1e_cli_run_deploy_bundle_cli_resolver_entry.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1E",
+      "path": "dev\\dev_smoke_pipe_1e.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-1E",
+      "path": "dev\\dev_smoke_report_1e_build_manifest_artifact.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-1E",
+      "path": "dev\\dev_smoke_report_1e_deploy_bundle_validation_report_writer.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-1E",
+      "path": "dev\\dev_smoke_run_1e_deploy_bundle_runner_adapter.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-1E",
+      "path": "dev\\dev_smoke_snap_1e_bundle_export.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-1E",
+      "path": "dev\\dev_smoke_workflow_1e_steps_normalizer.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-1F",
+      "path": "dev\\dev_smoke_cli_1f_run_deploy_bundle_with_report.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-1F",
+      "path": "dev\\dev_smoke_doc_1f_doc_index_aggregator.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-1F",
+      "path": "dev\\dev_smoke_snap_1f_materialize_selectors.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-1F",
+      "path": "dev\\dev_smoke_workflow_1f_selector_ref_first.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-1G",
+      "path": "dev\\dev_smoke_cli_1g_run_deploy_bundle_with_report_fail_fast.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1G",
+      "path": "dev\\dev_smoke_cli_1g_workflow_grammar_gate.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-1G",
+      "path": "dev\\dev_smoke_doc_1g_doc_index_entry_contract.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-1G",
+      "path": "dev\\dev_smoke_workflow_1g_deploy_bundle_loader.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-1H",
+      "path": "dev\\dev_smoke_cli_1h_run_deploy_bundle_cli_resolver.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-1H",
+      "path": "dev\\dev_smoke_cli_1h_workflow_grammar_gate_pipeline.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-1H",
+      "path": "dev\\dev_smoke_doc_1h_doc_index_collect_validate.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-1I",
+      "path": "dev\\dev_smoke_cli_1i_build_doc_index_artifact.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-1I",
+      "path": "dev\\dev_smoke_cli_1i_bundle_doc_index_and_manifest_cli.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-1I",
+      "path": "dev\\dev_smoke_doc_doc_index_entry_cli_1i_bundle_doc_index_and_manifest_cli.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-2A",
+      "path": "dev\\dev_smoke_agent_2a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-2A",
+      "path": "dev\\dev_smoke_build_2a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-2A",
+      "path": "dev\\dev_smoke_pipe_2a.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-2A",
+      "path": "dev\\dev_smoke_val_2a_deploy_bundle_validator.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-2A",
+      "path": "dev\\dev_smoke_workflow_workflow_2a_capture_actions_to_schema_steps.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-2B",
+      "path": "dev\\dev_smoke_agent_2b.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-2B",
+      "path": "dev\\dev_smoke_build_2b.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-2B",
+      "path": "dev\\dev_smoke_cli_2b.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-2B",
+      "path": "dev\\dev_smoke_pipe_2b.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-2B",
+      "path": "dev\\dev_smoke_workflow_workflow_2b_capture_js_event_recorder.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-2C",
+      "path": "dev\\dev_smoke_build_2c.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-2C",
+      "path": "dev\\dev_smoke_pipe_2c.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-2C",
+      "path": "dev\\dev_smoke_workflow_workflow_2c_capture_events_to_schema_steps_encoder.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-2D",
+      "path": "dev\\dev_smoke_build_2d.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-2D",
+      "path": "dev\\dev_smoke_pipe_2d.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-2E",
+      "path": "dev\\dev_smoke_build_2e.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-2E",
+      "path": "dev\\dev_smoke_pipe_2e.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-2F",
+      "path": "dev\\dev_smoke_build_2f.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-2G",
+      "path": "dev\\dev_smoke_build_2g.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-3A",
+      "path": "dev\\dev_smoke_build_3a_deploy_bundle_format.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-3B",
+      "path": "dev\\dev_smoke_build_3b_bundle_fingerprint.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-3C",
+      "path": "dev\\dev_smoke_build_3c_deploy_bundle_builder.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-3D",
+      "path": "dev\\dev_smoke_build_3d_doc_index_artifact_bundler.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-3E",
+      "path": "dev\\dev_smoke_build_3e_bundle_build_manifest_integrator.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "main"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_10_1_1_failure_capture.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "main"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_10_1_2_screenshot_capture.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "main"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_10_1_3_snapshot_persistence.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "main"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_10_2_1_run_manifest.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "main"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_10_2_2_step_outcomes.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "main"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_10_2_3_error_normalization.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "main"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_10_3_1_run_report.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "main"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_10_3_2_run_report_markdown.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "main"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_10_3_3_junit_xml.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "main"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_10_4_1_generate_reports.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "main"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_10_4_2_post_run_reporting.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "main"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_10_4_3_cli_generate_reports.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_12_1_1_slos_success_criteria.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_12_1_2_operator_runbooks.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_12_1_3_support_escalation_paths.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_12_2_1_versioning_policy.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_12_2_2_reviewable_diffs.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_12_2_3_promotion_gates.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_12_3_1_release_manifest.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_12_3_2_bundle_fingerprint.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_12_3_3_promotion_record.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_12_4_1_doctor_pre_run_checks.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_12_4_2_guard_prod_defaults.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_12_4_3_rollback_recovery_procedures.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_12_5_1_artifact_retention_policy.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_12_5_2_alerting_signals.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_12_5_3_audit_logging_replay_spec.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_12_5_4_replay_index_verifier.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_12_5_5_incident_packet_manifest.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_12_5_6_release_readiness_gate.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_12_5_7_evidence_bundle_assembler.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_12_6_1_prod_smoke_pipeline.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_12_6_2_rollback_rerun_determinism.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_12_6_3_operational_gates_enforcement.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "main"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_9_4_3_deterministic_generation.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "main"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_9_4_3_run_history_loader.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_act_action_engine.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_act_download_wait.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_entry_bootstrap.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_go_to_google_search_for_something_click_result_then_go_back_and_search_again.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_go_to_google_search_for_weather_click_first_result.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_login_to_a_site_and_download_a_report.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_login_to_portal_and_export_report.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_open_a_slow_website_and_click_something_immediately.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_open_example_com_and_click_login_button_that_does_not_exist.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_open_example_com_click_login_and_verify_page_title.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_open_google_and_click_search.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_phase_11_5_1_capture_to_workflow_validity.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_phase_11_5_2_bundle_packaging_determinism.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_phase_11_5_3_deploy_run_path_minimal.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\dev_smoke_state_input.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "ensure_repo_root_on_syspath",
+        "dev_smoke"
+      ],
+      "milestone": "DEV",
+      "option_id": "DEV-??",
+      "path": "dev\\sitecustomize.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "DiffKind",
+        "DiffResult",
+        "read_text_file",
+        "normalize_newlines",
+        "canonicalize_text",
+        "unified_diff_text",
+        "diff_texts_reviewable",
+        "diff_files_reviewable",
+        "check_reviewable_diff_required",
+        "write_text_file"
+      ],
+      "milestone": "DIFF",
+      "option_id": "DIFF-12A",
+      "path": "DIFF\\diff_12a_reviewable_diffs.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_12_2_2_reviewable_diffs.py"
+      ]
+    },
+    {
+      "exports": [
+        "canonical_json_dumps",
+        "compute_json_changes",
+        "render_unified_json_diff",
+        "diff_capture_edit",
+        "dev_smoke"
+      ],
+      "milestone": "DIFF",
+      "option_id": "DIFF-1A",
+      "path": "DIFF\\diff_1a_capture_edit_diff.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_diff_1a.py",
+        "dev\\dev_smoke_diff_1a_capture_edit_diff.py",
+        "dev\\dev_smoke_diff_1a_workflow_grammar_gate_report_diff.py"
+      ]
+    },
+    {
+      "exports": [
+        "compute_fingerprint",
+        "write_fingerprint",
+        "diff_fingerprints",
+        "write_diff_report"
+      ],
+      "milestone": "DIFF",
+      "option_id": "DIFF-1A",
+      "path": "DIFF\\diff_1a_config_changes.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_diff_1a.py",
+        "dev\\dev_smoke_diff_1a_capture_edit_diff.py",
+        "dev\\dev_smoke_diff_1a_workflow_grammar_gate_report_diff.py"
+      ]
+    },
+    {
+      "exports": [
+        "DIFF_SCHEMA_ID",
+        "diff_workflow_grammar_gate_reports"
+      ],
+      "milestone": "DIFF",
+      "option_id": "DIFF-1A",
+      "path": "DIFF\\diff_1a_workflow_grammar_gate_report_diff.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_diff_1a.py",
+        "dev\\dev_smoke_diff_1a_capture_edit_diff.py",
+        "dev\\dev_smoke_diff_1a_workflow_grammar_gate_report_diff.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "DIFF",
+      "option_id": "DIFF-??",
+      "path": "DIFF\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "SLO",
+        "SuccessCriterion",
+        "get_slos",
+        "get_success_criteria",
+        "render_slos_markdown",
+        "render_success_criteria_markdown",
+        "render_operational_standards_markdown",
+        "slos_to_json",
+        "success_criteria_to_json",
+        "write_text_file",
+        "write_operational_standards_markdown"
+      ],
+      "milestone": "DOC",
+      "option_id": "DOC-12A",
+      "path": "DOC\\doc_12a_slos_success_criteria.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_12_1_1_slos_success_criteria.py"
+      ]
+    },
+    {
+      "exports": [
+        "RunbookStep",
+        "Runbook",
+        "get_operator_runbooks",
+        "render_runbooks_markdown",
+        "runbooks_to_json",
+        "write_text_file",
+        "write_operator_runbooks_markdown"
+      ],
+      "milestone": "DOC",
+      "option_id": "DOC-12B",
+      "path": "DOC\\doc_12b_operator_runbooks.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_12_1_2_operator_runbooks.py"
+      ]
+    },
+    {
+      "exports": [
+        "SupportRole",
+        "SeverityLevel",
+        "ResponseTarget",
+        "EscalationRule",
+        "IncidentTicketRequirements",
+        "get_support_roles",
+        "get_severity_levels",
+        "get_response_targets",
+        "get_escalation_matrix",
+        "get_incident_ticket_requirements",
+        "render_support_escalation_markdown",
+        "support_escalation_to_json",
+        "write_text_file",
+        "write_support_escalation_markdown"
+      ],
+      "milestone": "DOC",
+      "option_id": "DOC-12C",
+      "path": "DOC\\doc_12c_support_escalation_paths.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_12_1_3_support_escalation_paths.py"
+      ]
+    },
+    {
+      "exports": [
+        "PlaybookStep",
+        "Procedure",
+        "RollbackRecoveryPlaybook",
+        "get_rollback_recovery_playbook",
+        "validate_playbook",
+        "playbook_to_json",
+        "render_playbook_markdown",
+        "write_text_file",
+        "write_playbook_json",
+        "write_playbook_markdown"
+      ],
+      "milestone": "DOC",
+      "option_id": "DOC-12D",
+      "path": "DOC\\doc_12d_rollback_recovery_procedures.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_12_4_3_rollback_recovery_procedures.py"
+      ]
+    },
+    {
+      "exports": [
+        "generate_library_index"
+      ],
+      "milestone": "DOC",
+      "option_id": "DOC-1A",
+      "path": "DOC\\doc_1a_library_index.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_doc_1a.py",
+        "dev\\dev_smoke_doc_1a_library_index.py",
+        "dev\\dev_smoke_doc_1a_workflow_grammar_gate.py"
+      ]
+    },
+    {
+      "exports": [
+        "build_workflow_grammar_gate_markdown"
+      ],
+      "milestone": "DOC",
+      "option_id": "DOC-1A",
+      "path": "DOC\\doc_1a_workflow_grammar_gate.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_doc_1a.py",
+        "dev\\dev_smoke_doc_1a_library_index.py",
+        "dev\\dev_smoke_doc_1a_workflow_grammar_gate.py"
+      ]
+    },
+    {
+      "exports": [
+        "generate_runbook"
+      ],
+      "milestone": "DOC",
+      "option_id": "DOC-1A",
+      "path": "DOC\\runbook_1a_generator.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_doc_1a.py",
+        "dev\\dev_smoke_doc_1a_library_index.py",
+        "dev\\dev_smoke_doc_1a_workflow_grammar_gate.py"
+      ]
+    },
+    {
+      "exports": [
+        "DOC_INDEX_ENTRY_1A",
+        "get_doc_index_entry_1a",
+        "dev_smoke"
+      ],
+      "milestone": "DOC",
+      "option_id": "DOC-1E",
+      "path": "DOC\\doc_1e_cli_run_deploy_bundle_cli_resolver_entry.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_doc_1e_cli_run_deploy_bundle_cli_resolver_entry.py"
+      ]
+    },
+    {
+      "exports": [
+        "iter_doc_module_names_in_dir_1a",
+        "load_doc_index_entry_from_module_1a",
+        "collect_doc_index_entries_1a",
+        "merge_doc_index_entries_1a",
+        "build_doc_index_artifact_1a",
+        "write_doc_index_artifact_1a",
+        "dev_smoke"
+      ],
+      "milestone": "DOC",
+      "option_id": "DOC-1F",
+      "path": "DOC\\doc_1f_doc_index_aggregator.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_doc_1f_doc_index_aggregator.py",
+        "dev\\dev_smoke_doc_doc_index_entry_cli_1i_bundle_doc_index_and_manifest_cli.py"
+      ]
+    },
+    {
+      "exports": [
+        "DOC_INDEX_ENTRY_KIND_1A",
+        "DOC_INDEX_LAYERS_1A",
+        "validate_doc_index_entry_1a",
+        "validate_doc_index_entries_1a",
+        "dev_smoke"
+      ],
+      "milestone": "DOC",
+      "option_id": "DOC-1G",
+      "path": "DOC\\doc_1g_doc_index_entry_contract.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_doc_1g_doc_index_entry_contract.py"
+      ]
+    },
+    {
+      "exports": [
+        "format_doc_index_validation_errors_1a",
+        "collect_and_validate_doc_index_entries_1a",
+        "dev_smoke"
+      ],
+      "milestone": "DOC",
+      "option_id": "DOC-1H",
+      "path": "DOC\\doc_1h_doc_index_collect_validate.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_doc_1h_doc_index_collect_validate.py"
+      ]
+    },
+    {
+      "exports": [
+        "DOC_INDEX_ENTRY_1A",
+        "DOC_INDEX_ENTRY",
+        "DOC_INDEX_ENTRIES_1A",
+        "DOC_INDEX_ENTRIES",
+        "get_doc_index_entries_1a",
+        "get_doc_index_entries",
+        "dev_smoke"
+      ],
+      "milestone": "DOC",
+      "option_id": "DOC-1I",
+      "path": "DOC\\doc_index_entry_cli_1i_bundle_doc_index_and_manifest_cli.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_doc_doc_index_entry_cli_1i_bundle_doc_index_and_manifest_cli.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "DOC",
+      "option_id": "DOC-??",
+      "path": "DOC\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "DoctorCheck",
+        "DoctorPolicy",
+        "DoctorDecision",
+        "get_doctor_policy",
+        "evaluate_doctor_policy",
+        "policy_to_json",
+        "render_policy_markdown",
+        "decision_to_json",
+        "render_decision_markdown",
+        "write_text_file",
+        "write_policy_json",
+        "write_policy_markdown",
+        "write_decision_json",
+        "write_decision_markdown"
+      ],
+      "milestone": "DOCTOR",
+      "option_id": "DOCTOR-12A",
+      "path": "DOCTOR\\doctor_12a_pre_run_checks.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_12_4_1_doctor_pre_run_checks.py"
+      ]
+    },
+    {
+      "exports": [
+        "CheckSpec",
+        "ReadinessPolicy",
+        "CheckObservation",
+        "CheckResult",
+        "ReadinessDecision",
+        "get_readiness_policy",
+        "validate_readiness_policy",
+        "evaluate_readiness",
+        "policy_to_json",
+        "render_policy_markdown",
+        "decision_to_json",
+        "render_decision_markdown",
+        "write_text_file",
+        "write_policy_json",
+        "write_policy_markdown",
+        "write_decision_json",
+        "write_decision_markdown"
+      ],
+      "milestone": "DOCTOR",
+      "option_id": "DOCTOR-12D",
+      "path": "DOCTOR\\doctor_12d_release_readiness_gate.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_12_5_6_release_readiness_gate.py"
+      ]
+    },
+    {
+      "exports": [
+        "run_preflight",
+        "format_preflight_report"
+      ],
+      "milestone": "DOCTOR",
+      "option_id": "DOCTOR-1A",
+      "path": "DOCTOR\\doctor_1a_check.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_doctor_1a.py",
+        "dev\\dev_smoke_doctor_1a_workflow_grammar_gate.py"
+      ]
+    },
+    {
+      "exports": [
+        "DoctorWorkflowGrammarGateOutcome",
+        "doctor_check_workflow_grammar",
+        "doctor_fix_workflow_grammar"
+      ],
+      "milestone": "DOCTOR",
+      "option_id": "DOCTOR-1A",
+      "path": "DOCTOR\\doctor_1a_workflow_grammar_gate.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_doctor_1a.py",
+        "dev\\dev_smoke_doctor_1a_workflow_grammar_gate.py"
+      ]
+    },
+    {
+      "exports": [
+        "WorkflowGrammarGateDiagnosis",
+        "doctor_workflow_grammar_gate_diagnosis"
+      ],
+      "milestone": "DOCTOR",
+      "option_id": "DOCTOR-1B",
+      "path": "DOCTOR\\doctor_1b_workflow_grammar_gate.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_cli_1a_workflow_grammar_gate.py",
+        "dev\\dev_smoke_diff_1a_workflow_grammar_gate_report_diff.py",
+        "dev\\dev_smoke_doctor_1b_workflow_grammar_gate.py",
+        "dev\\dev_smoke_guard_1a_workflow_grammar_gate_guard.py",
+        "dev\\dev_smoke_history_1a_workflow_grammar_gate_history.py",
+        "dev\\dev_smoke_report_1c_workflow_grammar_gate_report_summary.py",
+        "dev\\dev_smoke_run_1a_workflow_grammar_gate_run.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "DOCTOR",
+      "option_id": "DOCTOR-??",
+      "path": "DOCTOR\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "parse_headless",
+        "default_download_dir",
+        "resolve_driver_path",
+        "make_driver",
+        "dev_smoke"
+      ],
+      "milestone": "ENTRY",
+      "option_id": "ENTRY-1A",
+      "path": "ENTRY\\entry_1a_webdriver_bootstrap.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_act_1b_logging.py",
+        "dev\\dev_smoke_act_action_engine.py",
+        "dev\\dev_smoke_act_download_wait.py",
+        "dev\\dev_smoke_entry_1a_workflow_grammar_gate.py",
+        "dev\\dev_smoke_entry_bootstrap.py",
+        "dev\\dev_smoke_nav_1a.py"
+      ]
+    },
+    {
+      "exports": [
+        "main"
+      ],
+      "milestone": "ENTRY",
+      "option_id": "ENTRY-1A",
+      "path": "ENTRY\\entry_1a_workflow_grammar_gate.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_act_1b_logging.py",
+        "dev\\dev_smoke_act_action_engine.py",
+        "dev\\dev_smoke_act_download_wait.py",
+        "dev\\dev_smoke_entry_1a_workflow_grammar_gate.py",
+        "dev\\dev_smoke_entry_bootstrap.py",
+        "dev\\dev_smoke_nav_1a.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "ENTRY",
+      "option_id": "ENTRY-??",
+      "path": "ENTRY\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "GuardProfile",
+        "GuardPolicy",
+        "GuardViolation",
+        "GuardDecision",
+        "get_guard_policy",
+        "evaluate_guard_policy",
+        "policy_to_json",
+        "render_policy_markdown",
+        "decision_to_json",
+        "render_decision_markdown",
+        "write_text_file",
+        "write_policy_json",
+        "write_policy_markdown",
+        "write_decision_json",
+        "write_decision_markdown"
+      ],
+      "milestone": "GUARD",
+      "option_id": "GUARD-12A",
+      "path": "GUARD\\guard_12a_prod_defaults.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_12_4_2_guard_prod_defaults.py"
+      ]
+    },
+    {
+      "exports": [
+        "wrap_step_runner",
+        "guarded_call",
+        "normalize_guard_cfg"
+      ],
+      "milestone": "GUARD",
+      "option_id": "GUARD-1A",
+      "path": "GUARD\\guard_1a_runtime.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_guard_1a.py",
+        "dev\\dev_smoke_guard_1a_workflow_grammar_gate_guard.py",
+        "dev\\dev_smoke_guard_1a_workflow_grammar_guard.py"
+      ]
+    },
+    {
+      "exports": [
+        "WorkflowGrammarGateGuardDecision",
+        "guard_workflow_grammar_gate_report"
+      ],
+      "milestone": "GUARD",
+      "option_id": "GUARD-1A",
+      "path": "GUARD\\guard_1a_workflow_grammar_gate_guard.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_guard_1a.py",
+        "dev\\dev_smoke_guard_1a_workflow_grammar_gate_guard.py",
+        "dev\\dev_smoke_guard_1a_workflow_grammar_guard.py"
+      ]
+    },
+    {
+      "exports": [
+        "GuardOnViolationMode",
+        "WorkflowGrammarGuardConfig",
+        "format_grammar_violations_summary",
+        "guard_workflow_dict_for_execution",
+        "guard_workflow_path_for_execution"
+      ],
+      "milestone": "GUARD",
+      "option_id": "GUARD-1A",
+      "path": "GUARD\\guard_1a_workflow_grammar_guard.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_guard_1a.py",
+        "dev\\dev_smoke_guard_1a_workflow_grammar_gate_guard.py",
+        "dev\\dev_smoke_guard_1a_workflow_grammar_guard.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "GUARD",
+      "option_id": "GUARD-??",
+      "path": "GUARD\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "apply_diagnosis_patch"
+      ],
+      "milestone": "HEAL",
+      "option_id": "HEAL-1A",
+      "path": "HEAL\\heal_1a_patch_workflow.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_heal_1a.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "HEAL",
+      "option_id": "HEAL-??",
+      "path": "HEAL\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "AuditLogSpec",
+        "AuditEvent",
+        "ReplayIndex",
+        "get_audit_log_spec",
+        "validate_audit_event",
+        "validate_replay_index",
+        "canonical_event_dict",
+        "event_to_canonical_json",
+        "events_to_jsonl",
+        "sha256_hex",
+        "build_replay_index",
+        "spec_to_json",
+        "render_spec_markdown",
+        "replay_index_to_json",
+        "render_replay_index_markdown",
+        "write_text_file",
+        "write_jsonl_file"
+      ],
+      "milestone": "HISTORY",
+      "option_id": "HISTORY-12A",
+      "path": "HISTORY\\history_12a_audit_logging_replay_spec.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_12_5_3_audit_logging_replay_spec.py",
+        "dev\\dev_smoke_12_5_4_replay_index_verifier.py"
+      ]
+    },
+    {
+      "exports": [
+        "build_run_manifest",
+        "write_run_manifest",
+        "dev_smoke"
+      ],
+      "milestone": "HISTORY",
+      "option_id": "HISTORY-1A",
+      "path": "HISTORY\\history_1a_run_manifest.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_2_1_run_manifest.py",
+        "dev\\dev_smoke_cli_1a_workflow_grammar_gate.py",
+        "dev\\dev_smoke_history_1a.py",
+        "dev\\dev_smoke_history_1a_workflow_grammar_gate_history.py",
+        "dev\\dev_smoke_run_1a_workflow_grammar_gate_run.py"
+      ]
+    },
+    {
+      "exports": [
+        "sanitize_run_record",
+        "append_run_history",
+        "read_run_history",
+        "summarize_history"
+      ],
+      "milestone": "HISTORY",
+      "option_id": "HISTORY-1A",
+      "path": "HISTORY\\history_1a_store.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_2_1_run_manifest.py",
+        "dev\\dev_smoke_cli_1a_workflow_grammar_gate.py",
+        "dev\\dev_smoke_history_1a.py",
+        "dev\\dev_smoke_history_1a_workflow_grammar_gate_history.py",
+        "dev\\dev_smoke_run_1a_workflow_grammar_gate_run.py"
+      ]
+    },
+    {
+      "exports": [
+        "HISTORY_SCHEMA_ID",
+        "derive_run_id_workflow_grammar_gate",
+        "build_workflow_grammar_gate_history_record",
+        "append_workflow_grammar_gate_history_jsonl",
+        "read_workflow_grammar_gate_history_jsonl"
+      ],
+      "milestone": "HISTORY",
+      "option_id": "HISTORY-1A",
+      "path": "HISTORY\\history_1a_workflow_grammar_gate_history.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_2_1_run_manifest.py",
+        "dev\\dev_smoke_cli_1a_workflow_grammar_gate.py",
+        "dev\\dev_smoke_history_1a.py",
+        "dev\\dev_smoke_history_1a_workflow_grammar_gate_history.py",
+        "dev\\dev_smoke_run_1a_workflow_grammar_gate_run.py"
+      ]
+    },
+    {
+      "exports": [
+        "build_step_outcome",
+        "append_step_outcome",
+        "dev_smoke"
+      ],
+      "milestone": "HISTORY",
+      "option_id": "HISTORY-1B",
+      "path": "HISTORY\\history_1b_step_outcomes.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_2_2_step_outcomes.py"
+      ]
+    },
+    {
+      "exports": [
+        "normalize_exception",
+        "dev_smoke"
+      ],
+      "milestone": "HISTORY",
+      "option_id": "HISTORY-1C",
+      "path": "HISTORY\\history_1c_error_normalization.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_2_3_error_normalization.py",
+        "dev\\dev_smoke_9_4_3_run_history_loader.py"
+      ]
+    },
+    {
+      "exports": [
+        "load_run_history",
+        "dev_smoke"
+      ],
+      "milestone": "HISTORY",
+      "option_id": "HISTORY-1C",
+      "path": "HISTORY\\history_1c_run_history_loader.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_2_3_error_normalization.py",
+        "dev\\dev_smoke_9_4_3_run_history_loader.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "HISTORY",
+      "option_id": "HISTORY-??",
+      "path": "HISTORY\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "ExcelIdSpec",
+        "extract_ids_from_excel",
+        "load_worklist_ids",
+        "iter_worklist_ids",
+        "write_manifest_jsonl",
+        "build_manifest_from_excel",
+        "read_ids_from_excel",
+        "excel_to_ids",
+        "dev_smoke"
+      ],
+      "milestone": "INPUT",
+      "option_id": "INPUT-1B",
+      "path": "INPUT\\input_1b_excel_provider.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_input_1b_excel_provider.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "INPUT",
+      "option_id": "INPUT-??",
+      "path": "INPUT\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "load_history",
+        "extract_failure_patterns",
+        "rank_patterns",
+        "generate_recommendations"
+      ],
+      "milestone": "LEARN",
+      "option_id": "LEARN-1A",
+      "path": "LEARN\\learn_1a_failure_patterns.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_learn_1a.py"
+      ]
+    },
+    {
+      "exports": [
+        "analyze_selector_stability",
+        "score_selector",
+        "generate_selector_recommendations"
+      ],
+      "milestone": "LEARN",
+      "option_id": "LEARN-1B",
+      "path": "LEARN\\learn_1b_selector_intelligence.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_learn_1b.py"
+      ]
+    },
+    {
+      "exports": [
+        "load_history",
+        "extract_failure_patterns",
+        "rank_patterns",
+        "generate_recommendations"
+      ],
+      "milestone": "LEARN",
+      "option_id": "LEARN-??",
+      "path": "LEARN\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "load_steps_schema",
+        "validate_steps_data",
+        "validate_steps_file",
+        "format_report_text"
+      ],
+      "milestone": "LINT",
+      "option_id": "LINT-1A",
+      "path": "LINT\\lint_1a_steps_validator.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_lint_1a.py",
+        "dev\\dev_smoke_plan_1a.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "LINT",
+      "option_id": "LINT-??",
+      "path": "LINT\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "LINT",
+      "option_id": "LINT-??",
+      "path": "LINT\\lint_steps.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "setup_logging",
+        "get_logger",
+        "bind_context",
+        "clear_context",
+        "redact",
+        "log_event",
+        "log_exception"
+      ],
+      "milestone": "LOG",
+      "option_id": "LOG-1A",
+      "path": "LOG\\log_1a_structured_logging.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_act_1b_logging.py",
+        "dev\\dev_smoke_log_1a.py"
+      ]
+    },
+    {
+      "exports": [
+        "AUTH_ERROR",
+        "TIMEOUT",
+        "SELECTOR_NOT_FOUND",
+        "STALE_ELEMENT",
+        "CLICK_INTERCEPTED",
+        "JS_ERROR",
+        "DOWNLOAD_TIMEOUT",
+        "FILESYSTEM_ERROR",
+        "CONFIG_ERROR",
+        "UNKNOWN_ERROR",
+        "classify_exception",
+        "format_error_for_manifest"
+      ],
+      "milestone": "LOG",
+      "option_id": "LOG-1B",
+      "path": "LOG\\log_1b_error_taxonomy.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_log_1b.py",
+        "dev\\dev_smoke_pipe_2c.py",
+        "dev\\dev_smoke_state_1d.py"
+      ]
+    },
+    {
+      "exports": [
+        "reset_logger",
+        "setup_logging_force",
+        "dev_smoke"
+      ],
+      "milestone": "LOG",
+      "option_id": "LOG-1B",
+      "path": "LOG\\log_1b_logger_reset.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_log_1b.py",
+        "dev\\dev_smoke_pipe_2c.py",
+        "dev\\dev_smoke_state_1d.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "LOG",
+      "option_id": "LOG-??",
+      "path": "LOG\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "ItemOutcome",
+        "run_per_item_loop",
+        "iterate_items"
+      ],
+      "milestone": "LOOP",
+      "option_id": "LOOP-1B",
+      "path": "LOOP\\loop_1b_per_item.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "LOOP",
+      "option_id": "LOOP-??",
+      "path": "LOOP\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "wait_for_visible",
+        "wait_for_clickable",
+        "click",
+        "type_text",
+        "switch_to_frame",
+        "switch_to_default_content",
+        "wait_for_download"
+      ],
+      "milestone": "NAV",
+      "option_id": "NAV-1A",
+      "path": "NAV\\nav_1a_selenium_helpers.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_nav_1a.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "NAV",
+      "option_id": "NAV-??",
+      "path": "NAV\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "create_run_timeline",
+        "record_step_event",
+        "finalize_timeline"
+      ],
+      "milestone": "OBS",
+      "option_id": "OBS-1A",
+      "path": "OBS\\obs_1a_run_timeline.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_obs_1a.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "OBS",
+      "option_id": "OBS-??",
+      "path": "OBS\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "ensure_download_dir",
+        "wait_for_download"
+      ],
+      "milestone": "OUT",
+      "option_id": "OUT-1A",
+      "path": "OUT\\out_1a_download_wait.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_out_1a.py"
+      ]
+    },
+    {
+      "exports": [
+        "ensure_dir",
+        "safe_slug",
+        "build_artifact_name",
+        "move_artifact",
+        "normalize_download"
+      ],
+      "milestone": "OUT",
+      "option_id": "OUT-1B",
+      "path": "OUT\\out_1b_artifact_manager.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_out_1b.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "OUT",
+      "option_id": "OUT-??",
+      "path": "OUT\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "run_worklist",
+        "manifest_append",
+        "ManifestWriter",
+        "open_manifest",
+        "dev_smoke"
+      ],
+      "milestone": "PIPE",
+      "option_id": "PIPE-1A",
+      "path": "PIPE\\pipe_1a_run_orchestrator.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_pipe_1a.py",
+        "dev\\dev_smoke_pipe_1a_workflow_grammar_gate_pipeline.py",
+        "dev\\dev_smoke_pipe_1c.py"
+      ]
+    },
+    {
+      "exports": [
+        "PipelineMode",
+        "WorkflowGrammarGatePipelineResult",
+        "run_workflow_grammar_gate_pipeline"
+      ],
+      "milestone": "PIPE",
+      "option_id": "PIPE-1A",
+      "path": "PIPE\\pipe_1a_workflow_grammar_gate_pipeline.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_pipe_1a.py",
+        "dev\\dev_smoke_pipe_1a_workflow_grammar_gate_pipeline.py",
+        "dev\\dev_smoke_pipe_1c.py"
+      ]
+    },
+    {
+      "exports": [
+        "resolve_worklist_spec",
+        "load_ids"
+      ],
+      "milestone": "PIPE",
+      "option_id": "PIPE-1B",
+      "path": "PIPE\\pipe_1b_worklist_config.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_pipe_1b.py"
+      ]
+    },
+    {
+      "exports": [
+        "load_steps_file",
+        "render_steps",
+        "load_steps_from_cfg"
+      ],
+      "milestone": "PIPE",
+      "option_id": "PIPE-1C",
+      "path": "PIPE\\pipe_1c_steps_loader.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_pipe_1c.py",
+        "dev\\dev_smoke_pipe_1d_a.py"
+      ]
+    },
+    {
+      "exports": [
+        "execute_step"
+      ],
+      "milestone": "PIPE",
+      "option_id": "PIPE-1D",
+      "path": "PIPE\\pipe_1d_step_executor.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_pipe_1d_a.py"
+      ]
+    },
+    {
+      "exports": [
+        "run_pipeline",
+        "exit_code_for_summary",
+        "main"
+      ],
+      "milestone": "PIPE",
+      "option_id": "PIPE-1E",
+      "path": "PIPE\\pipe_1e_runner.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_pipe_1e.py"
+      ]
+    },
+    {
+      "exports": [
+        "apply_env_overrides",
+        "dev_smoke"
+      ],
+      "milestone": "PIPE",
+      "option_id": "PIPE-1F",
+      "path": "PIPE\\pipe_1f_env_overrides.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "apply_env_force_overrides",
+        "dev_smoke"
+      ],
+      "milestone": "PIPE",
+      "option_id": "PIPE-1G",
+      "path": "PIPE\\pipe_1g_env_force_overrides.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "select_log_jsonl_path",
+        "maybe_cleanup_log_jsonl_path",
+        "dev_smoke"
+      ],
+      "milestone": "PIPE",
+      "option_id": "PIPE-1H",
+      "path": "PIPE\\pipe_1h_log_jsonl_path_policy.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "render_step",
+        "render_cfg_inplace",
+        "execute_step_var_aware",
+        "execute_steps_var_aware"
+      ],
+      "milestone": "PIPE",
+      "option_id": "PIPE-2A",
+      "path": "PIPE\\pipe_2a_var_aware_steps.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_pipe_2a.py"
+      ]
+    },
+    {
+      "exports": [
+        "run_steps"
+      ],
+      "milestone": "PIPE",
+      "option_id": "PIPE-2B",
+      "path": "PIPE\\pipe_2b_step_blocks.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_pipe_2b.py",
+        "dev\\dev_smoke_pipe_2c.py"
+      ]
+    },
+    {
+      "exports": [
+        "run_with_error_plumbing"
+      ],
+      "milestone": "PIPE",
+      "option_id": "PIPE-2C",
+      "path": "PIPE\\pipe_2c_error_plumbing.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_pipe_2c.py"
+      ]
+    },
+    {
+      "exports": [
+        "handle_download_artifact"
+      ],
+      "milestone": "PIPE",
+      "option_id": "PIPE-2D",
+      "path": "PIPE\\pipe_2d_artifact_integration.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_pipe_2d.py"
+      ]
+    },
+    {
+      "exports": [
+        "start_run_summary",
+        "record_item_success",
+        "record_item_failure",
+        "record_artifact",
+        "finish_run_summary"
+      ],
+      "milestone": "PIPE",
+      "option_id": "PIPE-2E",
+      "path": "PIPE\\pipe_2e_run_summary.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_pipe_2e.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "PIPE",
+      "option_id": "PIPE-??",
+      "path": "PIPE\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "load_schema_and_examples",
+        "plan_from_intent",
+        "write_plan_outputs",
+        "generate_workflow_skeleton",
+        "main"
+      ],
+      "milestone": "PLAN",
+      "option_id": "PLAN-1A",
+      "path": "PLAN\\plan_1a_step_planner.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_plan_1a.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "PLAN",
+      "option_id": "PLAN-??",
+      "path": "PLAN\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "diagnose_failure"
+      ],
+      "milestone": "REASON",
+      "option_id": "REASON-1A",
+      "path": "REASON\\reason_1a_diagnose.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_reason_1a.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "REASON",
+      "option_id": "REASON-??",
+      "path": "REASON\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "SemVer",
+        "ComponentPolicy",
+        "VersioningPolicy",
+        "parse_semver",
+        "is_valid_semver",
+        "compare_semver",
+        "bump_semver",
+        "get_versioning_policy",
+        "check_release_versions",
+        "render_versioning_policy_markdown",
+        "versioning_policy_to_json",
+        "write_text_file",
+        "write_versioning_policy_markdown"
+      ],
+      "milestone": "REGISTRY",
+      "option_id": "REGISTRY-12A",
+      "path": "REGISTRY\\reg_12a_versioning_policy.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_12_2_1_versioning_policy.py"
+      ]
+    },
+    {
+      "exports": [
+        "Gate",
+        "PromotionPath",
+        "PromotionPolicy",
+        "PromotionDecision",
+        "get_promotion_policy",
+        "evaluate_promotion",
+        "render_promotion_policy_markdown",
+        "promotion_policy_to_json",
+        "write_text_file",
+        "write_promotion_policy_markdown"
+      ],
+      "milestone": "REGISTRY",
+      "option_id": "REGISTRY-12B",
+      "path": "REGISTRY\\reg_12b_promotion_gates.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_12_2_3_promotion_gates.py",
+        "dev\\dev_smoke_12_3_3_promotion_record.py"
+      ]
+    },
+    {
+      "exports": [
+        "generate_action_registry",
+        "main"
+      ],
+      "milestone": "REGISTRY",
+      "option_id": "REGISTRY-1A",
+      "path": "REGISTRY\\registry_1a_generate.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_registry_1a.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "REGISTRY",
+      "option_id": "REGISTRY-??",
+      "path": "REGISTRY\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "ReplayMismatch",
+        "ReplayVerificationResult",
+        "parse_events_jsonl",
+        "events_to_canonical_hashes",
+        "verify_events_against_replay_index",
+        "result_to_json",
+        "render_result_markdown",
+        "write_text_file"
+      ],
+      "milestone": "REPLAY",
+      "option_id": "REPLAY-12A",
+      "path": "REPLAY\\replay_12a_index_verifier.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_12_5_4_replay_index_verifier.py"
+      ]
+    },
+    {
+      "exports": [
+        "replay_run"
+      ],
+      "milestone": "REPLAY",
+      "option_id": "REPLAY-1A",
+      "path": "REPLAY\\replay_1a_run_replay.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_replay_1a.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "REPLAY",
+      "option_id": "REPLAY-??",
+      "path": "REPLAY\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "ArtifactRef",
+        "ManifestComponent",
+        "ReleaseManifest",
+        "read_bytes_file",
+        "sha256_bytes_hex",
+        "artifact_ref_from_path",
+        "build_release_manifest",
+        "manifest_to_json",
+        "render_manifest_markdown",
+        "write_text_file",
+        "write_manifest_json",
+        "write_manifest_markdown"
+      ],
+      "milestone": "REPORT",
+      "option_id": "REPORT-12A",
+      "path": "REPORT\\report_12a_release_manifest.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_12_3_1_release_manifest.py",
+        "dev\\dev_smoke_12_3_2_bundle_fingerprint.py",
+        "dev\\dev_smoke_12_3_3_promotion_record.py"
+      ]
+    },
+    {
+      "exports": [
+        "BundleFingerprint",
+        "canonical_fingerprint_input",
+        "compute_bundle_fingerprint",
+        "fingerprint_to_json",
+        "render_fingerprint_markdown",
+        "write_text_file",
+        "write_fingerprint_json",
+        "write_fingerprint_markdown"
+      ],
+      "milestone": "REPORT",
+      "option_id": "REPORT-12B",
+      "path": "REPORT\\report_12b_bundle_fingerprint.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_12_3_2_bundle_fingerprint.py",
+        "dev\\dev_smoke_12_3_3_promotion_record.py"
+      ]
+    },
+    {
+      "exports": [
+        "PromotionRecord",
+        "normalize_evidence_for_json",
+        "redact_evidence",
+        "build_promotion_record",
+        "promotion_record_to_json",
+        "render_promotion_record_markdown",
+        "write_text_file",
+        "write_promotion_record_json",
+        "write_promotion_record_markdown"
+      ],
+      "milestone": "REPORT",
+      "option_id": "REPORT-12C",
+      "path": "REPORT\\report_12c_promotion_record.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_12_3_3_promotion_record.py"
+      ]
+    },
+    {
+      "exports": [
+        "RetentionRule",
+        "RetentionPolicy",
+        "ArtifactMeta",
+        "RetentionAction",
+        "RetentionDecision",
+        "get_retention_policy",
+        "validate_retention_policy",
+        "parse_date_iso",
+        "evaluate_retention_policy",
+        "policy_to_json",
+        "render_policy_markdown",
+        "decision_to_json",
+        "render_decision_markdown",
+        "write_text_file",
+        "write_policy_json",
+        "write_policy_markdown",
+        "write_decision_json",
+        "write_decision_markdown"
+      ],
+      "milestone": "REPORT",
+      "option_id": "REPORT-12D",
+      "path": "REPORT\\report_12d_artifact_retention_policy.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_12_5_1_artifact_retention_policy.py"
+      ]
+    },
+    {
+      "exports": [
+        "SignalThresholds",
+        "AlertPolicy",
+        "TriggeredAlert",
+        "AlertDecision",
+        "get_alert_policy",
+        "validate_alert_policy",
+        "evaluate_alert_policy",
+        "policy_to_json",
+        "render_policy_markdown",
+        "decision_to_json",
+        "render_decision_markdown",
+        "write_text_file",
+        "write_policy_json",
+        "write_policy_markdown",
+        "write_decision_json",
+        "write_decision_markdown"
+      ],
+      "milestone": "REPORT",
+      "option_id": "REPORT-12E",
+      "path": "REPORT\\report_12e_alerting_signals.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_12_5_2_alerting_signals.py"
+      ]
+    },
+    {
+      "exports": [
+        "ArtifactRef",
+        "IncidentPacket",
+        "get_incident_packet_template",
+        "validate_incident_packet",
+        "canonical_packet_dict",
+        "packet_to_json",
+        "render_packet_markdown",
+        "sha256_hex",
+        "packet_fingerprint_sha256",
+        "write_text_file",
+        "write_packet_json",
+        "write_packet_markdown"
+      ],
+      "milestone": "REPORT",
+      "option_id": "REPORT-12F",
+      "path": "REPORT\\report_12f_incident_packet_manifest.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_12_5_5_incident_packet_manifest.py"
+      ]
+    },
+    {
+      "exports": [
+        "EVIDENCE_BUNDLE_SCHEMA_ID",
+        "canonical_json_dumps",
+        "sha256_hex_of_text",
+        "build_artifact_text_inventory",
+        "compute_bundle_fingerprint_sha256",
+        "assemble_evidence_bundle",
+        "render_evidence_bundle_markdown",
+        "validate_evidence_bundle_basic"
+      ],
+      "milestone": "REPORT",
+      "option_id": "REPORT-12G",
+      "path": "REPORT\\report_12g_evidence_bundle_assembler.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_12_5_7_evidence_bundle_assembler.py",
+        "dev\\dev_smoke_12_6_1_prod_smoke_pipeline.py",
+        "dev\\dev_smoke_12_6_2_rollback_rerun_determinism.py",
+        "dev\\dev_smoke_12_6_3_operational_gates_enforcement.py"
+      ]
+    },
+    {
+      "exports": [
+        "generate_report"
+      ],
+      "milestone": "REPORT",
+      "option_id": "REPORT-1A",
+      "path": "REPORT\\report_1a_generate.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_3_1_run_report.py",
+        "dev\\dev_smoke_report_1a.py",
+        "dev\\dev_smoke_report_1a_workflow_grammar_gate_report.py",
+        "dev\\dev_smoke_report_1b_workflow_grammar_gate_report_text.py"
+      ]
+    },
+    {
+      "exports": [
+        "load_json_file",
+        "load_jsonl_file",
+        "build_run_report",
+        "write_run_report",
+        "dev_smoke"
+      ],
+      "milestone": "REPORT",
+      "option_id": "REPORT-1A",
+      "path": "REPORT\\report_1a_run_report.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_3_1_run_report.py",
+        "dev\\dev_smoke_report_1a.py",
+        "dev\\dev_smoke_report_1a_workflow_grammar_gate_report.py",
+        "dev\\dev_smoke_report_1b_workflow_grammar_gate_report_text.py"
+      ]
+    },
+    {
+      "exports": [
+        "build_step_logs_from_jsonl",
+        "dev_smoke"
+      ],
+      "milestone": "REPORT",
+      "option_id": "REPORT-1A",
+      "path": "REPORT\\report_1a_step_logs_from_jsonl.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_3_1_run_report.py",
+        "dev\\dev_smoke_report_1a.py",
+        "dev\\dev_smoke_report_1a_workflow_grammar_gate_report.py",
+        "dev\\dev_smoke_report_1b_workflow_grammar_gate_report_text.py"
+      ]
+    },
+    {
+      "exports": [
+        "build_grammar_gate_report",
+        "dump_grammar_gate_report_json_text"
+      ],
+      "milestone": "REPORT",
+      "option_id": "REPORT-1A",
+      "path": "REPORT\\report_1a_workflow_grammar_gate_report.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_3_1_run_report.py",
+        "dev\\dev_smoke_report_1a.py",
+        "dev\\dev_smoke_report_1a_workflow_grammar_gate_report.py",
+        "dev\\dev_smoke_report_1b_workflow_grammar_gate_report_text.py"
+      ]
+    },
+    {
+      "exports": [
+        "build_run_report_markdown",
+        "write_run_report_markdown",
+        "dev_smoke"
+      ],
+      "milestone": "REPORT",
+      "option_id": "REPORT-1B",
+      "path": "REPORT\\report_1b_run_report_markdown.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_3_2_run_report_markdown.py",
+        "dev\\dev_smoke_report_1b_workflow_grammar_gate_report_text.py"
+      ]
+    },
+    {
+      "exports": [
+        "format_grammar_gate_report_text"
+      ],
+      "milestone": "REPORT",
+      "option_id": "REPORT-1B",
+      "path": "REPORT\\report_1b_workflow_grammar_gate_report_text.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_3_2_run_report_markdown.py",
+        "dev\\dev_smoke_report_1b_workflow_grammar_gate_report_text.py"
+      ]
+    },
+    {
+      "exports": [
+        "build_junit_xml",
+        "write_junit_xml",
+        "dev_smoke"
+      ],
+      "milestone": "REPORT",
+      "option_id": "REPORT-1C",
+      "path": "REPORT\\report_1c_junit_xml.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_3_3_junit_xml.py",
+        "dev\\dev_smoke_report_1c_workflow_grammar_gate_report_summary.py"
+      ]
+    },
+    {
+      "exports": [
+        "build_grammar_gate_report_summary",
+        "format_grammar_gate_summary_line"
+      ],
+      "milestone": "REPORT",
+      "option_id": "REPORT-1C",
+      "path": "REPORT\\report_1c_workflow_grammar_gate_report_summary.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_3_3_junit_xml.py",
+        "dev\\dev_smoke_report_1c_workflow_grammar_gate_report_summary.py"
+      ]
+    },
+    {
+      "exports": [
+        "generate_standard_reports",
+        "dev_smoke"
+      ],
+      "milestone": "REPORT",
+      "option_id": "REPORT-1D",
+      "path": "REPORT\\report_1d_generate_reports.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_4_1_generate_reports.py"
+      ]
+    },
+    {
+      "exports": [
+        "sha256_file_1a",
+        "build_build_manifest_artifact_1a",
+        "write_build_manifest_artifact_1a",
+        "build_and_write_build_manifest_for_bundle_out_dir_1a",
+        "dev_smoke"
+      ],
+      "milestone": "REPORT",
+      "option_id": "REPORT-1E",
+      "path": "REPORT\\report_1e_build_manifest_artifact.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_cli_1f_run_deploy_bundle_with_report.py",
+        "dev\\dev_smoke_cli_1g_run_deploy_bundle_with_report_fail_fast.py",
+        "dev\\dev_smoke_cli_1h_run_deploy_bundle_cli_resolver.py",
+        "dev\\dev_smoke_report_1e_build_manifest_artifact.py",
+        "dev\\dev_smoke_report_1e_deploy_bundle_validation_report_writer.py"
+      ]
+    },
+    {
+      "exports": [
+        "derive_deploy_bundle_validation_report_path_1a",
+        "build_deploy_bundle_validation_report_1a",
+        "write_deploy_bundle_validation_report_1a",
+        "write_deploy_bundle_validation_report_alongside_1a",
+        "dev_smoke"
+      ],
+      "milestone": "REPORT",
+      "option_id": "REPORT-1E",
+      "path": "REPORT\\report_1e_deploy_bundle_validation_report_writer.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_cli_1f_run_deploy_bundle_with_report.py",
+        "dev\\dev_smoke_cli_1g_run_deploy_bundle_with_report_fail_fast.py",
+        "dev\\dev_smoke_cli_1h_run_deploy_bundle_cli_resolver.py",
+        "dev\\dev_smoke_report_1e_build_manifest_artifact.py",
+        "dev\\dev_smoke_report_1e_deploy_bundle_validation_report_writer.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "REPORT",
+      "option_id": "REPORT-??",
+      "path": "REPORT\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "PROD_SMOKE_PIPELINE_SCHEMA_ID",
+        "ALLOWED_WORKFLOW_ACTIONS",
+        "build_minimal_smoke_workflow_bundle",
+        "validate_workflow_allowed_actions",
+        "assemble_prod_smoke_pipeline_report",
+        "render_prod_smoke_pipeline_report_markdown",
+        "validate_prod_smoke_pipeline_report_basic",
+        "compute_prod_smoke_pipeline_report_fingerprint_sha256"
+      ],
+      "milestone": "RUN",
+      "option_id": "RUN-12A",
+      "path": "RUN\\run_12a_prod_smoke_pipeline.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_12_6_1_prod_smoke_pipeline.py"
+      ]
+    },
+    {
+      "exports": [
+        "ROLLBACK_RERUN_SCHEMA_ID",
+        "build_versioned_workflow_bundle",
+        "assemble_deployment_record",
+        "assemble_run_record",
+        "assemble_rollback_record",
+        "assemble_rollback_rerun_determinism_report",
+        "render_rollback_rerun_determinism_report_markdown",
+        "validate_rollback_rerun_determinism_report_basic"
+      ],
+      "milestone": "RUN",
+      "option_id": "RUN-12B",
+      "path": "RUN\\run_12b_rollback_rerun_determinism.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_12_6_2_rollback_rerun_determinism.py"
+      ]
+    },
+    {
+      "exports": [
+        "OP_GATES_ENFORCEMENT_SCHEMA_ID",
+        "GateInvocationError",
+        "assemble_operational_gates_enforcement_report",
+        "render_operational_gates_enforcement_report_markdown",
+        "validate_operational_gates_enforcement_report_basic"
+      ],
+      "milestone": "RUN",
+      "option_id": "RUN-12C",
+      "path": "RUN\\run_12c_operational_gates_enforcement.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_12_6_3_operational_gates_enforcement.py"
+      ]
+    },
+    {
+      "exports": [
+        "RunWorkflowGateOutcome",
+        "gate_workflow_dict_for_run",
+        "gate_workflow_path_for_run"
+      ],
+      "milestone": "RUN",
+      "option_id": "RUN-1A",
+      "path": "RUN\\run_1a_workflow_grammar_gate.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_run_1a.py",
+        "dev\\dev_smoke_run_1a_workflow_grammar_gate.py",
+        "dev\\dev_smoke_run_1a_workflow_grammar_gate_run.py"
+      ]
+    },
+    {
+      "exports": [
+        "WorkflowGrammarGateRunResult",
+        "run_workflow_grammar_gate"
+      ],
+      "milestone": "RUN",
+      "option_id": "RUN-1A",
+      "path": "RUN\\run_1a_workflow_grammar_gate_run.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_run_1a.py",
+        "dev\\dev_smoke_run_1a_workflow_grammar_gate.py",
+        "dev\\dev_smoke_run_1a_workflow_grammar_gate_run.py"
+      ]
+    },
+    {
+      "exports": [
+        "run_workflow"
+      ],
+      "milestone": "RUN",
+      "option_id": "RUN-1A",
+      "path": "RUN\\run_1a_workflow_runner.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_run_1a.py",
+        "dev\\dev_smoke_run_1a_workflow_grammar_gate.py",
+        "dev\\dev_smoke_run_1a_workflow_grammar_gate_run.py"
+      ]
+    },
+    {
+      "exports": [
+        "run_workflow_with_snap"
+      ],
+      "milestone": "RUN",
+      "option_id": "RUN-1B",
+      "path": "RUN\\run_1b_workflow_runner_with_snap.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "run_workflow_with_guard"
+      ],
+      "milestone": "RUN",
+      "option_id": "RUN-1C",
+      "path": "RUN\\run_1c_workflow_runner_with_guard.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "run_workflow_with_history"
+      ],
+      "milestone": "RUN",
+      "option_id": "RUN-1D",
+      "path": "RUN\\run_1d_runner_with_history.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "resolve_default_workflow_runner_callable",
+        "run_deploy_bundle_1a",
+        "run_deploy_bundle_1a_with_meta",
+        "dev_smoke"
+      ],
+      "milestone": "RUN",
+      "option_id": "RUN-1E",
+      "path": "RUN\\run_1e_deploy_bundle_runner_adapter.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_4_2_post_run_reporting.py",
+        "dev\\dev_smoke_run_1e_deploy_bundle_runner_adapter.py"
+      ]
+    },
+    {
+      "exports": [
+        "maybe_generate_post_run_reports",
+        "dev_smoke"
+      ],
+      "milestone": "RUN",
+      "option_id": "RUN-1E",
+      "path": "RUN\\run_1e_post_run_reporting.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_4_2_post_run_reporting.py",
+        "dev\\dev_smoke_run_1e_deploy_bundle_runner_adapter.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "RUN",
+      "option_id": "RUN-??",
+      "path": "RUN\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [],
+      "milestone": "RUN",
+      "option_id": "RUN-??",
+      "path": "RUN\\dev_run_workflow.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "generate_steps_schema",
+        "main"
+      ],
+      "milestone": "SCHEMA",
+      "option_id": "SCHEMA-1A",
+      "path": "SCHEMA\\schema_1a_generate.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_schema_1a.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "SCHEMA",
+      "option_id": "SCHEMA-??",
+      "path": "SCHEMA\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "load_selectors",
+        "get_selector",
+        "resolve_selector"
+      ],
+      "milestone": "SELECTOR",
+      "option_id": "SELECTOR-1A",
+      "path": "SELECTOR\\selector_1a_registry.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_capture_1a.py",
+        "dev\\dev_smoke_selector_1a.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "SELECTOR",
+      "option_id": "SELECTOR-??",
+      "path": "SELECTOR\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "capture_failure_artifacts"
+      ],
+      "milestone": "SNAP",
+      "option_id": "SNAP-1A",
+      "path": "SNAP\\snap_1a_capture.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_1_1_failure_capture.py",
+        "dev\\dev_smoke_build_3a_deploy_bundle_format.py",
+        "dev\\dev_smoke_build_3c_deploy_bundle_builder.py",
+        "dev\\dev_smoke_cli_1e_run_deploy_bundle.py",
+        "dev\\dev_smoke_cli_1f_run_deploy_bundle_with_report.py",
+        "dev\\dev_smoke_cli_1g_run_deploy_bundle_with_report_fail_fast.py",
+        "dev\\dev_smoke_cli_1h_run_deploy_bundle_cli_resolver.py",
+        "dev\\dev_smoke_phase_11_5_1_capture_to_workflow_validity.py",
+        "dev\\dev_smoke_phase_11_5_2_bundle_packaging_determinism.py",
+        "dev\\dev_smoke_phase_11_5_3_deploy_run_path_minimal.py",
+        "dev\\dev_smoke_report_1e_deploy_bundle_validation_report_writer.py",
+        "dev\\dev_smoke_run_1e_deploy_bundle_runner_adapter.py",
+        "dev\\dev_smoke_snap_1a.py",
+        "dev\\dev_smoke_snap_1a_workflow_capture.py",
+        "dev\\dev_smoke_snap_1b_selector_pack.py",
+        "dev\\dev_smoke_snap_1c_capture_bundle.py",
+        "dev\\dev_smoke_snap_1d_bundle_io.py",
+        "dev\\dev_smoke_snap_1e_bundle_export.py",
+        "dev\\dev_smoke_snap_1f_materialize_selectors.py",
+        "dev\\dev_smoke_val_2a_deploy_bundle_validator.py",
+        "dev\\dev_smoke_workflow_1g_deploy_bundle_loader.py"
+      ]
+    },
+    {
+      "exports": [
+        "capture_failure_snapshot",
+        "dev_smoke"
+      ],
+      "milestone": "SNAP",
+      "option_id": "SNAP-1A",
+      "path": "SNAP\\snap_1a_failure_capture.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_1_1_failure_capture.py",
+        "dev\\dev_smoke_build_3a_deploy_bundle_format.py",
+        "dev\\dev_smoke_build_3c_deploy_bundle_builder.py",
+        "dev\\dev_smoke_cli_1e_run_deploy_bundle.py",
+        "dev\\dev_smoke_cli_1f_run_deploy_bundle_with_report.py",
+        "dev\\dev_smoke_cli_1g_run_deploy_bundle_with_report_fail_fast.py",
+        "dev\\dev_smoke_cli_1h_run_deploy_bundle_cli_resolver.py",
+        "dev\\dev_smoke_phase_11_5_1_capture_to_workflow_validity.py",
+        "dev\\dev_smoke_phase_11_5_2_bundle_packaging_determinism.py",
+        "dev\\dev_smoke_phase_11_5_3_deploy_run_path_minimal.py",
+        "dev\\dev_smoke_report_1e_deploy_bundle_validation_report_writer.py",
+        "dev\\dev_smoke_run_1e_deploy_bundle_runner_adapter.py",
+        "dev\\dev_smoke_snap_1a.py",
+        "dev\\dev_smoke_snap_1a_workflow_capture.py",
+        "dev\\dev_smoke_snap_1b_selector_pack.py",
+        "dev\\dev_smoke_snap_1c_capture_bundle.py",
+        "dev\\dev_smoke_snap_1d_bundle_io.py",
+        "dev\\dev_smoke_snap_1e_bundle_export.py",
+        "dev\\dev_smoke_snap_1f_materialize_selectors.py",
+        "dev\\dev_smoke_val_2a_deploy_bundle_validator.py",
+        "dev\\dev_smoke_workflow_1g_deploy_bundle_loader.py"
+      ]
+    },
+    {
+      "exports": [
+        "ALLOWED_WORKFLOW_ACTIONS",
+        "CapturedEvent",
+        "capture_install_js",
+        "install_capture_listeners",
+        "fetch_captured_events",
+        "captured_events_to_steps",
+        "dev_smoke"
+      ],
+      "milestone": "SNAP",
+      "option_id": "SNAP-1A",
+      "path": "SNAP\\snap_1a_workflow_capture.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_1_1_failure_capture.py",
+        "dev\\dev_smoke_build_3a_deploy_bundle_format.py",
+        "dev\\dev_smoke_build_3c_deploy_bundle_builder.py",
+        "dev\\dev_smoke_cli_1e_run_deploy_bundle.py",
+        "dev\\dev_smoke_cli_1f_run_deploy_bundle_with_report.py",
+        "dev\\dev_smoke_cli_1g_run_deploy_bundle_with_report_fail_fast.py",
+        "dev\\dev_smoke_cli_1h_run_deploy_bundle_cli_resolver.py",
+        "dev\\dev_smoke_phase_11_5_1_capture_to_workflow_validity.py",
+        "dev\\dev_smoke_phase_11_5_2_bundle_packaging_determinism.py",
+        "dev\\dev_smoke_phase_11_5_3_deploy_run_path_minimal.py",
+        "dev\\dev_smoke_report_1e_deploy_bundle_validation_report_writer.py",
+        "dev\\dev_smoke_run_1e_deploy_bundle_runner_adapter.py",
+        "dev\\dev_smoke_snap_1a.py",
+        "dev\\dev_smoke_snap_1a_workflow_capture.py",
+        "dev\\dev_smoke_snap_1b_selector_pack.py",
+        "dev\\dev_smoke_snap_1c_capture_bundle.py",
+        "dev\\dev_smoke_snap_1d_bundle_io.py",
+        "dev\\dev_smoke_snap_1e_bundle_export.py",
+        "dev\\dev_smoke_snap_1f_materialize_selectors.py",
+        "dev\\dev_smoke_val_2a_deploy_bundle_validator.py",
+        "dev\\dev_smoke_workflow_1g_deploy_bundle_loader.py"
+      ]
+    },
+    {
+      "exports": [
+        "capture_screenshot_png_bytes",
+        "capture_screenshot_b64",
+        "capture_screenshot_payload",
+        "dev_smoke"
+      ],
+      "milestone": "SNAP",
+      "option_id": "SNAP-1B",
+      "path": "SNAP\\snap_1b_screenshot_capture.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_1_2_screenshot_capture.py",
+        "dev\\dev_smoke_phase_11_5_1_capture_to_workflow_validity.py",
+        "dev\\dev_smoke_phase_11_5_2_bundle_packaging_determinism.py",
+        "dev\\dev_smoke_phase_11_5_3_deploy_run_path_minimal.py",
+        "dev\\dev_smoke_snap_1b_selector_pack.py"
+      ]
+    },
+    {
+      "exports": [
+        "SELECTOR_PACK_SCHEMA_ID",
+        "selectors_from_captured_events",
+        "build_selector_ref_map",
+        "build_selector_pack",
+        "selector_pack_from_captured_events",
+        "dev_smoke"
+      ],
+      "milestone": "SNAP",
+      "option_id": "SNAP-1B",
+      "path": "SNAP\\snap_1b_selector_pack.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_1_2_screenshot_capture.py",
+        "dev\\dev_smoke_phase_11_5_1_capture_to_workflow_validity.py",
+        "dev\\dev_smoke_phase_11_5_2_bundle_packaging_determinism.py",
+        "dev\\dev_smoke_phase_11_5_3_deploy_run_path_minimal.py",
+        "dev\\dev_smoke_snap_1b_selector_pack.py"
+      ]
+    },
+    {
+      "exports": [
+        "CAPTURE_BUNDLE_SCHEMA_ID",
+        "emit_capture_bundle",
+        "build_capture_bundle_from_events",
+        "validate_capture_bundle",
+        "dev_smoke"
+      ],
+      "milestone": "SNAP",
+      "option_id": "SNAP-1C",
+      "path": "SNAP\\snap_1c_capture_bundle.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_1_3_snapshot_persistence.py",
+        "dev\\dev_smoke_build_3a_deploy_bundle_format.py",
+        "dev\\dev_smoke_build_3c_deploy_bundle_builder.py",
+        "dev\\dev_smoke_cli_1e_run_deploy_bundle.py",
+        "dev\\dev_smoke_cli_1f_run_deploy_bundle_with_report.py",
+        "dev\\dev_smoke_cli_1g_run_deploy_bundle_with_report_fail_fast.py",
+        "dev\\dev_smoke_cli_1h_run_deploy_bundle_cli_resolver.py",
+        "dev\\dev_smoke_report_1e_deploy_bundle_validation_report_writer.py",
+        "dev\\dev_smoke_run_1e_deploy_bundle_runner_adapter.py",
+        "dev\\dev_smoke_snap_1c_capture_bundle.py",
+        "dev\\dev_smoke_snap_1d_bundle_io.py",
+        "dev\\dev_smoke_snap_1e_bundle_export.py",
+        "dev\\dev_smoke_snap_1f_materialize_selectors.py",
+        "dev\\dev_smoke_val_2a_deploy_bundle_validator.py",
+        "dev\\dev_smoke_workflow_1g_deploy_bundle_loader.py"
+      ]
+    },
+    {
+      "exports": [
+        "persist_snapshot_artifacts",
+        "dev_smoke"
+      ],
+      "milestone": "SNAP",
+      "option_id": "SNAP-1C",
+      "path": "SNAP\\snap_1c_persist_artifacts.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_10_1_3_snapshot_persistence.py",
+        "dev\\dev_smoke_build_3a_deploy_bundle_format.py",
+        "dev\\dev_smoke_build_3c_deploy_bundle_builder.py",
+        "dev\\dev_smoke_cli_1e_run_deploy_bundle.py",
+        "dev\\dev_smoke_cli_1f_run_deploy_bundle_with_report.py",
+        "dev\\dev_smoke_cli_1g_run_deploy_bundle_with_report_fail_fast.py",
+        "dev\\dev_smoke_cli_1h_run_deploy_bundle_cli_resolver.py",
+        "dev\\dev_smoke_report_1e_deploy_bundle_validation_report_writer.py",
+        "dev\\dev_smoke_run_1e_deploy_bundle_runner_adapter.py",
+        "dev\\dev_smoke_snap_1c_capture_bundle.py",
+        "dev\\dev_smoke_snap_1d_bundle_io.py",
+        "dev\\dev_smoke_snap_1e_bundle_export.py",
+        "dev\\dev_smoke_snap_1f_materialize_selectors.py",
+        "dev\\dev_smoke_val_2a_deploy_bundle_validator.py",
+        "dev\\dev_smoke_workflow_1g_deploy_bundle_loader.py"
+      ]
+    },
+    {
+      "exports": [
+        "capture_bundle_to_json",
+        "capture_bundle_from_json",
+        "save_capture_bundle_json",
+        "load_capture_bundle_json",
+        "dev_smoke"
+      ],
+      "milestone": "SNAP",
+      "option_id": "SNAP-1D",
+      "path": "SNAP\\snap_1d_bundle_io.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_snap_1d_bundle_io.py",
+        "dev\\dev_smoke_snap_1e_bundle_export.py"
+      ]
+    },
+    {
+      "exports": [
+        "export_capture_bundle_assets",
+        "dev_smoke"
+      ],
+      "milestone": "SNAP",
+      "option_id": "SNAP-1E",
+      "path": "SNAP\\snap_1e_bundle_export.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_snap_1e_bundle_export.py"
+      ]
+    },
+    {
+      "exports": [
+        "selector_pack_ref_to_selector",
+        "materialize_selector_refs_in_steps",
+        "materialize_selector_refs_in_bundle",
+        "dev_smoke"
+      ],
+      "milestone": "SNAP",
+      "option_id": "SNAP-1F",
+      "path": "SNAP\\snap_1f_materialize_selectors.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_snap_1f_materialize_selectors.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "SNAP",
+      "option_id": "SNAP-??",
+      "path": "SNAP\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "utc_ts",
+        "append_jsonl_line",
+        "write_audit",
+        "load_ids_from_manifest",
+        "choose_active_manifest",
+        "manifest_append",
+        "ManifestWriter",
+        "open_manifest"
+      ],
+      "milestone": "STATE",
+      "option_id": "STATE-1B",
+      "path": "STATE\\state_1b_manifest_jsonl.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_state_input.py"
+      ]
+    },
+    {
+      "exports": [
+        "read_manifest_rows",
+        "extract_failed_ids",
+        "write_retry_manifest"
+      ],
+      "milestone": "STATE",
+      "option_id": "STATE-1C",
+      "path": "STATE\\state_1c_retry_helpers.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_state_1c.py"
+      ]
+    },
+    {
+      "exports": [
+        "now_utc_ts",
+        "build_row_base",
+        "row_queued",
+        "row_success",
+        "row_failure",
+        "write_row"
+      ],
+      "milestone": "STATE",
+      "option_id": "STATE-1D",
+      "path": "STATE\\state_1d_manifest_row_helpers.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_state_1d.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "STATE",
+      "option_id": "STATE-??",
+      "path": "STATE\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "validate_ui_state"
+      ],
+      "milestone": "VAL",
+      "option_id": "VAL-1A",
+      "path": "VAL\\val_1a_ui_state.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_val_1a.py"
+      ]
+    },
+    {
+      "exports": [
+        "validate_download"
+      ],
+      "milestone": "VAL",
+      "option_id": "VAL-1B",
+      "path": "VAL\\val_1b_download_validation.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_val_1b.py"
+      ]
+    },
+    {
+      "exports": [
+        "ValidationIssue",
+        "validate_deploy_bundle_1a",
+        "assert_deploy_bundle_1a",
+        "dev_smoke"
+      ],
+      "milestone": "VAL",
+      "option_id": "VAL-2A",
+      "path": "VAL\\val_2a_deploy_bundle_validator.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_val_2a_deploy_bundle_validator.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "VAL",
+      "option_id": "VAL-??",
+      "path": "VAL\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "get_var",
+        "set_var",
+        "render_vars"
+      ],
+      "milestone": "VAR",
+      "option_id": "VAR-1A",
+      "path": "VAR\\var_1a_runtime_store.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_pipe_2a.py",
+        "dev\\dev_smoke_pipe_2b.py",
+        "dev\\dev_smoke_var_1a.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "VAR",
+      "option_id": "VAR-??",
+      "path": "VAR\\__init__.py",
+      "smoke_tests": []
+    },
+    {
+      "exports": [
+        "normalize_workflow_steps",
+        "normalize_workflow_dict",
+        "normalize_capture_bundle_workflow",
+        "dev_smoke"
+      ],
+      "milestone": "WORKFLOW",
+      "option_id": "WORKFLOW-1E",
+      "path": "WORKFLOW\\workflow_1e_steps_normalizer.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_workflow_1e_steps_normalizer.py"
+      ]
+    },
+    {
+      "exports": [
+        "selector_pack_selector_to_ref",
+        "enforce_selector_ref_first_in_steps",
+        "enforce_selector_ref_first_in_workflow",
+        "enforce_selector_ref_first_in_bundle",
+        "dev_smoke"
+      ],
+      "milestone": "WORKFLOW",
+      "option_id": "WORKFLOW-1F",
+      "path": "WORKFLOW\\workflow_1f_selector_ref_first.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_workflow_1f_selector_ref_first.py"
+      ]
+    },
+    {
+      "exports": [
+        "ALLOWED_CAPTURE_ACTIONS_1A",
+        "load_steps_schema_1a",
+        "find_step_variant_schema_by_action_1a",
+        "infer_discriminator_key_for_action_1a",
+        "make_step_open_1a",
+        "make_step_click_selector_1a",
+        "make_step_wait_for_selector_1a",
+        "make_step_type_selector_secret_1a",
+        "make_step_by_action_1a",
+        "make_steps_by_actions_1a",
+        "dev_smoke"
+      ],
+      "milestone": "WORKFLOW",
+      "option_id": "WORKFLOW-2A",
+      "path": "WORKFLOW\\workflow_2a_capture_actions_to_schema_steps.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_workflow_workflow_2a_capture_actions_to_schema_steps.py"
+      ]
+    },
+    {
+      "exports": [
+        "CAPTURE_QUEUE_GLOBAL_1A",
+        "CAPTURE_EVENT_KINDS_1A",
+        "SUPPORTED_STEP_ACTIONS_1A",
+        "js_install_capture_listeners_1a",
+        "js_drain_capture_events_1a",
+        "install_capture_listeners_in_page_1a",
+        "drain_capture_events_from_page_1a",
+        "normalize_capture_event_1a",
+        "capture_events_to_schema_steps_1a",
+        "drain_capture_steps_from_page_1a",
+        "dev_smoke"
+      ],
+      "milestone": "WORKFLOW",
+      "option_id": "WORKFLOW-2B",
+      "path": "WORKFLOW\\workflow_2b_capture_js_event_recorder.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_workflow_workflow_2b_capture_js_event_recorder.py"
+      ]
+    },
+    {
+      "exports": [
+        "capture_events_to_action_payloads_1a",
+        "encode_capture_events_to_schema_steps_1a",
+        "drain_capture_schema_steps_from_page_1a",
+        "dev_smoke"
+      ],
+      "milestone": "WORKFLOW",
+      "option_id": "WORKFLOW-2C",
+      "path": "WORKFLOW\\workflow_2c_capture_events_to_schema_steps_encoder.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_workflow_workflow_2c_capture_events_to_schema_steps_encoder.py"
+      ]
+    },
+    {
+      "exports": [
+        "load_workflow_file",
+        "load_validate_normalize_workflow",
+        "normalize_workflow",
+        "validate_workflow"
+      ],
+      "milestone": "WORKFLOWS",
+      "option_id": "WORKFLOWS-1A",
+      "path": "WORKFLOWS\\workflow_1a_loader.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_workflow_1a_loader.py"
+      ]
+    },
+    {
+      "exports": [
+        "load_json_mapping_from_path",
+        "load_deploy_bundle_1a",
+        "load_deploy_bundle_1a_from_path",
+        "extract_runnable_from_deploy_bundle_1a",
+        "dev_smoke"
+      ],
+      "milestone": "WORKFLOWS",
+      "option_id": "WORKFLOWS-1G",
+      "path": "WORKFLOWS\\workflow_1g_deploy_bundle_loader.py",
+      "smoke_tests": [
+        "dev\\dev_smoke_workflow_1g_deploy_bundle_loader.py"
+      ]
+    },
+    {
+      "exports": [],
+      "milestone": "WORKFLOWS",
+      "option_id": "WORKFLOWS-??",
+      "path": "WORKFLOWS\\__init__.py",
+      "smoke_tests": []
+    }
+  ]
+}
