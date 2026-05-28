@@ -1,0 +1,33 @@
+{
+  "name": "smoke_capture_1a_recorded_steps",
+  "metadata": {
+    "source": "dev_smoke"
+  },
+  "steps": [
+    {
+      "action": "open",
+      "url": "https://example.invalid/"
+    },
+    {
+      "action": "click_selector",
+      "selector_ref": "LOGIN.USERNAME"
+    },
+    {
+      "action": "type_selector_secret",
+      "selector_ref": "LOGIN.PASSWORD",
+      "secret_ref": "PORTAL_PASSWORD"
+    },
+    {
+      "action": "wait_for_selector",
+      "selector_ref": "DASHBOARD.ROOT",
+      "timeout_ms": 10000
+    },
+    {
+      "action": "log",
+      "message": "arrived at dashboard"
+    },
+    {
+      "action": "switch_back_to_main_tab"
+    }
+  ]
+}

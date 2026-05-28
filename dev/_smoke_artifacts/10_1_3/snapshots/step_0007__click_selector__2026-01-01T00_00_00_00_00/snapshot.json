@@ -1,0 +1,23 @@
+{
+  "browser": {
+    "dom_html": "<html><body><div id='app'>OK</div></body></html>",
+    "ready_state": "complete",
+    "title": "App",
+    "url": "https://example.com/app"
+  },
+  "captured_at_utc": "2026-01-01T00:00:00+00:00",
+  "context": {
+    "action": "click_selector",
+    "step_index": 7,
+    "workflow_name": "wf"
+  },
+  "error": {
+    "class": "ValueError",
+    "message": "forced failure"
+  },
+  "schema": "SNAP-1A",
+  "step": {
+    "action": "click_selector",
+    "selector_ref": "app.button.save"
+  }
+}

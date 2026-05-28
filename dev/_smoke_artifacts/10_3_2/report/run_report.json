@@ -1,0 +1,92 @@
+{
+  "inputs": {
+    "history_manifest_path": "history/run_manifest.json",
+    "history_outcomes_path": "history/step_outcomes.jsonl"
+  },
+  "manifest": {
+    "bundle": {
+      "path": null,
+      "sha256": null,
+      "version": "bundle-0"
+    },
+    "environment": {
+      "platform": "win32",
+      "python_version": "3.12.6"
+    },
+    "inputs": {
+      "env": "DEV"
+    },
+    "output": {
+      "history_dir": "C:/Users/nmart224/OneDrive - UHG/Agent/RPA_LIBRARY/dev/_smoke_artifacts/10_3_2/history",
+      "run_output_dir": "C:/Users/nmart224/OneDrive - UHG/Agent/RPA_LIBRARY/dev/_smoke_artifacts/10_3_2"
+    },
+    "run_id": "smoke_workflow__2026-01-01T00_00_00_00_00",
+    "schema": "HISTORY-1A",
+    "timestamps": {
+      "finished_at_utc": "2026-01-01T00:00:02+00:00",
+      "started_at_utc": "2026-01-01T00:00:00+00:00"
+    },
+    "workflow": {
+      "name": "smoke_workflow",
+      "path": "C:/Users/nmart224/OneDrive - UHG/Agent/RPA_LIBRARY/dev/_smoke_artifacts/10_3_2/wf.yml",
+      "sha256": "63b1469f5251eb51e248374d98849e354260026063e64af75c34fcecdd9670c9",
+      "version": "wf-0"
+    }
+  },
+  "run": {
+    "status": "error",
+    "timestamps": {
+      "finished_at_utc": "2026-01-01T00:00:02+00:00",
+      "started_at_utc": "2026-01-01T00:00:00+00:00"
+    }
+  },
+  "run_output_dir": "C:/Users/nmart224/OneDrive - UHG/Agent/RPA_LIBRARY/dev/_smoke_artifacts/10_3_2",
+  "schema": "REPORT-1A",
+  "step_outcomes": [
+    {
+      "error": null,
+      "notes": null,
+      "schema": "HISTORY-1B",
+      "status": "ok",
+      "step": {
+        "action": "open",
+        "url": "https://example.com"
+      },
+      "step_index": 0,
+      "timestamps": {
+        "finished_at_utc": "2026-01-01T00:00:01+00:00",
+        "started_at_utc": "2026-01-01T00:00:00+00:00"
+      },
+      "workflow_name": "smoke_workflow"
+    },
+    {
+      "error": {
+        "class": "RuntimeError",
+        "message": "boom"
+      },
+      "notes": null,
+      "schema": "HISTORY-1B",
+      "status": "error",
+      "step": {
+        "action": "click_selector",
+        "selector_ref": "app.button.save"
+      },
+      "step_index": 1,
+      "timestamps": {
+        "finished_at_utc": "2026-01-01T00:00:02+00:00",
+        "started_at_utc": "2026-01-01T00:00:01+00:00"
+      },
+      "workflow_name": "smoke_workflow"
+    }
+  ],
+  "summary": {
+    "error_steps": [
+      1
+    ],
+    "status_counts": {
+      "error": 1,
+      "ok": 1
+    },
+    "total_steps": 2
+  }
+}
