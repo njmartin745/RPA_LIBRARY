@@ -1,0 +1,15 @@
+[
+  {
+    "action": "open",
+    "url": "https://example.com"
+  },
+  {
+    "action": "wait_for_selector",
+    "selector": ".definitely-not-a-real-selector-123",
+    "timeout": 2
+  },
+  {
+    "action": "exec_js",
+    "script": "if (!document.querySelector('.definitely-not-a-real-selector-123')) { throw new Error('missing selector'); } return true;"
+  }
+]

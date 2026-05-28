@@ -1,0 +1,30 @@
+{
+  "name": "smoke-workflow-1a",
+  "version": "1.0",
+  "description": "workflow loader smoke test",
+  "defaults": {
+    "headless": true,
+    "timeout_seconds": 5
+  },
+  "vars": {
+    "seed_key": "seed_val"
+  },
+  "worklist": {
+    "path": "data/manifest.jsonl",
+    "sheet": "Sheet1",
+    "id_column": "id"
+  },
+  "steps": [
+    {
+      "action": "click_selector",
+      "by": "css",
+      "value": "#todo"
+    },
+    {
+      "action": "switch_back_to_main_tab"
+    },
+    {
+      "action": "wait_for_selector"
+    }
+  ]
+}

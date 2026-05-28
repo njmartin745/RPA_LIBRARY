@@ -1,0 +1,24 @@
+{
+  "entry_url": "${URL}",
+  "headless": true,
+  "inputs": {
+    "mode": "none"
+  },
+  "intent": "open example.com and verify page title",
+  "metadata": {
+    "created_at_utc": "1970-01-01T00:00:00Z",
+    "generator": "BUILD-1A",
+    "schema_version": "SCHEMA-1A"
+  },
+  "name": "open_example_com_and_verify_page_title",
+  "notes": [
+    "Generated vars (provide these via your runtime cfg/VAR layer): ${URL}"
+  ],
+  "outputs": {},
+  "steps": [
+    {
+      "action": "open",
+      "url": "${URL}"
+    }
+  ]
+}

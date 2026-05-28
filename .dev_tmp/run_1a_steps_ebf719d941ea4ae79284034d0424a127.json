@@ -1,0 +1,16 @@
+[
+  {
+    "action": "open",
+    "url": "${URL}"
+  },
+  {
+    "action": "wait_for_selector",
+    "name": "(optimizer) inserted wait",
+    "selector_ref": "FIRST_RESULT"
+  },
+  {
+    "action": "click_selector",
+    "name": "Click first result",
+    "selector_ref": "FIRST_RESULT"
+  }
+]

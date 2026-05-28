@@ -1,0 +1,47 @@
+You are debugging a modular Python RPA framework.
+ 
+Module under test:
+VAL-1A
+ 
+Smoke test that failed:
+dev_smoke_val_1a.py
+ 
+Architecture layers:
+ENTRY
+PIPE
+INPUT
+LOOP
+ACT
+NAV
+STATE
+LOG
+ 
+Rules:
+- Only modify the module responsible for the failure.
+- Do NOT redesign the architecture.
+- Do NOT change interfaces between modules unless necessary.
+- Provide the minimal fix required.
+ 
+Return the corrected code.
+ 
+Error output:
+DevTools listening on ws://127.0.0.1:49675/devtools/browser/073f1b75-7d05-4b50-a8ee-fbbe8af1907a
+[15344:13024:0304/143709.513:ERROR:chrome\browser\task_manager\providers\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a "Renderer" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/739782.
+[988:16892:0304/143714.380:ERROR:ui\gl\direct_composition_support.cc:243] GetGpuDriverOverlayInfo: Failed to retrieve video device
+[15344:13024:0304/143715.275:ERROR:chrome\browser\task_manager\providers\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a "Renderer" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/739782.
+[15344:13024:0304/143715.526:ERROR:chrome\browser\task_manager\providers\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a "Renderer" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/739782.
+
+=== dev_smoke_val_1a ===
+{'ok': False, 'passed': 2, 'failed': 1, 'details': [{'ok': True, 'check': {'by': 'css', 'value': 'h1', 'expect': 'visible', 'text_contains': 'Example Domain'}, 'observed': {'text': 'Example Domain'}, 'error': None}, {'ok': False, 'check': {'by': 'css', 'value': 'p', 'expect': 'present', 'text_contains': 'illustrative examples'}, 'observed': {}, 'error': "AssertionError: text_contains mismatch (expected substring='illustrative examples', got='This domain is for use in documentation examples without needing permission. Avoid use in operations.')"}, {'ok': True, 'check': {'by': 'css', 'value': 'a', 'expect': 'present', 'attr': 'href', 'attr_contains': 'iana.org'}, 'observed': {'text': 'Learn more', 'attr': {'href': 'https://iana.org/domains/example'}}, 'error': None}]}
+FAIL: dev_smoke_val_1a
+[39500:16788:0304/143720.962:ERROR:net\socket\ssl_client_socket_impl.cc:930] handshake failed; returned -1, SSL error code 1, net_error -3
+[39500:16788:0304/143720.962:ERROR:net\socket\ssl_client_socket_impl.cc:930] handshake failed; returned -1, SSL error code 1, net_error -3
+[39500:16788:0304/143720.963:ERROR:net\socket\ssl_client_socket_impl.cc:930] handshake failed; returned -1, SSL error code 1, net_error -3
+ 
+from pathlib import Pathf
+import sys
+ 
+ROOT = Path(__file__).resolve().parents[1]
+ 
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))

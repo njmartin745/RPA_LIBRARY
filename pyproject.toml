@@ -1,0 +1,20 @@
+[build-system]  
+requires = ["setuptools>=61"]  
+build-backend = "setuptools.build_meta"  
+  
+[project]  
+name = "rpa-library"  
+version = "0.0.0"  
+requires-python = ">=3.12"  
+  
+[project.scripts]  
+workflow-grammar-gate = "ENTRY.entry_1a_workflow_grammar_gate:main"  
+  
+[tool.setuptools.packages.find]  
+where = ["."]  
+include = [  
+  "ACT*","AGENT*","AUTH*","BUILD*","CAPTURE*","CLI*","DEPLOY*","DIFF*","DOC*","DOCTOR*",  
+  "ENTRY*","GUARD*","HEAL*","HISTORY*","INPUT*","LEARN*","LINT*","LOG*","LOOP*","NAV*",  
+  "OBS*","OUT*","PIPE*","PLAN*","REASON*","REGISTRY*","REPLAY*","REPORT*","RUN*",  
+  "SCHEMA*","SELECTOR*","SNAP*","STATE*","VAL*","VAR*","WORKFLOWS*"  
+]  

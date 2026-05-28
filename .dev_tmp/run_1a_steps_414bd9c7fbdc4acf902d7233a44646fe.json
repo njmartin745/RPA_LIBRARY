@@ -1,0 +1,43 @@
+[
+  {
+    "action": "open",
+    "url": "${URL}"
+  },
+  {
+    "action": "wait_for_element",
+    "name": "Wait for username",
+    "selector_ref": "LOGIN_USERNAME"
+  },
+  {
+    "action": "javascript",
+    "name": "Enter username",
+    "script": "return { ok: true, note: 'TODO: implement typing via supported actions' };",
+    "selector_ref": "LOGIN_USERNAME"
+  },
+  {
+    "action": "wait_for_element",
+    "name": "Wait for password",
+    "selector_ref": "LOGIN_PASSWORD"
+  },
+  {
+    "action": "javascript",
+    "name": "Enter password",
+    "script": "return { ok: true, note: 'TODO: implement typing via supported actions' };",
+    "selector_ref": "LOGIN_PASSWORD"
+  },
+  {
+    "action": "wait_for_element",
+    "name": "Wait for submit",
+    "selector_ref": "LOGIN_SUBMIT"
+  },
+  {
+    "action": "click",
+    "name": "Submit login",
+    "selector_ref": "LOGIN_SUBMIT"
+  },
+  {
+    "action": "wait_for_element",
+    "name": "Wait for post-login landmark",
+    "selector_ref": "POST_LOGIN_LANDMARK"
+  }
+]

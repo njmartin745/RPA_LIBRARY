@@ -1,0 +1,13 @@
+{
+  "name": "smoke-run-1a",
+  "version": "1.0",
+  "description": "RUN-1A smoke test workflow",
+  "defaults": {
+    "headless": true
+  },
+  "steps": [
+    {
+      "action": "wait_for_selector"
+    }
+  ]
+}

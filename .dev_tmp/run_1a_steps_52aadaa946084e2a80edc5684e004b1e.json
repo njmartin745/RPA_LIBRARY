@@ -1,0 +1,43 @@
+[
+  {
+    "action": "open",
+    "url": "${URL}"
+  },
+  {
+    "action": "wait_for_selector",
+    "name": "Wait for username",
+    "selector_ref": "LOGIN_USERNAME"
+  },
+  {
+    "action": "type_selector_secret",
+    "name": "Enter username",
+    "secret": "${USERNAME}",
+    "selector_ref": "LOGIN_USERNAME"
+  },
+  {
+    "action": "wait_for_selector",
+    "name": "Wait for password",
+    "selector_ref": "LOGIN_PASSWORD"
+  },
+  {
+    "action": "type_selector_secret",
+    "name": "Enter password",
+    "secret": "${PASSWORD}",
+    "selector_ref": "LOGIN_PASSWORD"
+  },
+  {
+    "action": "wait_for_selector",
+    "name": "Wait for submit",
+    "selector_ref": "LOGIN_SUBMIT"
+  },
+  {
+    "action": "click_selector",
+    "name": "Submit login",
+    "selector_ref": "LOGIN_SUBMIT"
+  },
+  {
+    "action": "wait_for_selector",
+    "name": "Wait for post-login landmark",
+    "selector_ref": "POST_LOGIN_LANDMARK"
+  }
+]

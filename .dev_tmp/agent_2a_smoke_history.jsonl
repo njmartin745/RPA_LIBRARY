@@ -1,0 +1,3 @@
+{"run_id": "SEED-1", "workflow_name": "WF-SMOKE", "status": "failed", "error_category": "selector", "step_action": "click_selector", "selector_ref": "LOGIN_SUBMIT"}
+{"run_id": "R-FAIL-1", "workflow_path": "WORKFLOWS\\workflow_1a_smoke.json", "workflow_name": "WF-SMOKE", "attempt": 1, "status": "failed", "error_category": "selector", "selector_ref": "LOGIN_SUBMIT", "diff_fingerprint": null}
+{"run_id": "R-OK-2", "workflow_path": "WORKFLOWS\\workflow_1a_smoke.json", "workflow_name": "WF-SMOKE", "attempt": 2, "status": "success", "error_category": null, "selector_ref": null, "diff_fingerprint": null}

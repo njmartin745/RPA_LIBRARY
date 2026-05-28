@@ -1,0 +1,75 @@
+{
+  "mckesson": {
+    "home": {
+      "landing": {
+        "css": "#idp-discovery-username",
+        "meta": {
+          "aria_label": null,
+          "captured_ts": 1778782709503,
+          "classList": [],
+          "css_unique": true,
+          "data_testid": null,
+          "id": "idp-discovery-username",
+          "innerText": "",
+          "name": "username",
+          "tagName": "input"
+        },
+        "preferred": "css",
+        "xpath": "//*[@id=\"idp-discovery-username\"]"
+      }
+    },
+    "login": {
+      "catalog": {
+        "css": "#idp-discovery-username",
+        "meta": {
+          "aria_label": null,
+          "captured_ts": 1778781305241,
+          "classList": [],
+          "css_unique": true,
+          "data_testid": null,
+          "id": "idp-discovery-username",
+          "innerText": "",
+          "name": "username",
+          "tagName": "input"
+        },
+        "preferred": "css",
+        "xpath": "//*[@id=\"idp-discovery-username\"]"
+      },
+      "continue": {
+        "css": "#idp-discovery-submit",
+        "meta": {
+          "aria_label": null,
+          "captured_ts": 1778780972262,
+          "classList": [
+            "button",
+            "button-primary"
+          ],
+          "css_unique": true,
+          "data_testid": null,
+          "id": "idp-discovery-submit",
+          "innerText": "",
+          "name": null,
+          "tagName": "input"
+        },
+        "preferred": "css",
+        "xpath": "//*[@id=\"idp-discovery-submit\"]"
+      },
+      "username": {
+        "css": "#idp-discovery-username",
+        "meta": {
+          "aria_label": null,
+          "captured_ts": 1778780884897,
+          "classList": [],
+          "css_unique": true,
+          "data_testid": null,
+          "id": "idp-discovery-username",
+          "innerText": "",
+          "name": "username",
+          "tagName": "input"
+        },
+        "preferred": "css",
+        "xpath": "//*[@id=\"idp-discovery-username\"]"
+      }
+    }
+  }
+}
