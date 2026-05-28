@@ -371,7 +371,7 @@ authoritative declaration of the canonical E2E run and its readiness criteria.
  
 ---
  
-# AI Agent Operating Rules
+# AI Agent Operating Rules 
  
 When generating new modules:
  
