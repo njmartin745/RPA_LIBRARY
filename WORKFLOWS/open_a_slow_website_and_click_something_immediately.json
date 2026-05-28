@@ -1,0 +1,36 @@
+{
+  "entry_url": "${URL}",
+  "headless": true,
+  "inputs": {
+    "mode": "none"
+  },
+  "intent": "open a slow website and click something immediately",
+  "metadata": {
+    "created_at_utc": "1970-01-01T00:00:00Z",
+    "generator": "BUILD-1A",
+    "schema_version": "SCHEMA-1A"
+  },
+  "name": "open_a_slow_website_and_click_something_immediately",
+  "notes": [
+    "Generated selector_hints (map these in your SELECTOR registry / selectors.json as needed):",
+    "- SOMETHING_IMMEDIATELY: Clickable element: something immediately",
+    "Generated vars (provide these via your runtime cfg/VAR layer): ${URL}"
+  ],
+  "outputs": {},
+  "steps": [
+    {
+      "action": "open",
+      "url": "${URL}"
+    },
+    {
+      "action": "wait_for_selector",
+      "name": "(optimizer) inserted wait",
+      "selector_ref": "SOMETHING_IMMEDIATELY"
+    },
+    {
+      "action": "click_selector",
+      "name": "Click something immediately",
+      "selector_ref": "SOMETHING_IMMEDIATELY"
+    }
+  ]
+}

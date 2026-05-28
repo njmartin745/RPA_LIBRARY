@@ -1,0 +1,66 @@
+{
+  "entry_url": "${URL}",
+  "headless": true,
+  "inputs": {
+    "mode": "none"
+  },
+  "intent": "open example.com and click login button that does not exist",
+  "metadata": {
+    "created_at_utc": "1970-01-01T00:00:00Z",
+    "generator": "BUILD-1A",
+    "schema_version": "SCHEMA-1A"
+  },
+  "name": "open_example_com_and_click_login_button_that_does_not_exist",
+  "notes": [
+    "Generated selector_hints (map these in your SELECTOR registry / selectors.json as needed):",
+    "- LOGIN_PASSWORD: Password input on login form",
+    "- LOGIN_SUBMIT: Login/Sign in/Submit button",
+    "- LOGIN_USERNAME: Username/email input on login form",
+    "- POST_LOGIN_LANDMARK: Any element that appears only after successful login",
+    "Generated vars (provide these via your runtime cfg/VAR layer): ${URL}"
+  ],
+  "outputs": {},
+  "steps": [
+    {
+      "action": "open",
+      "url": "${URL}"
+    },
+    {
+      "action": "wait_for_selector",
+      "name": "Wait for username",
+      "selector_ref": "LOGIN_USERNAME"
+    },
+    {
+      "action": "type_selector_secret",
+      "name": "Enter username",
+      "secret": "${USERNAME}",
+      "selector_ref": "LOGIN_USERNAME"
+    },
+    {
+      "action": "wait_for_selector",
+      "name": "Wait for password",
+      "selector_ref": "LOGIN_PASSWORD"
+    },
+    {
+      "action": "type_selector_secret",
+      "name": "Enter password",
+      "secret": "${PASSWORD}",
+      "selector_ref": "LOGIN_PASSWORD"
+    },
+    {
+      "action": "wait_for_selector",
+      "name": "Wait for submit",
+      "selector_ref": "LOGIN_SUBMIT"
+    },
+    {
+      "action": "click_selector",
+      "name": "Submit login",
+      "selector_ref": "LOGIN_SUBMIT"
+    },
+    {
+      "action": "wait_for_selector",
+      "name": "Wait for post-login landmark",
+      "selector_ref": "POST_LOGIN_LANDMARK"
+    }
+  ]
+}

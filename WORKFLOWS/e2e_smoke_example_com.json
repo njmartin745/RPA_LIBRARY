@@ -1,0 +1,18 @@
+{
+  "entry_url": "https://example.com",
+  "headless": true,
+  "inputs": { "mode": "none" },
+  "intent": "E2E smoke: open example.com and wait for h1",
+  "metadata": {
+    "created_at_utc": "1970-01-01T00:00:00Z",
+    "generator": "MANUAL-E2E",
+    "schema_version": "SCHEMA-1A"
+  },
+  "name": "e2e_smoke_example_com",
+  "notes": [],
+  "outputs": {},
+  "steps": [
+    { "action": "open", "url": "https://example.com" },
+    { "action": "wait_for_selector", "name": "Wait for H1", "selector": "h1" }
+  ]
+}

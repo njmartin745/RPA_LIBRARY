@@ -1,0 +1,9 @@
+[
+  {
+    "action": "open",
+    "url": "https://example.com"
+  },
+  {
+    "action": "wait_for_selector"
+  }
+]

@@ -1,0 +1,37 @@
+﻿
+{
+
+  "workflow": "_act_test_fail",
+
+  "steps": [
+
+    {
+
+      "action": "open",
+
+      "url": "https://example.com"
+
+    },
+
+    {
+
+      "action": "wait_for_selector",
+
+      "selector": ".definitely-not-a-real-selector-123",
+
+      "timeout": 2
+
+    },
+
+    {
+
+      "action": "log",
+
+      "message": "THIS SHOULD NEVER EXECUTE"
+
+    }
+
+  ]
+
+}
+

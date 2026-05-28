@@ -1,0 +1,36 @@
+{
+  "entry_url": "${URL}",
+  "headless": true,
+  "inputs": {
+    "mode": "none"
+  },
+  "intent": "go to google, search for weather, click first result",
+  "metadata": {
+    "created_at_utc": "1970-01-01T00:00:00Z",
+    "generator": "BUILD-1A",
+    "schema_version": "SCHEMA-1A"
+  },
+  "name": "go_to_google_search_for_weather_click_first_result",
+  "notes": [
+    "Generated selector_hints (map these in your SELECTOR registry / selectors.json as needed):",
+    "- FIRST_RESULT: Clickable element: first result",
+    "Generated vars (provide these via your runtime cfg/VAR layer): ${URL}"
+  ],
+  "outputs": {},
+  "steps": [
+    {
+      "action": "open",
+      "url": "${URL}"
+    },
+    {
+      "action": "wait_for_selector",
+      "name": "(optimizer) inserted wait",
+      "selector_ref": "FIRST_RESULT"
+    },
+    {
+      "action": "click_selector",
+      "name": "Click first result",
+      "selector_ref": "FIRST_RESULT"
+    }
+  ]
+}

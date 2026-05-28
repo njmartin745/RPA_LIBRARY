@@ -1,0 +1,26 @@
+{  
+  "entry_url": "https://example.com",  
+  "headless": true,  
+  "inputs": { "mode": "none" },  
+  "intent": "_act_fail_test",  
+  "metadata": {  
+    "created_at_utc": "1970-01-01T00:00:00Z",  
+    "generator": "MANUAL",  
+    "schema_version": "SCHEMA-1A"  
+  },  
+  "name": "_act_fail_test",  
+  "notes": [],  
+  "outputs": {},  
+  "steps": [  
+    { "action": "open", "url": "https://example.com" },  
+    {  
+      "action": "wait_for_selector",  
+      "selector": ".definitely-not-a-real-selector-123",  
+      "timeout": 2  
+    },
+    {  
+      "action": "exec_js",  
+      "script": "if (!document.querySelector('.definitely-not-a-real-selector-123')) { throw new Error('missing selector'); } return true;"  
+    }  
+  ]  
+}  
