@@ -1,6 +1,6 @@
 {
-  "module_count": 165,
-  "missing_header_count": 222,
+  "module_count": 172,
+  "missing_header_count": 215,
   "duplicate_count": 31,
   "categories": {
     "ACT": 5,
@@ -16,7 +16,7 @@
     "ENTRY": 3,
     "INPUT": 3,
     "NAV": 2,
-    "PIPE": 16,
+    "PIPE": 18,
     "DIFF": 3,
     "DOC": 8,
     "RUNBOOK": 1,
@@ -36,23 +36,23 @@
     "REGISTRY": 1,
     "REPLAY": 2,
     "REPORT": 15,
-    "RUN": 7,
+    "RUN": 8,
     "SCHEMA": 1,
     "SELECTOR": 1,
     "SNAP": 4,
     "STATE": 3,
     "REPO": 1,
-    "VAL": 2,
+    "VAL": 3,
     "VAR": 1,
-    "WORKFLOW": 1
+    "WORKFLOW": 4
   },
   "modules": [
     {
       "module_id": "ACT-1A",
       "category": "ACT",
       "file": "ACT\\act_1a_action_engine.py",
-      "title": "ACT-1A \u2014 Canonical Action Execution Layer (standard action surface)",
-      "docstring": "ACT-1A \u2014 Canonical Action Execution Layer (standard action surface)  \n  \n(Original docstring retained; truncated here for brevity in this snippet.)",
+      "title": "ACT-1A \u2014 Canonical Action Execution Layer",
+      "docstring": "ACT-1A \u2014 Canonical Action Execution Layer\n\nPurpose\n-------\nExecute normalized workflow steps against a live browser session.\n\nThis module serves as the primary runtime action engine and provides\nthe standard execution surface used by workflow runners, deploy bundles,\nand future orchestration layers.\n\nResponsibilities\n----------------\n- Execute workflow actions sequentially\n- Resolve workflow variables (${TOKEN})\n- Resolve selector references (selector_ref)\n- Interact with Selenium WebDriver\n- Record step outcomes and execution timing\n- Enforce fail-fast execution behavior\n- Execute JavaScript actions\n- Support download monitoring and validation\n- Capture runtime failures with structured diagnostics\n\nSupported Action Categories\n---------------------------\nNavigation\n- open\n- get\n\nSynchronization\n- wait\n- wait_for_element\n\nElement Interaction\n- click\n- type\n- select\n- hover\n- scroll\n- element lookup\n\nJavaScript\n- inline script execution\n- external script execution\n\nDownloads\n- download_wait\n- file existence validation\n- file stability validation\n\nAssertions\n- runtime expression evaluation\n- workflow validation checks\n\nArchitecture Position\n---------------------\nCAPTURE\n    \u2193\nSNAP\n    \u2193\nWORKFLOW-1E\n    Normalize\n    \u2193\nWORKFLOW-1F\n    Selector Ref First\n    \u2193\nBUILD\n    \u2193\nDEPLOY_BUNDLE\n    \u2193\nVAL-2A\n    Validate\n    \u2193\nWORKFLOW-1G\n    Load Bundle\n    \u2193\nRUN-1E\n    Runner Adapter\n    \u2193\nACT-1A\n    Action Engine\n    \u2193\nSELENIUM\n\nPublic API\n----------\nStepOutcome\nActionEngineError\nrun_actions(...)\noutcomes_as_dicts(...)\noutcomes_all_ok(...)\ndev_smoke(...)\n\nDependencies\n------------\nselenium\nNAV-1A\n\nStatus\n------\nAudited\n\nNotes\n-----\nThis is the canonical workflow execution engine.\n\nAll workflow execution paths ultimately converge here before\ninteracting with Selenium WebDriver.\n\nThe module provides the foundation for future healing,\ntelemetry, reporting, replay, and multi-agent execution.",
       "audited": false,
       "tested": false,
       "signed_off": false
@@ -1178,6 +1178,26 @@
       "signed_off": false
     },
     {
+      "module_id": "PIPE-1G",
+      "category": "PIPE",
+      "file": "PIPE\\pipe_1g_env_force_overrides.py",
+      "title": "PIPE-1G \u2014 Environment Force Overrides",
+      "docstring": "PIPE-1G \u2014 Environment Force Overrides\n\nPurpose\n-------\nApply environment-variable overrides to runtime\nconfiguration, ensuring deployment environments\ncan supersede CLI defaults and static configuration.\n\nPublic API\n----------\napply_env_force_overrides(...)\n\nDependencies\n------------\nNone\n\nStatus\n------\nDraft\n\nNotes\n-----\nOverride Priority:\n\nDefault Config\n        \u2193\nCLI Arguments\n        \u2193\nEnvironment Variables\n        \u2193\nRuntime Configuration\n\nSupported Overrides:\n\n- LOG_PATH\n- LOG_JSONL_PATH\n- MANIFEST_PATH\n- STATE_MANIFEST_PATH\n- STOP_ON_ERROR\n- FAIL_FAST\n- BROWSER\n\nUsed by deployment, CI/CD, containerized execution,\nand environment-specific runtime configuration.",
+      "audited": false,
+      "tested": false,
+      "signed_off": false
+    },
+    {
+      "module_id": "PIPE-1H",
+      "category": "PIPE",
+      "file": "PIPE\\pipe_1h_log_jsonl_path_policy.py",
+      "title": "PIPE-1H \u2014 JSONL Log Path Policy",
+      "docstring": "PIPE-1H \u2014 JSONL Log Path Policy\n\nPurpose\n-------\nResolve runtime JSONL logging destinations using\na deterministic precedence model and manage\ntemporary log file lifecycle.\n\nPublic API\n----------\nselect_log_jsonl_path(...)\nmaybe_cleanup_log_jsonl_path(...)\n\nDependencies\n------------\nNone\n\nStatus\n------\nDraft\n\nNotes\n-----\nPath Resolution Priority:\n\nLOG_JSONL_PATH (env)\n        \u2193\nLOG_PATH (env)\n        \u2193\nLOG_JSONL_PATH (cfg)\n        \u2193\nLOG_PATH (cfg)\n        \u2193\nTemporary File\n\nTemporary files created by the framework may be\ncleaned up automatically.\n\nUser-provided log files are never automatically\ndeleted.",
+      "audited": false,
+      "tested": false,
+      "signed_off": false
+    },
+    {
       "module_id": "PIPE-2A",
       "category": "PIPE",
       "file": "PIPE\\pipe_2a_var_aware_steps.py",
@@ -1518,11 +1538,11 @@
       "signed_off": false
     },
     {
-      "module_id": "RUN-1A",
+      "module_id": "RUN-1B",
       "category": "RUN",
       "file": "RUN\\run_1b_workflow_runner_with_snap.py",
-      "title": "Thin wrapper around RUN-1A runner to capture SNAP-1A artifacts on failure.",
-      "docstring": "Thin wrapper around RUN-1A runner to capture SNAP-1A artifacts on failure.  \n  \nRule: Additive only; do not refactor RUN-1A.",
+      "title": "RUN-1B \u2014 Workflow Runner With Snapshot Capture",
+      "docstring": "RUN-1B \u2014 Workflow Runner With Snapshot Capture\n\nPurpose\n-------\nWrap the canonical RUN-1A workflow runner and automatically\ncapture SNAP-1A failure artifacts whenever execution fails.\n\nThis module is additive only and does not modify\nRUN-1A execution behavior.\n\nPublic API\n----------\nrun_workflow_with_snap(...)\n\nDependencies\n------------\nRUN-1A\nSNAP-1A\n\nStatus\n------\nDraft\n\nNotes\n-----\nOn workflow failure:\nRUN-1A\n    \u2193\nCapture SNAP-1A artifacts\n    \u2193\nRe-raise original exception\n\nUsed for diagnostics, replay, healing, and audit workflows.",
       "audited": false,
       "tested": false,
       "signed_off": false
@@ -1543,6 +1563,16 @@
       "file": "RUN\\run_1d_runner_with_history.py",
       "title": "RUN-1D \u2014 Wrapper to append HISTORY-1A records after running RUN-1A / REPORT-1A.",
       "docstring": "RUN-1D \u2014 Wrapper to append HISTORY-1A records after running RUN-1A / REPORT-1A.  \n  \n- Additive only (no RUN-1A refactors)  \n- Best-effort: if run fails (exception), still attempts to append a failure record.  \n- If DIFF fingerprint (overall_hash) is provided or computable, include it.",
+      "audited": false,
+      "tested": false,
+      "signed_off": false
+    },
+    {
+      "module_id": "RUN-1E",
+      "category": "RUN",
+      "file": "RUN\\run_1e_deploy_bundle_runner_adapter.py",
+      "title": "RUN-1E \u2014 Deploy Bundle Runner Adapter",
+      "docstring": "RUN-1E \u2014 Deploy Bundle Runner Adapter\n\nPurpose\n-------\nExecute DEPLOY_BUNDLE_1A artifacts by loading,\nvalidating, extracting runnable workflow assets,\nand delegating execution to the configured runtime runner.\n\nThis module provides the bridge between the\ndeployment pipeline and workflow execution layer.\n\nPublic API\n----------\nrun_deploy_bundle_1a(...)\nrun_deploy_bundle_1a_with_meta(...)\nresolve_default_workflow_runner_callable(...)\n\nDependencies\n------------\nWORKFLOWS-1G\nRUN-1A\nRUN-1B\nRUN-1C\nRUN-1D\n\nStatus\n------\nDraft\n\nNotes\n-----\nExecution Flow:\n\nDEPLOY_BUNDLE_1A\n        \u2193\nLoad & Validate\n        \u2193\nExtract Workflow\n        \u2193\nResolve Runner\n        \u2193\nExecute Workflow\n\nThis module does not execute Selenium actions directly.\nIt delegates execution to the resolved runtime runner.",
       "audited": false,
       "tested": false,
       "signed_off": false
@@ -1678,6 +1708,16 @@
       "signed_off": false
     },
     {
+      "module_id": "VAL-2A",
+      "category": "VAL",
+      "file": "VAL\\val_2a_deploy_bundle_validator.py",
+      "title": "VAL-2A \u2014 Deploy Bundle Validator",
+      "docstring": "VAL-2A \u2014 Deploy Bundle Validator\n\nPurpose\n-------\nPerform deterministic validation of DEPLOY_BUNDLE_1A\nartifacts before runtime execution.\n\nEnsures workflow structure, selector references,\nversioning metadata, and bundle integrity meet\nplatform requirements.\n\nPublic API\n----------\nvalidate_deploy_bundle_1a(...)\nassert_deploy_bundle_1a(...)\n\nDependencies\n------------\nBUILD-3A\nSNAP-1A\n\nStatus\n------\nDraft\n\nNotes\n-----\nValidation Areas:\n\nDEPLOY_BUNDLE_1A\n        \u2193\nSchema Validation\n        \u2193\nWorkflow Validation\n        \u2193\nSelector Validation\n        \u2193\nVersion/Fingerprint Validation\n        \u2193\nDeterministic Report\n\nSupports both report-based validation and\nfail-fast exception-based validation.\n\nThis module is the primary quality gate\nbefore workflow execution.",
+      "audited": false,
+      "tested": false,
+      "signed_off": false
+    },
+    {
       "module_id": "VAR-1A",
       "category": "VAR",
       "file": "VAR\\var_1a_runtime_store.py",
@@ -1688,11 +1728,41 @@
       "signed_off": false
     },
     {
+      "module_id": "WORKFLOW-1E",
+      "category": "WORKFLOW",
+      "file": "WORKFLOW\\workflow_1e_steps_normalizer.py",
+      "title": "WORKFLOW-1E \u2014 Workflow Steps Normalizer",
+      "docstring": "WORKFLOW-1E \u2014 Workflow Steps Normalizer\n\nPurpose\n-------\nConvert workflow definitions into a deterministic\ncanonical representation suitable for validation,\ndiffing, fingerprinting, bundling, and execution.\n\nPublic API\n----------\nnormalize_workflow_steps(...)\nnormalize_workflow_dict(...)\nnormalize_capture_bundle_workflow(...)\n\nDependencies\n------------\nSNAP-1A\n\nStatus\n------\nDraft\n\nNotes\n-----\nNormalization Responsibilities:\n\nWorkflow\n        \u2193\nRemove None Fields\n        \u2193\nTrim Strings\n        \u2193\nNormalize Repeat Structures\n        \u2193\nCoerce Repeat Counts\n        \u2193\nValidate (Optional)\n        \u2193\nDeterministic Key Ordering\n\nProduces stable workflow representations for\nreview, fingerprint generation, validation,\nand deployment packaging.",
+      "audited": false,
+      "tested": false,
+      "signed_off": false
+    },
+    {
+      "module_id": "WORKFLOW-1F",
+      "category": "WORKFLOW",
+      "file": "WORKFLOW\\workflow_1f_selector_ref_first.py",
+      "title": "WORKFLOW-1F \u2014 Selector Reference First Enforcement",
+      "docstring": "WORKFLOW-1F \u2014 Selector Reference First Enforcement\n\nPurpose\n-------\nConvert workflows from raw-selector usage to\nselector-reference usage using the selector pack\nas the authoritative source of selector metadata.\n\nPublic API\n----------\nselector_pack_selector_to_ref(...)\nenforce_selector_ref_first_in_steps(...)\nenforce_selector_ref_first_in_workflow(...)\nenforce_selector_ref_first_in_bundle(...)\n\nDependencies\n------------\nSELECTOR_PACK_1A\n\nStatus\n------\nDraft\n\nNotes\n-----\nSelector Policy:\n\nRaw Selector\n        \u2193\nSelector Reference\n        \u2193\nSelector Pack\n\nResponsibilities:\n\n- Convert selectors to selector_ref values\n- Remove raw selectors when configured\n- Validate selector consistency\n- Recurse through repeat blocks\n- Produce deterministic workflows\n\nThis module is a key prerequisite for\ndeploy bundles, healing, replay, and\nportable workflow execution.",
+      "audited": false,
+      "tested": false,
+      "signed_off": false
+    },
+    {
       "module_id": "WORKFLOW-1A",
       "category": "WORKFLOW",
       "file": "WORKFLOWS\\workflow_1a_loader.py",
       "title": "WORKFLOW-1A \u2014 Workflow file loader + validator + normalizer",
       "docstring": "WORKFLOW-1A \u2014 Workflow file loader + validator + normalizer  \n  \nLoads a workflow definition from JSON or YAML (YAML optional if PyYAML is available),  \nvalidates basic structure + known actions, and normalizes common aliases into a  \ncanonical (workflow, cfg_out, steps_out) shape.  \n  \nReads existing generated artifacts (DO NOT re-derive):  \n- REGISTRY/action_registry.json (preferred for action allowlist)  \n- SCHEMA/steps_schema.json (required-fields validation; fallback allowlist)  \n  \nRules:  \n- Pure helper: no logging/printing.  \n- Raise ValueError with actionable messages.  \n- Deterministic output.",
+      "audited": false,
+      "tested": false,
+      "signed_off": false
+    },
+    {
+      "module_id": "WORKFLOW-1G",
+      "category": "WORKFLOW",
+      "file": "WORKFLOWS\\workflow_1g_deploy_bundle_loader.py",
+      "title": "WORKFLOW-1G \u2014 Deploy Bundle Loader",
+      "docstring": "WORKFLOW-1G \u2014 Deploy Bundle Loader\n\nPurpose\n-------\nLoad, normalize, validate, and extract runnable\nworkflow assets from DEPLOY_BUNDLE_1A artifacts.\n\nProvides a stable bridge between deployment\nartifacts and runtime execution.\n\nPublic API\n----------\nload_deploy_bundle_1a(...)\nload_deploy_bundle_1a_from_path(...)\nextract_runnable_from_deploy_bundle_1a(...)\n\nDependencies\n------------\nBUILD-3A\nBUILD-3F\nVAL-2A\n\nStatus\n------\nDraft\n\nNotes\n-----\nResponsibilities:\n\nDEPLOY_BUNDLE_1A\n        \u2193\nLoad\n        \u2193\nNormalize\n        \u2193\nValidate\n        \u2193\nExtract\n        \u2193\nReturn:\n    workflow\n    selector_pack\n    run_meta\n\nSupports legacy bundle compatibility by\nautomatically normalizing older fingerprint formats.",
       "audited": false,
       "tested": false,
       "signed_off": false

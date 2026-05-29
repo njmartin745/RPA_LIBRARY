@@ -1,3 +1,53 @@
+"""
+WORKFLOW-1G — Deploy Bundle Loader
+
+Purpose
+-------
+Load, normalize, validate, and extract runnable
+workflow assets from DEPLOY_BUNDLE_1A artifacts.
+
+Provides a stable bridge between deployment
+artifacts and runtime execution.
+
+Public API
+----------
+load_deploy_bundle_1a(...)
+load_deploy_bundle_1a_from_path(...)
+extract_runnable_from_deploy_bundle_1a(...)
+
+Dependencies
+------------
+BUILD-3A
+BUILD-3F
+VAL-2A
+
+Status
+------
+Draft
+
+Notes
+-----
+Responsibilities:
+
+DEPLOY_BUNDLE_1A
+        ↓
+Load
+        ↓
+Normalize
+        ↓
+Validate
+        ↓
+Extract
+        ↓
+Return:
+    workflow
+    selector_pack
+    run_meta
+
+Supports legacy bundle compatibility by
+automatically normalizing older fingerprint formats.
+"""
+
 from __future__ import annotations  
   
 import json  

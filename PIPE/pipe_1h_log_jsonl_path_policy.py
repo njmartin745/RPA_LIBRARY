@@ -1,4 +1,46 @@
-# PIPE/pipe_1h_log_jsonl_path_policy.py  
+"""
+PIPE-1H — JSONL Log Path Policy
+
+Purpose
+-------
+Resolve runtime JSONL logging destinations using
+a deterministic precedence model and manage
+temporary log file lifecycle.
+
+Public API
+----------
+select_log_jsonl_path(...)
+maybe_cleanup_log_jsonl_path(...)
+
+Dependencies
+------------
+None
+
+Status
+------
+Draft
+
+Notes
+-----
+Path Resolution Priority:
+
+LOG_JSONL_PATH (env)
+        ↓
+LOG_PATH (env)
+        ↓
+LOG_JSONL_PATH (cfg)
+        ↓
+LOG_PATH (cfg)
+        ↓
+Temporary File
+
+Temporary files created by the framework may be
+cleaned up automatically.
+
+User-provided log files are never automatically
+deleted.
+"""
+
 from __future__ import annotations  
   
 import os  

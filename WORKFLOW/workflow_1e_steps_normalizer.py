@@ -1,3 +1,49 @@
+"""
+WORKFLOW-1E — Workflow Steps Normalizer
+
+Purpose
+-------
+Convert workflow definitions into a deterministic
+canonical representation suitable for validation,
+diffing, fingerprinting, bundling, and execution.
+
+Public API
+----------
+normalize_workflow_steps(...)
+normalize_workflow_dict(...)
+normalize_capture_bundle_workflow(...)
+
+Dependencies
+------------
+SNAP-1A
+
+Status
+------
+Draft
+
+Notes
+-----
+Normalization Responsibilities:
+
+Workflow
+        ↓
+Remove None Fields
+        ↓
+Trim Strings
+        ↓
+Normalize Repeat Structures
+        ↓
+Coerce Repeat Counts
+        ↓
+Validate (Optional)
+        ↓
+Deterministic Key Ordering
+
+Produces stable workflow representations for
+review, fingerprint generation, validation,
+and deployment packaging.
+"""
+
 from __future__ import annotations  
   
 from typing import Any, Dict, List, Mapping, MutableMapping, Optional, Sequence, Set  

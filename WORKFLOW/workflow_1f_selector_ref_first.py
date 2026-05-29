@@ -1,3 +1,50 @@
+"""
+WORKFLOW-1F — Selector Reference First Enforcement
+
+Purpose
+-------
+Convert workflows from raw-selector usage to
+selector-reference usage using the selector pack
+as the authoritative source of selector metadata.
+
+Public API
+----------
+selector_pack_selector_to_ref(...)
+enforce_selector_ref_first_in_steps(...)
+enforce_selector_ref_first_in_workflow(...)
+enforce_selector_ref_first_in_bundle(...)
+
+Dependencies
+------------
+SELECTOR_PACK_1A
+
+Status
+------
+Draft
+
+Notes
+-----
+Selector Policy:
+
+Raw Selector
+        ↓
+Selector Reference
+        ↓
+Selector Pack
+
+Responsibilities:
+
+- Convert selectors to selector_ref values
+- Remove raw selectors when configured
+- Validate selector consistency
+- Recurse through repeat blocks
+- Produce deterministic workflows
+
+This module is a key prerequisite for
+deploy bundles, healing, replay, and
+portable workflow execution.
+"""
+
 from __future__ import annotations  
   
 from typing import Any, Dict, List, Mapping, MutableMapping, Optional, Sequence, Tuple  

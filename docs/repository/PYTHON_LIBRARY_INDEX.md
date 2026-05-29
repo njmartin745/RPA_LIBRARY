@@ -29,7 +29,7 @@ AUTO-GENERATED. DO NOT EDIT MANUALLY.
 | OBS | 1 |
 | OUT | 2 |
 | PACK | 1 |
-| PIPE | 16 |
+| PIPE | 18 |
 | PLAN | 1 |
 | REASON | 1 |
 | REG | 2 |
@@ -37,7 +37,7 @@ AUTO-GENERATED. DO NOT EDIT MANUALLY.
 | REPLAY | 2 |
 | REPO | 1 |
 | REPORT | 15 |
-| RUN | 7 |
+| RUN | 8 |
 | RUNBOOK | 1 |
 | SCHEMA | 1 |
 | SELECTOR | 1 |
@@ -45,16 +45,16 @@ AUTO-GENERATED. DO NOT EDIT MANUALLY.
 | SNAP | 4 |
 | STATE | 3 |
 | UNKNOWN | 29 |
-| VAL | 2 |
+| VAL | 3 |
 | VAR | 1 |
-| WORKFLOW | 1 |
-| TOTAL | 165 |
+| WORKFLOW | 4 |
+| TOTAL | 172 |
 
 ## Capability Summary
 
 | Module | Description |
 |--------|-------------|
-| ACT-1A | ACT-1A — Canonical Action Execution Layer (standard action surface) |
+| ACT-1A | ACT-1A — Canonical Action Execution Layer |
 | ACT-1A | Dev smoke test for ACT-1A action engine. |
 | ACT-1B | ACT-1B — Structured logging integration wrapper for ACT-1A |
 | ACT-1B | Dev smoke test for ACT-1B logging integration. |
@@ -140,6 +140,8 @@ AUTO-GENERATED. DO NOT EDIT MANUALLY.
 | PIPE-1D | PIPE-1D — Step Execution Adapter |
 | PIPE-1E | PIPE-1E — Single runnable pipeline entrypoint. |
 | PIPE-1F | PIPE-1F: Environment overrides applied to cfg. |
+| PIPE-1G | PIPE-1G — Environment Force Overrides |
+| PIPE-1H | PIPE-1H — JSONL Log Path Policy |
 | PIPE-2A | PIPE-2A — Variable-aware Step Execution (VAR-1A integration). |
 | PIPE-2B | PIPE-2B — Step Blocks & Branching (if/else + try blocks). |
 | PIPE-2C | PIPE-2C — Error Plumbing Integration (LOG-1B + LOG-1A + STATE). |
@@ -171,9 +173,10 @@ AUTO-GENERATED. DO NOT EDIT MANUALLY.
 | RUN-1A | RUN-1A: Pre-run workflow grammar gate. |
 | RUN-1A | RUN-1A: Workflow grammar gate run orchestration. |
 | RUN-1A | RUN-1A — Unified Workflow Runner |
-| RUN-1A | Thin wrapper around RUN-1A runner to capture SNAP-1A artifacts on failure. |
+| RUN-1B | RUN-1B — Workflow Runner With Snapshot Capture |
 | RUN-1C | RUN-1C — Wrapper to enable GUARD-1A without refactoring RUN-1A. |
 | RUN-1D | RUN-1D — Wrapper to append HISTORY-1A records after running RUN-1A / REPORT-1A. |
+| RUN-1E | RUN-1E — Deploy Bundle Runner Adapter |
 | RUN-1E | RUN-1E — Post-run reporting hook (10.4.2) |
 | RUNBOOK-1A | RUNBOOK-1A — Operational Playbook Generator |
 | SCHEMA-1A | SCHEMA-1A — Step/Action Schema Export (AI-friendly) |
@@ -217,17 +220,128 @@ AUTO-GENERATED. DO NOT EDIT MANUALLY.
 | UNKNOWN | run_12c_operational_gates_enforcement.py |
 | VAL-1A | VAL-1A — UI state validation via selector presence + text checks. |
 | VAL-1B | VAL-1B — Download validation (file exists, size > 0, optional name patterns). |
+| VAL-2A | VAL-2A — Deploy Bundle Validator |
 | VAR-1A | VAR-1A — Runtime Variable Store. |
 | WORKFLOW-1A | WORKFLOW-1A — Workflow file loader + validator + normalizer |
+| WORKFLOW-1E | WORKFLOW-1E — Workflow Steps Normalizer |
+| WORKFLOW-1F | WORKFLOW-1F — Selector Reference First Enforcement |
+| WORKFLOW-1G | WORKFLOW-1G — Deploy Bundle Loader |
 
 ## ACT\act_1a_action_engine.py
 
 **Module ID:** ACT-1A
 
 ```
-ACT-1A — Canonical Action Execution Layer (standard action surface)  
-  
-(Original docstring retained; truncated here for brevity in this snippet.)
+ACT-1A — Canonical Action Execution Layer
+
+Purpose
+-------
+Execute normalized workflow steps against a live browser session.
+
+This module serves as the primary runtime action engine and provides
+the standard execution surface used by workflow runners, deploy bundles,
+and future orchestration layers.
+
+Responsibilities
+----------------
+- Execute workflow actions sequentially
+- Resolve workflow variables (${TOKEN})
+- Resolve selector references (selector_ref)
+- Interact with Selenium WebDriver
+- Record step outcomes and execution timing
+- Enforce fail-fast execution behavior
+- Execute JavaScript actions
+- Support download monitoring and validation
+- Capture runtime failures with structured diagnostics
+
+Supported Action Categories
+---------------------------
+Navigation
+- open
+- get
+
+Synchronization
+- wait
+- wait_for_element
+
+Element Interaction
+- click
+- type
+- select
+- hover
+- scroll
+- element lookup
+
+JavaScript
+- inline script execution
+- external script execution
+
+Downloads
+- download_wait
+- file existence validation
+- file stability validation
+
+Assertions
+- runtime expression evaluation
+- workflow validation checks
+
+Architecture Position
+---------------------
+CAPTURE
+    ↓
+SNAP
+    ↓
+WORKFLOW-1E
+    Normalize
+    ↓
+WORKFLOW-1F
+    Selector Ref First
+    ↓
+BUILD
+    ↓
+DEPLOY_BUNDLE
+    ↓
+VAL-2A
+    Validate
+    ↓
+WORKFLOW-1G
+    Load Bundle
+    ↓
+RUN-1E
+    Runner Adapter
+    ↓
+ACT-1A
+    Action Engine
+    ↓
+SELENIUM
+
+Public API
+----------
+StepOutcome
+ActionEngineError
+run_actions(...)
+outcomes_as_dicts(...)
+outcomes_all_ok(...)
+dev_smoke(...)
+
+Dependencies
+------------
+selenium
+NAV-1A
+
+Status
+------
+Audited
+
+Notes
+-----
+This is the canonical workflow execution engine.
+
+All workflow execution paths ultimately converge here before
+interacting with Selenium WebDriver.
+
+The module provides the foundation for future healing,
+telemetry, reporting, replay, and multi-agent execution.
 ```
 
 ## ACT\act_1b_logging_integration.py
@@ -2368,6 +2482,104 @@ Design
 - Writes both canonical + alias keys (e.g., DRY_RUN and dry_run) for compatibility.
 ```
 
+## PIPE\pipe_1g_env_force_overrides.py
+
+**Module ID:** PIPE-1G
+
+```
+PIPE-1G — Environment Force Overrides
+
+Purpose
+-------
+Apply environment-variable overrides to runtime
+configuration, ensuring deployment environments
+can supersede CLI defaults and static configuration.
+
+Public API
+----------
+apply_env_force_overrides(...)
+
+Dependencies
+------------
+None
+
+Status
+------
+Draft
+
+Notes
+-----
+Override Priority:
+
+Default Config
+        ↓
+CLI Arguments
+        ↓
+Environment Variables
+        ↓
+Runtime Configuration
+
+Supported Overrides:
+
+- LOG_PATH
+- LOG_JSONL_PATH
+- MANIFEST_PATH
+- STATE_MANIFEST_PATH
+- STOP_ON_ERROR
+- FAIL_FAST
+- BROWSER
+
+Used by deployment, CI/CD, containerized execution,
+and environment-specific runtime configuration.
+```
+
+## PIPE\pipe_1h_log_jsonl_path_policy.py
+
+**Module ID:** PIPE-1H
+
+```
+PIPE-1H — JSONL Log Path Policy
+
+Purpose
+-------
+Resolve runtime JSONL logging destinations using
+a deterministic precedence model and manage
+temporary log file lifecycle.
+
+Public API
+----------
+select_log_jsonl_path(...)
+maybe_cleanup_log_jsonl_path(...)
+
+Dependencies
+------------
+None
+
+Status
+------
+Draft
+
+Notes
+-----
+Path Resolution Priority:
+
+LOG_JSONL_PATH (env)
+        ↓
+LOG_PATH (env)
+        ↓
+LOG_JSONL_PATH (cfg)
+        ↓
+LOG_PATH (cfg)
+        ↓
+Temporary File
+
+Temporary files created by the framework may be
+cleaned up automatically.
+
+User-provided log files are never automatically
+deleted.
+```
+
 ## PIPE\pipe_2a_var_aware_steps.py
 
 **Module ID:** PIPE-2A
@@ -3044,12 +3256,42 @@ Execution flow:
 
 ## RUN\run_1b_workflow_runner_with_snap.py
 
-**Module ID:** RUN-1A
+**Module ID:** RUN-1B
 
 ```
-Thin wrapper around RUN-1A runner to capture SNAP-1A artifacts on failure.  
-  
-Rule: Additive only; do not refactor RUN-1A.
+RUN-1B — Workflow Runner With Snapshot Capture
+
+Purpose
+-------
+Wrap the canonical RUN-1A workflow runner and automatically
+capture SNAP-1A failure artifacts whenever execution fails.
+
+This module is additive only and does not modify
+RUN-1A execution behavior.
+
+Public API
+----------
+run_workflow_with_snap(...)
+
+Dependencies
+------------
+RUN-1A
+SNAP-1A
+
+Status
+------
+Draft
+
+Notes
+-----
+On workflow failure:
+RUN-1A
+    ↓
+Capture SNAP-1A artifacts
+    ↓
+Re-raise original exception
+
+Used for diagnostics, replay, healing, and audit workflows.
 ```
 
 ## RUN\run_1c_workflow_runner_with_guard.py
@@ -3077,6 +3319,58 @@ RUN-1D — Wrapper to append HISTORY-1A records after running RUN-1A / REPORT-1A
 - Additive only (no RUN-1A refactors)  
 - Best-effort: if run fails (exception), still attempts to append a failure record.  
 - If DIFF fingerprint (overall_hash) is provided or computable, include it.
+```
+
+## RUN\run_1e_deploy_bundle_runner_adapter.py
+
+**Module ID:** RUN-1E
+
+```
+RUN-1E — Deploy Bundle Runner Adapter
+
+Purpose
+-------
+Execute DEPLOY_BUNDLE_1A artifacts by loading,
+validating, extracting runnable workflow assets,
+and delegating execution to the configured runtime runner.
+
+This module provides the bridge between the
+deployment pipeline and workflow execution layer.
+
+Public API
+----------
+run_deploy_bundle_1a(...)
+run_deploy_bundle_1a_with_meta(...)
+resolve_default_workflow_runner_callable(...)
+
+Dependencies
+------------
+WORKFLOWS-1G
+RUN-1A
+RUN-1B
+RUN-1C
+RUN-1D
+
+Status
+------
+Draft
+
+Notes
+-----
+Execution Flow:
+
+DEPLOY_BUNDLE_1A
+        ↓
+Load & Validate
+        ↓
+Extract Workflow
+        ↓
+Resolve Runner
+        ↓
+Execute Workflow
+
+This module does not execute Selenium actions directly.
+It delegates execution to the resolved runtime runner.
 ```
 
 ## RUN\run_1e_post_run_reporting.py
@@ -3374,6 +3668,59 @@ Return contract
 }
 ```
 
+## VAL\val_2a_deploy_bundle_validator.py
+
+**Module ID:** VAL-2A
+
+```
+VAL-2A — Deploy Bundle Validator
+
+Purpose
+-------
+Perform deterministic validation of DEPLOY_BUNDLE_1A
+artifacts before runtime execution.
+
+Ensures workflow structure, selector references,
+versioning metadata, and bundle integrity meet
+platform requirements.
+
+Public API
+----------
+validate_deploy_bundle_1a(...)
+assert_deploy_bundle_1a(...)
+
+Dependencies
+------------
+BUILD-3A
+SNAP-1A
+
+Status
+------
+Draft
+
+Notes
+-----
+Validation Areas:
+
+DEPLOY_BUNDLE_1A
+        ↓
+Schema Validation
+        ↓
+Workflow Validation
+        ↓
+Selector Validation
+        ↓
+Version/Fingerprint Validation
+        ↓
+Deterministic Report
+
+Supports both report-based validation and
+fail-fast exception-based validation.
+
+This module is the primary quality gate
+before workflow execution.
+```
+
 ## VAR\var_1a_runtime_store.py
 
 **Module ID:** VAR-1A
@@ -3398,6 +3745,107 @@ Errors
 - Missing variable in render_vars raises KeyError with a clear message.
 ```
 
+## WORKFLOW\workflow_1e_steps_normalizer.py
+
+**Module ID:** WORKFLOW-1E
+
+```
+WORKFLOW-1E — Workflow Steps Normalizer
+
+Purpose
+-------
+Convert workflow definitions into a deterministic
+canonical representation suitable for validation,
+diffing, fingerprinting, bundling, and execution.
+
+Public API
+----------
+normalize_workflow_steps(...)
+normalize_workflow_dict(...)
+normalize_capture_bundle_workflow(...)
+
+Dependencies
+------------
+SNAP-1A
+
+Status
+------
+Draft
+
+Notes
+-----
+Normalization Responsibilities:
+
+Workflow
+        ↓
+Remove None Fields
+        ↓
+Trim Strings
+        ↓
+Normalize Repeat Structures
+        ↓
+Coerce Repeat Counts
+        ↓
+Validate (Optional)
+        ↓
+Deterministic Key Ordering
+
+Produces stable workflow representations for
+review, fingerprint generation, validation,
+and deployment packaging.
+```
+
+## WORKFLOW\workflow_1f_selector_ref_first.py
+
+**Module ID:** WORKFLOW-1F
+
+```
+WORKFLOW-1F — Selector Reference First Enforcement
+
+Purpose
+-------
+Convert workflows from raw-selector usage to
+selector-reference usage using the selector pack
+as the authoritative source of selector metadata.
+
+Public API
+----------
+selector_pack_selector_to_ref(...)
+enforce_selector_ref_first_in_steps(...)
+enforce_selector_ref_first_in_workflow(...)
+enforce_selector_ref_first_in_bundle(...)
+
+Dependencies
+------------
+SELECTOR_PACK_1A
+
+Status
+------
+Draft
+
+Notes
+-----
+Selector Policy:
+
+Raw Selector
+        ↓
+Selector Reference
+        ↓
+Selector Pack
+
+Responsibilities:
+
+- Convert selectors to selector_ref values
+- Remove raw selectors when configured
+- Validate selector consistency
+- Recurse through repeat blocks
+- Produce deterministic workflows
+
+This module is a key prerequisite for
+deploy bundles, healing, replay, and
+portable workflow execution.
+```
+
 ## WORKFLOWS\workflow_1a_loader.py
 
 **Module ID:** WORKFLOW-1A
@@ -3417,6 +3865,60 @@ Rules:
 - Pure helper: no logging/printing.  
 - Raise ValueError with actionable messages.  
 - Deterministic output.
+```
+
+## WORKFLOWS\workflow_1g_deploy_bundle_loader.py
+
+**Module ID:** WORKFLOW-1G
+
+```
+WORKFLOW-1G — Deploy Bundle Loader
+
+Purpose
+-------
+Load, normalize, validate, and extract runnable
+workflow assets from DEPLOY_BUNDLE_1A artifacts.
+
+Provides a stable bridge between deployment
+artifacts and runtime execution.
+
+Public API
+----------
+load_deploy_bundle_1a(...)
+load_deploy_bundle_1a_from_path(...)
+extract_runnable_from_deploy_bundle_1a(...)
+
+Dependencies
+------------
+BUILD-3A
+BUILD-3F
+VAL-2A
+
+Status
+------
+Draft
+
+Notes
+-----
+Responsibilities:
+
+DEPLOY_BUNDLE_1A
+        ↓
+Load
+        ↓
+Normalize
+        ↓
+Validate
+        ↓
+Extract
+        ↓
+Return:
+    workflow
+    selector_pack
+    run_meta
+
+Supports legacy bundle compatibility by
+automatically normalizing older fingerprint formats.
 ```
 
 # Missing Module Headers
@@ -3611,8 +4113,6 @@ Rules:
 - OBS\__init__.py
 - OUT\__init__.py
 - PIPE\__init__.py
-- PIPE\pipe_1g_env_force_overrides.py
-- PIPE\pipe_1h_log_jsonl_path_policy.py
 - PLAN\__init__.py
 - REASON\__init__.py
 - REGISTRY\__init__.py
@@ -3622,7 +4122,6 @@ Rules:
 - REPORT\report_1e_deploy_bundle_validation_report_writer.py
 - RUN\__init__.py
 - RUN\dev_run_workflow.py
-- RUN\run_1e_deploy_bundle_runner_adapter.py
 - SCHEMA\__init__.py
 - SELECTOR\__init__.py
 - SNAP\__init__.py
@@ -3634,15 +4133,11 @@ Rules:
 - SNAP\snap_1f_materialize_selectors.py
 - STATE\__init__.py
 - VAL\__init__.py
-- VAL\val_2a_deploy_bundle_validator.py
 - VAR\__init__.py
-- WORKFLOW\workflow_1e_steps_normalizer.py
-- WORKFLOW\workflow_1f_selector_ref_first.py
 - WORKFLOW\workflow_2a_capture_actions_to_schema_steps.py
 - WORKFLOW\workflow_2b_capture_js_event_recorder.py
 - WORKFLOW\workflow_2c_capture_events_to_schema_steps_encoder.py
 - WORKFLOWS\__init__.py
-- WORKFLOWS\workflow_1g_deploy_bundle_loader.py
 
 # Duplicate Module IDs
 
@@ -3675,5 +4170,5 @@ Rules:
 - REPORT-1C: REPORT\report_1c_workflow_grammar_gate_report_summary.py
 - RUN-1A: RUN\run_1a_workflow_grammar_gate_run.py
 - RUN-1A: RUN\run_1a_workflow_runner.py
-- RUN-1A: RUN\run_1b_workflow_runner_with_snap.py
+- RUN-1E: RUN\run_1e_post_run_reporting.py
 - SNAP-1A: SNAP\snap_1a_failure_capture.py

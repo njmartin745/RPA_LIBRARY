@@ -1,3 +1,50 @@
+"""
+PIPE-1G — Environment Force Overrides
+
+Purpose
+-------
+Apply environment-variable overrides to runtime
+configuration, ensuring deployment environments
+can supersede CLI defaults and static configuration.
+
+Public API
+----------
+apply_env_force_overrides(...)
+
+Dependencies
+------------
+None
+
+Status
+------
+Draft
+
+Notes
+-----
+Override Priority:
+
+Default Config
+        ↓
+CLI Arguments
+        ↓
+Environment Variables
+        ↓
+Runtime Configuration
+
+Supported Overrides:
+
+- LOG_PATH
+- LOG_JSONL_PATH
+- MANIFEST_PATH
+- STATE_MANIFEST_PATH
+- STOP_ON_ERROR
+- FAIL_FAST
+- BROWSER
+
+Used by deployment, CI/CD, containerized execution,
+and environment-specific runtime configuration.
+"""
+
 from __future__ import annotations  
   
 from typing import Any, Mapping, MutableMapping, Optional  

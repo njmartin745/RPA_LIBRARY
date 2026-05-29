@@ -1,9 +1,38 @@
-# RUN/run_1b_workflow_runner_with_snap.py  
-"""  
-Thin wrapper around RUN-1A runner to capture SNAP-1A artifacts on failure.  
-  
-Rule: Additive only; do not refactor RUN-1A.  
-"""  
+"""
+RUN-1B — Workflow Runner With Snapshot Capture
+
+Purpose
+-------
+Wrap the canonical RUN-1A workflow runner and automatically
+capture SNAP-1A failure artifacts whenever execution fails.
+
+This module is additive only and does not modify
+RUN-1A execution behavior.
+
+Public API
+----------
+run_workflow_with_snap(...)
+
+Dependencies
+------------
+RUN-1A
+SNAP-1A
+
+Status
+------
+Draft
+
+Notes
+-----
+On workflow failure:
+RUN-1A
+    ↓
+Capture SNAP-1A artifacts
+    ↓
+Re-raise original exception
+
+Used for diagnostics, replay, healing, and audit workflows.
+"""
   
 from __future__ import annotations  
   

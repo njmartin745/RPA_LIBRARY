@@ -1,3 +1,51 @@
+"""
+RUN-1E — Deploy Bundle Runner Adapter
+
+Purpose
+-------
+Execute DEPLOY_BUNDLE_1A artifacts by loading,
+validating, extracting runnable workflow assets,
+and delegating execution to the configured runtime runner.
+
+This module provides the bridge between the
+deployment pipeline and workflow execution layer.
+
+Public API
+----------
+run_deploy_bundle_1a(...)
+run_deploy_bundle_1a_with_meta(...)
+resolve_default_workflow_runner_callable(...)
+
+Dependencies
+------------
+WORKFLOWS-1G
+RUN-1A
+RUN-1B
+RUN-1C
+RUN-1D
+
+Status
+------
+Draft
+
+Notes
+-----
+Execution Flow:
+
+DEPLOY_BUNDLE_1A
+        ↓
+Load & Validate
+        ↓
+Extract Workflow
+        ↓
+Resolve Runner
+        ↓
+Execute Workflow
+
+This module does not execute Selenium actions directly.
+It delegates execution to the resolved runtime runner.
+"""
+
 from __future__ import annotations  
   
 import importlib  

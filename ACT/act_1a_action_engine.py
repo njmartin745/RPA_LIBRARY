@@ -1,8 +1,115 @@
-"""  
-ACT-1A — Canonical Action Execution Layer (standard action surface)  
-  
-(Original docstring retained; truncated here for brevity in this snippet.)  
-"""  
+"""
+ACT-1A — Canonical Action Execution Layer
+
+Purpose
+-------
+Execute normalized workflow steps against a live browser session.
+
+This module serves as the primary runtime action engine and provides
+the standard execution surface used by workflow runners, deploy bundles,
+and future orchestration layers.
+
+Responsibilities
+----------------
+- Execute workflow actions sequentially
+- Resolve workflow variables (${TOKEN})
+- Resolve selector references (selector_ref)
+- Interact with Selenium WebDriver
+- Record step outcomes and execution timing
+- Enforce fail-fast execution behavior
+- Execute JavaScript actions
+- Support download monitoring and validation
+- Capture runtime failures with structured diagnostics
+
+Supported Action Categories
+---------------------------
+Navigation
+- open
+- get
+
+Synchronization
+- wait
+- wait_for_element
+
+Element Interaction
+- click
+- type
+- select
+- hover
+- scroll
+- element lookup
+
+JavaScript
+- inline script execution
+- external script execution
+
+Downloads
+- download_wait
+- file existence validation
+- file stability validation
+
+Assertions
+- runtime expression evaluation
+- workflow validation checks
+
+Architecture Position
+---------------------
+CAPTURE
+    ↓
+SNAP
+    ↓
+WORKFLOW-1E
+    Normalize
+    ↓
+WORKFLOW-1F
+    Selector Ref First
+    ↓
+BUILD
+    ↓
+DEPLOY_BUNDLE
+    ↓
+VAL-2A
+    Validate
+    ↓
+WORKFLOW-1G
+    Load Bundle
+    ↓
+RUN-1E
+    Runner Adapter
+    ↓
+ACT-1A
+    Action Engine
+    ↓
+SELENIUM
+
+Public API
+----------
+StepOutcome
+ActionEngineError
+run_actions(...)
+outcomes_as_dicts(...)
+outcomes_all_ok(...)
+dev_smoke(...)
+
+Dependencies
+------------
+selenium
+NAV-1A
+
+Status
+------
+Audited
+
+Notes
+-----
+This is the canonical workflow execution engine.
+
+All workflow execution paths ultimately converge here before
+interacting with Selenium WebDriver.
+
+The module provides the foundation for future healing,
+telemetry, reporting, replay, and multi-agent execution.
+"""
   
 from __future__ import annotations  
   
