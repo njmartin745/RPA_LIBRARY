@@ -2,9 +2,227 @@
 
 AUTO-GENERATED. DO NOT EDIT MANUALLY.
 
+## Repository Summary
+
+| Category | Count |
+|----------|-------|
+| ACT | 5 |
+| AGENT | 3 |
+| AUTH | 2 |
+| BUILD | 9 |
+| CAPTURE | 1 |
+| CLI | 8 |
+| DEPLOY | 1 |
+| DIFF | 3 |
+| DOC | 8 |
+| DOCTOR | 5 |
+| ENTRY | 3 |
+| GUARD | 4 |
+| HEAL | 1 |
+| HISTORY | 7 |
+| INPUT | 3 |
+| LEARN | 2 |
+| LINT | 1 |
+| LOG | 2 |
+| LOOP | 1 |
+| NAV | 2 |
+| OBS | 1 |
+| OUT | 2 |
+| PACK | 1 |
+| PIPE | 16 |
+| PLAN | 1 |
+| REASON | 1 |
+| REG | 2 |
+| REGISTRY | 1 |
+| REPLAY | 2 |
+| REPO | 1 |
+| REPORT | 15 |
+| RUN | 7 |
+| RUNBOOK | 1 |
+| SCHEMA | 1 |
+| SELECTOR | 1 |
+| SHA | 1 |
+| SNAP | 4 |
+| STATE | 3 |
+| UNKNOWN | 29 |
+| VAL | 2 |
+| VAR | 1 |
+| WORKFLOW | 1 |
+| TOTAL | 165 |
+
+## Capability Summary
+
+| Module | Description |
+|--------|-------------|
+| ACT-1A | ACT-1A — Canonical Action Execution Layer (standard action surface) |
+| ACT-1A | Dev smoke test for ACT-1A action engine. |
+| ACT-1B | ACT-1B — Structured logging integration wrapper for ACT-1A |
+| ACT-1B | Dev smoke test for ACT-1B logging integration. |
+| ACT-1C | ACT-1C — Conditional Step Guards. |
+| AGENT-1A | AGENT-1A — Agent Context Pack Exporter (single pasteable bundle) |
+| AGENT-2A | AGENT-2A — Autonomous Execution Loop (orchestration only) |
+| AGENT-2B | AGENT-2B — Continuous / Scheduled Execution (timing + orchestration only) |
+| AUTH-1A | AUTH-1A — Standard username/password form login with guarded "already logged in" check. |
+| AUTH-1B | AUTH-1B — Session Restore (cookies/local storage) + guarded fallback to AUTH-1A. |
+| BUILD-1A | BUILD-1A: workflow grammar gate entrypoints spec. |
+| BUILD-2A | BUILD-2A — Natural Language → Build Spec Generator |
+| BUILD-2A | BUILD-2A — Repeat Support (Milestone 12.5.7) |
+| BUILD-2B | BUILD-2B — Workflow Plan Optimizer (pure transformation) |
+| BUILD-2C | BUILD-2C — Full Automation Bundle Generator (orchestration only) |
+| BUILD-2D | BUILD-2D: Step grammar enforcement / gating. |
+| BUILD-2E | BUILD-2E: Workflow-level wrapper around BUILD-2D step grammar enforcement. |
+| BUILD-2F | BUILD-2F: File-level workflow grammar gating. |
+| BUILD-2G | BUILD-2G: Directory/tree-level workflow grammar gating. |
+| CAPTURE-1A | CAPTURE-1A — Semi-Automatic Selector Capture (headed capture session) |
+| CLI-1A | CLI-1A — Command Line Pipeline Runner. |
+| CLI-1A | CLI-1A: Workflow grammar gate CLI. |
+| CLI-1B | CLI-1B — Configuration Loader. |
+| CLI-1C | CLI-1C — CLI Flags + Overrides |
+| CLI-1F | CLI-1F — Generate reports for a run output directory (10.4.3) |
+| CLI-1G | CLI-1G: Workflow grammar gate CLI. |
+| CLI-1H | CLI-1H: Workflow grammar gate pipeline CLI. |
+| CLI-2B | CLI-2B — Unified Automation Command Interface (orchestration only) |
+| DEPLOY-1A | DEPLOY-1A — Runtime Service + Packaging (service runner) |
+| DIFF-12A | DIFF-12A: Reviewable Diffs (Milestone 12.2.2) |
+| DIFF-1A | DIFF-1A — Workflow & Selector Change Diff + Version Stamp |
+| DIFF-1A | DIFF-1A: Workflow grammar gate report diff. |
+| DOC-12A | DOC-12A: SLOs and Success Criteria (Milestone 12.1.1) |
+| DOC-12B | DOC-12B: Operator Runbooks (Milestone 12.1.2) |
+| DOC-12C | DOC-12C: Support and Escalation Paths (Milestone 12.1.3) |
+| DOC-12D | DOC-12D: Rollback and Recovery Procedures (Milestone 12.4.3) |
+| DOC-1A | DOC-1A — Library Index Generator |
+| DOC-1A | DOC-1A: Workflow grammar gate documentation builder. |
+| DOC-1G | DOC-1G — Doc Index Entry Contract (Validator) |
+| DOC-1H | DOC-1H — Doc Index Collect + Validate Wrapper |
+| DOCTOR-12A | DOCTOR-12A: Pre-run DOCTOR Checks Policy (Milestone 12.4.1) |
+| DOCTOR-12D | DOCTOR-12D: Release Readiness Gate (Milestone 12.5.6) |
+| DOCTOR-1A | DOCTOR-1A — Environment Self-Check (“preflight”) |
+| DOCTOR-1A | DOCTOR-1A: Workflow grammar gate (programmatic check/fix). |
+| DOCTOR-1B | DOCTOR-1B: Workflow grammar gate diagnosis (PIPE-backed). |
+| ENTRY-1A | Smoke Test: ENTRY-1A webdriver bootstrap (Edge + Chrome) |
+| ENTRY-1A | ENTRY-1A — Standard headless-first webdriver bootstrap (Chrome/Edge configurable) |
+| ENTRY-1A | ENTRY-1A: Workflow grammar gate entry point. |
+| GUARD-12A | GUARD-12A: Production-default GUARD Policy (Milestone 12.4.2) |
+| GUARD-1A | GUARD-1A — Runtime Guardrails (stability layer) |
+| GUARD-1A | GUARD-1A: Workflow grammar gate guard. |
+| GUARD-1A | GUARD-1A: Workflow grammar guard. |
+| HEAL-1A | HEAL-1A — Auto-fix Suggestion Applier (workflow patch generator) |
+| HISTORY-12A | HISTORY-12A: Audit-Friendly Logging + Replay Spec (Milestone 12.5.3) |
+| HISTORY-1A | HISTORY-1A — Run manifest (10.2.1) |
+| HISTORY-1A | HISTORY-1A — Run History Store (append-only JSONL) |
+| HISTORY-1A | HISTORY-1A: Workflow grammar gate history. |
+| HISTORY-1B | HISTORY-1B — Step outcomes recorder (10.2.2) |
+| HISTORY-1C | HISTORY-1C — Error normalization (10.2.3) |
+| HISTORY-1C | HISTORY-1C — Run history loader (9.4.3) |
+| INPUT-1B | Smoke test for top-level INPUT-1B shim: input_1b_excel_provider.py |
+| INPUT-1B | Smoke test for: |
+| INPUT-1B | INPUT-1B — Excel provider (sheet + column -> list of IDs) + optional manifest writer |
+| LEARN-1A | LEARN-1A — Failure Pattern Analytics (pure, deterministic) |
+| LEARN-1B | LEARN-1B — Selector Intelligence & Stability Scoring (pure analysis) |
+| LINT-1A | LINT-1A — Step Validation Engine |
+| LOG-1A | LOG-1A — Standard structured logging + run_id + per-item context (stdlib only) |
+| LOG-1B | LOG-1B — Error Taxonomy + Exception Normalization. |
+| LOOP-1B | LOOP-1B — Per-item loop (generic iterator over worklist) |
+| NAV-1A | Dev smoke test for NAV-1A Selenium helpers. |
+| NAV-1A | NAV-1A — Selenium navigation and interaction helpers (pure helpers, no logging) |
+| OBS-1A | OBS-1A — Run Observability Timeline |
+| OUT-1A | OUT-1A — Download wait/poll + directory management. |
+| OUT-1B | OUT-1B — Artifact Normalization (rename/move/archive, collision-safe). |
+| PACK-1A | PACK-1A — Golden-Path CLI (one-command framework usage) |
+| PIPE-1A | Dev smoke test for PIPE-1A run orchestrator. |
+| PIPE-1A | PIPE-1A — End-to-end per-run orchestrator (glue module) |
+| PIPE-1A | PIPE-1A: Workflow grammar gate pipeline runner. |
+| PIPE-1B | Dev smoke test — PIPE-1B (worklist configuration adapter) |
+| PIPE-1B | PIPE-1B — Worklist configuration adapter |
+| PIPE-1C | Dev smoke test — PIPE-1C (steps loader + template substitution) |
+| PIPE-1C | PIPE-1C — Steps loader + template substitution (stdlib-only) |
+| PIPE-1D | Dev smoke test — PIPE-1D (step execution adapter) |
+| PIPE-1D | PIPE-1D — Step Execution Adapter |
+| PIPE-1E | PIPE-1E — Single runnable pipeline entrypoint. |
+| PIPE-1F | PIPE-1F: Environment overrides applied to cfg. |
+| PIPE-2A | PIPE-2A — Variable-aware Step Execution (VAR-1A integration). |
+| PIPE-2B | PIPE-2B — Step Blocks & Branching (if/else + try blocks). |
+| PIPE-2C | PIPE-2C — Error Plumbing Integration (LOG-1B + LOG-1A + STATE). |
+| PIPE-2D | PIPE-2D — Artifact + Manifest Integration. |
+| PIPE-2E | PIPE-2E — Run Summary + Metrics. |
+| PLAN-1A | PLAN-1A — Workflow Step Planner / Skeleton Generator |
+| REASON-1A | REASON-1A — Failure Diagnosis Engine (agent-friendly) |
+| REG-12A | REG-12A: Versioning Policy (Milestone 12.2.1) |
+| REG-12B | REG-12B: Promotion Gates Policy (Milestone 12.2.3) |
+| REGISTRY-1A | REGISTRY-1A — Action/Step Registry Export (AI Capability Handshake) |
+| REPLAY-12A | REPLAY-12A: Replay Index Verifier (Milestone 12.5.4) |
+| REPLAY-1A | REPLAY-1A — Deterministic Run Replayer |
+| REPO-INTEL-1A | MODULE: REPO-INTEL-1A |
+| REPORT-12A | REPORT-12A: Release Manifest (Milestone 12.3.1) |
+| REPORT-12B | REPORT-12B: Bundle Fingerprint (Milestone 12.3.2) |
+| REPORT-12C | REPORT-12C: Promotion Record (Milestone 12.3.3) |
+| REPORT-12D | REPORT-12D: Artifact Retention Policy (Milestone 12.5.1) |
+| REPORT-12E | REPORT-12E: Alerting Signals From Run Outcomes (Milestone 12.5.2) |
+| REPORT-12F | REPORT-12F: Incident Packet Manifest (Milestone 12.5.5) |
+| REPORT-1A | REPORT-1A — Run Report Generator (HTML + JSON + MD) |
+| REPORT-1A | REPORT-1A — Run report aggregation (10.3.1) |
+| REPORT-1A | REPORT-1A — Build step_logs from LOG JSONL events. |
+| REPORT-1A | REPORT-1A: Workflow grammar gate reporting. |
+| REPORT-1B | REPORT-1B — Run report markdown renderer (10.3.2) |
+| REPORT-1B | REPORT-1B: Deterministic text rendering for workflow grammar gate reports. |
+| REPORT-1C | REPORT-1C — JUnit XML renderer (10.3.3) |
+| REPORT-1C | REPORT-1C: Workflow grammar gate report summary. |
+| REPORT-1D | REPORT-1D — Generate standard report artifacts (10.4.1) |
+| RUN-1A | RUN-1A: Pre-run workflow grammar gate. |
+| RUN-1A | RUN-1A: Workflow grammar gate run orchestration. |
+| RUN-1A | RUN-1A — Unified Workflow Runner |
+| RUN-1A | Thin wrapper around RUN-1A runner to capture SNAP-1A artifacts on failure. |
+| RUN-1C | RUN-1C — Wrapper to enable GUARD-1A without refactoring RUN-1A. |
+| RUN-1D | RUN-1D — Wrapper to append HISTORY-1A records after running RUN-1A / REPORT-1A. |
+| RUN-1E | RUN-1E — Post-run reporting hook (10.4.2) |
+| RUNBOOK-1A | RUNBOOK-1A — Operational Playbook Generator |
+| SCHEMA-1A | SCHEMA-1A — Step/Action Schema Export (AI-friendly) |
+| SELECTOR-1A | SELECTOR-1A — Selector Registry / Resolver |
+| SHA-256 | Deterministic canonicalization / serialization utilities. |
+| SNAP-1A | SNAP-1A — Evidence Capture on Failure (artifacts bundle) |
+| SNAP-1A | SNAP-1A — Failure capture (10.1.1) |
+| SNAP-1B | SNAP-1B — Screenshot capture (10.1.2) |
+| SNAP-1C | SNAP-1C — Persist snapshot artifacts deterministically (10.1.3) |
+| STATE-1B | STATE-1B — JSONL manifest state (queued/success/fail + metadata) — stdlib-only |
+| STATE-1C | STATE-1C — Retry / Resume helpers (additive to STATE-1B). |
+| STATE-1D | STATE-1D — Manifest Row Helpers (standardize queued/success/fail shapes). |
+| UNKNOWN | app.py — Simplified Selenium RPA runner |
+| UNKNOWN | How to run: |
+| UNKNOWN | Dev smoke test for ACT download_wait integration. |
+| UNKNOWN | How to run: |
+| UNKNOWN | How to run: |
+| UNKNOWN | How to run: |
+| UNKNOWN | How to run: |
+| UNKNOWN | How to run: |
+| UNKNOWN | How to run: |
+| UNKNOWN | How to run: |
+| UNKNOWN | How to run: |
+| UNKNOWN | How to run: |
+| UNKNOWN | How to run: |
+| UNKNOWN | How to run: |
+| UNKNOWN | How to run: |
+| UNKNOWN | How to run: |
+| UNKNOWN | How to run: |
+| UNKNOWN | How to run: |
+| UNKNOWN | How to run: |
+| UNKNOWN | How to run: |
+| UNKNOWN | How to run: |
+| UNKNOWN | How to run: |
+| UNKNOWN | How to run: |
+| UNKNOWN | How to run: |
+| UNKNOWN | Dev bootstrap: ensure repo root is on sys.path. |
+| UNKNOWN | report_12g_evidence_bundle_assembler.py |
+| UNKNOWN | run_12a_prod_smoke_pipeline.py |
+| UNKNOWN | run_12b_rollback_rerun_determinism.py |
+| UNKNOWN | run_12c_operational_gates_enforcement.py |
+| VAL-1A | VAL-1A — UI state validation via selector presence + text checks. |
+| VAL-1B | VAL-1B — Download validation (file exists, size > 0, optional name patterns). |
+| VAR-1A | VAR-1A — Runtime Variable Store. |
+| WORKFLOW-1A | WORKFLOW-1A — Workflow file loader + validator + normalizer |
+
 ## ACT\act_1a_action_engine.py
 
-**Module:** UNKNOWN
+**Module ID:** ACT-1A
 
 ```
 ACT-1A — Canonical Action Execution Layer (standard action surface)  
@@ -14,7 +232,7 @@ ACT-1A — Canonical Action Execution Layer (standard action surface)
 
 ## ACT\act_1b_logging_integration.py
 
-**Module:** UNKNOWN
+**Module ID:** ACT-1B
 
 ```
 ACT-1B — Structured logging integration wrapper for ACT-1A  
@@ -40,7 +258,7 @@ Key behaviors
 
 ## ACT\act_1c_conditional_guards.py
 
-**Module:** UNKNOWN
+**Module ID:** ACT-1C
 
 ```
 ACT-1C — Conditional Step Guards.  
@@ -71,7 +289,7 @@ This evaluates guard fields like:
 
 ## AGENT\agent_1a_context_pack.py
 
-**Module:** UNKNOWN
+**Module ID:** AGENT-1A
 
 ```
 AGENT-1A — Agent Context Pack Exporter (single pasteable bundle)  
@@ -97,7 +315,7 @@ Rules:
 
 ## AGENT\agent_2a_autonomous_loop.py
 
-**Module:** UNKNOWN
+**Module ID:** AGENT-2A
 
 ```
 AGENT-2A — Autonomous Execution Loop (orchestration only)  
@@ -113,7 +331,7 @@ Constraints:
 
 ## AGENT\agent_2b_scheduler.py
 
-**Module:** UNKNOWN
+**Module ID:** AGENT-2B
 
 ```
 AGENT-2B — Continuous / Scheduled Execution (timing + orchestration only)  
@@ -128,7 +346,7 @@ Public API:
 
 ## AUTH\auth_1a_form_login_guarded.py
 
-**Module:** UNKNOWN
+**Module ID:** AUTH-1A
 
 ```
 AUTH-1A — Standard username/password form login with guarded "already logged in" check.  
@@ -162,7 +380,7 @@ STOP_ON_ERROR (unused here; consumed by higher layers)
 
 ## AUTH\auth_1b_session_restore.py
 
-**Module:** UNKNOWN
+**Module ID:** AUTH-1B
 
 ```
 AUTH-1B — Session Restore (cookies/local storage) + guarded fallback to AUTH-1A.  
@@ -193,7 +411,7 @@ USER / USERNAME / EMAIL: optional user id for per-user folder
 
 ## base_app.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 app.py — Simplified Selenium RPA runner
@@ -213,7 +431,7 @@ This runner executes them in order and logs all actions to console + rpa.log
 
 ## BUILD\build_1a_workflow_grammar_gate_entrypoints.py
 
-**Module:** UNKNOWN
+**Module ID:** BUILD-1A
 
 ```
 BUILD-1A: workflow grammar gate entrypoints spec.  
@@ -226,7 +444,7 @@ This does not perform packaging; it only returns data (pure helpers).
 
 ## BUILD\build_2a_nl_spec_generator.py
 
-**Module:** UNKNOWN
+**Module ID:** BUILD-2A
 
 ```
 BUILD-2A — Natural Language → Build Spec Generator  
@@ -246,7 +464,7 @@ Notes:
 
 ## BUILD\build_2a_repeat_support.py
 
-**Module:** UNKNOWN
+**Module ID:** BUILD-2A
 
 ```
 BUILD-2A — Repeat Support (Milestone 12.5.7)  
@@ -267,7 +485,7 @@ Notes
 
 ## BUILD\build_2b_plan_optimizer.py
 
-**Module:** UNKNOWN
+**Module ID:** BUILD-2B
 
 ```
 BUILD-2B — Workflow Plan Optimizer (pure transformation)  
@@ -284,7 +502,7 @@ Constraints:
 
 ## BUILD\build_2c_full_bundle.py
 
-**Module:** UNKNOWN
+**Module ID:** BUILD-2C
 
 ```
 BUILD-2C — Full Automation Bundle Generator (orchestration only)  
@@ -304,7 +522,7 @@ Constraints:
 
 ## BUILD\build_2d_determinism.py
 
-**Module:** UNKNOWN
+**Module ID:** SHA-256
 
 ```
 Deterministic canonicalization / serialization utilities.  
@@ -319,7 +537,7 @@ This is useful for ensuring workflow/selector/bundle generation is deterministic
 
 ## BUILD\build_2d_step_grammar_gate.py
 
-**Module:** UNKNOWN
+**Module ID:** BUILD-2D
 
 ```
 BUILD-2D: Step grammar enforcement / gating.  
@@ -331,7 +549,7 @@ Single responsibility:
 
 ## BUILD\build_2e_workflow_grammar_gate.py
 
-**Module:** UNKNOWN
+**Module ID:** BUILD-2E
 
 ```
 BUILD-2E: Workflow-level wrapper around BUILD-2D step grammar enforcement.  
@@ -343,7 +561,7 @@ Single responsibility:
 
 ## BUILD\build_2f_workflow_file_grammar_gate.py
 
-**Module:** UNKNOWN
+**Module ID:** BUILD-2F
 
 ```
 BUILD-2F: File-level workflow grammar gating.  
@@ -358,7 +576,7 @@ safe wrapper you can call from CLI/build scripts.
 
 ## BUILD\build_2g_workflow_tree_grammar_gate.py
 
-**Module:** UNKNOWN
+**Module ID:** BUILD-2G
 
 ```
 BUILD-2G: Directory/tree-level workflow grammar gating.  
@@ -372,7 +590,7 @@ This is additive and does not modify existing builders.
 
 ## CAPTURE\capture_1a_semi_auto.py
 
-**Module:** UNKNOWN
+**Module ID:** CAPTURE-1A
 
 ```
 CAPTURE-1A — Semi-Automatic Selector Capture (headed capture session)  
@@ -391,7 +609,7 @@ Notes:
 
 ## CLI\cli_1a_run_pipeline.py
 
-**Module:** UNKNOWN
+**Module ID:** CLI-1A
 
 ```
 CLI-1A — Command Line Pipeline Runner.  
@@ -409,7 +627,7 @@ Integrations:
 
 ## CLI\cli_1a_workflow_grammar_gate.py
 
-**Module:** UNKNOWN
+**Module ID:** CLI-1A
 
 ```
 CLI-1A: Workflow grammar gate CLI.  
@@ -423,7 +641,7 @@ This is a thin wrapper over RUN/run_1a_workflow_grammar_gate_run.py.
 
 ## CLI\cli_1b_config_loader.py
 
-**Module:** UNKNOWN
+**Module ID:** CLI-1B
 
 ```
 CLI-1B — Configuration Loader.  
@@ -451,7 +669,7 @@ Environment expansion:
 
 ## CLI\cli_1c_args_overrides.py
 
-**Module:** UNKNOWN
+**Module ID:** CLI-1C
 
 ```
 CLI-1C — CLI Flags + Overrides  
@@ -481,7 +699,7 @@ Rules
 
 ## CLI\cli_1f_generate_reports.py
 
-**Module:** UNKNOWN
+**Module ID:** CLI-1F
 
 ```
 CLI-1F — Generate reports for a run output directory (10.4.3)  
@@ -495,7 +713,7 @@ Usage:
 
 ## CLI\cli_1g_workflow_grammar_gate.py
 
-**Module:** UNKNOWN
+**Module ID:** CLI-1G
 
 ```
 CLI-1G: Workflow grammar gate CLI.  
@@ -512,7 +730,7 @@ Exit codes (deterministic):
 
 ## CLI\cli_1h_workflow_grammar_gate_pipeline.py
 
-**Module:** UNKNOWN
+**Module ID:** CLI-1H
 
 ```
 CLI-1H: Workflow grammar gate pipeline CLI.  
@@ -528,7 +746,7 @@ Does not invent new workflow step types; only gates workflows.
 
 ## CLI\cli_2b_unified.py
 
-**Module:** UNKNOWN
+**Module ID:** CLI-2B
 
 ```
 CLI-2B — Unified Automation Command Interface (orchestration only)  
@@ -548,7 +766,7 @@ UX constraints:
 
 ## CLI\cli_pack_1a.py
 
-**Module:** UNKNOWN
+**Module ID:** PACK-1A
 
 ```
 PACK-1A — Golden-Path CLI (one-command framework usage)  
@@ -569,7 +787,7 @@ Rules:
 
 ## DEPLOY\deploy_1a_service_runner.py
 
-**Module:** UNKNOWN
+**Module ID:** DEPLOY-1A
 
 ```
 DEPLOY-1A — Runtime Service + Packaging (service runner)  
@@ -588,7 +806,7 @@ Notes:
 
 ## dev\dev_smoke_act_1b_logging.py
 
-**Module:** UNKNOWN
+**Module ID:** ACT-1B
 
 ```
 Dev smoke test for ACT-1B logging integration.  
@@ -604,7 +822,7 @@ Run:
 
 ## dev\dev_smoke_act_1c.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 How to run:  
@@ -613,7 +831,7 @@ How to run:
 
 ## dev\dev_smoke_act_action_engine.py
 
-**Module:** UNKNOWN
+**Module ID:** ACT-1A
 
 ```
 Dev smoke test for ACT-1A action engine.  
@@ -629,7 +847,7 @@ Run:
 
 ## dev\dev_smoke_act_download_wait.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 Dev smoke test for ACT download_wait integration.
@@ -643,7 +861,7 @@ while ACT waits for it.
 
 ## dev\dev_smoke_auth_1a.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 How to run:  
@@ -652,7 +870,7 @@ How to run:
 
 ## dev\dev_smoke_auth_1b.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 How to run:  
@@ -661,7 +879,7 @@ How to run:
 
 ## dev\dev_smoke_cli_1a.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 How to run:  
@@ -670,7 +888,7 @@ How to run:
 
 ## dev\dev_smoke_cli_1b.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 How to run:  
@@ -679,7 +897,7 @@ How to run:
 
 ## dev\dev_smoke_cli_1b_config_loader.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 How to run:  
@@ -688,7 +906,7 @@ How to run:
 
 ## dev\dev_smoke_cli_1c.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 How to run:  
@@ -697,7 +915,7 @@ How to run:
 
 ## dev\dev_smoke_doc_1a.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 How to run:  
@@ -706,7 +924,7 @@ How to run:
 
 ## dev\dev_smoke_entry_bootstrap.py
 
-**Module:** UNKNOWN
+**Module ID:** ENTRY-1A
 
 ```
 Smoke Test: ENTRY-1A webdriver bootstrap (Edge + Chrome)
@@ -726,7 +944,7 @@ Notes:
 
 ## dev\dev_smoke_input_1b_excel_provider.py
 
-**Module:** UNKNOWN
+**Module ID:** INPUT-1B
 
 ```
 Smoke test for top-level INPUT-1B shim: input_1b_excel_provider.py  
@@ -737,7 +955,7 @@ How to run:
 
 ## dev\dev_smoke_log_1b.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 How to run:  
@@ -746,7 +964,7 @@ How to run:
 
 ## dev\dev_smoke_nav_1a.py
 
-**Module:** UNKNOWN
+**Module ID:** NAV-1A
 
 ```
 Dev smoke test for NAV-1A Selenium helpers.
@@ -761,7 +979,7 @@ Run:
 
 ## dev\dev_smoke_out_1a.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 How to run:  
@@ -770,7 +988,7 @@ How to run:
 
 ## dev\dev_smoke_out_1b.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 How to run:  
@@ -779,7 +997,7 @@ How to run:
 
 ## dev\dev_smoke_pipe_1a.py
 
-**Module:** UNKNOWN
+**Module ID:** PIPE-1A
 
 ```
 Dev smoke test for PIPE-1A run orchestrator.  
@@ -794,7 +1012,7 @@ Run:
 
 ## dev\dev_smoke_pipe_1b.py
 
-**Module:** UNKNOWN
+**Module ID:** PIPE-1B
 
 ```
 Dev smoke test — PIPE-1B (worklist configuration adapter)  
@@ -819,7 +1037,7 @@ Config keys used (required by test)
 
 ## dev\dev_smoke_pipe_1c.py
 
-**Module:** UNKNOWN
+**Module ID:** PIPE-1C
 
 ```
 Dev smoke test — PIPE-1C (steps loader + template substitution)  
@@ -845,7 +1063,7 @@ Behavior
 
 ## dev\dev_smoke_pipe_1d_a.py
 
-**Module:** UNKNOWN
+**Module ID:** PIPE-1D
 
 ```
 Dev smoke test — PIPE-1D (step execution adapter)  
@@ -862,7 +1080,7 @@ Flow
 
 ## dev\dev_smoke_pipe_1e.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 How to run:  
@@ -871,7 +1089,7 @@ How to run:
 
 ## dev\dev_smoke_pipe_2a.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 How to run:  
@@ -880,7 +1098,7 @@ How to run:
 
 ## dev\dev_smoke_pipe_2b.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 How to run:  
@@ -889,7 +1107,7 @@ How to run:
 
 ## dev\dev_smoke_pipe_2c.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 How to run:  
@@ -898,7 +1116,7 @@ How to run:
 
 ## dev\dev_smoke_pipe_2d.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 How to run:  
@@ -907,7 +1125,7 @@ How to run:
 
 ## dev\dev_smoke_pipe_2e.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 How to run:  
@@ -916,7 +1134,7 @@ How to run:
 
 ## dev\dev_smoke_state_1c.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 How to run:  
@@ -925,7 +1143,7 @@ How to run:
 
 ## dev\dev_smoke_state_1d.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 How to run:  
@@ -934,7 +1152,7 @@ How to run:
 
 ## dev\dev_smoke_state_input.py
 
-**Module:** UNKNOWN
+**Module ID:** INPUT-1B
 
 ```
 Smoke test for:
@@ -957,7 +1175,7 @@ Notes:
 
 ## dev\dev_smoke_val_1a.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 How to run:  
@@ -966,7 +1184,7 @@ How to run:
 
 ## dev\dev_smoke_val_1b.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 How to run:  
@@ -975,7 +1193,7 @@ How to run:
 
 ## dev\dev_smoke_var_1a.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 How to run:  
@@ -984,7 +1202,7 @@ How to run:
 
 ## dev\sitecustomize.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 Dev bootstrap: ensure repo root is on sys.path.  
@@ -999,7 +1217,7 @@ Python's `site` module (unless -S is used) and adds the repo root deterministica
 
 ## DIFF\diff_12a_reviewable_diffs.py
 
-**Module:** UNKNOWN
+**Module ID:** DIFF-12A
 
 ```
 DIFF-12A: Reviewable Diffs (Milestone 12.2.2)  
@@ -1015,7 +1233,7 @@ block changes without reviewable diffs.
 
 ## DIFF\diff_1a_config_changes.py
 
-**Module:** UNKNOWN
+**Module ID:** DIFF-1A
 
 ```
 DIFF-1A — Workflow & Selector Change Diff + Version Stamp  
@@ -1030,7 +1248,7 @@ No Selenium.
 
 ## DIFF\diff_1a_workflow_grammar_gate_report_diff.py
 
-**Module:** UNKNOWN
+**Module ID:** DIFF-1A
 
 ```
 DIFF-1A: Workflow grammar gate report diff.  
@@ -1042,7 +1260,7 @@ Single responsibility:
 
 ## DOC\doc_12a_slos_success_criteria.py
 
-**Module:** UNKNOWN
+**Module ID:** DOC-12A
 
 ```
 DOC-12A: SLOs and Success Criteria (Milestone 12.1.1)  
@@ -1061,7 +1279,7 @@ Notes:
 
 ## DOC\doc_12b_operator_runbooks.py
 
-**Module:** UNKNOWN
+**Module ID:** DOC-12B
 
 ```
 DOC-12B: Operator Runbooks (Milestone 12.1.2)  
@@ -1078,7 +1296,7 @@ Notes:
 
 ## DOC\doc_12c_support_escalation_paths.py
 
-**Module:** UNKNOWN
+**Module ID:** DOC-12C
 
 ```
 DOC-12C: Support and Escalation Paths (Milestone 12.1.3)  
@@ -1095,7 +1313,7 @@ Scope:
 
 ## DOC\doc_12d_rollback_recovery_procedures.py
 
-**Module:** UNKNOWN
+**Module ID:** DOC-12D
 
 ```
 DOC-12D: Rollback and Recovery Procedures (Milestone 12.4.3)  
@@ -1112,7 +1330,7 @@ Determinism:
 
 ## DOC\doc_1a_library_index.py
 
-**Module:** UNKNOWN
+**Module ID:** DOC-1A
 
 ```
 DOC-1A — Library Index Generator  
@@ -1128,7 +1346,7 @@ Constraints:
 
 ## DOC\doc_1a_workflow_grammar_gate.py
 
-**Module:** UNKNOWN
+**Module ID:** DOC-1A
 
 ```
 DOC-1A: Workflow grammar gate documentation builder.  
@@ -1140,7 +1358,7 @@ Single responsibility:
 
 ## DOC\doc_1g_doc_index_entry_contract.py
 
-**Module:** UNKNOWN
+**Module ID:** DOC-1G
 
 ```
 DOC-1G — Doc Index Entry Contract (Validator)  
@@ -1153,7 +1371,7 @@ This module is pure + deterministic and safe to import (no side effects).
 
 ## DOC\doc_1h_doc_index_collect_validate.py
 
-**Module:** UNKNOWN
+**Module ID:** DOC-1H
 
 ```
 DOC-1H — Doc Index Collect + Validate Wrapper  
@@ -1170,7 +1388,7 @@ Deterministic, side-effect free beyond what the collector already does.
 
 ## DOC\runbook_1a_generator.py
 
-**Module:** UNKNOWN
+**Module ID:** RUNBOOK-1A
 
 ```
 RUNBOOK-1A — Operational Playbook Generator  
@@ -1181,7 +1399,7 @@ Writes a deterministic Markdown runbook describing how to use/run/debug/maintain
 
 ## DOCTOR\doctor_12a_pre_run_checks.py
 
-**Module:** UNKNOWN
+**Module ID:** DOCTOR-12A
 
 ```
 DOCTOR-12A: Pre-run DOCTOR Checks Policy (Milestone 12.4.1)  
@@ -1199,7 +1417,7 @@ Determinism constraints:
 
 ## DOCTOR\doctor_12d_release_readiness_gate.py
 
-**Module:** UNKNOWN
+**Module ID:** DOCTOR-12D
 
 ```
 DOCTOR-12D: Release Readiness Gate (Milestone 12.5.6)  
@@ -1220,7 +1438,7 @@ This module does NOT execute workflows and does NOT mutate state.
 
 ## DOCTOR\doctor_1a_check.py
 
-**Module:** UNKNOWN
+**Module ID:** DOCTOR-1A
 
 ```
 DOCTOR-1A — Environment Self-Check (“preflight”)  
@@ -1237,7 +1455,7 @@ Public API:
 
 ## DOCTOR\doctor_1a_workflow_grammar_gate.py
 
-**Module:** UNKNOWN
+**Module ID:** DOCTOR-1A
 
 ```
 DOCTOR-1A: Workflow grammar gate (programmatic check/fix).  
@@ -1253,7 +1471,7 @@ Builds on:
 
 ## DOCTOR\doctor_1b_workflow_grammar_gate.py
 
-**Module:** UNKNOWN
+**Module ID:** DOCTOR-1B
 
 ```
 DOCTOR-1B: Workflow grammar gate diagnosis (PIPE-backed).  
@@ -1269,7 +1487,7 @@ Notes:
 
 ## ENTRY\entry_1a_webdriver_bootstrap.py
 
-**Module:** UNKNOWN
+**Module ID:** ENTRY-1A
 
 ```
 ENTRY-1A — Standard headless-first webdriver bootstrap (Chrome/Edge configurable)  
@@ -1339,7 +1557,7 @@ driver.quit()
 
 ## ENTRY\entry_1a_workflow_grammar_gate.py
 
-**Module:** UNKNOWN
+**Module ID:** ENTRY-1A
 
 ```
 ENTRY-1A: Workflow grammar gate entry point.  
@@ -1350,7 +1568,7 @@ Single responsibility:
 
 ## GUARD\guard_12a_prod_defaults.py
 
-**Module:** UNKNOWN
+**Module ID:** GUARD-12A
 
 ```
 GUARD-12A: Production-default GUARD Policy (Milestone 12.4.2)  
@@ -1375,7 +1593,7 @@ Policy intent (prod defaults):
 
 ## GUARD\guard_1a_runtime.py
 
-**Module:** UNKNOWN
+**Module ID:** GUARD-1A
 
 ```
 GUARD-1A — Runtime Guardrails (stability layer)  
@@ -1392,7 +1610,7 @@ Public API:
 
 ## GUARD\guard_1a_workflow_grammar_gate_guard.py
 
-**Module:** UNKNOWN
+**Module ID:** GUARD-1A
 
 ```
 GUARD-1A: Workflow grammar gate guard.  
@@ -1409,7 +1627,7 @@ Builds on:
 
 ## GUARD\guard_1a_workflow_grammar_guard.py
 
-**Module:** UNKNOWN
+**Module ID:** GUARD-1A
 
 ```
 GUARD-1A: Workflow grammar guard.  
@@ -1422,7 +1640,7 @@ Single responsibility:
 
 ## HEAL\heal_1a_patch_workflow.py
 
-**Module:** UNKNOWN
+**Module ID:** HEAL-1A
 
 ```
 HEAL-1A — Auto-fix Suggestion Applier (workflow patch generator)  
@@ -1438,7 +1656,7 @@ Public API:
 
 ## HISTORY\history_12a_audit_logging_replay_spec.py
 
-**Module:** UNKNOWN
+**Module ID:** HISTORY-12A
 
 ```
 HISTORY-12A: Audit-Friendly Logging + Replay Spec (Milestone 12.5.3)  
@@ -1460,7 +1678,7 @@ It defines a stable, audit-friendly structure that other layers can emit/consume
 
 ## HISTORY\history_1a_run_manifest.py
 
-**Module:** UNKNOWN
+**Module ID:** HISTORY-1A
 
 ```
 HISTORY-1A — Run manifest (10.2.1)  
@@ -1476,7 +1694,7 @@ Notes:
 
 ## HISTORY\history_1a_store.py
 
-**Module:** UNKNOWN
+**Module ID:** HISTORY-1A
 
 ```
 HISTORY-1A — Run History Store (append-only JSONL)  
@@ -1494,7 +1712,7 @@ Public API:
 
 ## HISTORY\history_1a_workflow_grammar_gate_history.py
 
-**Module:** UNKNOWN
+**Module ID:** HISTORY-1A
 
 ```
 HISTORY-1A: Workflow grammar gate history.  
@@ -1506,7 +1724,7 @@ Single responsibility:
 
 ## HISTORY\history_1b_step_outcomes.py
 
-**Module:** UNKNOWN
+**Module ID:** HISTORY-1B
 
 ```
 HISTORY-1B — Step outcomes recorder (10.2.2)  
@@ -1521,7 +1739,7 @@ This module does NOT:
 
 ## HISTORY\history_1c_error_normalization.py
 
-**Module:** UNKNOWN
+**Module ID:** HISTORY-1C
 
 ```
 HISTORY-1C — Error normalization (10.2.3)  
@@ -1538,7 +1756,7 @@ Design notes:
 
 ## HISTORY\history_1c_run_history_loader.py
 
-**Module:** UNKNOWN
+**Module ID:** HISTORY-1C
 
 ```
 HISTORY-1C — Run history loader (9.4.3)  
@@ -1559,7 +1777,7 @@ Deterministic behavior:
 
 ## INPUT\input_1b_excel_provider.py
 
-**Module:** UNKNOWN
+**Module ID:** INPUT-1B
 
 ```
 INPUT-1B — Excel provider (sheet + column -> list of IDs) + optional manifest writer  
@@ -1585,7 +1803,7 @@ Security rule
 
 ## LEARN\learn_1a_failure_patterns.py
 
-**Module:** UNKNOWN
+**Module ID:** LEARN-1A
 
 ```
 LEARN-1A — Failure Pattern Analytics (pure, deterministic)  
@@ -1598,7 +1816,7 @@ No Selenium. No side effects beyond reading a history file in load_history().
 
 ## LEARN\learn_1b_selector_intelligence.py
 
-**Module:** UNKNOWN
+**Module ID:** LEARN-1B
 
 ```
 LEARN-1B — Selector Intelligence & Stability Scoring (pure analysis)  
@@ -1614,7 +1832,7 @@ No Selenium execution. Deterministic.
 
 ## LINT\lint_1a_steps_validator.py
 
-**Module:** UNKNOWN
+**Module ID:** LINT-1A
 
 ```
 LINT-1A — Step Validation Engine  
@@ -1629,7 +1847,7 @@ Constraints:
 
 ## LOG\log_1a_structured_logging.py
 
-**Module:** UNKNOWN
+**Module ID:** LOG-1A
 
 ```
 LOG-1A — Standard structured logging + run_id + per-item context (stdlib only)  
@@ -1701,7 +1919,7 @@ log_event(logger, "item_start")
 
 ## LOG\log_1b_error_taxonomy.py
 
-**Module:** UNKNOWN
+**Module ID:** LOG-1B
 
 ```
 LOG-1B — Error Taxonomy + Exception Normalization.  
@@ -1719,7 +1937,7 @@ Constraints
 
 ## LOOP\loop_1b_per_item.py
 
-**Module:** UNKNOWN
+**Module ID:** LOOP-1B
 
 ```
 LOOP-1B — Per-item loop (generic iterator over worklist)  
@@ -1808,7 +2026,7 @@ Testing Handoff Checklist
 
 ## NAV\nav_1a_selenium_helpers.py
 
-**Module:** UNKNOWN
+**Module ID:** NAV-1A
 
 ```
 NAV-1A — Selenium navigation and interaction helpers (pure helpers, no logging)
@@ -1861,7 +2079,7 @@ finally:
 
 ## OBS\obs_1a_run_timeline.py
 
-**Module:** UNKNOWN
+**Module ID:** OBS-1A
 
 ```
 OBS-1A — Run Observability Timeline  
@@ -1878,7 +2096,7 @@ Public API:
 
 ## OUT\out_1a_download_wait.py
 
-**Module:** UNKNOWN
+**Module ID:** OUT-1A
 
 ```
 OUT-1A — Download wait/poll + directory management.  
@@ -1935,7 +2153,7 @@ Return contract
 
 ## OUT\out_1b_artifact_manager.py
 
-**Module:** UNKNOWN
+**Module ID:** OUT-1B
 
 ```
 OUT-1B — Artifact Normalization (rename/move/archive, collision-safe).  
@@ -1952,7 +2170,7 @@ Windows-safe, deterministic naming:
 
 ## PIPE\pipe_1a_run_orchestrator.py
 
-**Module:** UNKNOWN
+**Module ID:** PIPE-1A
 
 ```
 PIPE-1A — End-to-end per-run orchestrator (glue module)  
@@ -2002,7 +2220,7 @@ print(summary)
 
 ## PIPE\pipe_1a_workflow_grammar_gate_pipeline.py
 
-**Module:** UNKNOWN
+**Module ID:** PIPE-1A
 
 ```
 PIPE-1A: Workflow grammar gate pipeline runner.  
@@ -2020,7 +2238,7 @@ Builds on:
 
 ## PIPE\pipe_1b_worklist_config.py
 
-**Module:** UNKNOWN
+**Module ID:** PIPE-1B
 
 ```
 PIPE-1B — Worklist configuration adapter  
@@ -2041,7 +2259,7 @@ load_ids(cfg) -> list[str]
 
 ## PIPE\pipe_1c_steps_loader.py
 
-**Module:** UNKNOWN
+**Module ID:** PIPE-1C
 
 ```
 PIPE-1C — Steps loader + template substitution (stdlib-only)  
@@ -2080,7 +2298,7 @@ Auto behavior (Phase A + Auto-1)
 
 ## PIPE\pipe_1d_step_executor.py
 
-**Module:** UNKNOWN
+**Module ID:** PIPE-1D
 
 ```
 PIPE-1D — Step Execution Adapter  
@@ -2108,7 +2326,7 @@ Notes
 
 ## PIPE\pipe_1e_runner.py
 
-**Module:** UNKNOWN
+**Module ID:** PIPE-1E
 
 ```
 PIPE-1E — Single runnable pipeline entrypoint.  
@@ -2134,7 +2352,7 @@ STOP_ON_ERROR, HEADLESS, BROWSER, EXPLICIT_WAIT.
 
 ## PIPE\pipe_1f_env_overrides.py
 
-**Module:** UNKNOWN
+**Module ID:** PIPE-1F
 
 ```
 PIPE-1F: Environment overrides applied to cfg.  
@@ -2152,7 +2370,7 @@ Design
 
 ## PIPE\pipe_2a_var_aware_steps.py
 
-**Module:** UNKNOWN
+**Module ID:** PIPE-2A
 
 ```
 PIPE-2A — Variable-aware Step Execution (VAR-1A integration).  
@@ -2188,7 +2406,7 @@ If a variable is missing during rendering, raises a ValueError with:
 
 ## PIPE\pipe_2b_step_blocks.py
 
-**Module:** UNKNOWN
+**Module ID:** PIPE-2B
 
 ```
 PIPE-2B — Step Blocks & Branching (if/else + try blocks).  
@@ -2212,7 +2430,7 @@ run_steps(driver, steps: list[dict], cfg: dict) -> list[dict]
 
 ## PIPE\pipe_2c_error_plumbing.py
 
-**Module:** UNKNOWN
+**Module ID:** PIPE-2C
 
 ```
 PIPE-2C — Error Plumbing Integration (LOG-1B + LOG-1A + STATE).  
@@ -2227,7 +2445,7 @@ No changes required to existing modules for this milestone.
 
 ## PIPE\pipe_2d_artifact_integration.py
 
-**Module:** UNKNOWN
+**Module ID:** PIPE-2D
 
 ```
 PIPE-2D — Artifact + Manifest Integration.  
@@ -2245,7 +2463,7 @@ No refactors required; additive helper only.
 
 ## PIPE\pipe_2e_run_summary.py
 
-**Module:** UNKNOWN
+**Module ID:** PIPE-2E
 
 ```
 PIPE-2E — Run Summary + Metrics.  
@@ -2272,7 +2490,7 @@ finish_run_summary adds:
 
 ## PLAN\plan_1a_step_planner.py
 
-**Module:** UNKNOWN
+**Module ID:** PLAN-1A
 
 ```
 PLAN-1A — Workflow Step Planner / Skeleton Generator  
@@ -2292,7 +2510,7 @@ Constraints:
 
 ## REASON\reason_1a_diagnose.py
 
-**Module:** UNKNOWN
+**Module ID:** REASON-1A
 
 ```
 REASON-1A — Failure Diagnosis Engine (agent-friendly)  
@@ -2309,7 +2527,7 @@ Public API:
 
 ## REGISTRY\reg_12a_versioning_policy.py
 
-**Module:** UNKNOWN
+**Module ID:** REG-12A
 
 ```
 REG-12A: Versioning Policy (Milestone 12.2.1)  
@@ -2328,7 +2546,7 @@ policy definition that can be invoked by CI/build tooling later.
 
 ## REGISTRY\reg_12b_promotion_gates.py
 
-**Module:** UNKNOWN
+**Module ID:** REG-12B
 
 ```
 REG-12B: Promotion Gates Policy (Milestone 12.2.3)  
@@ -2344,7 +2562,7 @@ ticketing systems. It is intended to be called by BUILD/CLI/CI later.
 
 ## REGISTRY\registry_1a_generate.py
 
-**Module:** UNKNOWN
+**Module ID:** REGISTRY-1A
 
 ```
 REGISTRY-1A — Action/Step Registry Export (AI Capability Handshake)  
@@ -2373,7 +2591,7 @@ Rules:
 
 ## REPLAY\replay_12a_index_verifier.py
 
-**Module:** UNKNOWN
+**Module ID:** REPLAY-12A
 
 ```
 REPLAY-12A: Replay Index Verifier (Milestone 12.5.4)  
@@ -2396,7 +2614,7 @@ Determinism:
 
 ## REPLAY\replay_1a_run_replay.py
 
-**Module:** UNKNOWN
+**Module ID:** REPLAY-1A
 
 ```
 REPLAY-1A — Deterministic Run Replayer  
@@ -2409,7 +2627,7 @@ Public API:
 
 ## REPORT\report_12a_release_manifest.py
 
-**Module:** UNKNOWN
+**Module ID:** REPORT-12A
 
 ```
 REPORT-12A: Release Manifest (Milestone 12.3.1)  
@@ -2427,7 +2645,7 @@ Design constraints:
 
 ## REPORT\report_12b_bundle_fingerprint.py
 
-**Module:** UNKNOWN
+**Module ID:** REPORT-12B
 
 ```
 REPORT-12B: Bundle Fingerprint (Milestone 12.3.2)  
@@ -2444,7 +2662,7 @@ Design:
 
 ## REPORT\report_12c_promotion_record.py
 
-**Module:** UNKNOWN
+**Module ID:** REPORT-12C
 
 ```
 REPORT-12C: Promotion Record (Milestone 12.3.3)  
@@ -2464,7 +2682,7 @@ Determinism:
 
 ## REPORT\report_12d_artifact_retention_policy.py
 
-**Module:** UNKNOWN
+**Module ID:** REPORT-12D
 
 ```
 REPORT-12D: Artifact Retention Policy (Milestone 12.5.1)  
@@ -2488,7 +2706,7 @@ This module does NOT delete files. It only produces a plan.
 
 ## REPORT\report_12e_alerting_signals.py
 
-**Module:** UNKNOWN
+**Module ID:** REPORT-12E
 
 ```
 REPORT-12E: Alerting Signals From Run Outcomes (Milestone 12.5.2)  
@@ -2508,7 +2726,7 @@ This module does NOT send alerts. It only evaluates signals and returns an alert
 
 ## REPORT\report_12f_incident_packet_manifest.py
 
-**Module:** UNKNOWN
+**Module ID:** REPORT-12F
 
 ```
 REPORT-12F: Incident Packet Manifest (Milestone 12.5.5)  
@@ -2529,7 +2747,7 @@ This module does NOT collect artifacts. It only describes them.
 
 ## REPORT\report_12g_evidence_bundle_assembler.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 report_12g_evidence_bundle_assembler.py  
@@ -2553,7 +2771,7 @@ Design goals:
 
 ## REPORT\report_1a_generate.py
 
-**Module:** UNKNOWN
+**Module ID:** REPORT-1A
 
 ```
 REPORT-1A — Run Report Generator (HTML + JSON + MD)  
@@ -2569,7 +2787,7 @@ No Selenium required.
 
 ## REPORT\report_1a_run_report.py
 
-**Module:** UNKNOWN
+**Module ID:** REPORT-1A
 
 ```
 REPORT-1A — Run report aggregation (10.3.1)  
@@ -2588,7 +2806,7 @@ Output written:
 
 ## REPORT\report_1a_step_logs_from_jsonl.py
 
-**Module:** UNKNOWN
+**Module ID:** REPORT-1A
 
 ```
 REPORT-1A — Build step_logs from LOG JSONL events.  
@@ -2609,7 +2827,7 @@ This module is additive and does not require changes to ACT/PIPE internals to be
 
 ## REPORT\report_1a_workflow_grammar_gate_report.py
 
-**Module:** UNKNOWN
+**Module ID:** REPORT-1A
 
 ```
 REPORT-1A: Workflow grammar gate reporting.  
@@ -2623,7 +2841,7 @@ This is additive and does not modify any BUILD modules.
 
 ## REPORT\report_1b_run_report_markdown.py
 
-**Module:** UNKNOWN
+**Module ID:** REPORT-1B
 
 ```
 REPORT-1B — Run report markdown renderer (10.3.2)  
@@ -2635,7 +2853,7 @@ Single responsibility:
 
 ## REPORT\report_1b_workflow_grammar_gate_report_text.py
 
-**Module:** UNKNOWN
+**Module ID:** REPORT-1B
 
 ```
 REPORT-1B: Deterministic text rendering for workflow grammar gate reports.  
@@ -2647,7 +2865,7 @@ Single responsibility:
 
 ## REPORT\report_1c_junit_xml.py
 
-**Module:** UNKNOWN
+**Module ID:** REPORT-1C
 
 ```
 REPORT-1C — JUnit XML renderer (10.3.3)  
@@ -2663,7 +2881,7 @@ Notes:
 
 ## REPORT\report_1c_workflow_grammar_gate_report_summary.py
 
-**Module:** UNKNOWN
+**Module ID:** REPORT-1C
 
 ```
 REPORT-1C: Workflow grammar gate report summary.  
@@ -2678,7 +2896,7 @@ fallbacks when summary fields are absent.
 
 ## REPORT\report_1d_generate_reports.py
 
-**Module:** UNKNOWN
+**Module ID:** REPORT-1D
 
 ```
 REPORT-1D — Generate standard report artifacts (10.4.1)  
@@ -2697,7 +2915,7 @@ Outputs:
 
 ## RUN\run_12a_prod_smoke_pipeline.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 run_12a_prod_smoke_pipeline.py  
@@ -2716,7 +2934,7 @@ No Selenium execution, no timestamps generated. Caller may provide created_date 
 
 ## RUN\run_12b_rollback_rerun_determinism.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 run_12b_rollback_rerun_determinism.py  
@@ -2738,7 +2956,7 @@ separate run_result_signature_sha256 that excludes run identity.
 
 ## RUN\run_12c_operational_gates_enforcement.py
 
-**Module:** UNKNOWN
+**Module ID:** UNKNOWN
 
 ```
 run_12c_operational_gates_enforcement.py  
@@ -2777,7 +2995,7 @@ No Selenium execution. No timestamps generated (caller may pass created_date).
 
 ## RUN\run_1a_workflow_grammar_gate.py
 
-**Module:** UNKNOWN
+**Module ID:** RUN-1A
 
 ```
 RUN-1A: Pre-run workflow grammar gate.  
@@ -2791,7 +3009,7 @@ This module does not execute workflows; it only gates them for safe execution.
 
 ## RUN\run_1a_workflow_grammar_gate_run.py
 
-**Module:** UNKNOWN
+**Module ID:** RUN-1A
 
 ```
 RUN-1A: Workflow grammar gate run orchestration.  
@@ -2807,7 +3025,7 @@ No CLI parsing here; callers supply arguments explicitly.
 
 ## RUN\run_1a_workflow_runner.py
 
-**Module:** UNKNOWN
+**Module ID:** RUN-1A
 
 ```
 RUN-1A — Unified Workflow Runner  
@@ -2826,7 +3044,7 @@ Execution flow:
 
 ## RUN\run_1b_workflow_runner_with_snap.py
 
-**Module:** UNKNOWN
+**Module ID:** RUN-1A
 
 ```
 Thin wrapper around RUN-1A runner to capture SNAP-1A artifacts on failure.  
@@ -2836,7 +3054,7 @@ Rule: Additive only; do not refactor RUN-1A.
 
 ## RUN\run_1c_workflow_runner_with_guard.py
 
-**Module:** UNKNOWN
+**Module ID:** RUN-1C
 
 ```
 RUN-1C — Wrapper to enable GUARD-1A without refactoring RUN-1A.  
@@ -2851,7 +3069,7 @@ If RUN-1A does not accept a step runner override, this wrapper will still run (g
 
 ## RUN\run_1d_runner_with_history.py
 
-**Module:** UNKNOWN
+**Module ID:** RUN-1D
 
 ```
 RUN-1D — Wrapper to append HISTORY-1A records after running RUN-1A / REPORT-1A.  
@@ -2863,7 +3081,7 @@ RUN-1D — Wrapper to append HISTORY-1A records after running RUN-1A / REPORT-1A
 
 ## RUN\run_1e_post_run_reporting.py
 
-**Module:** UNKNOWN
+**Module ID:** RUN-1E
 
 ```
 RUN-1E — Post-run reporting hook (10.4.2)  
@@ -2883,7 +3101,7 @@ Outputs (when enabled=True):
 
 ## SCHEMA\schema_1a_generate.py
 
-**Module:** UNKNOWN
+**Module ID:** SCHEMA-1A
 
 ```
 SCHEMA-1A — Step/Action Schema Export (AI-friendly)  
@@ -2906,7 +3124,7 @@ Constraints:
 
 ## SELECTOR\selector_1a_registry.py
 
-**Module:** UNKNOWN
+**Module ID:** SELECTOR-1A
 
 ```
 SELECTOR-1A — Selector Registry / Resolver  
@@ -2936,7 +3154,7 @@ Rules:
 
 ## SNAP\snap_1a_capture.py
 
-**Module:** UNKNOWN
+**Module ID:** SNAP-1A
 
 ```
 SNAP-1A — Evidence Capture on Failure (artifacts bundle)  
@@ -2952,7 +3170,7 @@ Public API:
 
 ## SNAP\snap_1a_failure_capture.py
 
-**Module:** UNKNOWN
+**Module ID:** SNAP-1A
 
 ```
 SNAP-1A — Failure capture (10.1.1)  
@@ -2969,7 +3187,7 @@ This module does NOT persist artifacts (10.1.3) and does NOT take screenshots (1
 
 ## SNAP\snap_1b_screenshot_capture.py
 
-**Module:** UNKNOWN
+**Module ID:** SNAP-1B
 
 ```
 SNAP-1B — Screenshot capture (10.1.2)  
@@ -2984,7 +3202,7 @@ to capture DOM/URL context (10.1.1).
 
 ## SNAP\snap_1c_persist_artifacts.py
 
-**Module:** UNKNOWN
+**Module ID:** SNAP-1C
 
 ```
 SNAP-1C — Persist snapshot artifacts deterministically (10.1.3)  
@@ -3000,7 +3218,7 @@ This module does NOT:
 
 ## STATE\state_1b_manifest_jsonl.py
 
-**Module:** UNKNOWN
+**Module ID:** STATE-1B
 
 ```
 STATE-1B — JSONL manifest state (queued/success/fail + metadata) — stdlib-only  
@@ -3010,7 +3228,7 @@ STATE-1B — JSONL manifest state (queued/success/fail + metadata) — stdlib-on
 
 ## STATE\state_1c_retry_helpers.py
 
-**Module:** UNKNOWN
+**Module ID:** STATE-1C
 
 ```
 STATE-1C — Retry / Resume helpers (additive to STATE-1B).  
@@ -3026,7 +3244,7 @@ JSONL in a compatible, minimal shape.
 
 ## STATE\state_1d_manifest_row_helpers.py
 
-**Module:** UNKNOWN
+**Module ID:** STATE-1D
 
 ```
 STATE-1D — Manifest Row Helpers (standardize queued/success/fail shapes).  
@@ -3042,7 +3260,7 @@ Constraints
 
 ## tools\generate_python_library_index.py
 
-**Module:** REPO-INTEL-1A
+**Module ID:** REPO-INTEL-1A
 
 ```
 MODULE: REPO-INTEL-1A
@@ -3051,20 +3269,18 @@ PURPOSE:
 
 OUTPUTS:
     docs/repository/PYTHON_LIBRARY_INDEX.md
+    docs/repository/python_library_index.json
 
 RULES:
     - Read first module docstring only.
     - Do not inspect implementation code.
     - Report files missing headers.
     - Report duplicate module IDs.
-
-STATUS:
-    Repository Intelligence Milestone 1
 ```
 
 ## VAL\val_1a_ui_state.py
 
-**Module:** UNKNOWN
+**Module ID:** VAL-1A
 
 ```
 VAL-1A — UI state validation via selector presence + text checks.  
@@ -3115,7 +3331,7 @@ for smoke tests and lightweight validations, `text_contains` uses:
 
 ## VAL\val_1b_download_validation.py
 
-**Module:** UNKNOWN
+**Module ID:** VAL-1B
 
 ```
 VAL-1B — Download validation (file exists, size > 0, optional name patterns).  
@@ -3160,7 +3376,7 @@ Return contract
 
 ## VAR\var_1a_runtime_store.py
 
-**Module:** UNKNOWN
+**Module ID:** VAR-1A
 
 ```
 VAR-1A — Runtime Variable Store.  
@@ -3184,7 +3400,7 @@ Errors
 
 ## WORKFLOWS\workflow_1a_loader.py
 
-**Module:** UNKNOWN
+**Module ID:** WORKFLOW-1A
 
 ```
 WORKFLOW-1A — Workflow file loader + validator + normalizer  
@@ -3203,7 +3419,7 @@ Rules:
 - Deterministic output.
 ```
 
-# Missing Headers
+# Missing Module Headers
 
 - .dev_tmp\build_2c_smoke\dev\dev_smoke_open_example_com_and_verify_page_title.py
 - .dev_tmp\cli_2b_smoke\dev\dev_smoke_open_example_com_and_verify_page_title.py
@@ -3429,3 +3645,35 @@ Rules:
 - WORKFLOWS\workflow_1g_deploy_bundle_loader.py
 
 # Duplicate Module IDs
+
+- BUILD-2A: BUILD\build_2a_repeat_support.py
+- CLI-1A: CLI\cli_1a_workflow_grammar_gate.py
+- ACT-1B: dev\dev_smoke_act_1b_logging.py
+- ACT-1A: dev\dev_smoke_act_action_engine.py
+- INPUT-1B: dev\dev_smoke_state_input.py
+- DIFF-1A: DIFF\diff_1a_workflow_grammar_gate_report_diff.py
+- DOC-1A: DOC\doc_1a_workflow_grammar_gate.py
+- DOCTOR-1A: DOCTOR\doctor_1a_workflow_grammar_gate.py
+- ENTRY-1A: ENTRY\entry_1a_webdriver_bootstrap.py
+- ENTRY-1A: ENTRY\entry_1a_workflow_grammar_gate.py
+- GUARD-1A: GUARD\guard_1a_workflow_grammar_gate_guard.py
+- GUARD-1A: GUARD\guard_1a_workflow_grammar_guard.py
+- HISTORY-1A: HISTORY\history_1a_store.py
+- HISTORY-1A: HISTORY\history_1a_workflow_grammar_gate_history.py
+- HISTORY-1C: HISTORY\history_1c_run_history_loader.py
+- INPUT-1B: INPUT\input_1b_excel_provider.py
+- NAV-1A: NAV\nav_1a_selenium_helpers.py
+- PIPE-1A: PIPE\pipe_1a_run_orchestrator.py
+- PIPE-1A: PIPE\pipe_1a_workflow_grammar_gate_pipeline.py
+- PIPE-1B: PIPE\pipe_1b_worklist_config.py
+- PIPE-1C: PIPE\pipe_1c_steps_loader.py
+- PIPE-1D: PIPE\pipe_1d_step_executor.py
+- REPORT-1A: REPORT\report_1a_run_report.py
+- REPORT-1A: REPORT\report_1a_step_logs_from_jsonl.py
+- REPORT-1A: REPORT\report_1a_workflow_grammar_gate_report.py
+- REPORT-1B: REPORT\report_1b_workflow_grammar_gate_report_text.py
+- REPORT-1C: REPORT\report_1c_workflow_grammar_gate_report_summary.py
+- RUN-1A: RUN\run_1a_workflow_grammar_gate_run.py
+- RUN-1A: RUN\run_1a_workflow_runner.py
+- RUN-1A: RUN\run_1b_workflow_runner_with_snap.py
+- SNAP-1A: SNAP\snap_1a_failure_capture.py
