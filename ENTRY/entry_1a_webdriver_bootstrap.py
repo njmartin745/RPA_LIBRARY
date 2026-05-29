@@ -61,7 +61,23 @@ from ENTRY.entry_1a_webdriver_bootstrap import make_driver
 cfg = {"BROWSER": "chrome", "HEADLESS": "true", "DOWNLOAD_DIR": "downloads"}  
 driver = make_driver(cfg)  
 driver.get("https://example.com")  
-driver.quit()  
+driver.quit() 
+
+Status
+------
+Audited
+
+Architecture Position
+---------------------
+RUN-1A
+    ↓
+PIPE-1E
+    ↓
+PIPE-1A
+    ↓
+ENTRY-1A
+    ↓
+ACT-1A
 """  
   
 from __future__ import annotations  

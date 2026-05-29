@@ -18,6 +18,22 @@ WORKLIST_PATH / WORKLIST_XLSX, WORKLIST_SHEET, WORKLIST_ID_COLUMN,
 STEPS_PATH or STEPS (inline),  
 MANIFEST_PATH, LOG_PATH,  
 STOP_ON_ERROR, HEADLESS, BROWSER, EXPLICIT_WAIT.  
+
+Architecture Position
+---------------------
+RUN-1A
+    ↓
+PIPE-1E
+    ↓
+PIPE-1A
+    ↓
+PIPE-1D
+    ↓
+ACT-1A
+
+Status
+------
+Audited
 """  
   
 from __future__ import annotations  

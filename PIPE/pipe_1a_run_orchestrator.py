@@ -43,6 +43,26 @@ cfg = {...}  # includes INPUT-1B config and LOG-1A/ENTRY-1A config
 steps = [{"action":"get","url":"https://example.com"}]  
 summary = run_worklist(cfg, steps)  
 print(summary)  
+
+Status
+------
+Audited
+
+Architecture Position
+---------------------
+RUN-1A
+    ↓
+PIPE-1E
+    ↓
+PIPE-1A
+    ↓
+INPUT / LOOP / ENTRY / ACT / STATE / LOG
+
+Notes
+-----
+Primary orchestration layer responsible for
+coordinating worklist execution and item-level
+processing.
 """  
   
 from __future__ import annotations  

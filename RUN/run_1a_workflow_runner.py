@@ -1,18 +1,53 @@
 # RUN/run_1a_workflow_runner.py  
-"""  
-RUN-1A — Unified Workflow Runner  
-  
-Single entry point that executes workflows produced by WORKFLOW-1A using the existing  
-PIPE orchestration system.  
-  
-Execution flow:  
-1) Load workflow via WORKFLOW-1A loader  
-2) Validate steps using LINT-1A  
-3) Merge cfg defaults + overrides  
-4) Initialize VAR store (seeded from workflow vars)  
-5) Call PIPE orchestrator/runner (no duplicated logic)  
-6) Return structured summary  
-"""  
+"""
+RUN-1A — Unified Workflow Runner
+
+Purpose
+-------
+Canonical runtime entrypoint for workflow execution.
+
+Loads workflows, validates steps, initializes runtime
+variables, resolves the active PIPE implementation,
+executes the workflow, and normalizes execution results.
+
+Public API
+----------
+run_workflow(...)
+
+Dependencies
+------------
+WORKFLOW-1A
+LINT-1A
+VAR-1A
+PIPE-1E
+PIPE-1A
+PIPE-1D
+
+Status
+------
+Audited
+
+Notes
+-----
+Execution Flow:
+
+Workflow
+    ↓
+WORKFLOW-1A
+    ↓
+LINT-1A
+    ↓
+VAR-1A
+    ↓
+PIPE
+    ↓
+ACT
+    ↓
+Summary
+
+This module is the canonical workflow execution
+entrypoint used by adapters, CLIs, and deploy bundles.
+"""
   
 from __future__ import annotations  
   
