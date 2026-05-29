@@ -51,6 +51,39 @@ Headless notes
 Dependencies  
 ------------  
 - Standard library only: dataclasses, typing  
+
+Public API
+----------
+ItemOutcome
+run_per_item_loop(...)
+iterate_items(...)
+
+Architecture Position
+---------------------
+INPUT-1B
+        ↓
+LOOP-1B
+        ↓
+PIPE-1A
+        ↓
+ACT-1A
+        ↓
+STATE-1B
+
+Responsibilities
+----------------
+- Sequential worklist iteration
+- CURRENT_ID injection
+- ITEM_INDEX injection
+- TOTAL_ITEMS injection
+- Per-item callback execution
+- Fail-fast orchestration
+- Best-effort continuation mode
+- Outcome collection
+
+Status
+------
+Audited
   
 Common failure modes + mitigations  
 ----------------------------------  
