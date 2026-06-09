@@ -1,3 +1,101 @@
+"""
+BUILD-3B — Bundle Fingerprint Engine
+
+Purpose
+-------
+Generate deterministic fingerprints and version
+identifiers for deployment artifacts.
+
+Provides canonical serialization, hashing,
+fingerprint generation, and version derivation
+for reproducible bundle identity.
+
+Public API
+----------
+DEFAULT_FINGERPRINT_DROP_TOP_LEVEL_KEYS
+canonical_bytes_for_fingerprint(...)
+compute_sha256_hex(...)
+compute_bundle_fingerprint(...)
+stamp_bundle_version_and_fingerprint(...)
+
+Dependencies
+------------
+Standard Library Only
+
+Architecture Position
+---------------------
+DEPLOY_BUNDLE
+        ↓
+BUILD-3B
+        ↓
+Fingerprint
+        ↓
+Version
+        ↓
+BUILD-3F
+
+Status
+------
+Audited
+
+Notes
+-----
+Fingerprint Pipeline:
+
+Bundle
+    ↓
+Canonical JSON
+    ↓
+SHA256
+    ↓
+Fingerprint
+    ↓
+Version
+
+Responsibilities
+----------------
+- Canonicalize bundle content
+- Generate deterministic hashes
+- Generate bundle fingerprints
+- Generate bundle versions
+- Prevent self-referential hashing
+- Support reproducible builds
+
+Canonicalization Rules
+----------------------
+- UTF-8 encoding
+- JSON serialization
+- sort_keys=True
+- Compact separators
+- No whitespace significance
+
+Fingerprint Rules
+-----------------
+The following top-level keys are excluded
+from fingerprint generation:
+
+- fingerprint
+- bundle_fingerprint
+- version
+- bundle_version
+
+This prevents recursive fingerprint generation.
+
+Deterministic Guarantees
+------------------------
+Identical bundle content produces identical
+fingerprints and version identifiers.
+
+No timestamps, randomness, machine identifiers,
+or environment-specific values influence output.
+
+Architecture Notes
+------------------
+This module is the canonical source of truth
+for bundle identity generation throughout
+the deployment pipeline.
+"""
+
 from __future__ import annotations  
   
 import hashlib  

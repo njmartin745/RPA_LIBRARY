@@ -1,3 +1,91 @@
+"""
+BUILD-3A — Deploy Bundle Format
+
+Purpose
+-------
+Transform CAPTURE_BUNDLE_1A artifacts into
+normalized DEPLOY_BUNDLE_1A artifacts suitable
+for packaging, validation, distribution, and
+runtime execution.
+
+Provides the canonical deploy bundle schema
+and conversion pipeline from capture bundles
+to deployment-ready bundles.
+
+Public API
+----------
+DEPLOY_BUNDLE_SCHEMA_ID
+build_deploy_bundle_from_capture_bundle(...)
+
+Dependencies
+------------
+WORKFLOW-1E
+WORKFLOW-1F
+
+Architecture Position
+---------------------
+CAPTURE_BUNDLE_1A
+        ↓
+WORKFLOW-1E
+        ↓
+WORKFLOW-1F
+        ↓
+BUILD-3A
+        ↓
+DEPLOY_BUNDLE_1A
+
+Status
+------
+Audited
+
+Notes
+-----
+Conversion Pipeline:
+
+CAPTURE_BUNDLE_1A
+        ↓
+Normalize Workflow
+        ↓
+Selector Ref Enforcement
+        ↓
+Extract Runtime Assets
+        ↓
+DEPLOY_BUNDLE_1A
+
+Responsibilities
+----------------
+- Define DEPLOY_BUNDLE_1A schema
+- Normalize workflow content
+- Enforce selector_ref-first policy
+- Build deployment-ready artifacts
+- Preserve source metadata
+- Produce deterministic bundle structures
+
+Deploy Bundle Structure
+-----------------------
+DEPLOY_BUNDLE_1A
+    schema_id
+    name
+    workflow
+    selector_pack
+    meta
+
+Meta Information
+----------------
+The meta section preserves deployment
+provenance information including source
+schema identifiers and source bundle names.
+
+Deterministic Guarantees
+------------------------
+No timestamps, randomness, machine-specific
+identifiers, or environment-dependent values
+are introduced during bundle generation.
+
+Identical capture bundles produce identical
+deploy bundle structures.
+"""
+
 from __future__ import annotations  
   
 from typing import Any, Dict, Mapping, Optional  

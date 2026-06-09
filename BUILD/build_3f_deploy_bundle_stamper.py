@@ -1,3 +1,104 @@
+"""
+BUILD-3F — Deploy Bundle Stamper
+
+Purpose
+-------
+Ensure DEPLOY_BUNDLE_1A artifacts contain
+valid version and fingerprint metadata
+required for deployment, validation,
+distribution, and runtime execution.
+
+Provides deterministic version generation,
+fingerprint normalization, and legacy
+compatibility support.
+
+Public API
+----------
+ensure_deploy_bundle_version_fingerprint_1a(...)
+
+Dependencies
+------------
+BUILD-3B
+VAL-2A
+
+Architecture Position
+---------------------
+BUILD-3A
+        ↓
+BUILD-3F
+        ↓
+VAL-2A
+        ↓
+DEPLOY_BUNDLE_1A
+
+Status
+------
+Audited
+
+Notes
+-----
+Stamping Pipeline:
+
+DEPLOY_BUNDLE_1A
+        ↓
+Fingerprint Inspection
+        ↓
+Legacy Compatibility
+        ↓
+Fingerprint Generation
+        ↓
+Version Generation
+        ↓
+Metadata Normalization
+        ↓
+Validated Bundle
+
+Responsibilities
+----------------
+- Generate bundle fingerprints
+- Generate bundle versions
+- Normalize fingerprint metadata
+- Support legacy fingerprint formats
+- Maintain validator compatibility
+- Preserve deterministic bundle identity
+
+Compatibility Rules
+-------------------
+Supported fingerprint formats:
+
+Current:
+    fingerprint.sha256
+
+Legacy:
+    fingerprint.hexdigest
+
+Legacy fingerprints are automatically
+normalized into the current schema.
+
+Deterministic Guarantees
+------------------------
+Fingerprint generation is deterministic.
+
+Given identical deploy bundles, identical
+fingerprints and version identifiers will
+be produced.
+
+No timestamps, randomness, machine-specific
+identifiers, or environment-dependent values
+are introduced.
+
+Architecture Notes
+------------------
+This module is responsible only for
+versioning and fingerprint metadata.
+
+Bundle construction remains the
+responsibility of BUILD-3A.
+
+Validation remains the responsibility
+of VAL-2A.
+"""
+
 from __future__ import annotations  
   
 from typing import Any, Dict, Mapping, Optional  
