@@ -1,4 +1,4 @@
-﻿# E2E-Run-002 (Production Readiness Baseline)
+# E2E-Run-002 (Production Readiness Baseline)
 
 ## Canonical E2E definition (from DOC/AGENT_PACKET.md)
 - Name: Production Smoke Pipeline

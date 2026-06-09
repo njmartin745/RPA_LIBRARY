@@ -1,1 +1,1 @@
-﻿{"schema_id":"CAPTURE_BUNDLE_1A","name":"captured","workflow":{"steps":[{"action":"open","url":"https://example.test/app"}]},"selector_pack":{"schema_id":"SELECTOR_PACK_1A","name":"captured","selectors":{}}}  
+{"schema_id":"CAPTURE_BUNDLE_1A","name":"captured","workflow":{"steps":[{"action":"open","url":"https://example.test/app"}]},"selector_pack":{"schema_id":"SELECTOR_PACK_1A","name":"captured","selectors":{}}}  
