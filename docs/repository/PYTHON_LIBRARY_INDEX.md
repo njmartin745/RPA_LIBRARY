@@ -9,12 +9,12 @@ AUTO-GENERATED. DO NOT EDIT MANUALLY.
 | ACT | 5 |
 | AGENT | 3 |
 | AUTH | 2 |
-| BUILD | 9 |
+| BUILD | 17 |
 | CAPTURE | 1 |
 | CLI | 8 |
 | DEPLOY | 1 |
 | DIFF | 3 |
-| DOC | 8 |
+| DOC | 9 |
 | DOCTOR | 5 |
 | ENTRY | 3 |
 | GUARD | 4 |
@@ -36,7 +36,7 @@ AUTO-GENERATED. DO NOT EDIT MANUALLY.
 | REGISTRY | 1 |
 | REPLAY | 2 |
 | REPO | 1 |
-| REPORT | 15 |
+| REPORT | 16 |
 | RUN | 8 |
 | RUNBOOK | 1 |
 | SCHEMA | 1 |
@@ -48,7 +48,7 @@ AUTO-GENERATED. DO NOT EDIT MANUALLY.
 | VAL | 3 |
 | VAR | 1 |
 | WORKFLOW | 4 |
-| TOTAL | 172 |
+| TOTAL | 182 |
 
 ## Capability Summary
 
@@ -56,7 +56,7 @@ AUTO-GENERATED. DO NOT EDIT MANUALLY.
 |--------|-------------|
 | ACT-1A | ACT-1A — Canonical Action Execution Layer |
 | ACT-1A | Dev smoke test for ACT-1A action engine. |
-| ACT-1B | ACT-1B — Structured logging integration wrapper for ACT-1A |
+| ACT-1B | ACT-1B — Structured Logging Integration |
 | ACT-1B | Dev smoke test for ACT-1B logging integration. |
 | ACT-1C | ACT-1C — Conditional Step Guards. |
 | AGENT-1A | AGENT-1A — Agent Context Pack Exporter (single pasteable bundle) |
@@ -73,6 +73,14 @@ AUTO-GENERATED. DO NOT EDIT MANUALLY.
 | BUILD-2E | BUILD-2E: Workflow-level wrapper around BUILD-2D step grammar enforcement. |
 | BUILD-2F | BUILD-2F: File-level workflow grammar gating. |
 | BUILD-2G | BUILD-2G: Directory/tree-level workflow grammar gating. |
+| BUILD-3A | BUILD-3A — Deploy Bundle Format |
+| BUILD-3B | BUILD-3B — Bundle Fingerprint Engine |
+| BUILD-3C | BUILD-3C — Deploy Bundle Builder |
+| BUILD-3D | BUILD-3D — Documentation Index Artifact Bundler |
+| BUILD-3E | BUILD-3E — Bundle Manifest Integrator |
+| BUILD-3F | BUILD-3F — Deploy Bundle Stamper |
+| BUILD-3G | BUILD-3G — Deploy Bundle Writer |
+| BUILD-3H | BUILD-3H — Capture To Deploy Bundle Pipeline |
 | CAPTURE-1A | CAPTURE-1A — Semi-Automatic Selector Capture (headed capture session) |
 | CLI-1A | CLI-1A — Command Line Pipeline Runner. |
 | CLI-1A | CLI-1A: Workflow grammar gate CLI. |
@@ -92,6 +100,7 @@ AUTO-GENERATED. DO NOT EDIT MANUALLY.
 | DOC-12D | DOC-12D: Rollback and Recovery Procedures (Milestone 12.4.3) |
 | DOC-1A | DOC-1A — Library Index Generator |
 | DOC-1A | DOC-1A: Workflow grammar gate documentation builder. |
+| DOC-1F | DOC-1F — Documentation Index Aggregator |
 | DOC-1G | DOC-1G — Doc Index Entry Contract (Validator) |
 | DOC-1H | DOC-1H — Doc Index Collect + Validate Wrapper |
 | DOCTOR-12A | DOCTOR-12A: Pre-run DOCTOR Checks Policy (Milestone 12.4.1) |
@@ -116,7 +125,7 @@ AUTO-GENERATED. DO NOT EDIT MANUALLY.
 | HISTORY-1C | HISTORY-1C — Run history loader (9.4.3) |
 | INPUT-1B | Smoke test for top-level INPUT-1B shim: input_1b_excel_provider.py |
 | INPUT-1B | Smoke test for: |
-| INPUT-1B | INPUT-1B — Excel provider (sheet + column -> list of IDs) + optional manifest writer |
+| INPUT-1B | INPUT-1B — Excel Worklist Provider |
 | LEARN-1A | LEARN-1A — Failure Pattern Analytics (pure, deterministic) |
 | LEARN-1B | LEARN-1B — Selector Intelligence & Stability Scoring (pure analysis) |
 | LINT-1A | LINT-1A — Step Validation Engine |
@@ -138,7 +147,7 @@ AUTO-GENERATED. DO NOT EDIT MANUALLY.
 | PIPE-1C | PIPE-1C — Steps loader + template substitution (stdlib-only) |
 | PIPE-1D | Dev smoke test — PIPE-1D (step execution adapter) |
 | PIPE-1D | PIPE-1D — Step Execution Adapter |
-| PIPE-1E | PIPE-1E — Single runnable pipeline entrypoint. |
+| PIPE-1E | PIPE-1E — Unified Pipeline Runner |
 | PIPE-1F | PIPE-1F: Environment overrides applied to cfg. |
 | PIPE-1G | PIPE-1G — Environment Force Overrides |
 | PIPE-1H | PIPE-1H — JSONL Log Path Policy |
@@ -170,6 +179,7 @@ AUTO-GENERATED. DO NOT EDIT MANUALLY.
 | REPORT-1C | REPORT-1C — JUnit XML renderer (10.3.3) |
 | REPORT-1C | REPORT-1C: Workflow grammar gate report summary. |
 | REPORT-1D | REPORT-1D — Generate standard report artifacts (10.4.1) |
+| REPORT-1E | REPORT-1E — Build Manifest Artifact Generator |
 | RUN-1A | RUN-1A: Pre-run workflow grammar gate. |
 | RUN-1A | RUN-1A: Workflow grammar gate run orchestration. |
 | RUN-1A | RUN-1A — Unified Workflow Runner |
@@ -186,7 +196,7 @@ AUTO-GENERATED. DO NOT EDIT MANUALLY.
 | SNAP-1A | SNAP-1A — Failure capture (10.1.1) |
 | SNAP-1B | SNAP-1B — Screenshot capture (10.1.2) |
 | SNAP-1C | SNAP-1C — Persist snapshot artifacts deterministically (10.1.3) |
-| STATE-1B | STATE-1B — JSONL manifest state (queued/success/fail + metadata) — stdlib-only |
+| STATE-1B | STATE-1B — JSONL Manifest Persistence Layer |
 | STATE-1C | STATE-1C — Retry / Resume helpers (additive to STATE-1B). |
 | STATE-1D | STATE-1D — Manifest Row Helpers (standardize queued/success/fail shapes). |
 | UNKNOWN | app.py — Simplified Selenium RPA runner |
@@ -349,25 +359,100 @@ telemetry, reporting, replay, and multi-agent execution.
 **Module ID:** ACT-1B
 
 ```
-ACT-1B — Structured logging integration wrapper for ACT-1A  
-  
-Purpose  
--------  
-Orchestrate execution of ACT-1A steps while automatically emitting structured logs  
-(using LOG-1A) for:  
-- step_start  
-- step_success  
-- step_error  
-  
-This module does NOT change ACT-1A behavior; it wraps ACT-1A execution to add  
-consistent logging and cfg-driven stop/continue behavior.  
-  
-Key behaviors  
--------------  
-- Uses cfg["STOP_ON_ERROR"] (default True) to determine fail-fast behavior.  
-- Preserves ACT-1A per-step `continue_on_error` behavior.  
-- Binds per-item context (run_id/current_id/item_index/total_items) if present in cfg.  
-- Uses LOG-1A `log_exception` for exceptions, capturing step_id + milestone + taxonomy tag.
+ACT-1B — Structured Logging Integration
+
+Purpose
+-------
+Provide structured logging around ACT-1A execution
+without modifying ACT-1A behavior.
+
+This module acts as the logging boundary for the
+action execution layer, emitting deterministic
+step lifecycle events while preserving ACT-1A
+execution semantics.
+
+Public API
+----------
+run_actions_logged(...)
+
+Dependencies
+------------
+ACT-1A
+LOG-1A
+
+Architecture Position
+---------------------
+PIPE-1A
+    ↓
+ACT-1B
+    ↓
+ACT-1A
+    ↓
+WebDriver
+
+Status
+------
+Audited
+
+Responsibilities
+----------------
+- Bind runtime execution context
+- Emit step_start events
+- Emit step_success events
+- Emit step_error events
+- Normalize step outcome indexing
+- Translate STOP_ON_ERROR behavior
+- Preserve ACT-1A execution semantics
+- Record structured execution telemetry
+
+Execution Flow
+--------------
+Step
+    ↓
+Bind Context
+    ↓
+step_start
+    ↓
+ACT-1A
+    ↓
+step_success | step_error
+    ↓
+StepOutcome
+
+Runtime Outputs
+---------------
+ACT_LOGGED_ALL_OK
+
+Set on cfg after execution to indicate
+whether all logged steps completed successfully.
+
+Logging Guarantees
+------------------
+- Deterministic step lifecycle events
+- Consistent step indexing
+- Structured exception logging
+- Context propagation across execution layers
+- Compatible with fail-fast and continue-on-error modes
+
+Architecture Notes
+------------------
+ACT-1B intentionally does not execute browser
+actions itself.
+
+Execution responsibility remains within ACT-1A.
+
+This module exists solely to provide structured
+telemetry, context propagation, and execution
+visibility for higher runtime layers.
+
+Dependencies
+------------
+selenium
+NAV-1A
+
+External:
+- Selenium WebDriver
+- Selenium Expected Conditions
 ```
 
 ## ACT\act_1c_conditional_guards.py
@@ -700,6 +785,776 @@ Single responsibility:
 - Batch assert/sanitize them using BUILD-2F.  
   
 This is additive and does not modify existing builders.
+```
+
+## BUILD\build_3a_deploy_bundle_format.py
+
+**Module ID:** BUILD-3A
+
+```
+BUILD-3A — Deploy Bundle Format
+
+Purpose
+-------
+Transform CAPTURE_BUNDLE_1A artifacts into
+normalized DEPLOY_BUNDLE_1A artifacts suitable
+for packaging, validation, distribution, and
+runtime execution.
+
+Provides the canonical deploy bundle schema
+and conversion pipeline from capture bundles
+to deployment-ready bundles.
+
+Public API
+----------
+DEPLOY_BUNDLE_SCHEMA_ID
+build_deploy_bundle_from_capture_bundle(...)
+
+Dependencies
+------------
+WORKFLOW-1E
+WORKFLOW-1F
+
+Architecture Position
+---------------------
+CAPTURE_BUNDLE_1A
+        ↓
+WORKFLOW-1E
+        ↓
+WORKFLOW-1F
+        ↓
+BUILD-3A
+        ↓
+DEPLOY_BUNDLE_1A
+
+Status
+------
+Audited
+
+Notes
+-----
+Conversion Pipeline:
+
+CAPTURE_BUNDLE_1A
+        ↓
+Normalize Workflow
+        ↓
+Selector Ref Enforcement
+        ↓
+Extract Runtime Assets
+        ↓
+DEPLOY_BUNDLE_1A
+
+Responsibilities
+----------------
+- Define DEPLOY_BUNDLE_1A schema
+- Normalize workflow content
+- Enforce selector_ref-first policy
+- Build deployment-ready artifacts
+- Preserve source metadata
+- Produce deterministic bundle structures
+
+Deploy Bundle Structure
+-----------------------
+DEPLOY_BUNDLE_1A
+    schema_id
+    name
+    workflow
+    selector_pack
+    meta
+
+Meta Information
+----------------
+The meta section preserves deployment
+provenance information including source
+schema identifiers and source bundle names.
+
+Deterministic Guarantees
+------------------------
+No timestamps, randomness, machine-specific
+identifiers, or environment-dependent values
+are introduced during bundle generation.
+
+Identical capture bundles produce identical
+deploy bundle structures.
+```
+
+## BUILD\build_3b_bundle_fingerprint.py
+
+**Module ID:** BUILD-3B
+
+```
+BUILD-3B — Bundle Fingerprint Engine
+
+Purpose
+-------
+Generate deterministic fingerprints and version
+identifiers for deployment artifacts.
+
+Provides canonical serialization, hashing,
+fingerprint generation, and version derivation
+for reproducible bundle identity.
+
+Public API
+----------
+DEFAULT_FINGERPRINT_DROP_TOP_LEVEL_KEYS
+canonical_bytes_for_fingerprint(...)
+compute_sha256_hex(...)
+compute_bundle_fingerprint(...)
+stamp_bundle_version_and_fingerprint(...)
+
+Dependencies
+------------
+Standard Library Only
+
+Architecture Position
+---------------------
+DEPLOY_BUNDLE
+        ↓
+BUILD-3B
+        ↓
+Fingerprint
+        ↓
+Version
+        ↓
+BUILD-3F
+
+Status
+------
+Audited
+
+Notes
+-----
+Fingerprint Pipeline:
+
+Bundle
+    ↓
+Canonical JSON
+    ↓
+SHA256
+    ↓
+Fingerprint
+    ↓
+Version
+
+Responsibilities
+----------------
+- Canonicalize bundle content
+- Generate deterministic hashes
+- Generate bundle fingerprints
+- Generate bundle versions
+- Prevent self-referential hashing
+- Support reproducible builds
+
+Canonicalization Rules
+----------------------
+- UTF-8 encoding
+- JSON serialization
+- sort_keys=True
+- Compact separators
+- No whitespace significance
+
+Fingerprint Rules
+-----------------
+The following top-level keys are excluded
+from fingerprint generation:
+
+- fingerprint
+- bundle_fingerprint
+- version
+- bundle_version
+
+This prevents recursive fingerprint generation.
+
+Deterministic Guarantees
+------------------------
+Identical bundle content produces identical
+fingerprints and version identifiers.
+
+No timestamps, randomness, machine identifiers,
+or environment-specific values influence output.
+
+Architecture Notes
+------------------
+This module is the canonical source of truth
+for bundle identity generation throughout
+the deployment pipeline.
+```
+
+## BUILD\build_3c_deploy_bundle_builder.py
+
+**Module ID:** BUILD-3C
+
+```
+BUILD-3C — Deploy Bundle Builder
+
+Purpose
+-------
+Build fully normalized, stamped, and validated
+DEPLOY_BUNDLE_1A artifacts from CAPTURE_BUNDLE_1A
+inputs.
+
+Provides the canonical build pipeline used to
+transform capture artifacts into portable deploy
+artifacts suitable for validation, packaging,
+distribution, and runtime execution.
+
+Public API
+----------
+build_stamp_validate_deploy_bundle_1a(...)
+build_stamp_validate_deploy_bundle_1a_with_report(...)
+
+Dependencies
+------------
+BUILD-3A
+BUILD-3F
+VAL-2A
+
+Architecture Position
+---------------------
+CAPTURE_BUNDLE_1A
+        ↓
+BUILD-3A
+        ↓
+BUILD-3C
+        ↓
+BUILD-3F
+        ↓
+VAL-2A
+        ↓
+DEPLOY_BUNDLE_1A
+
+Status
+------
+Audited
+
+Notes
+-----
+Build Pipeline:
+
+CAPTURE_BUNDLE_1A
+        ↓
+Normalize
+        ↓
+Selector Ref Enforcement
+        ↓
+Stamp Version
+        ↓
+Stamp Fingerprint
+        ↓
+Validate
+        ↓
+DEPLOY_BUNDLE_1A
+
+Responsibilities
+----------------
+- Build deploy bundles from capture bundles
+- Apply selector_ref-first policies
+- Apply version metadata
+- Apply fingerprint metadata
+- Validate deployment artifacts
+- Produce runtime-ready deploy bundles
+- Support exception and report-based workflows
+
+Deterministic Guarantees
+------------------------
+Build output is deterministic and contains
+no timestamps, randomness, environment-specific
+identifiers, or machine-dependent metadata.
+
+Given identical inputs and configuration,
+identical deploy bundles will be produced.
+
+Architecture Notes
+------------------
+This module serves as the canonical deployment
+artifact construction pipeline.
+
+It intentionally delegates normalization,
+stamping, and validation responsibilities to
+their dedicated modules while providing a
+single orchestration entrypoint for callers.
+
+Deploy bundles produced by this module are
+intended to be portable, reproducible,
+fingerprintable, and suitable for runtime
+execution.
+```
+
+## BUILD\build_3d_doc_index_artifact_bundler.py
+
+**Module ID:** BUILD-3D
+
+```
+BUILD-3D — Documentation Index Artifact Bundler
+
+Purpose
+-------
+Generate documentation index artifacts and
+bundle them into deployment output directories.
+
+Provides a bridge between repository
+documentation metadata and deployment bundle
+metadata generation.
+
+Public API
+----------
+write_doc_index_artifact_to_bundle_out_dir_1a(...)
+
+Dependencies
+------------
+DOC-1F
+
+Architecture Position
+---------------------
+Repository Documentation
+        ↓
+DOC-1F
+        ↓
+BUILD-3D
+        ↓
+DOC_INDEX_ARTIFACT_1A
+        ↓
+BUILD-3E
+
+Status
+------
+Audited
+
+Notes
+-----
+Index Generation Pipeline:
+
+Documentation Modules
+        ↓
+Entry Collection
+        ↓
+Artifact Construction
+        ↓
+Artifact Serialization
+        ↓
+Bundle Output Directory
+
+Responsibilities
+----------------
+- Discover documentation modules
+- Collect documentation metadata
+- Build documentation index artifacts
+- Write documentation artifacts
+- Support deployment bundle generation
+
+Artifact Output
+---------------
+Produces:
+
+DOC_INDEX_ARTIFACT_1A
+
+containing repository documentation
+metadata suitable for deployment bundles.
+
+Deterministic Guarantees
+------------------------
+Documentation discovery and artifact
+generation are deterministic.
+
+Identical repository documentation
+produces identical index artifacts.
+
+Architecture Notes
+------------------
+This module intentionally delegates
+documentation parsing and aggregation
+to DOC-1F.
+
+Its responsibility is limited to
+bundle-oriented artifact generation.
+```
+
+## BUILD\build_3e_bundle_build_manifest_integrator.py
+
+**Module ID:** BUILD-3E
+
+```
+BUILD-3E — Bundle Manifest Integrator
+
+Purpose
+-------
+Generate and integrate documentation indexes
+and build manifests for deployment bundle
+output directories.
+
+Provides a deterministic orchestration layer
+that combines documentation discovery,
+artifact indexing, and manifest generation.
+
+Public API
+----------
+discover_bundle_artifact_rel_paths_1a(...)
+build_bundle_out_dir_doc_index_and_manifest_1a(...)
+
+Dependencies
+------------
+BUILD-3D
+REPORT-1E
+
+Architecture Position
+---------------------
+Bundle Output Directory
+        ↓
+BUILD-3E
+        ↓
+BUILD-3D
+        ↓
+REPORT-1E
+        ↓
+Bundle Metadata
+
+Status
+------
+Audited
+
+Notes
+-----
+Integration Pipeline:
+
+Bundle Output Directory
+        ↓
+Artifact Discovery
+        ↓
+Documentation Index
+        ↓
+Artifact Manifest
+        ↓
+Bundle Metadata
+
+Responsibilities
+----------------
+- Discover bundle artifacts
+- Build documentation indexes
+- Build artifact manifests
+- Maintain deterministic ordering
+- Coordinate bundle metadata generation
+- Produce deployment-ready metadata assets
+
+Artifact Discovery Rules
+------------------------
+- Recursive discovery supported
+- Deterministic sorting
+- POSIX path normalization
+- Manifest self-exclusion
+- Duplicate elimination
+
+Deterministic Guarantees
+------------------------
+Artifact discovery, index generation,
+and manifest generation are deterministic.
+
+Identical bundle contents produce
+identical metadata outputs.
+
+Architecture Notes
+------------------
+This module serves as the orchestration layer
+between documentation indexing and manifest
+generation.
+
+Index creation is delegated to BUILD-3D.
+
+Manifest creation is delegated to REPORT-1E.
+```
+
+## BUILD\build_3f_deploy_bundle_stamper.py
+
+**Module ID:** BUILD-3F
+
+```
+BUILD-3F — Deploy Bundle Stamper
+
+Purpose
+-------
+Ensure DEPLOY_BUNDLE_1A artifacts contain
+valid version and fingerprint metadata
+required for deployment, validation,
+distribution, and runtime execution.
+
+Provides deterministic version generation,
+fingerprint normalization, and legacy
+compatibility support.
+
+Public API
+----------
+ensure_deploy_bundle_version_fingerprint_1a(...)
+
+Dependencies
+------------
+BUILD-3B
+VAL-2A
+
+Architecture Position
+---------------------
+BUILD-3A
+        ↓
+BUILD-3F
+        ↓
+VAL-2A
+        ↓
+DEPLOY_BUNDLE_1A
+
+Status
+------
+Audited
+
+Notes
+-----
+Stamping Pipeline:
+
+DEPLOY_BUNDLE_1A
+        ↓
+Fingerprint Inspection
+        ↓
+Legacy Compatibility
+        ↓
+Fingerprint Generation
+        ↓
+Version Generation
+        ↓
+Metadata Normalization
+        ↓
+Validated Bundle
+
+Responsibilities
+----------------
+- Generate bundle fingerprints
+- Generate bundle versions
+- Normalize fingerprint metadata
+- Support legacy fingerprint formats
+- Maintain validator compatibility
+- Preserve deterministic bundle identity
+
+Compatibility Rules
+-------------------
+Supported fingerprint formats:
+
+Current:
+    fingerprint.sha256
+
+Legacy:
+    fingerprint.hexdigest
+
+Legacy fingerprints are automatically
+normalized into the current schema.
+
+Deterministic Guarantees
+------------------------
+Fingerprint generation is deterministic.
+
+Given identical deploy bundles, identical
+fingerprints and version identifiers will
+be produced.
+
+No timestamps, randomness, machine-specific
+identifiers, or environment-dependent values
+are introduced.
+
+Architecture Notes
+------------------
+This module is responsible only for
+versioning and fingerprint metadata.
+
+Bundle construction remains the
+responsibility of BUILD-3A.
+
+Validation remains the responsibility
+of VAL-2A.
+```
+
+## BUILD\build_3g_deploy_bundle_writer.py
+
+**Module ID:** BUILD-3G
+
+```
+BUILD-3G — Deploy Bundle Writer
+
+Purpose
+-------
+Serialize and persist DEPLOY_BUNDLE_1A
+artifacts to disk in a deterministic,
+portable, and validation-safe format.
+
+Provides canonical JSON serialization,
+optional normalization/stamping,
+validation, and atomic file writing.
+
+Public API
+----------
+dumps_deploy_bundle_1a_json(...)
+write_deploy_bundle_1a_to_path(...)
+
+Dependencies
+------------
+BUILD-3A
+BUILD-3F
+VAL-2A
+
+Architecture Position
+---------------------
+DEPLOY_BUNDLE_1A
+        ↓
+BUILD-3G
+        ↓
+Serialized Artifact
+        ↓
+Filesystem
+
+Status
+------
+Audited
+
+Notes
+-----
+Write Pipeline:
+
+DEPLOY_BUNDLE_1A
+        ↓
+Normalize / Stamp
+        ↓
+Validate
+        ↓
+Serialize
+        ↓
+Atomic Write
+        ↓
+Deploy Artifact
+
+Responsibilities
+----------------
+- Serialize deploy bundles
+- Normalize bundle metadata
+- Validate bundle integrity
+- Perform atomic file writes
+- Produce deterministic JSON output
+- Support deployment artifact persistence
+
+Serialization Rules
+-------------------
+- UTF-8 encoding
+- Stable key ordering
+- Optional pretty formatting
+- Consistent newline handling
+- Deterministic output
+
+File Safety
+-----------
+Atomic writes use:
+
+    target.tmp
+        ↓
+    os.replace(...)
+        ↓
+    target
+
+This minimizes the risk of partial
+or corrupted deployment artifacts.
+
+Deterministic Guarantees
+------------------------
+Identical deploy bundles produce
+identical serialized output when
+written with the same formatting
+options.
+```
+
+## BUILD\build_3h_capture_to_deploy_bundle_pipeline.py
+
+**Module ID:** BUILD-3H
+
+```
+BUILD-3H — Capture To Deploy Bundle Pipeline
+
+Purpose
+-------
+Provide a single end-to-end pipeline for
+converting CAPTURE_BUNDLE_1A artifacts into
+validated DEPLOY_BUNDLE_1A artifacts.
+
+Combines bundle construction, stamping,
+validation, serialization, and persistence
+into a single orchestration layer.
+
+Public API
+----------
+load_json_mapping_from_path(...)
+build_write_deploy_bundle_1a_from_capture_bundle(...)
+build_write_deploy_bundle_1a_from_capture_bundle_path(...)
+
+Dependencies
+------------
+BUILD-3C
+BUILD-3G
+WORKFLOW-1G
+
+Architecture Position
+---------------------
+CAPTURE_BUNDLE_1A
+        ↓
+BUILD-3H
+        ↓
+BUILD-3C
+        ↓
+BUILD-3G
+        ↓
+DEPLOY_BUNDLE_1A
+
+Status
+------
+Audited
+
+Notes
+-----
+Pipeline Flow:
+
+CAPTURE_BUNDLE_1A
+        ↓
+Build
+        ↓
+Stamp
+        ↓
+Validate
+        ↓
+Serialize
+        ↓
+Write
+        ↓
+DEPLOY_BUNDLE_1A
+
+Responsibilities
+----------------
+- Load capture bundles
+- Build deploy bundles
+- Apply versioning and fingerprints
+- Validate deployment artifacts
+- Persist deploy bundles
+- Support file-to-file deployment workflows
+
+Deterministic Guarantees
+------------------------
+No timestamps, randomness, machine-specific
+identifiers, or environment-dependent values
+are introduced during pipeline execution.
+
+Identical capture bundles produce identical
+deploy bundles.
+
+Architecture Notes
+------------------
+This module is intentionally orchestration-only.
+
+Bundle construction is delegated to BUILD-3C.
+
+Serialization and persistence are delegated
+to BUILD-3G.
+
+Bundle loading is delegated to WORKFLOW-1G.
 ```
 
 ## CAPTURE\capture_1a_semi_auto.py
@@ -1470,6 +2325,109 @@ Single responsibility:
 - No I/O; formatting only.
 ```
 
+## DOC\doc_1f_doc_index_aggregator.py
+
+**Module ID:** DOC-1F
+
+```
+DOC-1F — Documentation Index Aggregator
+
+Purpose
+-------
+Discover, collect, aggregate, and serialize
+repository documentation index entries.
+
+Provides the canonical mechanism for building
+DOC_INDEX_ARTIFACT_1A metadata used by bundle
+generation, documentation tooling, and
+repository analysis.
+
+Public API
+----------
+iter_doc_module_names_in_dir_1a(...)
+load_doc_index_entry_from_module_1a(...)
+collect_doc_index_entries_1a(...)
+merge_doc_index_entries_1a(...)
+build_doc_index_artifact_1a(...)
+write_doc_index_artifact_1a(...)
+
+Dependencies
+------------
+Standard Library Only
+
+Architecture Position
+---------------------
+DOC Modules
+        ↓
+DOC-1F
+        ↓
+DOC_INDEX_ARTIFACT_1A
+        ↓
+BUILD-3D
+        ↓
+BUILD-3E
+
+Status
+------
+Audited
+
+Notes
+-----
+Aggregation Pipeline:
+
+DOC Modules
+        ↓
+Discovery
+        ↓
+Import
+        ↓
+Entry Collection
+        ↓
+Deduplication
+        ↓
+Artifact Generation
+
+Responsibilities
+----------------
+- Discover documentation modules
+- Load documentation entries
+- Aggregate documentation metadata
+- Remove duplicates
+- Build documentation artifacts
+- Persist documentation indexes
+
+Entry Sources
+-------------
+Supported entry providers:
+
+- get_doc_index_entry_1a()
+- DOC_INDEX_ENTRY_1A
+
+Only entries with:
+
+    kind = "doc_index_entry"
+
+are included.
+
+Deterministic Guarantees
+------------------------
+Discovery, aggregation, deduplication,
+sorting, and serialization are deterministic.
+
+Identical documentation sources produce
+identical documentation artifacts.
+
+Architecture Notes
+------------------
+This module serves as the canonical
+documentation aggregation engine for
+the repository.
+
+Generated artifacts are consumed by
+deployment bundle tooling and repository
+metadata systems.
+```
+
 ## DOC\doc_1g_doc_index_entry_contract.py
 
 **Module ID:** DOC-1G
@@ -1666,7 +2624,33 @@ from ENTRY.entry_1a_webdriver_bootstrap import make_driver
 cfg = {"BROWSER": "chrome", "HEADLESS": "true", "DOWNLOAD_DIR": "downloads"}  
 driver = make_driver(cfg)  
 driver.get("https://example.com")  
-driver.quit()
+driver.quit() 
+
+Status
+------
+Audited
+
+Architecture Position
+---------------------
+RUN-1A
+    ↓
+PIPE-1E
+    ↓
+PIPE-1A
+    ↓
+ENTRY-1A
+    ↓
+ACT-1A
+
+Responsibilities
+----------------
+- Create Selenium WebDriver instances
+- Configure browser defaults
+- Configure download behavior
+- Configure headless execution
+- Configure remote debugger attachment
+- Resolve driver binaries
+- Support Selenium Manager fallback
 ```
 
 ## ENTRY\entry_1a_workflow_grammar_gate.py
@@ -1894,25 +2878,83 @@ Deterministic behavior:
 **Module ID:** INPUT-1B
 
 ```
-INPUT-1B — Excel provider (sheet + column -> list of IDs) + optional manifest writer  
-  
-Purpose  
--------  
-Read an Excel worksheet, extract a primary-key column into a normalized worklist,  
-and (optionally) write a minimal manifest JSONL with one object per ID.  
-  
-This module is responsible for Excel ingestion only. It intentionally does NOT:  
-- write audit logs  
-- select retry vs baseline manifests  
-- implement per-item looping  
-  
-Dependencies  
-------------  
-- openpyxl (for .xlsx reading/writing)  
-  
-Security rule  
--------------  
-- Never log secrets. Treat IDs as non-secret operational identifiers.
+INPUT-1B — Excel Worklist Provider
+
+Purpose
+-------
+Read Excel workbooks and produce deterministic
+worklists for runtime execution.
+
+Provides workbook ingestion, sheet selection,
+header resolution, ID normalization, and
+optional manifest generation.
+
+Public API
+----------
+extract_ids_from_excel(...)
+load_worklist_ids(...)
+iter_worklist_ids(...)
+write_manifest_jsonl(...)
+build_manifest_from_excel(...)
+
+Dependencies
+------------
+openpyxl
+
+Architecture Position
+---------------------
+RUN-1A
+    ↓
+PIPE-1E
+    ↓
+PIPE-1A
+    ↓
+INPUT-1B
+    ↓
+LOOP-1B
+
+Status
+------
+Audited
+
+Responsibilities
+----------------
+- Read Excel workbooks
+- Resolve worksheet selection
+- Resolve ID column headers
+- Normalize ID values
+- Remove duplicate IDs
+- Produce runtime worklists
+- Optionally generate manifest artifacts
+
+Execution Flow
+--------------
+Workbook
+    ↓
+Sheet Resolution
+    ↓
+Header Resolution
+    ↓
+ID Extraction
+    ↓
+Normalization
+    ↓
+Worklist
+
+Normalization Rules
+-------------------
+- Trim whitespace
+- Convert numeric IDs to strings
+- Remove blank values
+- Preserve insertion order
+- Optionally de-duplicate IDs
+
+Security Notes
+--------------
+- Never log secrets
+- Treat IDs as operational identifiers
+- Performs no workflow execution
+- Performs no audit logging
 ```
 
 ## LEARN\learn_1a_failure_patterns.py
@@ -2105,6 +3147,39 @@ Headless notes
 Dependencies  
 ------------  
 - Standard library only: dataclasses, typing  
+
+Public API
+----------
+ItemOutcome
+run_per_item_loop(...)
+iterate_items(...)
+
+Architecture Position
+---------------------
+INPUT-1B
+        ↓
+LOOP-1B
+        ↓
+PIPE-1A
+        ↓
+ACT-1A
+        ↓
+STATE-1B
+
+Responsibilities
+----------------
+- Sequential worklist iteration
+- CURRENT_ID injection
+- ITEM_INDEX injection
+- TOTAL_ITEMS injection
+- Per-item callback execution
+- Fail-fast orchestration
+- Best-effort continuation mode
+- Outcome collection
+
+Status
+------
+Audited
   
 Common failure modes + mitigations  
 ----------------------------------  
@@ -2329,7 +3404,27 @@ from PIPE.pipe_1a_run_orchestrator import run_worklist
 cfg = {...}  # includes INPUT-1B config and LOG-1A/ENTRY-1A config  
 steps = [{"action":"get","url":"https://example.com"}]  
 summary = run_worklist(cfg, steps)  
-print(summary)
+print(summary)  
+
+Status
+------
+Audited
+
+Architecture Position
+---------------------
+RUN-1A
+    ↓
+PIPE-1E
+    ↓
+PIPE-1A
+    ↓
+INPUT / LOOP / ENTRY / ACT / STATE / LOG
+
+Notes
+-----
+Primary orchestration layer responsible for
+coordinating worklist execution and item-level
+processing.
 ```
 
 ## PIPE\pipe_1a_workflow_grammar_gate_pipeline.py
@@ -2443,25 +3538,144 @@ Notes
 **Module ID:** PIPE-1E
 
 ```
-PIPE-1E — Single runnable pipeline entrypoint.  
-  
-This module orchestrates an end-to-end run by *composing existing modules*:  
-- Steps: PIPE-1C (load/render/normalize)  
-- Worklist/driver/loop/actions/logging/state: delegated to PIPE-1A orchestrator  
-  (which uses PIPE/INPUT/LOOP/ACT/NAV/STATE/LOG layers)  
-  
-Exit codes  
-----------  
-- 0: all items succeeded  
-- 2: completed run with one or more item failures  
-- 1: fatal error (exception / could not run)  
-  
-Env-friendly cfg keys supported  
--------------------------------  
-WORKLIST_PATH / WORKLIST_XLSX, WORKLIST_SHEET, WORKLIST_ID_COLUMN,  
-STEPS_PATH or STEPS (inline),  
-MANIFEST_PATH, LOG_PATH,  
-STOP_ON_ERROR, HEADLESS, BROWSER, EXPLICIT_WAIT.
+PIPE-1E — Unified Pipeline Runner
+
+Purpose
+-------
+Canonical pipeline execution layer responsible for
+runtime configuration normalization, step loading,
+worklist execution, telemetry reconstruction, and
+execution result normalization.
+
+Acts as the integration boundary between RUN-1A
+and the lower-level PIPE orchestration stack.
+
+Public API
+----------
+run_pipeline(...)
+exit_code_for_summary(...)
+main(...)
+
+Dependencies
+------------
+PIPE-1A
+PIPE-1C
+PIPE-1D
+PIPE-1F
+PIPE-1G
+PIPE-1H
+INPUT
+LOG
+STATE
+ACT
+
+Architecture Position
+---------------------
+RUN-1A
+    ↓
+PIPE-1E
+    ↓
+PIPE-1A
+    ↓
+PIPE-1D
+    ↓
+ACT-1A
+
+Status
+------
+Audited
+
+Execution Flow
+--------------
+Runtime Config
+    ↓
+Environment Overrides
+    ↓
+Configuration Normalization
+    ↓
+Worklist Normalization
+    ↓
+Step Loading
+    ↓
+PIPE-1A Execution
+    ↓
+Telemetry Reconstruction
+    ↓
+Execution Summary
+    ↓
+Exit Code
+
+Responsibilities
+----------------
+- Normalize runtime configuration
+- Apply environment overrides
+- Resolve pipeline dependencies
+- Load workflow steps
+- Materialize inline step definitions
+- Normalize worklist configuration
+- Execute worklists through PIPE-1A
+- Reconstruct step telemetry
+- Normalize execution summaries
+- Produce deterministic exit codes
+
+Runtime Compatibility
+---------------------
+Supports:
+- Inline steps
+- File-based steps
+- Environment-driven execution
+- CLI-driven execution
+- Multiple logging path conventions
+- Multiple worklist path conventions
+
+Input Normalization
+-------------------
+Automatically aligns workbook sheet names
+and header selections with provided XLSX
+files when configuration values are missing
+or invalid.
+
+This behavior improves runtime resilience
+while preserving deterministic execution.
+
+Telemetry Support
+-----------------
+Structured JSONL execution logs may be
+reconstructed into step-level execution
+summaries.
+
+Telemetry reconstruction is best-effort and
+is designed to provide stable runtime
+visibility independent of lower-level
+execution implementations.
+
+Execution Guarantees
+--------------------
+- Environment normalization before execution
+- Step loading before orchestration
+- Deterministic exit code generation
+- Stable execution summary format
+- Runtime compatibility across pipeline
+  implementations
+
+Architecture Notes
+------------------
+PIPE-1E functions as the runtime integration
+layer for the execution stack.
+
+RUN-1A interacts with PIPE-1E through a
+single execution contract while PIPE-1E
+coordinates configuration normalization,
+step loading, worklist execution, logging,
+and summary reconstruction.
+
+This module intentionally shields higher
+layers from implementation details within
+the PIPE, INPUT, LOG, STATE, and ACT
+subsystems.
+
+It is the primary execution integration
+boundary of the runtime stack.
 ```
 
 ## PIPE\pipe_1f_env_overrides.py
@@ -3125,6 +4339,102 @@ Outputs:
 - {run_output_dir}/report/junit.xml
 ```
 
+## REPORT\report_1e_build_manifest_artifact.py
+
+**Module ID:** REPORT-1E
+
+```
+REPORT-1E — Build Manifest Artifact Generator
+
+Purpose
+-------
+Generate deterministic build manifest artifacts
+for deployment bundles.
+
+Provides artifact inventory generation,
+artifact hashing, manifest construction,
+and manifest persistence.
+
+Public API
+----------
+sha256_file_1a(...)
+build_build_manifest_artifact_1a(...)
+write_build_manifest_artifact_1a(...)
+build_and_write_build_manifest_for_bundle_out_dir_1a(...)
+
+Dependencies
+------------
+Standard Library Only
+
+Architecture Position
+---------------------
+Bundle Artifacts
+        ↓
+REPORT-1E
+        ↓
+BUILD_MANIFEST_ARTIFACT_1A
+        ↓
+BUILD-3E
+
+Status
+------
+Audited
+
+Notes
+-----
+Manifest Generation Pipeline:
+
+Bundle Artifacts
+        ↓
+File Discovery
+        ↓
+SHA256 Hashing
+        ↓
+Manifest Construction
+        ↓
+Artifact Manifest
+
+Responsibilities
+----------------
+- Generate artifact inventories
+- Calculate artifact hashes
+- Build manifest artifacts
+- Persist manifest artifacts
+- Support deployment bundle verification
+
+Manifest Structure
+------------------
+BUILD_MANIFEST_ARTIFACT_1A
+
+Contains:
+
+- schema_id
+- count
+- artifacts
+- file sizes
+- sha256 hashes
+
+Deterministic Guarantees
+------------------------
+Manifest generation is deterministic.
+
+No timestamps, randomness, machine-specific
+identifiers, or environment-dependent values
+are included.
+
+Identical artifacts produce identical
+manifest outputs.
+
+Architecture Notes
+------------------
+This module serves as the canonical source
+of deployment artifact inventory metadata.
+
+It is intentionally independent of bundle
+construction and focuses solely on artifact
+verification and reporting.
+```
+
 ## RUN\run_12a_prod_smoke_pipeline.py
 
 **Module ID:** UNKNOWN
@@ -3240,18 +4550,125 @@ No CLI parsing here; callers supply arguments explicitly.
 **Module ID:** RUN-1A
 
 ```
-RUN-1A — Unified Workflow Runner  
-  
-Single entry point that executes workflows produced by WORKFLOW-1A using the existing  
-PIPE orchestration system.  
-  
-Execution flow:  
-1) Load workflow via WORKFLOW-1A loader  
-2) Validate steps using LINT-1A  
-3) Merge cfg defaults + overrides  
-4) Initialize VAR store (seeded from workflow vars)  
-5) Call PIPE orchestrator/runner (no duplicated logic)  
-6) Return structured summary
+RUN-1A — Unified Workflow Runner
+
+Purpose
+-------
+Canonical runtime entrypoint for workflow execution.
+
+Loads workflows, validates steps, initializes runtime
+variables, resolves the active PIPE implementation,
+executes the workflow, and normalizes execution results.
+
+Acts as the runtime composition root that assembles
+workflow loading, validation, variable management,
+pipeline execution, and result normalization into a
+single execution contract.
+
+Public API
+----------
+run_workflow(...)
+
+Dependencies
+------------
+WORKFLOW-1A
+LINT-1A
+VAR-1A
+PIPE-1E
+PIPE-1A
+PIPE-1D
+
+Architecture Position
+---------------------
+Workflow
+    ↓
+WORKFLOW-1A
+    ↓
+LINT-1A
+    ↓
+VAR-1A
+    ↓
+RUN-1A
+    ↓
+PIPE
+    ↓
+ACT
+    ↓
+Summary
+
+Status
+------
+Audited
+
+Notes
+-----
+Execution Flow:
+
+Workflow
+    ↓
+Load
+    ↓
+Validate
+    ↓
+Initialize Variables
+    ↓
+Resolve PIPE
+    ↓
+Execute
+    ↓
+Normalize Results
+    ↓
+Summary
+
+Responsibilities
+----------------
+- Load workflow definitions
+- Validate workflow structure
+- Initialize runtime variables
+- Resolve active PIPE implementation
+- Execute workflow pipelines
+- Normalize execution results
+- Generate runtime metadata
+- Provide runtime compatibility layers
+- Present a stable execution contract
+
+Runtime Compatibility
+---------------------
+Supports multiple PIPE implementations
+through dynamic entrypoint discovery.
+
+Supports multiple VAR implementations
+through factory and class discovery.
+
+Supports multiple execution summary
+formats through result normalization.
+
+Execution Guarantees
+--------------------
+- Lint validation before execution
+- Runtime variable initialization
+- Consistent run identifier generation
+- Stable execution summary output
+- Backward compatibility across PIPE
+  implementations
+
+Architecture Notes
+------------------
+RUN-1A serves as the runtime facade for
+the platform.
+
+Callers interact with a single execution
+entrypoint while RUN-1A coordinates the
+underlying workflow, validation, variable,
+pipeline, and execution subsystems.
+
+This module intentionally shields adapters,
+CLIs, deploy bundle runners, and future
+execution environments from implementation
+details within the runtime stack.
+
+It is the primary runtime composition root
+for the RPA framework.
 ```
 
 ## RUN\run_1b_workflow_runner_with_snap.py
@@ -3515,9 +4932,71 @@ This module does NOT:
 **Module ID:** STATE-1B
 
 ```
-STATE-1B — JSONL manifest state (queued/success/fail + metadata) — stdlib-only  
-  
-(Existing docstring preserved; content omitted here for brevity.)
+STATE-1B — JSONL Manifest Persistence Layer
+
+Purpose
+-------
+Provide durable JSONL-based persistence for workflow execution state,
+audit records, manifests, retries, and item outcomes.
+
+This module serves as the canonical runtime persistence layer used by
+PIPE orchestration components.
+
+Public API
+----------
+utc_ts(...)
+append_jsonl_line(...)
+write_audit(...)
+load_ids_from_manifest(...)
+choose_active_manifest(...)
+manifest_append(...)
+ManifestWriter
+open_manifest(...)
+
+Dependencies
+------------
+Standard Library Only
+
+Architecture Position
+---------------------
+RUN-1A
+    ↓
+PIPE-1E
+    ↓
+PIPE-1A
+    ↓
+STATE-1B
+
+Responsibilities
+----------------
+- Persist item execution outcomes
+- Write audit records
+- Manage JSONL manifests
+- Support retry manifest selection
+- Provide PIPE-compatible manifest writers
+- Load work items from manifest files
+
+Manifest Selection Policy
+-------------------------
+Retry Manifest
+        ↓
+If Contains Records
+        ↓
+Use Retry Manifest
+
+Else
+        ↓
+Use Baseline Manifest
+
+Status
+------
+Audited
+
+Notes
+-----
+This module intentionally remains stdlib-only and acts as the
+primary persistence layer for runtime execution history,
+retry tracking, and operational auditing.
 ```
 
 ## STATE\state_1c_retry_helpers.py
@@ -3684,6 +5163,9 @@ Ensures workflow structure, selector references,
 versioning metadata, and bundle integrity meet
 platform requirements.
 
+Acts as the primary quality gate between deploy
+bundle loading and workflow execution.
+
 Public API
 ----------
 validate_deploy_bundle_1a(...)
@@ -3694,9 +5176,23 @@ Dependencies
 BUILD-3A
 SNAP-1A
 
+Architecture Position
+---------------------
+DEPLOY_BUNDLE_1A
+        ↓
+WORKFLOW-1G
+        ↓
+VAL-2A
+        ↓
+RUN-1A
+        ↓
+PIPE-1A
+        ↓
+ACT-1A
+
 Status
 ------
-Draft
+Audited
 
 Notes
 -----
@@ -3717,8 +5213,63 @@ Deterministic Report
 Supports both report-based validation and
 fail-fast exception-based validation.
 
-This module is the primary quality gate
-before workflow execution.
+Responsibilities
+----------------
+- Validate deploy bundle structure
+- Validate workflow definitions
+- Validate selector references
+- Validate repeat block structure
+- Validate version metadata
+- Validate fingerprint metadata
+- Enforce selector_ref-first policy
+- Produce deterministic validation reports
+- Protect runtime execution from invalid artifacts
+
+Validation Categories
+---------------------
+- Schema validation
+- Workflow validation
+- Selector integrity validation
+- Version validation
+- Fingerprint validation
+- Runtime policy validation
+
+Runtime Policy Enforcement
+--------------------------
+Deploy bundles are expected to be
+selector_ref-first.
+
+When require_selector_ref=True:
+
+- selector_ref is required
+- raw selectors generate warnings
+- selector references must exist within
+  selector_pack.selectors
+
+Deterministic Guarantees
+------------------------
+Validation results are:
+
+- Repeatable
+- Deterministic
+- Sorted for stable output
+- Suitable for CI and audit reporting
+
+Architecture Notes
+------------------
+This module represents the final validation
+boundary before runtime execution.
+
+Upstream systems are responsible for creating
+valid deployment artifacts.
+
+Downstream runtime systems assume artifacts
+have passed validation and may rely on those
+guarantees without performing duplicate checks.
+
+This validator serves as the central quality
+gate for deployment portability, replayability,
+runtime safety, and artifact integrity.
 ```
 
 ## VAR\var_1a_runtime_store.py
@@ -3758,6 +5309,12 @@ Convert workflow definitions into a deterministic
 canonical representation suitable for validation,
 diffing, fingerprinting, bundling, and execution.
 
+This module establishes the canonical workflow
+representation used throughout the platform,
+ensuring logically equivalent workflows produce
+identical structures for review, validation,
+deployment, and runtime execution.
+
 Public API
 ----------
 normalize_workflow_steps(...)
@@ -3768,9 +5325,23 @@ Dependencies
 ------------
 SNAP-1A
 
+Architecture Position
+---------------------
+Capture Bundle
+        ↓
+WORKFLOW-1E
+        ↓
+VAL-2A
+        ↓
+BUILD-3B
+        ↓
+BUILD-3C
+        ↓
+Runtime
+
 Status
 ------
-Draft
+Audited
 
 Notes
 -----
@@ -3793,6 +5364,89 @@ Deterministic Key Ordering
 Produces stable workflow representations for
 review, fingerprint generation, validation,
 and deployment packaging.
+
+Responsibilities
+----------------
+- Remove None values
+- Trim string values
+- Normalize repeat structures
+- Coerce repeat counts
+- Normalize nested workflow trees
+- Enforce deterministic key ordering
+- Support optional strict validation
+- Produce canonical workflow representations
+
+Normalization Rules
+-------------------
+1. Remove fields with None values
+2. Trim leading and trailing whitespace
+3. Normalize nested repeat structures
+4. Convert repeat count strings to integers
+5. Normalize action names
+6. Preserve workflow ordering
+7. Apply deterministic key ordering
+
+Validation Behavior
+-------------------
+When strict=True:
+
+- Action names must be valid
+- Required fields must exist
+- Selector actions must contain either
+  selector_ref or selector
+- Open actions must contain a URL
+
+When strict=False:
+
+- Normalization proceeds without enforcing
+  action validity requirements
+- Workflow cleanup remains deterministic
+- Validation is deferred to later stages
+
+Deterministic Guarantees
+------------------------
+The normalization process is:
+
+- Pure (no mutation of inputs)
+- Repeatable
+- Order preserving
+- Deterministic
+- Fingerprint friendly
+
+Equivalent workflow definitions produce
+equivalent normalized output.
+
+Architecture Notes
+------------------
+This module is the foundation of workflow
+determinism throughout the platform.
+
+Downstream systems including validation,
+diffing, fingerprinting, deploy bundle
+generation, and runtime execution rely on
+the canonical workflow representations
+produced here.
+
+Together with WORKFLOW-1F, this module forms
+the workflow preparation pipeline:
+
+Capture
+    ↓
+WORKFLOW-1E
+    ↓
+WORKFLOW-1F
+    ↓
+Validation
+    ↓
+Fingerprinting
+    ↓
+Deployment
+    ↓
+Runtime
+
+This module answers a critical architectural
+requirement: logically identical workflows
+must produce identical deployment artifacts.
 ```
 
 ## WORKFLOW\workflow_1f_selector_ref_first.py
@@ -3808,6 +5462,11 @@ Convert workflows from raw-selector usage to
 selector-reference usage using the selector pack
 as the authoritative source of selector metadata.
 
+This module establishes selector_ref values as the
+canonical selector representation for portable
+workflow execution, deployment bundles, healing,
+replay, and runtime execution.
+
 Public API
 ----------
 selector_pack_selector_to_ref(...)
@@ -3819,9 +5478,25 @@ Dependencies
 ------------
 SELECTOR_PACK_1A
 
+Architecture Position
+---------------------
+Capture Bundle
+        ↓
+Selector Pack
+        ↓
+WORKFLOW-1F
+        ↓
+VAL-2A
+        ↓
+BUILD-3C
+        ↓
+Deploy Bundle
+        ↓
+Runtime
+
 Status
 ------
-Draft
+Audited
 
 Notes
 -----
@@ -3833,17 +5508,80 @@ Selector Reference
         ↓
 Selector Pack
 
-Responsibilities:
-
+Responsibilities
+----------------
 - Convert selectors to selector_ref values
 - Remove raw selectors when configured
 - Validate selector consistency
 - Recurse through repeat blocks
 - Produce deterministic workflows
+- Establish selector pack authority
+- Support deploy bundle portability
+- Enable selector healing and replay
 
-This module is a key prerequisite for
-deploy bundles, healing, replay, and
-portable workflow execution.
+Selector Resolution Rules
+-------------------------
+1. Existing selector_ref values are preferred
+2. Raw selectors are converted when a matching
+   selector exists in the selector pack
+3. Selector pack acts as the authoritative
+   source of selector metadata
+4. Lexicographically smallest selector_ref wins
+   when duplicate selectors exist
+5. Nested repeat blocks are processed recursively
+
+Validation Behavior
+-------------------
+When strict=True:
+
+- selector_ref / selector mismatches raise errors
+- Unknown selectors raise errors
+- Selector pack consistency is enforced
+
+When strict=False:
+
+- Best-effort conversion is performed
+- Unmapped selectors remain unchanged
+- Existing selector_ref values are preserved
+
+Deterministic Guarantees
+------------------------
+The enforcement process is:
+
+- Pure (no mutation of inputs)
+- Repeatable
+- Selector-pack driven
+- Workflow-order preserving
+
+Architecture Notes
+------------------
+This module transforms workflows from selector-
+dependent definitions into selector-reference
+definitions.
+
+By removing direct selector dependencies from
+workflow steps, execution becomes portable across
+environments while allowing healing systems,
+replay systems, deployment tooling, and runtime
+execution to resolve selectors through a shared
+selector pack.
+
+Together with WORKFLOW-1E, this module forms the
+canonical workflow preparation pipeline:
+
+Capture
+    ↓
+WORKFLOW-1E
+    ↓
+WORKFLOW-1F
+    ↓
+Validation
+    ↓
+Fingerprinting
+    ↓
+Deployment
+    ↓
+Runtime
 ```
 
 ## WORKFLOWS\workflow_1a_loader.py
@@ -3894,9 +5632,23 @@ BUILD-3A
 BUILD-3F
 VAL-2A
 
+Architecture Position
+---------------------
+DEPLOY_BUNDLE_1A
+        ↓
+WORKFLOW-1G
+        ↓
+VAL-2A
+        ↓
+RUN-1A
+        ↓
+PIPE-1A
+        ↓
+ACT-1A
+
 Status
 ------
-Draft
+Audited
 
 Notes
 -----
@@ -3917,8 +5669,50 @@ Return:
     selector_pack
     run_meta
 
+Runtime Responsibilities
+------------------------
+- Load deploy bundles from disk
+- Normalize legacy bundle formats
+- Validate deploy bundle structure
+- Enforce selector_ref runtime policy
+- Extract runtime workflow assets
+- Produce stable runtime metadata
+- Bridge deployment artifacts to execution
+
+Runtime Contract
+----------------
+Extracted runtime assets consist of:
+
+- workflow
+- selector_pack
+- run_meta
+
+The loader intentionally returns only the
+minimum runtime payload required for execution.
+
+Compatibility
+-------------
 Supports legacy bundle compatibility by
-automatically normalizing older fingerprint formats.
+automatically normalizing older fingerprint
+formats and generating version fingerprints
+when required.
+
+Architecture Notes
+------------------
+This module represents the boundary between
+build-time artifacts and runtime execution.
+
+Upstream systems are responsible for capture,
+normalization, validation, fingerprinting,
+and deployment packaging.
+
+Downstream systems are responsible for
+workflow execution, browser orchestration,
+action execution, logging, and runtime state.
+
+This separation ensures deploy bundles remain
+portable, reproducible, and backward compatible
+across runtime versions.
 ```
 
 # Missing Module Headers
@@ -3933,14 +5727,6 @@ automatically normalizing older fingerprint formats.
 - BUILD\build_1b_intake_questionnaire.py
 - BUILD\build_1c_action_normalizer.py
 - BUILD\build_1c_smoke_stub_generator.py
-- BUILD\build_3a_deploy_bundle_format.py
-- BUILD\build_3b_bundle_fingerprint.py
-- BUILD\build_3c_deploy_bundle_builder.py
-- BUILD\build_3d_doc_index_artifact_bundler.py
-- BUILD\build_3e_bundle_build_manifest_integrator.py
-- BUILD\build_3f_deploy_bundle_stamper.py
-- BUILD\build_3g_deploy_bundle_writer.py
-- BUILD\build_3h_capture_to_deploy_bundle_pipeline.py
 - CAPTURE\__init__.py
 - CAPTURE\capture_1a_step_recorder.py
 - CLI\__init__.py
@@ -4095,7 +5881,6 @@ automatically normalizing older fingerprint formats.
 - DIFF\diff_1a_capture_edit_diff.py
 - DOC\__init__.py
 - DOC\doc_1e_cli_run_deploy_bundle_cli_resolver_entry.py
-- DOC\doc_1f_doc_index_aggregator.py
 - DOC\doc_index_entry_cli_1i_bundle_doc_index_and_manifest_cli.py
 - DOCTOR\__init__.py
 - ENTRY\__init__.py
@@ -4118,7 +5903,6 @@ automatically normalizing older fingerprint formats.
 - REGISTRY\__init__.py
 - REPLAY\__init__.py
 - REPORT\__init__.py
-- REPORT\report_1e_build_manifest_artifact.py
 - REPORT\report_1e_deploy_bundle_validation_report_writer.py
 - RUN\__init__.py
 - RUN\dev_run_workflow.py
