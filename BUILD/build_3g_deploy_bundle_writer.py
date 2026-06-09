@@ -1,3 +1,95 @@
+"""
+BUILD-3G — Deploy Bundle Writer
+
+Purpose
+-------
+Serialize and persist DEPLOY_BUNDLE_1A
+artifacts to disk in a deterministic,
+portable, and validation-safe format.
+
+Provides canonical JSON serialization,
+optional normalization/stamping,
+validation, and atomic file writing.
+
+Public API
+----------
+dumps_deploy_bundle_1a_json(...)
+write_deploy_bundle_1a_to_path(...)
+
+Dependencies
+------------
+BUILD-3A
+BUILD-3F
+VAL-2A
+
+Architecture Position
+---------------------
+DEPLOY_BUNDLE_1A
+        ↓
+BUILD-3G
+        ↓
+Serialized Artifact
+        ↓
+Filesystem
+
+Status
+------
+Audited
+
+Notes
+-----
+Write Pipeline:
+
+DEPLOY_BUNDLE_1A
+        ↓
+Normalize / Stamp
+        ↓
+Validate
+        ↓
+Serialize
+        ↓
+Atomic Write
+        ↓
+Deploy Artifact
+
+Responsibilities
+----------------
+- Serialize deploy bundles
+- Normalize bundle metadata
+- Validate bundle integrity
+- Perform atomic file writes
+- Produce deterministic JSON output
+- Support deployment artifact persistence
+
+Serialization Rules
+-------------------
+- UTF-8 encoding
+- Stable key ordering
+- Optional pretty formatting
+- Consistent newline handling
+- Deterministic output
+
+File Safety
+-----------
+Atomic writes use:
+
+    target.tmp
+        ↓
+    os.replace(...)
+        ↓
+    target
+
+This minimizes the risk of partial
+or corrupted deployment artifacts.
+
+Deterministic Guarantees
+------------------------
+Identical deploy bundles produce
+identical serialized output when
+written with the same formatting
+options.
+"""
+
 from __future__ import annotations  
   
 import json  

@@ -1,3 +1,92 @@
+"""
+BUILD-3H — Capture To Deploy Bundle Pipeline
+
+Purpose
+-------
+Provide a single end-to-end pipeline for
+converting CAPTURE_BUNDLE_1A artifacts into
+validated DEPLOY_BUNDLE_1A artifacts.
+
+Combines bundle construction, stamping,
+validation, serialization, and persistence
+into a single orchestration layer.
+
+Public API
+----------
+load_json_mapping_from_path(...)
+build_write_deploy_bundle_1a_from_capture_bundle(...)
+build_write_deploy_bundle_1a_from_capture_bundle_path(...)
+
+Dependencies
+------------
+BUILD-3C
+BUILD-3G
+WORKFLOW-1G
+
+Architecture Position
+---------------------
+CAPTURE_BUNDLE_1A
+        ↓
+BUILD-3H
+        ↓
+BUILD-3C
+        ↓
+BUILD-3G
+        ↓
+DEPLOY_BUNDLE_1A
+
+Status
+------
+Audited
+
+Notes
+-----
+Pipeline Flow:
+
+CAPTURE_BUNDLE_1A
+        ↓
+Build
+        ↓
+Stamp
+        ↓
+Validate
+        ↓
+Serialize
+        ↓
+Write
+        ↓
+DEPLOY_BUNDLE_1A
+
+Responsibilities
+----------------
+- Load capture bundles
+- Build deploy bundles
+- Apply versioning and fingerprints
+- Validate deployment artifacts
+- Persist deploy bundles
+- Support file-to-file deployment workflows
+
+Deterministic Guarantees
+------------------------
+No timestamps, randomness, machine-specific
+identifiers, or environment-dependent values
+are introduced during pipeline execution.
+
+Identical capture bundles produce identical
+deploy bundles.
+
+Architecture Notes
+------------------
+This module is intentionally orchestration-only.
+
+Bundle construction is delegated to BUILD-3C.
+
+Serialization and persistence are delegated
+to BUILD-3G.
+
+Bundle loading is delegated to WORKFLOW-1G.
+"""
+
 from __future__ import annotations  
   
 import json  

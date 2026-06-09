@@ -1,3 +1,102 @@
+"""
+DOC-1F — Documentation Index Aggregator
+
+Purpose
+-------
+Discover, collect, aggregate, and serialize
+repository documentation index entries.
+
+Provides the canonical mechanism for building
+DOC_INDEX_ARTIFACT_1A metadata used by bundle
+generation, documentation tooling, and
+repository analysis.
+
+Public API
+----------
+iter_doc_module_names_in_dir_1a(...)
+load_doc_index_entry_from_module_1a(...)
+collect_doc_index_entries_1a(...)
+merge_doc_index_entries_1a(...)
+build_doc_index_artifact_1a(...)
+write_doc_index_artifact_1a(...)
+
+Dependencies
+------------
+Standard Library Only
+
+Architecture Position
+---------------------
+DOC Modules
+        ↓
+DOC-1F
+        ↓
+DOC_INDEX_ARTIFACT_1A
+        ↓
+BUILD-3D
+        ↓
+BUILD-3E
+
+Status
+------
+Audited
+
+Notes
+-----
+Aggregation Pipeline:
+
+DOC Modules
+        ↓
+Discovery
+        ↓
+Import
+        ↓
+Entry Collection
+        ↓
+Deduplication
+        ↓
+Artifact Generation
+
+Responsibilities
+----------------
+- Discover documentation modules
+- Load documentation entries
+- Aggregate documentation metadata
+- Remove duplicates
+- Build documentation artifacts
+- Persist documentation indexes
+
+Entry Sources
+-------------
+Supported entry providers:
+
+- get_doc_index_entry_1a()
+- DOC_INDEX_ENTRY_1A
+
+Only entries with:
+
+    kind = "doc_index_entry"
+
+are included.
+
+Deterministic Guarantees
+------------------------
+Discovery, aggregation, deduplication,
+sorting, and serialization are deterministic.
+
+Identical documentation sources produce
+identical documentation artifacts.
+
+Architecture Notes
+------------------
+This module serves as the canonical
+documentation aggregation engine for
+the repository.
+
+Generated artifacts are consumed by
+deployment bundle tooling and repository
+metadata systems.
+"""
+
 from __future__ import annotations
   
 import importlib  
