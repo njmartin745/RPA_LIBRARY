@@ -78,6 +78,16 @@ PIPE-1A
 ENTRY-1A
     ↓
 ACT-1A
+
+Responsibilities
+----------------
+- Create Selenium WebDriver instances
+- Configure browser defaults
+- Configure download behavior
+- Configure headless execution
+- Configure remote debugger attachment
+- Resolve driver binaries
+- Support Selenium Manager fallback
 """  
   
 from __future__ import annotations  

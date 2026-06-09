@@ -1,4 +1,3 @@
-# RUN/run_1a_workflow_runner.py  
 """
 RUN-1A — Unified Workflow Runner
 
@@ -9,6 +8,11 @@ Canonical runtime entrypoint for workflow execution.
 Loads workflows, validates steps, initializes runtime
 variables, resolves the active PIPE implementation,
 executes the workflow, and normalizes execution results.
+
+Acts as the runtime composition root that assembles
+workflow loading, validation, variable management,
+pipeline execution, and result normalization into a
+single execution contract.
 
 Public API
 ----------
@@ -23,6 +27,24 @@ PIPE-1E
 PIPE-1A
 PIPE-1D
 
+Architecture Position
+---------------------
+Workflow
+    ↓
+WORKFLOW-1A
+    ↓
+LINT-1A
+    ↓
+VAR-1A
+    ↓
+RUN-1A
+    ↓
+PIPE
+    ↓
+ACT
+    ↓
+Summary
+
 Status
 ------
 Audited
@@ -33,20 +55,69 @@ Execution Flow:
 
 Workflow
     ↓
-WORKFLOW-1A
+Load
     ↓
-LINT-1A
+Validate
     ↓
-VAR-1A
+Initialize Variables
     ↓
-PIPE
+Resolve PIPE
     ↓
-ACT
+Execute
+    ↓
+Normalize Results
     ↓
 Summary
 
-This module is the canonical workflow execution
-entrypoint used by adapters, CLIs, and deploy bundles.
+Responsibilities
+----------------
+- Load workflow definitions
+- Validate workflow structure
+- Initialize runtime variables
+- Resolve active PIPE implementation
+- Execute workflow pipelines
+- Normalize execution results
+- Generate runtime metadata
+- Provide runtime compatibility layers
+- Present a stable execution contract
+
+Runtime Compatibility
+---------------------
+Supports multiple PIPE implementations
+through dynamic entrypoint discovery.
+
+Supports multiple VAR implementations
+through factory and class discovery.
+
+Supports multiple execution summary
+formats through result normalization.
+
+Execution Guarantees
+--------------------
+- Lint validation before execution
+- Runtime variable initialization
+- Consistent run identifier generation
+- Stable execution summary output
+- Backward compatibility across PIPE
+  implementations
+
+Architecture Notes
+------------------
+RUN-1A serves as the runtime facade for
+the platform.
+
+Callers interact with a single execution
+entrypoint while RUN-1A coordinates the
+underlying workflow, validation, variable,
+pipeline, and execution subsystems.
+
+This module intentionally shields adapters,
+CLIs, deploy bundle runners, and future
+execution environments from implementation
+details within the runtime stack.
+
+It is the primary runtime composition root
+for the RPA framework.
 """
   
 from __future__ import annotations  

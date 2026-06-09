@@ -1,23 +1,81 @@
 """  
-INPUT-1B — Excel provider (sheet + column -> list of IDs) + optional manifest writer  
-  
-Purpose  
--------  
-Read an Excel worksheet, extract a primary-key column into a normalized worklist,  
-and (optionally) write a minimal manifest JSONL with one object per ID.  
-  
-This module is responsible for Excel ingestion only. It intentionally does NOT:  
-- write audit logs  
-- select retry vs baseline manifests  
-- implement per-item looping  
-  
-Dependencies  
-------------  
-- openpyxl (for .xlsx reading/writing)  
-  
-Security rule  
--------------  
-- Never log secrets. Treat IDs as non-secret operational identifiers.  
+INPUT-1B — Excel Worklist Provider
+
+Purpose
+-------
+Read Excel workbooks and produce deterministic
+worklists for runtime execution.
+
+Provides workbook ingestion, sheet selection,
+header resolution, ID normalization, and
+optional manifest generation.
+
+Public API
+----------
+extract_ids_from_excel(...)
+load_worklist_ids(...)
+iter_worklist_ids(...)
+write_manifest_jsonl(...)
+build_manifest_from_excel(...)
+
+Dependencies
+------------
+openpyxl
+
+Architecture Position
+---------------------
+RUN-1A
+    ↓
+PIPE-1E
+    ↓
+PIPE-1A
+    ↓
+INPUT-1B
+    ↓
+LOOP-1B
+
+Status
+------
+Audited
+
+Responsibilities
+----------------
+- Read Excel workbooks
+- Resolve worksheet selection
+- Resolve ID column headers
+- Normalize ID values
+- Remove duplicate IDs
+- Produce runtime worklists
+- Optionally generate manifest artifacts
+
+Execution Flow
+--------------
+Workbook
+    ↓
+Sheet Resolution
+    ↓
+Header Resolution
+    ↓
+ID Extraction
+    ↓
+Normalization
+    ↓
+Worklist
+
+Normalization Rules
+-------------------
+- Trim whitespace
+- Convert numeric IDs to strings
+- Remove blank values
+- Preserve insertion order
+- Optionally de-duplicate IDs
+
+Security Notes
+--------------
+- Never log secrets
+- Treat IDs as operational identifiers
+- Performs no workflow execution
+- Performs no audit logging
 """  
   
 from __future__ import annotations  

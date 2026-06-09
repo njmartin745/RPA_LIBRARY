@@ -10,6 +10,9 @@ Ensures workflow structure, selector references,
 versioning metadata, and bundle integrity meet
 platform requirements.
 
+Acts as the primary quality gate between deploy
+bundle loading and workflow execution.
+
 Public API
 ----------
 validate_deploy_bundle_1a(...)
@@ -20,9 +23,23 @@ Dependencies
 BUILD-3A
 SNAP-1A
 
+Architecture Position
+---------------------
+DEPLOY_BUNDLE_1A
+        ↓
+WORKFLOW-1G
+        ↓
+VAL-2A
+        ↓
+RUN-1A
+        ↓
+PIPE-1A
+        ↓
+ACT-1A
+
 Status
 ------
-Draft
+Audited
 
 Notes
 -----
@@ -43,8 +60,63 @@ Deterministic Report
 Supports both report-based validation and
 fail-fast exception-based validation.
 
-This module is the primary quality gate
-before workflow execution.
+Responsibilities
+----------------
+- Validate deploy bundle structure
+- Validate workflow definitions
+- Validate selector references
+- Validate repeat block structure
+- Validate version metadata
+- Validate fingerprint metadata
+- Enforce selector_ref-first policy
+- Produce deterministic validation reports
+- Protect runtime execution from invalid artifacts
+
+Validation Categories
+---------------------
+- Schema validation
+- Workflow validation
+- Selector integrity validation
+- Version validation
+- Fingerprint validation
+- Runtime policy validation
+
+Runtime Policy Enforcement
+--------------------------
+Deploy bundles are expected to be
+selector_ref-first.
+
+When require_selector_ref=True:
+
+- selector_ref is required
+- raw selectors generate warnings
+- selector references must exist within
+  selector_pack.selectors
+
+Deterministic Guarantees
+------------------------
+Validation results are:
+
+- Repeatable
+- Deterministic
+- Sorted for stable output
+- Suitable for CI and audit reporting
+
+Architecture Notes
+------------------
+This module represents the final validation
+boundary before runtime execution.
+
+Upstream systems are responsible for creating
+valid deployment artifacts.
+
+Downstream runtime systems assume artifacts
+have passed validation and may rely on those
+guarantees without performing duplicate checks.
+
+This validator serves as the central quality
+gate for deployment portability, replayability,
+runtime safety, and artifact integrity.
 """
 
 from __future__ import annotations  

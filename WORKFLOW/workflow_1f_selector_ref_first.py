@@ -7,6 +7,11 @@ Convert workflows from raw-selector usage to
 selector-reference usage using the selector pack
 as the authoritative source of selector metadata.
 
+This module establishes selector_ref values as the
+canonical selector representation for portable
+workflow execution, deployment bundles, healing,
+replay, and runtime execution.
+
 Public API
 ----------
 selector_pack_selector_to_ref(...)
@@ -18,9 +23,25 @@ Dependencies
 ------------
 SELECTOR_PACK_1A
 
+Architecture Position
+---------------------
+Capture Bundle
+        ↓
+Selector Pack
+        ↓
+WORKFLOW-1F
+        ↓
+VAL-2A
+        ↓
+BUILD-3C
+        ↓
+Deploy Bundle
+        ↓
+Runtime
+
 Status
 ------
-Draft
+Audited
 
 Notes
 -----
@@ -32,17 +53,80 @@ Selector Reference
         ↓
 Selector Pack
 
-Responsibilities:
-
+Responsibilities
+----------------
 - Convert selectors to selector_ref values
 - Remove raw selectors when configured
 - Validate selector consistency
 - Recurse through repeat blocks
 - Produce deterministic workflows
+- Establish selector pack authority
+- Support deploy bundle portability
+- Enable selector healing and replay
 
-This module is a key prerequisite for
-deploy bundles, healing, replay, and
-portable workflow execution.
+Selector Resolution Rules
+-------------------------
+1. Existing selector_ref values are preferred
+2. Raw selectors are converted when a matching
+   selector exists in the selector pack
+3. Selector pack acts as the authoritative
+   source of selector metadata
+4. Lexicographically smallest selector_ref wins
+   when duplicate selectors exist
+5. Nested repeat blocks are processed recursively
+
+Validation Behavior
+-------------------
+When strict=True:
+
+- selector_ref / selector mismatches raise errors
+- Unknown selectors raise errors
+- Selector pack consistency is enforced
+
+When strict=False:
+
+- Best-effort conversion is performed
+- Unmapped selectors remain unchanged
+- Existing selector_ref values are preserved
+
+Deterministic Guarantees
+------------------------
+The enforcement process is:
+
+- Pure (no mutation of inputs)
+- Repeatable
+- Selector-pack driven
+- Workflow-order preserving
+
+Architecture Notes
+------------------
+This module transforms workflows from selector-
+dependent definitions into selector-reference
+definitions.
+
+By removing direct selector dependencies from
+workflow steps, execution becomes portable across
+environments while allowing healing systems,
+replay systems, deployment tooling, and runtime
+execution to resolve selectors through a shared
+selector pack.
+
+Together with WORKFLOW-1E, this module forms the
+canonical workflow preparation pipeline:
+
+Capture
+    ↓
+WORKFLOW-1E
+    ↓
+WORKFLOW-1F
+    ↓
+Validation
+    ↓
+Fingerprinting
+    ↓
+Deployment
+    ↓
+Runtime
 """
 
 from __future__ import annotations  

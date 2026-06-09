@@ -21,9 +21,23 @@ BUILD-3A
 BUILD-3F
 VAL-2A
 
+Architecture Position
+---------------------
+DEPLOY_BUNDLE_1A
+        ↓
+WORKFLOW-1G
+        ↓
+VAL-2A
+        ↓
+RUN-1A
+        ↓
+PIPE-1A
+        ↓
+ACT-1A
+
 Status
 ------
-Draft
+Audited
 
 Notes
 -----
@@ -44,8 +58,50 @@ Return:
     selector_pack
     run_meta
 
+Runtime Responsibilities
+------------------------
+- Load deploy bundles from disk
+- Normalize legacy bundle formats
+- Validate deploy bundle structure
+- Enforce selector_ref runtime policy
+- Extract runtime workflow assets
+- Produce stable runtime metadata
+- Bridge deployment artifacts to execution
+
+Runtime Contract
+----------------
+Extracted runtime assets consist of:
+
+- workflow
+- selector_pack
+- run_meta
+
+The loader intentionally returns only the
+minimum runtime payload required for execution.
+
+Compatibility
+-------------
 Supports legacy bundle compatibility by
-automatically normalizing older fingerprint formats.
+automatically normalizing older fingerprint
+formats and generating version fingerprints
+when required.
+
+Architecture Notes
+------------------
+This module represents the boundary between
+build-time artifacts and runtime execution.
+
+Upstream systems are responsible for capture,
+normalization, validation, fingerprinting,
+and deployment packaging.
+
+Downstream systems are responsible for
+workflow execution, browser orchestration,
+action execution, logging, and runtime state.
+
+This separation ensures deploy bundles remain
+portable, reproducible, and backward compatible
+across runtime versions.
 """
 
 from __future__ import annotations  

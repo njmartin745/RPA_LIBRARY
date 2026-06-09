@@ -1,23 +1,34 @@
-"""  
-PIPE-1E — Single runnable pipeline entrypoint.  
-  
-This module orchestrates an end-to-end run by *composing existing modules*:  
-- Steps: PIPE-1C (load/render/normalize)  
-- Worklist/driver/loop/actions/logging/state: delegated to PIPE-1A orchestrator  
-  (which uses PIPE/INPUT/LOOP/ACT/NAV/STATE/LOG layers)  
-  
-Exit codes  
-----------  
-- 0: all items succeeded  
-- 2: completed run with one or more item failures  
-- 1: fatal error (exception / could not run)  
-  
-Env-friendly cfg keys supported  
--------------------------------  
-WORKLIST_PATH / WORKLIST_XLSX, WORKLIST_SHEET, WORKLIST_ID_COLUMN,  
-STEPS_PATH or STEPS (inline),  
-MANIFEST_PATH, LOG_PATH,  
-STOP_ON_ERROR, HEADLESS, BROWSER, EXPLICIT_WAIT.  
+"""
+PIPE-1E — Unified Pipeline Runner
+
+Purpose
+-------
+Canonical pipeline execution layer responsible for
+runtime configuration normalization, step loading,
+worklist execution, telemetry reconstruction, and
+execution result normalization.
+
+Acts as the integration boundary between RUN-1A
+and the lower-level PIPE orchestration stack.
+
+Public API
+----------
+run_pipeline(...)
+exit_code_for_summary(...)
+main(...)
+
+Dependencies
+------------
+PIPE-1A
+PIPE-1C
+PIPE-1D
+PIPE-1F
+PIPE-1G
+PIPE-1H
+INPUT
+LOG
+STATE
+ACT
 
 Architecture Position
 ---------------------
@@ -34,7 +45,99 @@ ACT-1A
 Status
 ------
 Audited
-"""  
+
+Execution Flow
+--------------
+Runtime Config
+    ↓
+Environment Overrides
+    ↓
+Configuration Normalization
+    ↓
+Worklist Normalization
+    ↓
+Step Loading
+    ↓
+PIPE-1A Execution
+    ↓
+Telemetry Reconstruction
+    ↓
+Execution Summary
+    ↓
+Exit Code
+
+Responsibilities
+----------------
+- Normalize runtime configuration
+- Apply environment overrides
+- Resolve pipeline dependencies
+- Load workflow steps
+- Materialize inline step definitions
+- Normalize worklist configuration
+- Execute worklists through PIPE-1A
+- Reconstruct step telemetry
+- Normalize execution summaries
+- Produce deterministic exit codes
+
+Runtime Compatibility
+---------------------
+Supports:
+- Inline steps
+- File-based steps
+- Environment-driven execution
+- CLI-driven execution
+- Multiple logging path conventions
+- Multiple worklist path conventions
+
+Input Normalization
+-------------------
+Automatically aligns workbook sheet names
+and header selections with provided XLSX
+files when configuration values are missing
+or invalid.
+
+This behavior improves runtime resilience
+while preserving deterministic execution.
+
+Telemetry Support
+-----------------
+Structured JSONL execution logs may be
+reconstructed into step-level execution
+summaries.
+
+Telemetry reconstruction is best-effort and
+is designed to provide stable runtime
+visibility independent of lower-level
+execution implementations.
+
+Execution Guarantees
+--------------------
+- Environment normalization before execution
+- Step loading before orchestration
+- Deterministic exit code generation
+- Stable execution summary format
+- Runtime compatibility across pipeline
+  implementations
+
+Architecture Notes
+------------------
+PIPE-1E functions as the runtime integration
+layer for the execution stack.
+
+RUN-1A interacts with PIPE-1E through a
+single execution contract while PIPE-1E
+coordinates configuration normalization,
+step loading, worklist execution, logging,
+and summary reconstruction.
+
+This module intentionally shields higher
+layers from implementation details within
+the PIPE, INPUT, LOG, STATE, and ACT
+subsystems.
+
+It is the primary execution integration
+boundary of the runtime stack.
+"""
   
 from __future__ import annotations  
   

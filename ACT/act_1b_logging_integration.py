@@ -1,24 +1,99 @@
-"""  
-ACT-1B — Structured logging integration wrapper for ACT-1A  
-  
-Purpose  
--------  
-Orchestrate execution of ACT-1A steps while automatically emitting structured logs  
-(using LOG-1A) for:  
-- step_start  
-- step_success  
-- step_error  
-  
-This module does NOT change ACT-1A behavior; it wraps ACT-1A execution to add  
-consistent logging and cfg-driven stop/continue behavior.  
-  
-Key behaviors  
--------------  
-- Uses cfg["STOP_ON_ERROR"] (default True) to determine fail-fast behavior.  
-- Preserves ACT-1A per-step `continue_on_error` behavior.  
-- Binds per-item context (run_id/current_id/item_index/total_items) if present in cfg.  
-- Uses LOG-1A `log_exception` for exceptions, capturing step_id + milestone + taxonomy tag.  
-"""  
+"""
+ACT-1B — Structured Logging Integration
+
+Purpose
+-------
+Provide structured logging around ACT-1A execution
+without modifying ACT-1A behavior.
+
+This module acts as the logging boundary for the
+action execution layer, emitting deterministic
+step lifecycle events while preserving ACT-1A
+execution semantics.
+
+Public API
+----------
+run_actions_logged(...)
+
+Dependencies
+------------
+ACT-1A
+LOG-1A
+
+Architecture Position
+---------------------
+PIPE-1A
+    ↓
+ACT-1B
+    ↓
+ACT-1A
+    ↓
+WebDriver
+
+Status
+------
+Audited
+
+Responsibilities
+----------------
+- Bind runtime execution context
+- Emit step_start events
+- Emit step_success events
+- Emit step_error events
+- Normalize step outcome indexing
+- Translate STOP_ON_ERROR behavior
+- Preserve ACT-1A execution semantics
+- Record structured execution telemetry
+
+Execution Flow
+--------------
+Step
+    ↓
+Bind Context
+    ↓
+step_start
+    ↓
+ACT-1A
+    ↓
+step_success | step_error
+    ↓
+StepOutcome
+
+Runtime Outputs
+---------------
+ACT_LOGGED_ALL_OK
+
+Set on cfg after execution to indicate
+whether all logged steps completed successfully.
+
+Logging Guarantees
+------------------
+- Deterministic step lifecycle events
+- Consistent step indexing
+- Structured exception logging
+- Context propagation across execution layers
+- Compatible with fail-fast and continue-on-error modes
+
+Architecture Notes
+------------------
+ACT-1B intentionally does not execute browser
+actions itself.
+
+Execution responsibility remains within ACT-1A.
+
+This module exists solely to provide structured
+telemetry, context propagation, and execution
+visibility for higher runtime layers.
+
+Dependencies
+------------
+selenium
+NAV-1A
+
+External:
+- Selenium WebDriver
+- Selenium Expected Conditions
+"""
   
 from __future__ import annotations  
   

@@ -7,6 +7,12 @@ Convert workflow definitions into a deterministic
 canonical representation suitable for validation,
 diffing, fingerprinting, bundling, and execution.
 
+This module establishes the canonical workflow
+representation used throughout the platform,
+ensuring logically equivalent workflows produce
+identical structures for review, validation,
+deployment, and runtime execution.
+
 Public API
 ----------
 normalize_workflow_steps(...)
@@ -17,9 +23,23 @@ Dependencies
 ------------
 SNAP-1A
 
+Architecture Position
+---------------------
+Capture Bundle
+        ↓
+WORKFLOW-1E
+        ↓
+VAL-2A
+        ↓
+BUILD-3B
+        ↓
+BUILD-3C
+        ↓
+Runtime
+
 Status
 ------
-Draft
+Audited
 
 Notes
 -----
@@ -42,6 +62,89 @@ Deterministic Key Ordering
 Produces stable workflow representations for
 review, fingerprint generation, validation,
 and deployment packaging.
+
+Responsibilities
+----------------
+- Remove None values
+- Trim string values
+- Normalize repeat structures
+- Coerce repeat counts
+- Normalize nested workflow trees
+- Enforce deterministic key ordering
+- Support optional strict validation
+- Produce canonical workflow representations
+
+Normalization Rules
+-------------------
+1. Remove fields with None values
+2. Trim leading and trailing whitespace
+3. Normalize nested repeat structures
+4. Convert repeat count strings to integers
+5. Normalize action names
+6. Preserve workflow ordering
+7. Apply deterministic key ordering
+
+Validation Behavior
+-------------------
+When strict=True:
+
+- Action names must be valid
+- Required fields must exist
+- Selector actions must contain either
+  selector_ref or selector
+- Open actions must contain a URL
+
+When strict=False:
+
+- Normalization proceeds without enforcing
+  action validity requirements
+- Workflow cleanup remains deterministic
+- Validation is deferred to later stages
+
+Deterministic Guarantees
+------------------------
+The normalization process is:
+
+- Pure (no mutation of inputs)
+- Repeatable
+- Order preserving
+- Deterministic
+- Fingerprint friendly
+
+Equivalent workflow definitions produce
+equivalent normalized output.
+
+Architecture Notes
+------------------
+This module is the foundation of workflow
+determinism throughout the platform.
+
+Downstream systems including validation,
+diffing, fingerprinting, deploy bundle
+generation, and runtime execution rely on
+the canonical workflow representations
+produced here.
+
+Together with WORKFLOW-1F, this module forms
+the workflow preparation pipeline:
+
+Capture
+    ↓
+WORKFLOW-1E
+    ↓
+WORKFLOW-1F
+    ↓
+Validation
+    ↓
+Fingerprinting
+    ↓
+Deployment
+    ↓
+Runtime
+
+This module answers a critical architectural
+requirement: logically identical workflows
+must produce identical deployment artifacts.
 """
 
 from __future__ import annotations  
