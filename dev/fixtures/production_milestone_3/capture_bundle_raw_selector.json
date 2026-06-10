@@ -1,0 +1,22 @@
+{
+  "schema_id": "CAPTURE_BUNDLE_1A",
+  "name": "production_milestone_3_raw_selector",
+  "workflow": {
+    "steps": [
+      {
+        "action": "click_selector",
+        "selector": "#pm3-raw-button"
+      }
+    ]
+  },
+  "selector_pack": {
+    "schema_id": "SELECTOR_PACK_1A",
+    "name": "production_milestone_3_raw_selector",
+    "selectors": {
+      "pm3.raw_button": {
+        "selector": "#pm3-raw-button",
+        "type": "css"
+      }
+    }
+  }
+}
