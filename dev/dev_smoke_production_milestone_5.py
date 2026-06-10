@@ -31,6 +31,14 @@ class _QuietStaticHandler(SimpleHTTPRequestHandler):
         return None
 
 
+class _SmokeHTTPServer(ThreadingHTTPServer):
+    def handle_error(self, request: Any, client_address: Any) -> None:
+        exc_type, exc, _tb = sys.exc_info()
+        if exc_type in {ConnectionResetError, BrokenPipeError}:
+            return
+        super().handle_error(request, client_address)
+
+
 def _run_dir() -> Path:
     if RUN_OUT_DIR is None:
         raise AssertionError("RUN_OUT_DIR must be initialized")
@@ -85,7 +93,7 @@ def _inject_site_url(bundle: Mapping[str, Any], site_url: str) -> dict[str, Any]
 
 
 def _start_static_server() -> tuple[ThreadingHTTPServer, threading.Thread, str]:
-    httpd = ThreadingHTTPServer(("127.0.0.1", 0), _QuietStaticHandler)
+    httpd = _SmokeHTTPServer(("127.0.0.1", 0), _QuietStaticHandler)
     host, port = httpd.server_address
     thread = threading.Thread(target=httpd.serve_forever, name="pm5-static-server", daemon=True)
     thread.start()
