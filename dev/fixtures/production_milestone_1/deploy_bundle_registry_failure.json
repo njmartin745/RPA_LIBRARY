@@ -1,0 +1,31 @@
+{
+  "schema_id": "DEPLOY_BUNDLE_1A",
+  "name": "production_milestone_1_registry_failure",
+  "version": "sha256:333333333333",
+  "fingerprint": {
+    "algo": "sha256",
+    "canonicalization": "production-milestone-1-fixture",
+    "sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+    "bytes": 1,
+    "dropped_top_level_keys": []
+  },
+  "workflow": {
+    "name": "production_milestone_1_registry_failure",
+    "steps": [
+      {
+        "action": "log",
+        "name": "Allowed but not runtime implemented",
+        "message": "This action is allowed by capture grammar but has no ACT-1A handler."
+      }
+    ]
+  },
+  "selector_pack": {
+    "schema_id": "SELECTOR_PACK_1A",
+    "name": "production_milestone_1_selectors",
+    "selectors": {}
+  },
+  "meta": {
+    "source_schema_id": "DEPLOY_BUNDLE_FIXTURE",
+    "source_name": "production_milestone_1_registry_failure"
+  }
+}

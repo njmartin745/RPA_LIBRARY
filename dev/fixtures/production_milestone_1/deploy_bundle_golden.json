@@ -1,0 +1,40 @@
+{
+  "schema_id": "DEPLOY_BUNDLE_1A",
+  "name": "production_milestone_1_golden",
+  "version": "sha256:111111111111",
+  "fingerprint": {
+    "algo": "sha256",
+    "canonicalization": "production-milestone-1-fixture",
+    "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+    "bytes": 1,
+    "dropped_top_level_keys": []
+  },
+  "workflow": {
+    "name": "production_milestone_1_golden",
+    "steps": [
+      {
+        "action": "open",
+        "name": "Open fixture page",
+        "url": "file://dev/fixtures/production_milestone_1/site/index.html"
+      },
+      {
+        "action": "click_selector",
+        "name": "Click ready button",
+        "selector_ref": "pm1.ready_button",
+        "by": "css",
+        "timeout": 1
+      }
+    ]
+  },
+  "selector_pack": {
+    "schema_id": "SELECTOR_PACK_1A",
+    "name": "production_milestone_1_selectors",
+    "selectors": {
+      "pm1.ready_button": "#pm1-ready-button"
+    }
+  },
+  "meta": {
+    "source_schema_id": "DEPLOY_BUNDLE_FIXTURE",
+    "source_name": "production_milestone_1_golden"
+  }
+}

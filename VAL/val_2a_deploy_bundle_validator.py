@@ -121,6 +121,7 @@ runtime safety, and artifact integrity.
 
 from __future__ import annotations  
   
+import importlib
 from dataclasses import dataclass  
 from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Set, Tuple  
   
@@ -195,6 +196,36 @@ def _collect_selector_refs(steps: Any, base_path: str) -> List[Tuple[str, str]]:
   
     walk(steps, base_path)  
     return out  
+
+
+def _iter_json_values(obj: Any, base_path: str = "") -> Iterable[Tuple[str, Any]]:
+    if isinstance(obj, Mapping):
+        for k, v in obj.items():
+            yield from _iter_json_values(v, _join(base_path, str(k)))
+        return
+    if isinstance(obj, list):
+        for i, v in enumerate(obj):
+            yield from _iter_json_values(v, _join(base_path, str(i)))
+        return
+    yield (base_path or "/", obj)
+
+
+def _is_todo_placeholder(value: Any) -> bool:
+    if not isinstance(value, str):
+        return False
+    s = value.strip().upper()
+    return s == "TODO" or s.startswith("TODO_") or s.startswith("TODO:")
+
+
+def _runtime_action_names() -> Set[str]:
+    try:
+        mod = importlib.import_module("ACT.act_1a_action_engine")
+    except Exception:
+        return set()
+    actions = getattr(mod, "_ACTIONS", None)
+    if not isinstance(actions, Mapping):
+        return set()
+    return {str(k) for k, v in actions.items() if isinstance(k, str) and callable(v)}
   
   
 def validate_deploy_bundle_1a(  
@@ -202,6 +233,7 @@ def validate_deploy_bundle_1a(
     *,  
     require_version_fingerprint: bool = True,  
     require_selector_ref: bool = True,  
+    production: bool = False,
 ) -> Dict[str, Any]:  
     """  
     Deterministic pre-deploy validation for DEPLOY_BUNDLE_1A.  
@@ -272,9 +304,15 @@ def validate_deploy_bundle_1a(
                 err("/fingerprint/sha256", "fingerprint.sha256 must be 64 hex chars")  
             if not _is_nonempty_str(fp.get("canonicalization")):  
                 warn("/fingerprint/canonicalization", "fingerprint.canonicalization should be non-empty")  
+
+    if production:
+        for p, value in _iter_json_values(bundle):
+            if _is_todo_placeholder(value):
+                err(p, f"unresolved TODO placeholder is not allowed in production deploy bundles: {value!r}")
   
     # step validation  
     allowed = set(ALLOWED_WORKFLOW_ACTIONS)  
+    runtime_actions = _runtime_action_names() if production else set()
   
     def validate_step(step: Any, step_path: str) -> None:  
         if not isinstance(step, Mapping):  
@@ -303,7 +341,10 @@ def validate_deploy_bundle_1a(
                 if not has_ref:  
                     err(_join(step_path, "selector_ref"), f"{action} requires selector_ref (deploy bundles are selector_ref-first)")  
                 if has_sel:  
-                    warn(_join(step_path, "selector"), "raw selector present; prefer selector_ref-only in deploy bundles")  
+                    if production:
+                        err(_join(step_path, "selector"), "raw selector is not allowed in production deploy bundle steps; use selector_ref")
+                    else:
+                        warn(_join(step_path, "selector"), "raw selector present; prefer selector_ref-only in deploy bundles")  
             else:  
                 if not (has_ref or has_sel):  
                     err(step_path, f"{action} requires selector_ref or selector")  
@@ -324,6 +365,9 @@ def validate_deploy_bundle_1a(
             count = step.get("times", step.get("count"))  
             if not isinstance(count, int) or count <= 0:  
                 err(step_path, "repeat requires a positive integer in 'times' or 'count'")  
+
+        if production and action not in runtime_actions:
+            err(_join(step_path, "action"), f"action has no ACT-1A runtime implementation: {action}")
   
     for i, step in enumerate(steps):  
         validate_step(step, _join("/workflow/steps", str(i)))  
@@ -353,11 +397,13 @@ def assert_deploy_bundle_1a(
     *,  
     require_version_fingerprint: bool = True,  
     require_selector_ref: bool = True,  
+    production: bool = False,
 ) -> None:  
     report = validate_deploy_bundle_1a(  
         bundle,  
         require_version_fingerprint=require_version_fingerprint,  
         require_selector_ref=require_selector_ref,  
+        production=production,
     )  
     if not report["ok"]:  
         msgs = "\n".join(f"{e['path']}: {e['message']}" for e in report["errors"])  

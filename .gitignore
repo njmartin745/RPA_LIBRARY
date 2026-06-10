@@ -1,3 +1,11 @@
 DOC/AGENT_CONTEXT.md
 dist/rpa_library-0.0.0-py3-none-any.whl
 dist/rpa_library-0.0.0.tar.gz
+
+# Generated Python/cache artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Generated smoke-test output
+dev/_smoke_artifacts/
