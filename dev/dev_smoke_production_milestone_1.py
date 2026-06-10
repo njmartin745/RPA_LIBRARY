@@ -84,10 +84,18 @@ def _selector_registry(selector_pack: Mapping[str, Any]) -> dict[str, str]:
     return out
 
 
-def _patch_driver_factory() -> None:
+def _patch_driver_factory() -> Any:
     import PIPE.pipe_1a_run_orchestrator as orchestrator
 
+    original = orchestrator.make_driver
     orchestrator.make_driver = lambda cfg: _FakeDriver()  # type: ignore[assignment]
+    return original
+
+
+def _restore_driver_factory(original: Any) -> None:
+    import PIPE.pipe_1a_run_orchestrator as orchestrator
+
+    orchestrator.make_driver = original  # type: ignore[assignment]
 
 
 def _run_existing_runtime_path(
@@ -212,7 +220,7 @@ def test_positive_golden_path() -> None:
         shutil.rmtree(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    _patch_driver_factory()
+    original_make_driver = _patch_driver_factory()
 
     def runner(*, workflow: dict[str, Any], selector_pack: dict[str, Any], run_meta: dict[str, Any]) -> dict[str, Any]:
         return _run_existing_runtime_path(
@@ -223,13 +231,16 @@ def test_positive_golden_path() -> None:
             output_dir=output_dir,
         )
 
-    runtime_summary, run_meta = run_deploy_bundle_1a_with_meta(
-        loaded,
-        runner=runner,
-        validate=True,
-        require_version_fingerprint=True,
-        require_selector_ref=True,
-    )
+    try:
+        runtime_summary, run_meta = run_deploy_bundle_1a_with_meta(
+            loaded,
+            runner=runner,
+            validate=True,
+            require_version_fingerprint=True,
+            require_selector_ref=True,
+        )
+    finally:
+        _restore_driver_factory(original_make_driver)
     assert isinstance(runtime_summary, dict), "runtime summary must be a dict"
     assert runtime_summary.get("success") is True, runtime_summary
     assert run_meta.get("bundle_version"), run_meta
