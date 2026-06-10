@@ -9,6 +9,7 @@ requires-python = ">=3.12"
   
 [project.scripts]  
 workflow-grammar-gate = "ENTRY.entry_1a_workflow_grammar_gate:main"  
+rpa-production-proof = "CLI.cli_production_proof_1a:main"
   
 [tool.setuptools.packages.find]  
 where = ["."]  
@@ -17,4 +18,4 @@ include = [
   "ENTRY*","GUARD*","HEAL*","HISTORY*","INPUT*","LEARN*","LINT*","LOG*","LOOP*","NAV*",  
   "OBS*","OUT*","PIPE*","PLAN*","REASON*","REGISTRY*","REPLAY*","REPORT*","RUN*",  
   "SCHEMA*","SELECTOR*","SNAP*","STATE*","VAL*","VAR*","WORKFLOWS*"  
-]  
+]
