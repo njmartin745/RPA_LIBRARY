@@ -1,0 +1,57 @@
+{
+  "schema_id": "DEPLOY_BUNDLE_1A",
+  "name": "production_milestone_5_golden",
+  "version": "sha256:555555555555",
+  "fingerprint": {
+    "algo": "sha256",
+    "canonicalization": "production-milestone-5-fixture",
+    "sha256": "5555555555555555555555555555555555555555555555555555555555555555",
+    "bytes": 5,
+    "dropped_top_level_keys": []
+  },
+  "workflow": {
+    "name": "production_milestone_5_golden",
+    "steps": [
+      {
+        "action": "open",
+        "name": "Open local static page",
+        "url": "__PM5_SITE_URL__"
+      },
+      {
+        "action": "wait_for_selector",
+        "name": "Wait for ready button",
+        "selector_ref": "pm5.ready_button",
+        "by": "css",
+        "condition": "visible",
+        "timeout": 5
+      },
+      {
+        "action": "click_selector",
+        "name": "Click ready button",
+        "selector_ref": "pm5.ready_button",
+        "by": "css",
+        "timeout": 5
+      },
+      {
+        "action": "wait_for_selector",
+        "name": "Wait for clicked state",
+        "selector_ref": "pm5.clicked_state",
+        "by": "css",
+        "condition": "present",
+        "timeout": 5
+      }
+    ]
+  },
+  "selector_pack": {
+    "schema_id": "SELECTOR_PACK_1A",
+    "name": "production_milestone_5_selectors",
+    "selectors": {
+      "pm5.ready_button": "#pm5-ready-button",
+      "pm5.clicked_state": "body[data-pm5-clicked='true']"
+    }
+  },
+  "meta": {
+    "source_schema_id": "DEPLOY_BUNDLE_FIXTURE",
+    "source_name": "production_milestone_5_golden"
+  }
+}

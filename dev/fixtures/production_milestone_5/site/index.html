@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Production Milestone 5 Fixture</title>
+  </head>
+  <body>
+    <main>
+      <h1>Production Milestone 5</h1>
+      <p id="pm5-status">Ready</p>
+      <button id="pm5-ready-button" type="button">Run action</button>
+    </main>
+    <script>
+      document.getElementById("pm5-ready-button").addEventListener("click", function () {
+        document.getElementById("pm5-status").textContent = "Clicked";
+        document.body.setAttribute("data-pm5-clicked", "true");
+      });
+    </script>
+  </body>
+</html>
