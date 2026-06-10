@@ -1,0 +1,17 @@
+{
+  "schema_id": "CAPTURE_BUNDLE_1A",
+  "name": "production_milestone_2_todo_placeholder",
+  "workflow": {
+    "steps": [
+      {
+        "action": "open",
+        "url": "TODO_URL"
+      }
+    ]
+  },
+  "selector_pack": {
+    "schema_id": "SELECTOR_PACK_1A",
+    "name": "production_milestone_2_todo_placeholder",
+    "selectors": {}
+  }
+}

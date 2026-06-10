@@ -1,0 +1,26 @@
+{
+  "schema_id": "CAPTURE_BUNDLE_1A",
+  "name": "production_milestone_2_golden",
+  "workflow": {
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://example.test/production-milestone-2"
+      },
+      {
+        "action": "click_selector",
+        "selector_ref": "pm2_ready_button"
+      }
+    ]
+  },
+  "selector_pack": {
+    "schema_id": "SELECTOR_PACK_1A",
+    "name": "production_milestone_2_golden",
+    "selectors": {
+      "pm2_ready_button": {
+        "selector": "#pm2-ready-button",
+        "type": "css"
+      }
+    }
+  }
+}
