@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 import json
-import shutil
+import os
 import sys
+import time
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -16,9 +17,16 @@ from BUILD.build_3h_capture_to_deploy_bundle_pipeline import (  # noqa: E402
 from VAL.val_2a_deploy_bundle_validator import validate_deploy_bundle_1a  # noqa: E402
 
 FIXTURE_DIR = REPO_ROOT / "dev" / "fixtures" / "production_milestone_2"
-OUT_DIR = REPO_ROOT / "dev" / "_smoke_artifacts" / "production_milestone_2"
+OUT_ROOT = REPO_ROOT / "dev" / "_smoke_artifacts" / "production_milestone_2"
 
 SELECTOR_ACTIONS = {"click_selector", "wait_for_selector", "type_selector_secret"}
+RUN_OUT_DIR: Path | None = None
+
+
+def _run_dir() -> Path:
+    if RUN_OUT_DIR is None:
+        raise AssertionError("RUN_OUT_DIR must be initialized")
+    return RUN_OUT_DIR
 
 
 def _read_json(path: Path) -> dict[str, Any]:
@@ -79,8 +87,8 @@ def _production_validation(bundle: Mapping[str, Any]) -> dict[str, Any]:
 
 def _build_fixture(fixture_name: str, output_name: str) -> dict[str, Any]:
     capture_path = FIXTURE_DIR / fixture_name
-    deploy_path = OUT_DIR / output_name
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    deploy_path = _run_dir() / output_name
+    deploy_path.parent.mkdir(parents=True, exist_ok=True)
     build_write_deploy_bundle_1a_from_capture_bundle_path(
         str(capture_path),
         str(deploy_path),
@@ -185,9 +193,11 @@ def test_reject_registry_mapping_failure() -> None:
 
 
 def dev_smoke() -> None:
-    if OUT_DIR.exists():
-        shutil.rmtree(OUT_DIR)
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    global RUN_OUT_DIR
+
+    OUT_ROOT.mkdir(parents=True, exist_ok=True)
+    RUN_OUT_DIR = OUT_ROOT / f"run_{time.time_ns()}_{os.getpid()}"
+    RUN_OUT_DIR.mkdir(parents=True, exist_ok=False)
 
     test_positive_capture_to_deploy_bundle()
     test_reject_todo_placeholder()

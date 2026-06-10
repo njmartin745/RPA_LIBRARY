@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 import json
-import shutil
+import os
 import sys
+import time
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -11,7 +12,8 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 FIXTURE_DIR = REPO_ROOT / "dev" / "fixtures" / "production_milestone_1"
-OUT_DIR = REPO_ROOT / "dev" / "_smoke_artifacts" / "production_milestone_1"
+OUT_ROOT = REPO_ROOT / "dev" / "_smoke_artifacts" / "production_milestone_1"
+RUN_OUT_DIR: Path | None = None
 
 
 class _FakeElement:
@@ -51,6 +53,12 @@ class _FakeDriver:
 
     def quit(self) -> None:
         return None
+
+
+def _run_dir() -> Path:
+    if RUN_OUT_DIR is None:
+        raise AssertionError("RUN_OUT_DIR must be initialized")
+    return RUN_OUT_DIR
 
 
 def _read_json(path: Path) -> dict[str, Any]:
@@ -215,9 +223,7 @@ def test_positive_golden_path() -> None:
     assert_deploy_bundle_1a(deploy_bundle, require_version_fingerprint=True, require_selector_ref=True, production=True)
     loaded = load_deploy_bundle_1a_from_path(str(bundle_path), validate=True)
 
-    output_dir = OUT_DIR / "positive"
-    if output_dir.exists():
-        shutil.rmtree(output_dir)
+    output_dir = _run_dir() / "positive"
     output_dir.mkdir(parents=True, exist_ok=True)
 
     original_make_driver = _patch_driver_factory()
@@ -284,6 +290,12 @@ def test_reject_registry_mapping_failure() -> None:
 
 
 def dev_smoke() -> None:
+    global RUN_OUT_DIR
+
+    OUT_ROOT.mkdir(parents=True, exist_ok=True)
+    RUN_OUT_DIR = OUT_ROOT / f"run_{time.time_ns()}_{os.getpid()}"
+    RUN_OUT_DIR.mkdir(parents=True, exist_ok=False)
+
     test_positive_golden_path()
     test_reject_todo_placeholder()
     test_reject_registry_mapping_failure()
