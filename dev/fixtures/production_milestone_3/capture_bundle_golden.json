@@ -1,0 +1,30 @@
+{
+  "schema_id": "CAPTURE_BUNDLE_1A",
+  "name": "production_milestone_3_golden",
+  "workflow": {
+    "steps": [
+      {
+        "action": "open",
+        "name": "Open fixture page",
+        "url": "file://dev/fixtures/production_milestone_3/site/index.html"
+      },
+      {
+        "action": "click_selector",
+        "name": "Click ready button",
+        "selector_ref": "pm3.ready_button",
+        "by": "css",
+        "timeout": 1
+      }
+    ]
+  },
+  "selector_pack": {
+    "schema_id": "SELECTOR_PACK_1A",
+    "name": "production_milestone_3_selectors",
+    "selectors": {
+      "pm3.ready_button": {
+        "selector": "#pm3-ready-button",
+        "type": "css"
+      }
+    }
+  }
+}
