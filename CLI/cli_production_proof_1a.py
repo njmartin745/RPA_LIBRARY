@@ -13,7 +13,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from dev import dev_smoke_production_milestone_5 as pm5  # noqa: E402
+from dev import production_proof_local_browser as proof  # noqa: E402
 
 SCENARIO = "local-browser-static-site"
 PASS_LINE = "PASS: production_proof local-browser"
@@ -23,7 +23,7 @@ DEFAULT_OUTPUT_ROOT = REPO_ROOT / "dev" / "_smoke_artifacts" / "production_proof
 
 
 def _artifact_paths(output_dir: Path) -> list[str]:
-    expected = pm5._read_json(pm5.FIXTURE_DIR / "expected_artifacts.json")
+    expected = proof._read_json(proof.FIXTURE_DIR / "expected_artifacts.json")
     required = expected.get("required")
     if not isinstance(required, list):
         raise AssertionError("expected_artifacts.json must contain required list")
@@ -70,9 +70,9 @@ def run_local_browser_proof(args: argparse.Namespace) -> tuple[int, dict[str, An
         output_root = REPO_ROOT / output_root
     output_root.mkdir(parents=True, exist_ok=True)
 
-    pm5.OUT_ROOT = output_root
-    pm5.RUN_OUT_DIR = output_root / f"run_{pm5.time.time_ns()}_{os.getpid()}"
-    pm5.RUN_OUT_DIR.mkdir(parents=True, exist_ok=False)
+    proof.OUT_ROOT = output_root
+    proof.RUN_OUT_DIR = output_root / f"run_{proof.time.time_ns()}_{os.getpid()}"
+    proof.RUN_OUT_DIR.mkdir(parents=True, exist_ok=False)
 
     old_browser = os.environ.get("RPA_PM5_BROWSER")
     old_headed = os.environ.get("RPA_PM5_HEADED")
@@ -89,38 +89,38 @@ def run_local_browser_proof(args: argparse.Namespace) -> tuple[int, dict[str, An
     thread = None
     selected_browser: str | None = None
     try:
-        httpd, thread, site_url = pm5._start_static_server()
-        selected_browser, unavailable = pm5._select_available_browser()
+        httpd, thread, site_url = proof._start_static_server()
+        selected_browser, unavailable = proof._select_available_browser()
         if selected_browser is None:
             message = _browser_unavailable_message(unavailable)
             return 2, _json_summary(
                 status="skip",
-                run_dir=pm5._run_dir(),
+                run_dir=proof._run_dir(),
                 browser=None,
                 message=message,
             )
 
         try:
-            pm5._run_positive_with_browser(selected_browser, site_url)
+            proof._run_positive_with_browser(selected_browser, site_url)
         except Exception as exc:
-            if isinstance(exc, pm5.BrowserUnavailable) or pm5._looks_browser_unavailable(exc):
+            if isinstance(exc, proof.BrowserUnavailable) or proof._looks_browser_unavailable(exc):
                 unavailable.append(f"{selected_browser}: {type(exc).__name__}: {exc}")
                 message = _browser_unavailable_message(unavailable)
                 return 2, _json_summary(
                     status="skip",
-                    run_dir=pm5._run_dir(),
+                    run_dir=proof._run_dir(),
                     browser=selected_browser,
                     message=message,
                 )
             raise
 
-        output_dir = pm5._run_dir() / selected_browser / "positive"
+        output_dir = proof._run_dir() / selected_browser / "positive"
         artifacts = _artifact_paths(output_dir)
         for artifact in artifacts:
-            pm5._assert_nonempty(Path(artifact))
+            proof._assert_nonempty(Path(artifact))
         return 0, _json_summary(
             status="pass",
-            run_dir=pm5._run_dir(),
+            run_dir=proof._run_dir(),
             browser=selected_browser,
             artifacts=artifacts,
             message=PASS_LINE,
@@ -129,7 +129,7 @@ def run_local_browser_proof(args: argparse.Namespace) -> tuple[int, dict[str, An
         message = f"{FAIL_PREFIX}: {type(exc).__name__}: {exc}"
         return 1, _json_summary(
             status="fail",
-            run_dir=pm5.RUN_OUT_DIR,
+            run_dir=proof.RUN_OUT_DIR,
             browser=selected_browser,
             message=message,
         )
