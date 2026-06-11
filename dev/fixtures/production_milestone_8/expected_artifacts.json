@@ -1,0 +1,10 @@
+{
+  "required": [
+    "logs/run.jsonl",
+    "history/run_manifest.json",
+    "history/step_outcomes.jsonl",
+    "bundle/deploy_bundle_fingerprint.json",
+    "report/run_report.md",
+    "report/run_report.json"
+  ]
+}
