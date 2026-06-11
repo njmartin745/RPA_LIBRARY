@@ -1,0 +1,41 @@
+{
+  "schema_id": "DEPLOY_BUNDLE_1A",
+  "name": "production_milestone_8_missing_selector",
+  "version": "sha256:888888888888",
+  "fingerprint": {
+    "algo": "sha256",
+    "canonicalization": "production-milestone-8-fixture",
+    "sha256": "8888888888888888888888888888888888888888888888888888888888888888",
+    "bytes": 8,
+    "dropped_top_level_keys": []
+  },
+  "workflow": {
+    "name": "production_milestone_8_missing_selector",
+    "steps": [
+      {
+        "action": "open",
+        "name": "Open local static page",
+        "url": "__PM8_SITE_URL__"
+      },
+      {
+        "action": "wait_for_selector",
+        "name": "Wait for intentionally missing element",
+        "selector_ref": "pm8.missing_element",
+        "by": "css",
+        "condition": "visible",
+        "timeout": 1
+      }
+    ]
+  },
+  "selector_pack": {
+    "schema_id": "SELECTOR_PACK_1A",
+    "name": "production_milestone_8_selectors",
+    "selectors": {
+      "pm8.missing_element": "#pm8-never-appears"
+    }
+  },
+  "meta": {
+    "source_schema_id": "DEPLOY_BUNDLE_FIXTURE",
+    "source_name": "production_milestone_8_missing_selector"
+  }
+}

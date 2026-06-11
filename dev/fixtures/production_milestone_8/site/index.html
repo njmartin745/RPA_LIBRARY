@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Production Milestone 8 Fixture</title>
+  </head>
+  <body>
+    <main>
+      <h1>Production Milestone 8</h1>
+      <p id="pm8-present-state">Ready for controlled failure</p>
+      <button id="pm8-present-button" type="button">Present control</button>
+    </main>
+    <script>
+      document.getElementById("pm8-present-button").addEventListener("click", function () {
+        document.body.setAttribute("data-pm8-clicked", "true");
+      });
+    </script>
+  </body>
+</html>
