@@ -20,6 +20,17 @@ SELF_STATUS_PATHS = {
     "dev/production_proof_demo_viewer.py",
     "dev/dev_smoke_production_milestone_9.py",
 }
+VIEWER_FORBIDDEN_REFERENCES = (
+    "production_proof_local_browser",
+    "production_failure_proof_local_browser",
+    "run_workflow",
+    "CLI.cli_production_proof_1a",
+    "ACT.",
+    "RUN.",
+    "PIPE.",
+    "WORKFLOWS.",
+    "VAL.",
+)
 
 
 class BrowserUnavailable(RuntimeError):
@@ -122,7 +133,15 @@ def _assert_git_status_clean() -> None:
     assert not dirty, cp.stdout
 
 
+def _assert_viewer_is_artifact_only() -> None:
+    source = (REPO_ROOT / "dev" / "production_proof_demo_viewer.py").read_text(encoding="utf-8")
+    found = [needle for needle in VIEWER_FORBIDDEN_REFERENCES if needle in source]
+    assert not found, f"viewer must remain artifact-only; forbidden references found: {found}"
+
+
 def dev_smoke() -> Path | None:
+    _assert_viewer_is_artifact_only()
+
     OUT_ROOT.mkdir(parents=True, exist_ok=True)
     run_dir = OUT_ROOT / f"run_{time.time_ns()}_{os.getpid()}"
     run_dir.mkdir(parents=True, exist_ok=False)
