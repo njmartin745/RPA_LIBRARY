@@ -82,8 +82,11 @@ def dev_smoke() -> None:
     assert report.snap_actions, data
     assert report.act_actions, data
 
-    assert PROVEN_GOLDEN_PATH_ACTIONS <= report.fixture_actions, data
+    assert PROVEN_GOLDEN_PATH_ACTIONS <= report.positive_golden_path_actions, data
     assert data["classifications"]["proven_golden_path"] == sorted(PROVEN_GOLDEN_PATH_ACTIONS), data
+    assert data["classifications"]["positive_golden_path_actions"] == sorted(
+        report.positive_golden_path_actions
+    ), data
     assert PROVEN_GOLDEN_PATH_ACTIONS <= report.act_actions, data
 
     assert "log" in report.registry_actions, data

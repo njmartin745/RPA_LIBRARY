@@ -14,6 +14,12 @@ SCHEMA_PATH = REPO_ROOT / "SCHEMA" / "steps_schema.json"
 FIXTURE_ROOT = REPO_ROOT / "dev" / "fixtures"
 
 PROVEN_GOLDEN_PATH_ACTIONS = frozenset({"open", "wait_for_selector", "click_selector"})
+POSITIVE_GOLDEN_PATH_FIXTURES = (
+    FIXTURE_ROOT / "production_milestone_1" / "deploy_bundle_golden.json",
+    FIXTURE_ROOT / "production_milestone_2" / "capture_bundle_golden.json",
+    FIXTURE_ROOT / "production_milestone_3" / "capture_bundle_golden.json",
+    FIXTURE_ROOT / "production_milestone_5" / "deploy_bundle_golden.json",
+)
 FIELD_MISMATCHES = (
     {
         "name": "strategy_vs_by",
@@ -49,6 +55,8 @@ class ActionContractReport:
     act_actions: set[str]
     fixture_actions: set[str]
     fixture_actions_by_file: dict[str, list[str]]
+    positive_golden_path_actions: set[str]
+    positive_golden_path_actions_by_file: dict[str, list[str]]
     classifications: dict[str, list[str]]
     field_mismatches: list[dict[str, Any]]
 
@@ -62,6 +70,11 @@ class ActionContractReport:
             "fixture_actions_by_file": {
                 path: list(actions)
                 for path, actions in sorted(self.fixture_actions_by_file.items())
+            },
+            "positive_golden_path_actions": sorted(self.positive_golden_path_actions),
+            "positive_golden_path_actions_by_file": {
+                path: list(actions)
+                for path, actions in sorted(self.positive_golden_path_actions_by_file.items())
             },
             "classifications": {
                 key: list(values)
@@ -147,12 +160,29 @@ def load_production_fixture_actions(root: Path = FIXTURE_ROOT) -> tuple[set[str]
     return found, by_file
 
 
+def load_positive_golden_path_actions(
+    paths: Iterable[Path] = POSITIVE_GOLDEN_PATH_FIXTURES,
+) -> tuple[set[str], dict[str, list[str]]]:
+    found: set[str] = set()
+    by_file: dict[str, list[str]] = {}
+    for path in paths:
+        if not path.exists():
+            raise FileNotFoundError(f"positive golden path fixture not found: {path}")
+        payload = _read_json(path)
+        actions = sorted(set(_iter_step_actions(payload)))
+        rel = path.relative_to(REPO_ROOT).as_posix()
+        by_file[rel] = actions
+        found.update(actions)
+    return found, by_file
+
+
 def build_action_contract_report() -> ActionContractReport:
     registry_actions = load_registry_actions()
     schema_actions = load_schema_actions()
     snap_actions = load_snap_actions()
     act_actions = load_act_actions()
     fixture_actions, fixture_actions_by_file = load_production_fixture_actions()
+    positive_golden_path_actions, positive_golden_path_actions_by_file = load_positive_golden_path_actions()
 
     declared_actions = registry_actions | schema_actions | snap_actions
     classifications = {
@@ -163,6 +193,7 @@ def build_action_contract_report() -> ActionContractReport:
         "declared_non_act": sorted({"log", "repeat"} & declared_actions - act_actions),
         "field_mismatch": sorted({action for item in FIELD_MISMATCHES for action in item["actions"]}),
         "fixture_actions": sorted(fixture_actions),
+        "positive_golden_path_actions": sorted(positive_golden_path_actions),
     }
 
     return ActionContractReport(
@@ -172,6 +203,8 @@ def build_action_contract_report() -> ActionContractReport:
         act_actions=act_actions,
         fixture_actions=fixture_actions,
         fixture_actions_by_file=fixture_actions_by_file,
+        positive_golden_path_actions=positive_golden_path_actions,
+        positive_golden_path_actions_by_file=positive_golden_path_actions_by_file,
         classifications=classifications,
         field_mismatches=[dict(item) for item in FIELD_MISMATCHES],
     )
