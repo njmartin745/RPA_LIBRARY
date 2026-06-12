@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -144,7 +145,22 @@ def dev_smoke() -> None:
 
     from dev.rpa_studio_lite import run_sample_workflow
 
-    result = run_sample_workflow()
+    old_log_path = os.environ.get("LOG_PATH")
+    old_log_jsonl_path = os.environ.get("LOG_JSONL_PATH")
+    stale_log_path = REPO_ROOT / "dev" / "_smoke_artifacts" / "rpa_studio_lite" / "stale_env" / "run.jsonl"
+    os.environ["LOG_PATH"] = str(stale_log_path)
+    os.environ["LOG_JSONL_PATH"] = str(stale_log_path)
+    try:
+        result = run_sample_workflow()
+    finally:
+        if old_log_path is None:
+            os.environ.pop("LOG_PATH", None)
+        else:
+            os.environ["LOG_PATH"] = old_log_path
+        if old_log_jsonl_path is None:
+            os.environ.pop("LOG_JSONL_PATH", None)
+        else:
+            os.environ["LOG_JSONL_PATH"] = old_log_jsonl_path
     if result.get("status") == "skip":
         raise AssertionError(f"Studio Lite smoke requires local browser execution, got skip: {result!r}")
     _assert_artifacts(result)

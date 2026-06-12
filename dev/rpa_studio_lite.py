@@ -349,6 +349,8 @@ def run_sample_workflow(
     old_out_root = proof.OUT_ROOT
     old_browser = os.environ.get("RPA_PM5_BROWSER")
     old_headed = os.environ.get("RPA_PM5_HEADED")
+    old_log_path = os.environ.get("LOG_PATH")
+    old_log_jsonl_path = os.environ.get("LOG_JSONL_PATH")
     proof.OUT_ROOT = output_root
     proof.RUN_OUT_DIR = run_dir
     if browser != "auto":
@@ -359,6 +361,8 @@ def run_sample_workflow(
         os.environ["RPA_PM5_HEADED"] = "1"
     else:
         os.environ.pop("RPA_PM5_HEADED", None)
+    os.environ.pop("LOG_PATH", None)
+    os.environ.pop("LOG_JSONL_PATH", None)
 
     httpd: ThreadingHTTPServer | None = None
     thread: threading.Thread | None = None
@@ -475,6 +479,14 @@ def run_sample_workflow(
             os.environ.pop("RPA_PM5_HEADED", None)
         else:
             os.environ["RPA_PM5_HEADED"] = old_headed
+        if old_log_path is None:
+            os.environ.pop("LOG_PATH", None)
+        else:
+            os.environ["LOG_PATH"] = old_log_path
+        if old_log_jsonl_path is None:
+            os.environ.pop("LOG_JSONL_PATH", None)
+        else:
+            os.environ["LOG_JSONL_PATH"] = old_log_jsonl_path
 
 
 def save_studio_workflow(workflow: Mapping[str, Any], *, output_root: Path = DEFAULT_OUTPUT_ROOT) -> Path:
