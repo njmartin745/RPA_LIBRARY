@@ -1,0 +1,27 @@
+{
+  "example_only": true,
+  "expected_records": {
+    "completed": null,
+    "failed": null,
+    "skipped": null,
+    "total": null
+  },
+  "notes": "Contract example only; not emitted by runtime.",
+  "record_id_strategy": {
+    "description": "Generated workflow-local ordinal identifiers.",
+    "format": "record_000001",
+    "source_contains_raw_identifiers": false
+  },
+  "redaction": {
+    "record_values_captured": false,
+    "sensitive_values_captured": false
+  },
+  "run_id": "example_run_000001",
+  "runtime_generated": false,
+  "schema": "RECORD-MANIFEST-1A",
+  "source": {
+    "path": null,
+    "sha256": null,
+    "type": "example"
+  }
+}
