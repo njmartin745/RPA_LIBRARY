@@ -1,0 +1,37 @@
+{
+  "agents": {
+    "worker_count": null,
+    "workers": []
+  },
+  "attempts": {
+    "continued_after_failure": null,
+    "max_attempts": null,
+    "retry_attempts": null,
+    "total": null
+  },
+  "example_only": true,
+  "manifest_records": {
+    "completed": null,
+    "failed": null,
+    "skipped": null,
+    "total": null
+  },
+  "notes": "Contract example only; not emitted by runtime.",
+  "run_id": "example_run_000001",
+  "runtime_generated": false,
+  "schema": "RUN-METRICS-1A",
+  "sources": {
+    "attempt_history": null,
+    "record_manifest": null,
+    "record_outcomes": null,
+    "run_manifest": "history/run_manifest.json",
+    "step_outcomes": "history/step_outcomes.jsonl"
+  },
+  "status": "example",
+  "timestamps": {
+    "duration_ms": null,
+    "finished_at_utc": null,
+    "started_at_utc": "2026-01-01T00:00:00+00:00"
+  }
+}
+

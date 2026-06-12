@@ -1,0 +1,2 @@
+{"attempt_id":"attempt_000001","attempt_index":1,"error":null,"example_only":true,"max_attempts":null,"notes":"Contract example only; not emitted by runtime.","record_id":"record_000001","run_id":"example_run_000001","runtime_generated":false,"schema":"ATTEMPT-HISTORY-1A","scope":"record","status":"example","step_index":null,"timestamps":{"duration_ms":null,"finished_at_utc":null,"started_at_utc":"2026-01-01T00:00:00+00:00"},"trigger":"initial"}
+
