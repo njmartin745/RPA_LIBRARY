@@ -1,0 +1,46 @@
+{
+  "schema_id": "RPA_STUDIO_LITE_WORKFLOW_1A",
+  "name": "rpa_studio_lite_sample",
+  "scenario": "local-static-demo-page",
+  "example_only": true,
+  "runtime_scope": "controlled_local_fixture_only",
+  "selectors": {
+    "studio.input": "#studio-input",
+    "studio.submit": "#studio-submit",
+    "studio.result_ready": "#studio-result[data-result-ready='true']"
+  },
+  "actions": [
+    {
+      "type": "Navigate",
+      "name": "Open Studio Lite demo page",
+      "url": "__STUDIO_DEMO_SITE_URL__"
+    },
+    {
+      "type": "Wait for Selector",
+      "name": "Wait for input",
+      "selector_ref": "studio.input",
+      "condition": "visible",
+      "timeout": 5
+    },
+    {
+      "type": "Type",
+      "name": "Type demo message",
+      "selector_ref": "studio.input",
+      "text": "Hello from RPA Studio Lite",
+      "timeout": 5
+    },
+    {
+      "type": "Click",
+      "name": "Click submit",
+      "selector_ref": "studio.submit",
+      "timeout": 5
+    },
+    {
+      "type": "Wait for Selector",
+      "name": "Wait for submitted result",
+      "selector_ref": "studio.result_ready",
+      "condition": "present",
+      "timeout": 5
+    }
+  ]
+}
