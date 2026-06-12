@@ -14,7 +14,7 @@
   },
   "redaction": {
     "record_values_captured": false,
-    "sensitive_values_captured": false
+    "restricted_values_captured": false
   },
   "run_id": "example_run_000001",
   "runtime_generated": false,

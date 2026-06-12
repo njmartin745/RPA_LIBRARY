@@ -22,6 +22,7 @@ FORBIDDEN_KEY_PARTS = (
     "token",
     "cookie",
     "credential",
+    "sensitive",
     "secret_value",
     "raw_payload",
     "downloaded_content",
@@ -31,6 +32,7 @@ FORBIDDEN_VALUE_PARTS = (
     "password",
     "token",
     "cookie",
+    "sensitive",
     "secret-value",
 )
 
