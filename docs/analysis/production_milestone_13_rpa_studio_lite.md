@@ -42,6 +42,16 @@ python dev/rpa_studio_lite.py run-sample --json
 - Runs the bundled local/static sample workflow.
 - Shows run status, message, browser, scenario, run directory, and artifact paths.
 - Shows paths to `run_report.md` and `step_outcomes.jsonl` when the sample run passes.
+- Makes clear that PM13 runs the bundled local sample, not edited/custom JSON from the textarea.
+
+## Current PM13 Behavior
+
+- Build/edit workflow JSON: supported as a local authoring preview.
+- Save workflow JSON: supported.
+- Run bundled local sample: supported.
+- Run edited/custom workflow: deferred.
+
+PM13 does not execute arbitrary edited JSON from the textarea. It executes the bundled controlled local sample workflow only. Custom workflow replay is deferred to a future milestone.
 
 ## Supported Actions
 
@@ -70,6 +80,7 @@ milestone so the framework does not add a new generic text-entry action contract
 
 - Production readiness.
 - Arbitrary workflow execution.
+- Edited JSON replay or custom workflow replay from the textarea.
 - External website support.
 - Credential handling.
 - Download handling.

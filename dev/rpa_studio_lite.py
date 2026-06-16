@@ -531,7 +531,7 @@ def _html_page() -> str:
       <section>
         <h2>Build Automation</h2>
         <div class="notice">
-          This is not production-ready. It runs only the bundled local/static demo workflow and does not support external websites, credentials, downloads, retries, resume, or multi-agent execution.
+          This is not production-ready. PM13 runs only the bundled local/static sample workflow. Edited workflow JSON can be built and saved, but custom workflow replay is deferred to a future milestone.
         </div>
         <label for="action-type">Action</label>
         <select id="action-type">
@@ -553,17 +553,25 @@ def _html_page() -> str:
         <button id="load-sample" class="secondary" type="button">Load sample</button>
         <ol id="actions" class="actions"></ol>
         <button id="save-workflow" type="button">Save workflow JSON</button>
-        <button id="run-sample" type="button">Run bundled sample</button>
+        <p><strong>PM13 run scope:</strong> Run bundled local sample uses the controlled local/static sample only. Edited workflow JSON can be saved but is not executed.</p>
+        <button id="run-sample" type="button">Run bundled local sample</button>
       </section>
       <section>
-        <h2>Workflow JSON</h2>
+        <h2>Builder JSON / Saved Workflow Preview</h2>
         <textarea id="workflow-json" spellcheck="false">{escaped_sample}</textarea>
+        <h2>Current PM13 Behavior</h2>
+        <ul>
+          <li>Build/edit workflow JSON: supported as a local authoring preview.</li>
+          <li>Save workflow JSON: supported.</li>
+          <li>Run bundled local sample: supported.</li>
+          <li>Run edited/custom workflow: deferred.</li>
+        </ul>
         <h2>Run Evidence</h2>
         <div id="run-result" class="result">No run yet.</div>
         <h2>What This Proves</h2>
-        <p>The demo proves a user can build and save a small local workflow shape, run the bundled controlled sample through the existing local browser proof path, and inspect artifacts.</p>
+        <p>The demo proves a user can build and save a small local workflow shape, run the bundled controlled local sample through the existing local browser proof path, and inspect artifacts.</p>
         <h2>What This Does Not Prove</h2>
-        <p>It does not prove production readiness, arbitrary workflow execution, external sites, credentials, downloads, retries, resume, multi-agent execution, or generated operational telemetry.</p>
+        <p>It does not prove production readiness, arbitrary workflow execution, edited JSON replay, custom workflow replay, external sites, credentials, downloads, retries, resume, multi-agent execution, or generated operational telemetry.</p>
       </section>
     </main>
     <script>

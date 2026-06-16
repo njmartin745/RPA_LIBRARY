@@ -73,6 +73,9 @@ def _assert_docs_scope() -> None:
     assert "not production-ready" in text or "not production ready" in text
     for marker in FORBIDDEN_DOC_MARKERS:
         assert marker in text, f"doc should explicitly defer {marker!r}"
+    assert "bundled local sample" in text
+    assert "custom workflow replay is deferred" in text
+    assert "edited json replay" in text or "edited workflow json" in text
 
 
 def _assert_viewer_file_scope() -> None:
@@ -81,6 +84,11 @@ def _assert_viewer_file_scope() -> None:
     assert "run_metrics.json" not in text, "Studio Lite must not generate fake run metrics"
     assert "REGISTRY/action_registry.json" not in text
     assert "_smoke_artifacts" in text and "DEFAULT_OUTPUT_ROOT" in text
+    lowered_ui = text.lower()
+    assert "run bundled local sample" in lowered_ui
+    assert "edited workflow json can be saved but is not executed" in lowered_ui
+    assert "current pm13 behavior" in lowered_ui
+    assert "run edited/custom workflow: deferred" in lowered_ui
     forbidden_execution_surfaces = ("requests.", "urllib.request", "paramiko", "boto3", "playwright", "run_metrics.json")
     lowered = text.lower()
     for marker in forbidden_execution_surfaces:
