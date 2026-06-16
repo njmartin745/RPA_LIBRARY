@@ -358,9 +358,20 @@ def _studio_html(host: str, port: int) -> str:
         const action = data.action || {{}};
         if (action.type === 'Recorder') {{ log('Recorder ' + action.event); return; }}
         if (!recording) return;
-        actions.push(action);
+        if (action.type === 'Type') {{
+          const previous = actions[actions.length - 1];
+          if (previous && previous.type === 'Type' && previous.selector === action.selector) {{
+            actions[actions.length - 1] = action;
+            log('updated Type ' + (action.selector || '') + ' = ' + (action.redacted ? '[redacted]' : (action.text || '')));
+          }} else {{
+            actions.push(action);
+            log('captured Type ' + (action.selector || '') + ' = ' + (action.redacted ? '[redacted]' : (action.text || '')));
+          }}
+        }} else {{
+          actions.push(action);
+          log('captured ' + action.type + ' ' + (action.selector || ''));
+        }}
         render();
-        log('captured ' + action.type + ' ' + (action.selector || ''));
       }});
       document.getElementById('go').addEventListener('click', () => {{ frame.src = urlBar.value; }});
       document.getElementById('home').addEventListener('click', () => {{ urlBar.value = demoUrl; frame.src = demoUrl; }});

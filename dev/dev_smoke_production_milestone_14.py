@@ -123,12 +123,16 @@ def dev_smoke() -> None:
     assert "logEl.textContent += '\\n'" in html, "generated JS must use escaped newline"
     assert "Recording state:" in html
     assert "verification passed" in html
+    assert "updated Type" in html
+    assert "previous.type === 'Type'" in html
 
     simulated = simulate_recording_session("Hello from recorder")
     assert simulated["schema_id"] == "RPA_STUDIO_RECORDER_WORKFLOW_1A"
     simulated_actions = simulated["actions"]
     assert any(action.get("type") == "Click" for action in simulated_actions), simulated_actions
-    assert any(action.get("type") == "Type" for action in simulated_actions), simulated_actions
+    type_actions = [action for action in simulated_actions if action.get("type") == "Type"]
+    assert len(type_actions) == 1, simulated_actions
+    assert type_actions[0]["text"] == "Hello from recorder", simulated_actions
     for action in simulated_actions:
         _assert_action_shape(action)
 
