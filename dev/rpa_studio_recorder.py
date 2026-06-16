@@ -235,15 +235,17 @@ def _studio_html(host: str, port: int) -> str:
       button.secondary {{ background: #586677; }}
       button.danger {{ background: #9b2d30; }}
       input {{ box-sizing: border-box; border: 1px solid #aab6c5; border-radius: 6px; padding: 8px; width: 100%; }}
-      iframe {{ width: 100%; height: 520px; border: 1px solid #aab6c5; border-radius: 8px; background: #fff; }}
+      iframe {{ width: 100%; min-height: 650px; height: calc(100vh - 260px); border: 1px solid #aab6c5; border-radius: 8px; background: #fff; }}
       textarea, pre {{ box-sizing: border-box; width: 100%; min-height: 180px; overflow: auto; white-space: pre-wrap; background: #f8fafc; border: 1px solid #d6dee8; border-radius: 6px; padding: 10px; }}
       .notice {{ background: #fff7d6; border: 1px solid #dec35f; border-radius: 6px; padding: 9px; }}
+      .scope-note {{ margin: 8px 0; font-size: 0.95rem; color: #38495c; }}
+      .warning {{ color: #9b2d30; font-weight: 700; }}
       .row {{ display: flex; gap: 6px; align-items: center; }}
       .actions {{ padding-left: 20px; }}
       .actions li {{ margin-bottom: 8px; }}
       .status-pass {{ color: #176b36; font-weight: 700; }}
       .status-fail {{ color: #9b2d30; font-weight: 700; }}
-      @media (max-width: 1180px) {{ main {{ grid-template-columns: 1fr; }} iframe {{ height: 420px; }} }}
+      @media (max-width: 1180px) {{ main {{ grid-template-columns: 1fr; }} iframe {{ min-height: 560px; height: 65vh; }} }}
     </style>
   </head>
   <body>
@@ -259,6 +261,7 @@ def _studio_html(host: str, port: int) -> str:
         <button id=\"start-recording\">Start Recording</button>
         <button id=\"stop-recording\" class=\"secondary\">Stop Recording</button>
         <button id=\"clear-actions\" class=\"danger\">Clear Actions</button>
+        <p class=\"scope-note\">Recording is enabled only on the bundled local demo page in PM14. External URLs may load visually, but action recording/replay is not supported or proven yet.</p>
         <p id=\"recording-state\"><strong>Recording state:</strong> idle</p>
         <h3>Run Controls</h3>
         <button id=\"run-steps\">Run Steps</button>
@@ -270,9 +273,10 @@ def _studio_html(host: str, port: int) -> str:
         <div class=\"row\">
           <input id=\"url-bar\" value=\"{demo}\" aria-label=\"URL bar\">
           <button id=\"go\">Go</button>
-          <button id=\"home\">Home</button>
+          <button id=\"home\">Home / Load Demo</button>
           <button id=\"reload\">Reload</button>
         </div>
+        <p id=\"url-scope-warning\" class=\"scope-note\">Recording is enabled on the bundled local demo page.</p>
         <iframe id=\"browser-frame\" src=\"{demo}\" title=\"Embedded recorder browser\"></iframe>
       </section>
       <section>
@@ -297,6 +301,8 @@ def _studio_html(host: str, port: int) -> str:
       const logEl = document.getElementById('live-log');
       const evidenceEl = document.getElementById('run-evidence');
       const stateEl = document.getElementById('recording-state');
+      const startRecordingBtn = document.getElementById('start-recording');
+      const urlScopeWarningEl = document.getElementById('url-scope-warning');
       let actions = [];
       let recording = false;
       let running = false;
@@ -313,6 +319,18 @@ def _studio_html(host: str, port: int) -> str:
           actionsEl.appendChild(li);
         }});
         jsonEl.value = JSON.stringify({{ schema_id: 'RPA_STUDIO_RECORDER_WORKFLOW_1A', scenario: '{SCENARIO}', actions }}, null, 2);
+      }}
+      function isDemoUrl(value) {{
+        try {{ return new URL(value, window.location.href).href === demoUrl; }} catch (err) {{ return false; }}
+      }}
+      function updateRecordingAvailability() {{
+        const onDemoPage = isDemoUrl(frame.src || urlBar.value);
+        startRecordingBtn.disabled = !onDemoPage;
+        startRecordingBtn.title = onDemoPage ? '' : 'Recording is enabled only on the bundled local demo page in PM14.';
+        urlScopeWarningEl.innerHTML = onDemoPage
+          ? 'Recording is enabled on the bundled local demo page.'
+          : '<span class="warning">External URLs may load visually, but recording/replay is not supported or proven in PM14. Use Home / Load Demo to return to the bundled local demo page.</span>';
+        return onDemoPage;
       }}
       function frameDoc() {{ return frame.contentWindow.document; }}
       async function waitForSelector(selector, timeoutMs = 5000) {{
@@ -373,13 +391,13 @@ def _studio_html(host: str, port: int) -> str:
         }}
         render();
       }});
-      document.getElementById('go').addEventListener('click', () => {{ frame.src = urlBar.value; }});
-      document.getElementById('home').addEventListener('click', () => {{ urlBar.value = demoUrl; frame.src = demoUrl; }});
+      document.getElementById('go').addEventListener('click', () => {{ frame.src = urlBar.value; updateRecordingAvailability(); }});
+      document.getElementById('home').addEventListener('click', () => {{ urlBar.value = demoUrl; frame.src = demoUrl; updateRecordingAvailability(); log('Loaded bundled local demo page'); }});
       document.getElementById('reload').addEventListener('click', () => {{ frame.contentWindow.location.reload(); }});
-      document.getElementById('start-recording').addEventListener('click', () => {{ setRecordingState(true); actions = [{{ type: 'Navigate', url: frame.src, label: 'Current page', order: 1, timestamp_ms: Date.now() }}]; render(); postRecorderCommand('start-recording'); log('Start Recording'); }});
+      document.getElementById('start-recording').addEventListener('click', () => {{ if (!updateRecordingAvailability()) {{ log('Recording blocked: PM14 records only the bundled local demo page.'); return; }} setRecordingState(true); actions = [{{ type: 'Navigate', url: frame.src, label: 'Current page', order: 1, timestamp_ms: Date.now() }}]; render(); postRecorderCommand('start-recording'); log('Start Recording'); }});
       document.getElementById('stop-recording').addEventListener('click', () => {{ setRecordingState(false); postRecorderCommand('stop-recording'); log('Stop Recording'); }});
       document.getElementById('clear-actions').addEventListener('click', () => {{ actions = []; render(); log('Actions cleared'); }});
-      frame.addEventListener('load', () => {{ if (recording) postRecorderCommand('start-recording'); }});
+      frame.addEventListener('load', () => {{ urlBar.value = frame.src; const onDemoPage = updateRecordingAvailability(); if (recording && onDemoPage) postRecorderCommand('start-recording'); if (recording && !onDemoPage) {{ setRecordingState(false); log('Recording stopped: embedded page is outside the bundled local demo.'); }} }});
       document.getElementById('stop-run').addEventListener('click', () => {{ running = false; log('Stop Run requested'); }});
       document.getElementById('save-workflow').addEventListener('click', async () => {{
         const res = await fetch('/api/save-workflow', {{ method: 'POST', headers: {{ 'content-type': 'application/json' }}, body: JSON.stringify({{ actions }}) }});
@@ -400,6 +418,7 @@ def _studio_html(host: str, port: int) -> str:
         }}
       }});
       setRecordingState(false);
+      updateRecordingAvailability();
       render();
     </script>
   </body>
