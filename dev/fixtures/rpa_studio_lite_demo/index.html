@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RPA Studio Lite Demo Page</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        margin: 0;
+        background: #f6f7f9;
+        color: #1d2733;
+      }
+
+      main {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 48px 24px;
+      }
+
+      .panel {
+        background: #fff;
+        border: 1px solid #d8dee8;
+        border-radius: 8px;
+        padding: 24px;
+        box-shadow: 0 10px 24px rgba(29, 39, 51, 0.08);
+      }
+
+      label {
+        display: block;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      input {
+        box-sizing: border-box;
+        width: 100%;
+        border: 1px solid #aeb8c7;
+        border-radius: 6px;
+        font-size: 16px;
+        padding: 10px 12px;
+      }
+
+      button {
+        margin-top: 16px;
+        border: 0;
+        border-radius: 6px;
+        background: #1261a6;
+        color: #fff;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 700;
+        padding: 10px 14px;
+      }
+
+      #studio-result {
+        margin-top: 18px;
+        min-height: 24px;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body data-studio-ready="true">
+    <main>
+      <div class="panel">
+        <h1>RPA Studio Lite Demo Page</h1>
+        <p id="studio-status" data-testid="studio-status">Ready for a local automation run.</p>
+        <label for="studio-input">Message</label>
+        <input id="studio-input" data-testid="studio-input" type="text" autocomplete="off">
+        <button id="studio-submit" data-testid="studio-submit" type="button">Submit</button>
+        <div id="studio-result" data-testid="studio-result" role="status"></div>
+      </div>
+    </main>
+    <script>
+      document.getElementById("studio-submit").addEventListener("click", function () {
+        const input = document.getElementById("studio-input");
+        const result = document.getElementById("studio-result");
+        const value = input.value || "";
+        result.textContent = "Submitted: " + value;
+        result.setAttribute("data-result-ready", "true");
+        document.body.setAttribute("data-studio-submitted", "true");
+      });
+    </script>
+  </body>
+</html>
