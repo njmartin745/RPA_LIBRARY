@@ -13,4 +13,4 @@ It is intentionally small and safe:
 The sample workflow opens this page, waits for the input, types demo text,
 clicks the submit button, and waits for the local success state.
 
-PM13 run behavior: the Studio Lite UI runs the bundled local sample workflow only. Edited workflow JSON can be built and saved, but custom workflow replay is deferred to a future milestone.
+PM13 run behavior: the Studio Lite UI runs the controlled local sample workflow only. Edited workflow JSON can be built and saved, but custom workflow replay is deferred to a future milestone.

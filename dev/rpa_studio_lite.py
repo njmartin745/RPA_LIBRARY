@@ -531,7 +531,7 @@ def _html_page() -> str:
       <section>
         <h2>Build Automation</h2>
         <div class="notice">
-          This is not production-ready. PM13 runs only the bundled local/static sample workflow. Edited workflow JSON can be built and saved, but custom workflow replay is deferred to a future milestone.
+          This is not production-ready. PM13 runs only the bundled controlled local/static sample workflow. Edited workflow JSON can be built and saved, but custom workflow replay is deferred to a future milestone.
         </div>
         <label for="action-type">Action</label>
         <select id="action-type">
@@ -553,8 +553,8 @@ def _html_page() -> str:
         <button id="load-sample" class="secondary" type="button">Load sample</button>
         <ol id="actions" class="actions"></ol>
         <button id="save-workflow" type="button">Save workflow JSON</button>
-        <p><strong>PM13 run scope:</strong> Run bundled local sample uses the controlled local/static sample only. Edited workflow JSON can be saved but is not executed.</p>
-        <button id="run-sample" type="button">Run bundled local sample</button>
+        <p><strong>PM13 run scope:</strong> Run controlled local sample uses the controlled local/static sample only. Edited workflow JSON can be saved but is not executed.</p>
+        <button id="run-sample" type="button">Run controlled local sample</button>
       </section>
       <section>
         <h2>Builder JSON / Saved Workflow Preview</h2>
@@ -563,7 +563,7 @@ def _html_page() -> str:
         <ul>
           <li>Build/edit workflow JSON: supported as a local authoring preview.</li>
           <li>Save workflow JSON: supported.</li>
-          <li>Run bundled local sample: supported.</li>
+          <li>Run controlled local sample: supported.</li>
           <li>Run edited/custom workflow: deferred.</li>
         </ul>
         <h2>Run Evidence</h2>
@@ -617,7 +617,7 @@ def _html_page() -> str:
       }});
 
       document.getElementById("run-sample").addEventListener("click", async () => {{
-        resultEl.textContent = "Running bundled local sample...";
+        resultEl.textContent = "Running controlled local sample...";
         const res = await fetch("/api/run-sample", {{ method: "POST" }});
         const data = await res.json();
         resultEl.textContent = JSON.stringify(data, null, 2);
@@ -700,7 +700,7 @@ def build_parser() -> argparse.ArgumentParser:
     serve_cmd = sub.add_parser("serve", help="Launch the local RPA Studio Lite demo UI.")
     serve_cmd.add_argument("--host", default="127.0.0.1")
     serve_cmd.add_argument("--port", type=int, default=8765)
-    run_cmd = sub.add_parser("run-sample", help="Run the bundled local sample workflow.")
+    run_cmd = sub.add_parser("run-sample", help="Run the controlled local sample workflow.")
     run_cmd.add_argument("--json", action="store_true", dest="as_json")
     return parser
 
