@@ -101,7 +101,13 @@ def dev_smoke() -> None:
             "Workflow JSON Preview / Export",
             "Live Execution Log",
             "Run Evidence",
+            "Home / Load Demo",
             "PM14-local iframe replay adapter",
+            "Recording is enabled only on the bundled local demo page",
+            "External URLs may load visually",
+            "min-height: 650px",
+            "updateRecordingAvailability",
+            "startRecordingBtn.disabled",
         ],
     )
     _assert_file_contains(PAGE_PATH, ["recorder-input", "recorder-submit", "recorder-result", "recorder_bridge.js"])
@@ -112,8 +118,11 @@ def dev_smoke() -> None:
             "not production-ready",
             "external website automation is not proven",
             "PM14-local iframe replay adapter",
+            "Recording is enabled only on the bundled local demo page",
+            "External URLs may load visually",
             "existing RUN/PIPE/ACT",
             "manual demo steps",
+            "does not inject the recorder bridge into arbitrary external websites",
         ],
     )
 
@@ -125,6 +134,10 @@ def dev_smoke() -> None:
     assert "verification passed" in html
     assert "updated Type" in html
     assert "previous.type === 'Type'" in html
+    assert "min-height: 650px" in html
+    assert "Recording is enabled only on the bundled local demo page" in html
+    assert "External URLs may load visually" in html
+    assert "startRecordingBtn.disabled = !onDemoPage" in html
 
     simulated = simulate_recording_session("Hello from recorder")
     assert simulated["schema_id"] == "RPA_STUDIO_RECORDER_WORKFLOW_1A"

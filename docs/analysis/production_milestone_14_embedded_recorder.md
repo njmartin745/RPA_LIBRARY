@@ -6,6 +6,8 @@ Production Milestone 14 adds a visible local RPA Studio Recorder MVP inspired by
 
 This is not production-ready. It is a controlled local/static proof.
 
+Recording is enabled only on the bundled local demo page in PM14. External URLs may load visually if the embedded browser allows them, but action recording and replay are not supported or proven there. PM14 does not inject the recorder bridge into arbitrary external websites; external website automation is future work.
+
 ## How To Launch
 
 From the repository root:
@@ -30,7 +32,7 @@ python dev/rpa_studio_recorder.py serve --port 8878
 
 1. Launch `python dev/rpa_studio_recorder.py serve`.
 2. Open the Studio URL shown in the terminal.
-3. Click `Home` if the embedded browser is not already on the local demo page.
+3. Click `Home / Load Demo` if the embedded browser is not already on the local demo page.
 4. Click `Start Recording`.
 5. Type into the demo page message input.
 6. Click the demo page submit button.
@@ -42,8 +44,8 @@ python dev/rpa_studio_recorder.py serve --port 8878
 ## What Is Visibly Demoable Now
 
 - Local Studio UI.
-- Embedded browser-like iframe panel.
-- URL bar with Go, Home, and Reload controls.
+- Larger embedded browser-like iframe panel for a more comfortable local demo.
+- URL bar with Go, Home / Load Demo, and Reload controls, with Home / Load Demo returning to the bundled local demo page.
 - Start/Stop recording controls.
 - Clear Actions.
 - Run Steps.
@@ -56,7 +58,7 @@ python dev/rpa_studio_recorder.py serve --port 8878
 ## What Is Still Not Proven
 
 - Production readiness.
-- External website automation is not proven.
+- External website automation is not proven. External sites may load visually, but recording/replay remains local-demo only.
 - Credential handling.
 - Downloads.
 - Retry orchestration.
@@ -85,7 +87,7 @@ The recorder bridge does not capture password field values. If an input has `typ
 
 ## Replay Behavior
 
-PM14 uses a PM14-local iframe replay adapter for the controlled demo actions. It replays Navigate, Wait for Selector, Type, Click, and Wait Seconds against the embedded local/static page. This is a real local replay of the captured actions in the Studio UI, but it is not yet the production runtime replay path.
+PM14 uses a PM14-local iframe replay adapter for the controlled demo actions. Replay is intentionally limited to the bundled local demo page. It replays Navigate, Wait for Selector, Type, Click, and Wait Seconds against the embedded local/static page. This is a real local replay of the captured actions in the Studio UI, but it is not yet the production runtime replay path.
 
 The existing RUN/PIPE/ACT framework remains unchanged. PM14 relates to it as an operator-facing recorder proof that can later be mapped into production deploy bundles and runtime execution.
 
