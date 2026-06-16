@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PM15 External Recorder Demo</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 32px; color: #182534; }
+      main { max-width: 720px; }
+      label { display: block; font-weight: 700; margin-top: 16px; }
+      input { box-sizing: border-box; display: block; font-size: 16px; margin-top: 6px; padding: 10px; width: 100%; }
+      button { background: #1769aa; border: 0; border-radius: 6px; color: white; cursor: pointer; font-weight: 700; margin-top: 16px; padding: 10px 14px; }
+      #external-result { background: #f0f7ff; border: 1px solid #bfd6ef; border-radius: 6px; margin-top: 20px; padding: 12px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>PM15 External Browser Recording Target</h1>
+      <p>This deterministic local page is opened in a real WebDriver-controlled browser for the PM15 external recording spike.</p>
+
+      <label for="external-message">Message</label>
+      <input id="external-message" name="message" data-testid="external-message" aria-label="External recorder message" placeholder="Type a message">
+
+      <label for="external-secret">Password safety field</label>
+      <input id="external-secret" name="secret_demo" type="password" data-testid="external-secret" placeholder="Password value must not be captured">
+
+      <button id="external-submit" data-testid="external-submit" type="button">Submit external message</button>
+      <div id="external-result" data-testid="external-result" aria-live="polite">No message submitted yet.</div>
+    </main>
+    <script>
+      document.getElementById("external-submit").addEventListener("click", () => {
+        const message = document.getElementById("external-message").value;
+        const result = document.getElementById("external-result");
+        result.textContent = "Submitted external message: " + message;
+        result.setAttribute("data-result-ready", "true");
+      });
+    </script>
+  </body>
+</html>
