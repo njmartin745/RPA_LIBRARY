@@ -117,7 +117,20 @@ def dev_smoke() -> None:
         ],
     )
 
-    from dev.rpa_studio_recorder import replay_recorded_actions, sample_recorded_actions, workflow_from_actions
+    from dev.rpa_studio_recorder import _studio_html, replay_recorded_actions, sample_recorded_actions, simulate_recording_session, workflow_from_actions
+
+    html = _studio_html("127.0.0.1", 8877)
+    assert "logEl.textContent += '\\n'" in html, "generated JS must use escaped newline"
+    assert "Recording state:" in html
+    assert "verification passed" in html
+
+    simulated = simulate_recording_session("Hello from recorder")
+    assert simulated["schema_id"] == "RPA_STUDIO_RECORDER_WORKFLOW_1A"
+    simulated_actions = simulated["actions"]
+    assert any(action.get("type") == "Click" for action in simulated_actions), simulated_actions
+    assert any(action.get("type") == "Type" for action in simulated_actions), simulated_actions
+    for action in simulated_actions:
+        _assert_action_shape(action)
 
     actions = sample_recorded_actions()
     assert any(action.get("type") == "Click" for action in actions), actions

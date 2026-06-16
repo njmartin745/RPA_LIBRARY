@@ -79,6 +79,15 @@ def sample_recorded_actions(demo_url: str = "/demo/index.html") -> list[dict[str
     ]
 
 
+
+def simulate_recording_session(message: str = "Hello from PM14 recorder") -> dict[str, Any]:
+    """Deterministically model the browser bridge capture contract for smoke tests."""
+    actions = [
+        {"type": "Navigate", "url": "/demo/index.html", "label": "Current page", "order": 1, "timestamp_ms": 1},
+        {"type": "Type", "selector": "#recorder-input", "text": message, "label": "Recorder message", "order": 2, "timestamp_ms": 2, "redacted": False},
+        {"type": "Click", "selector": "#recorder-submit", "label": "Submit message", "order": 3, "timestamp_ms": 3},
+    ]
+    return workflow_from_actions(actions)
 def _validate_actions(actions: Sequence[Mapping[str, Any]]) -> None:
     if not actions:
         raise RecorderError("at least one recorded action is required")
@@ -250,6 +259,7 @@ def _studio_html(host: str, port: int) -> str:
         <button id=\"start-recording\">Start Recording</button>
         <button id=\"stop-recording\" class=\"secondary\">Stop Recording</button>
         <button id=\"clear-actions\" class=\"danger\">Clear Actions</button>
+        <p id=\"recording-state\"><strong>Recording state:</strong> idle</p>
         <h3>Run Controls</h3>
         <button id=\"run-steps\">Run Steps</button>
         <button id=\"stop-run\" class=\"secondary\">Stop Run</button>
@@ -286,12 +296,13 @@ def _studio_html(host: str, port: int) -> str:
       const jsonEl = document.getElementById('workflow-json');
       const logEl = document.getElementById('live-log');
       const evidenceEl = document.getElementById('run-evidence');
+      const stateEl = document.getElementById('recording-state');
       let actions = [];
       let recording = false;
       let running = false;
 
       function log(line) {{
-        logEl.textContent += '\n' + new Date().toISOString() + ' ' + line;
+        logEl.textContent += '\\n' + new Date().toISOString() + ' ' + line;
         logEl.scrollTop = logEl.scrollHeight;
       }}
       function render() {{
@@ -313,6 +324,14 @@ def _studio_html(host: str, port: int) -> str:
         }}
         throw new Error('selector not found: ' + selector);
       }}
+      function setRecordingState(active) {{
+        recording = active;
+        stateEl.innerHTML = '<strong>Recording state:</strong> ' + (active ? 'recording' : 'idle');
+        document.body.setAttribute('data-recording-state', active ? 'recording' : 'idle');
+      }}
+      function postRecorderCommand(command) {{
+        frame.contentWindow.postMessage({{ source: 'rpa-studio-parent', command }}, '*');
+      }}
       async function replay(actionsToRun) {{
         running = true;
         log('Run started with ' + actionsToRun.length + ' actions.');
@@ -325,6 +344,11 @@ def _studio_html(host: str, port: int) -> str:
           if (action.type === 'Wait Seconds') {{ await new Promise((resolve) => setTimeout(resolve, Number(action.seconds || 1) * 1000)); }}
           log('ok ' + action.type + ' ' + (action.selector || action.url || ''));
         }}
+        const resultEl = await waitForSelector("#recorder-result[data-result-ready='true']");
+        if (!resultEl.textContent || !resultEl.textContent.includes('Submitted:')) {{
+          throw new Error('replay verification failed: submitted result not visible');
+        }}
+        log('verification passed: ' + resultEl.textContent);
         running = false;
         return true;
       }}
@@ -341,9 +365,10 @@ def _studio_html(host: str, port: int) -> str:
       document.getElementById('go').addEventListener('click', () => {{ frame.src = urlBar.value; }});
       document.getElementById('home').addEventListener('click', () => {{ urlBar.value = demoUrl; frame.src = demoUrl; }});
       document.getElementById('reload').addEventListener('click', () => {{ frame.contentWindow.location.reload(); }});
-      document.getElementById('start-recording').addEventListener('click', () => {{ recording = true; actions = [{{ type: 'Navigate', url: frame.src, label: 'Current page', order: 1, timestamp_ms: Date.now() }}]; render(); frame.contentWindow.postMessage({{ source: 'rpa-studio-parent', command: 'start-recording' }}, '*'); log('Start Recording'); }});
-      document.getElementById('stop-recording').addEventListener('click', () => {{ recording = false; frame.contentWindow.postMessage({{ source: 'rpa-studio-parent', command: 'stop-recording' }}, '*'); log('Stop Recording'); }});
+      document.getElementById('start-recording').addEventListener('click', () => {{ setRecordingState(true); actions = [{{ type: 'Navigate', url: frame.src, label: 'Current page', order: 1, timestamp_ms: Date.now() }}]; render(); postRecorderCommand('start-recording'); log('Start Recording'); }});
+      document.getElementById('stop-recording').addEventListener('click', () => {{ setRecordingState(false); postRecorderCommand('stop-recording'); log('Stop Recording'); }});
       document.getElementById('clear-actions').addEventListener('click', () => {{ actions = []; render(); log('Actions cleared'); }});
+      frame.addEventListener('load', () => {{ if (recording) postRecorderCommand('start-recording'); }});
       document.getElementById('stop-run').addEventListener('click', () => {{ running = false; log('Stop Run requested'); }});
       document.getElementById('save-workflow').addEventListener('click', async () => {{
         const res = await fetch('/api/save-workflow', {{ method: 'POST', headers: {{ 'content-type': 'application/json' }}, body: JSON.stringify({{ actions }}) }});
@@ -351,6 +376,7 @@ def _studio_html(host: str, port: int) -> str:
       }});
       document.getElementById('run-steps').addEventListener('click', async () => {{
         try {{
+          setRecordingState(false);
           await replay(actions);
           const res = await fetch('/api/save-run-evidence', {{ method: 'POST', headers: {{ 'content-type': 'application/json' }}, body: JSON.stringify({{ actions, status: 'pass', log: logEl.textContent }} ) }});
           const data = await res.json();
@@ -362,6 +388,7 @@ def _studio_html(host: str, port: int) -> str:
           log('Run failed: ' + err);
         }}
       }});
+      setRecordingState(false);
       render();
     </script>
   </body>
