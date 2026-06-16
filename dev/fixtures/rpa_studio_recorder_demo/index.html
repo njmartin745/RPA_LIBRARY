@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RPA Studio Recorder Demo Target</title>
+    <style>
+      body { margin: 0; font-family: Arial, sans-serif; background: #f7f8fa; color: #1a2633; }
+      main { max-width: 720px; margin: 0 auto; padding: 40px 20px; }
+      .panel { background: #fff; border: 1px solid #d7dee8; border-radius: 8px; padding: 22px; box-shadow: 0 8px 20px rgba(26, 38, 51, 0.08); }
+      label { display: block; font-weight: 700; margin: 16px 0 6px; }
+      input { box-sizing: border-box; width: 100%; border: 1px solid #aab6c5; border-radius: 6px; font-size: 16px; padding: 10px 12px; }
+      button { border: 0; border-radius: 6px; background: #1769aa; color: #fff; cursor: pointer; font-weight: 700; margin-top: 16px; padding: 10px 14px; }
+      #recorder-result { margin-top: 18px; min-height: 24px; font-weight: 700; }
+      body[data-recording="true"] .panel { outline: 3px solid #f2b84b; }
+    </style>
+  </head>
+  <body data-testid="recorder-demo-ready">
+    <main>
+      <div class="panel">
+        <h1>Recorder Demo Target</h1>
+        <p id="recorder-status" data-testid="recorder-status">Ready for recording.</p>
+        <label for="recorder-input">Message</label>
+        <input id="recorder-input" name="recorder_message" data-testid="recorder-input" aria-label="Recorder message" type="text" autocomplete="off">
+        <button id="recorder-submit" data-testid="recorder-submit" type="button">Submit message</button>
+        <div id="recorder-result" data-testid="recorder-result" role="status"></div>
+      </div>
+    </main>
+    <script src="/demo/recorder_bridge.js"></script>
+    <script>
+      document.getElementById("recorder-submit").addEventListener("click", function () {
+        const input = document.getElementById("recorder-input");
+        const result = document.getElementById("recorder-result");
+        result.textContent = "Submitted: " + (input.value || "");
+        result.setAttribute("data-result-ready", "true");
+        document.body.setAttribute("data-recorder-submitted", "true");
+      });
+    </script>
+  </body>
+</html>
