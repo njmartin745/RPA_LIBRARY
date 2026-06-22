@@ -100,6 +100,16 @@ def dev_smoke() -> None:
     for path in (RECORDER_PY, RECORDER_JS, PAGE_PATH, README_PATH, DOC_PATH):
         assert path.exists(), path
     _assert_contains(
+        RECORDER_PY,
+        [
+            "RPA_STUDIO_NODE_EXE",
+            "RPA_STUDIO_NODE_PATH",
+            "shutil.which(\"node\")",
+            "Playwright runtime unavailable",
+            "Install Node.js and Playwright locally",
+        ],
+    )
+    _assert_contains(
         RECORDER_JS,
         [
             "RPA Studio Playwright Recorder",
@@ -125,6 +135,8 @@ def dev_smoke() -> None:
             "Universal external website support",
             "CAPTCHA",
             "anti-bot",
+            "Node.js is required",
+            "Codex runtime fallback",
         ],
     )
     result = _run_smoke_helper()

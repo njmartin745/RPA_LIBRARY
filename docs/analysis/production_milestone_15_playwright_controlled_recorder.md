@@ -23,6 +23,28 @@ Then open:
 http://127.0.0.1:8879/
 ```
 
+## Local Setup Notes
+
+Node.js is required for the PM15 Playwright recorder. Playwright must be
+available to the Node process through normal local Node module resolution or
+through an explicit `RPA_STUDIO_NODE_PATH`.
+
+Lookup order:
+
+1. `RPA_STUDIO_NODE_EXE`, if set.
+2. `node` from `PATH`.
+3. Codex runtime Node, only if present.
+
+Module path behavior:
+
+1. `RPA_STUDIO_NODE_PATH`, if set.
+2. Normal Node module resolution.
+3. Codex runtime `node_modules`, only if present.
+
+The Codex runtime fallback is a development fallback, not a stable user
+dependency. Local users should install Node.js and Playwright locally or set
+`RPA_STUDIO_NODE_EXE` / `RPA_STUDIO_NODE_PATH` explicitly.
+
 ## Manual Demo Steps
 
 1. Launch `python dev/rpa_studio_playwright_recorder.py serve`.
