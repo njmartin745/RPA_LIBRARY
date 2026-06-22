@@ -98,6 +98,109 @@ function appendAction(action) {
   log(`captured ${next.type}`, { selector: next.selector || "", url: next.url || "" });
 }
 
+function reindexActions() {
+  actions = actions.map((action, index) => ({ ...action, order: index + 1 }));
+  return actions;
+}
+
+function selectedAction(index) {
+  const numeric = Number(index);
+  if (!Number.isInteger(numeric) || numeric < 0 || numeric >= actions.length) {
+    throw new Error(`Selected step is out of range: ${index}`);
+  }
+  return { index: numeric, action: actions[numeric] };
+}
+
+function insertAt(index, position, action) {
+  const offset = position === "before" ? 0 : 1;
+  actions.splice(index + offset, 0, action);
+  reindexActions();
+}
+
+function redactLabel(action) {
+  const text = String(action.text || "");
+  const label = String(action.label || "");
+  if (text && label.toLowerCase().includes(text.toLowerCase())) return "secret field redacted";
+  return label || "secret field redacted";
+}
+
+function editStep({ operation, index = 0, position = "after" } = {}) {
+  const current = operation === "insert-wait-seconds" && actions.length === 0
+    ? { index: 0, action: {} }
+    : selectedAction(index);
+  if (operation === "delete") {
+    const removed = actions.splice(current.index, 1)[0];
+    reindexActions();
+    log("edited workflow: deleted step", { index: current.index, action: removed.type });
+    return { status: "edited", operation, selected_index: Math.min(current.index, Math.max(actions.length - 1, 0)), actions };
+  }
+  if (operation === "insert-wait-selector") {
+    if (!current.action.selector) throw new Error("Selected step has no selector for Wait for Selector.");
+    const waitAction = {
+      type: "Wait for Selector",
+      selector: current.action.selector,
+      selector_quality: current.action.selector_quality || "usable",
+      selector_candidates: current.action.selector_candidates || [],
+      timeout: 10,
+      enabled: true,
+      label: "Wait for selected element",
+      timestamp_ms: nowMs(),
+      source_url: page ? page.url() : current.action.source_url || "",
+    };
+    insertAt(current.index, position, waitAction);
+    log("edited workflow: inserted Wait for Selector", { index: current.index, position, selector: waitAction.selector });
+    return { status: "edited", operation, selected_index: position === "before" ? current.index : current.index + 1, actions };
+  }
+  if (operation === "insert-wait-seconds") {
+    const waitAction = { type: "Wait Seconds", seconds: 1, enabled: true, label: "Wait 1 second", timestamp_ms: nowMs(), source_url: page ? page.url() : "" };
+    if (actions.length === 0) {
+      actions.push(waitAction);
+      reindexActions();
+      return { status: "edited", operation, selected_index: 0, actions };
+    }
+    insertAt(current.index, position, waitAction);
+    log("edited workflow: inserted Wait Seconds", { index: current.index, position, seconds: waitAction.seconds });
+    return { status: "edited", operation, selected_index: position === "before" ? current.index : current.index + 1, actions };
+  }
+  if (operation === "mark-secret") {
+    if (current.action.type !== "Type" && current.action.type !== "TypeSecret") throw new Error("Only Type steps can be marked as secret.");
+    actions[current.index] = {
+      ...current.action,
+      type: "TypeSecret",
+      secret_ref: current.action.secret_ref || "secret://pm16-user-marked",
+      redacted: true,
+      label: redactLabel(current.action),
+    };
+    delete actions[current.index].text;
+    reindexActions();
+    log("edited workflow: marked Type step as secret", { index: current.index, selector: actions[current.index].selector });
+    return { status: "edited", operation, selected_index: current.index, actions };
+  }
+  if (operation === "toggle-enabled") {
+    actions[current.index] = { ...current.action, enabled: current.action.enabled === false };
+    reindexActions();
+    log("edited workflow: toggled step enabled", { index: current.index, enabled: actions[current.index].enabled !== false });
+    return { status: "edited", operation, selected_index: current.index, actions };
+  }
+  if (operation === "move-up") {
+    if (current.index > 0) {
+      [actions[current.index - 1], actions[current.index]] = [actions[current.index], actions[current.index - 1]];
+      reindexActions();
+    }
+    log("edited workflow: moved step up", { index: current.index });
+    return { status: "edited", operation, selected_index: Math.max(current.index - 1, 0), actions };
+  }
+  if (operation === "move-down") {
+    if (current.index < actions.length - 1) {
+      [actions[current.index + 1], actions[current.index]] = [actions[current.index], actions[current.index + 1]];
+      reindexActions();
+    }
+    log("edited workflow: moved step down", { index: current.index });
+    return { status: "edited", operation, selected_index: Math.min(current.index + 1, actions.length - 1), actions };
+  }
+  throw new Error(`Unknown edit operation: ${operation}`);
+}
+
 function selectorFor(el) {
   if (!el || !el.tagName) return "";
   if (el.id) return `#${CSS.escape(el.id)}`;
@@ -293,11 +396,21 @@ async function runSteps(fromIndex = 0) {
     const action = actions[i];
     try {
       if (!running) throw new Error("Run stopped");
+      if (action.enabled === false) {
+        runLog.push({ step_index: i, status: "skipped", action: action.type, selector: action.selector || "", message: "Step disabled in edited workflow." });
+        continue;
+      }
       if (action.type === "Navigate") await page.goto(action.url);
       if (action.type === "Click") await (await locatorForAction(action)).click({ timeout: 4000 });
       if (action.type === "Type") await (await locatorForAction(action)).fill(action.text || "", { timeout: 4000 });
-      if (action.type === "TypeSecret") log("skipped redacted secret replay", { selector: action.selector });
-      if (action.type === "Wait for Selector") await (await locatorForAction(action)).waitFor({ timeout: 4000 });
+      if (action.type === "TypeSecret") {
+        const message = "Secret value unavailable; no credential vault configured.";
+        log("skipped redacted secret replay", { selector: action.selector, message });
+        runLog.push({ step_index: i, status: "skipped", action: action.type, selector: action.selector || "", message });
+        continue;
+      }
+      if (action.type === "Wait for Selector") await (await locatorForAction(action)).waitFor({ timeout: (Number(action.timeout) || 10) * 1000 });
+      if (action.type === "Wait Seconds") await page.waitForTimeout((Number(action.seconds) || 1) * 1000);
       runLog.push({ step_index: i, status: "ok", action: action.type, selector: action.selector || "", url: action.url || "" });
     } catch (error) {
       running = false;
@@ -372,7 +485,10 @@ function htmlPage(demoUrl) {
     .actions { padding-left: 20px; }
     .actions li { margin-bottom: 8px; cursor: pointer; }
     .actions li.selector-warning { color: #9b5c00; }
+    .actions li.disabled-step { color: #667085; text-decoration: line-through; }
     .selected { background: #dbeafe; }
+    .editor-panel { background: #eef6ff; border: 1px solid #9cc9f5; border-radius: 8px; margin-top: 12px; padding: 10px; }
+    .editor-panel h3 { margin: 0 0 6px; }
   </style>
 </head>
 <body>
@@ -380,6 +496,8 @@ function htmlPage(demoUrl) {
     <div class="badge">PM15 · Playwright Controlled Browser Recorder</div>
     <h1>RPA Studio Playwright Recorder — PM15</h1>
     <p>Experimental controlled browser recorder. Not production-ready.</p>
+    <div class="badge">PM16 &middot; Recorder Step Editing MVP</div>
+    <h2>RPA Studio Step Editor &mdash; PM16</h2>
     <div class="mode-details">
       <span>Recorder mode: Playwright controlled browser</span>
       <span>Replay mode: Playwright recorder replay</span>
@@ -403,6 +521,19 @@ function htmlPage(demoUrl) {
       <p id="browser-status">Browser not launched.</p>
       <p id="injection-status">Recorder injection: not injected.</p>
       <p id="current-url">Current URL: none</p>
+      <div class="editor-panel">
+        <h3>Step Editing</h3>
+        <p>Selected step: <span id="selected-step">0</span></p>
+        <button id="delete-step" class="danger">Delete Step</button>
+        <button id="wait-selector-before" class="secondary">Add Wait for this element before</button>
+        <button id="wait-selector-after" class="secondary">Add Wait for this element after</button>
+        <button id="wait-seconds-before" class="secondary">Add Wait Seconds before</button>
+        <button id="wait-seconds-after" class="secondary">Add Wait Seconds after</button>
+        <button id="mark-secret" class="secondary">Mark Type as Secret / Password</button>
+        <button id="toggle-enabled" class="secondary">Enable / Disable Step</button>
+        <button id="move-up" class="secondary">Move Up</button>
+        <button id="move-down" class="secondary">Move Down</button>
+      </div>
       <h3>Recorded Actions</h3>
       <ol id="actions" class="actions"></ol>
     </section>
@@ -425,15 +556,19 @@ function htmlPage(demoUrl) {
     const browserStatusEl = document.getElementById('browser-status');
     const injectionStatusEl = document.getElementById('injection-status');
     const currentUrlEl = document.getElementById('current-url');
+    const selectedStepEl = document.getElementById('selected-step');
     function log(line) { logEl.textContent += '\\n' + new Date().toISOString() + ' ' + line; logEl.scrollTop = logEl.scrollHeight; }
     function render() {
+      if (selected >= actions.length) selected = Math.max(actions.length - 1, 0);
+      selectedStepEl.textContent = String(selected);
       actionsEl.innerHTML = '';
       actions.forEach((action, index) => {
         const li = document.createElement('li');
         const quality = action.selector_quality ? ' [' + action.selector_quality + ']' : '';
         const warning = action.selector_quality === 'ambiguous' || action.selector_quality === 'fragile';
-        li.className = (index === selected ? 'selected ' : '') + (warning ? 'selector-warning' : '');
-        li.textContent = index + ': ' + action.type + ' ' + (action.selector || action.url || '') + quality + (action.text ? ' = ' + action.text : action.secret_ref ? ' = [secret_ref]' : '');
+        const disabled = action.enabled === false;
+        li.className = (index === selected ? 'selected ' : '') + (warning ? 'selector-warning ' : '') + (disabled ? 'disabled-step' : '');
+        li.textContent = index + ': ' + action.type + ' ' + (action.selector || action.url || '') + quality + (disabled ? ' [disabled]' : '') + (action.text ? ' = ' + action.text : action.secret_ref ? ' = [secret_ref]' : action.seconds ? ' = ' + action.seconds + 's' : '');
         li.addEventListener('click', async () => {
           selected = index;
           render();
@@ -443,6 +578,14 @@ function htmlPage(demoUrl) {
         actionsEl.appendChild(li);
       });
       jsonEl.value = JSON.stringify({ schema_id: 'RPA_STUDIO_PLAYWRIGHT_RECORDER_WORKFLOW_1A', scenario: '${SCENARIO}', actions }, null, 2);
+    }
+    async function editStep(operation, position) {
+      const res = await fetch('/api/edit-step', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ operation, index: selected, position }) });
+      const data = await res.json();
+      if (typeof data.selected_index === 'number') selected = data.selected_index;
+      evidenceEl.textContent = JSON.stringify(data, null, 2);
+      log('edit ' + operation + (position ? ' ' + position : '') + ': ' + data.status);
+      await refresh();
     }
     async function refresh() {
       const data = await (await fetch('/api/state')).json();
@@ -464,6 +607,15 @@ function htmlPage(demoUrl) {
     document.getElementById('stop-run').addEventListener('click', async () => { const data = await (await fetch('/api/stop-run', { method: 'POST' })).json(); log('stop run: ' + JSON.stringify(data)); });
     document.getElementById('save').addEventListener('click', async () => { const data = await (await fetch('/api/save', { method: 'POST' })).json(); evidenceEl.textContent = JSON.stringify(data, null, 2); log('save: ' + data.workflow_json); });
     document.getElementById('clear').addEventListener('click', async () => { const data = await (await fetch('/api/clear', { method: 'POST' })).json(); log('clear: ' + JSON.stringify(data)); await refresh(); });
+    document.getElementById('delete-step').addEventListener('click', () => editStep('delete'));
+    document.getElementById('wait-selector-before').addEventListener('click', () => editStep('insert-wait-selector', 'before'));
+    document.getElementById('wait-selector-after').addEventListener('click', () => editStep('insert-wait-selector', 'after'));
+    document.getElementById('wait-seconds-before').addEventListener('click', () => editStep('insert-wait-seconds', 'before'));
+    document.getElementById('wait-seconds-after').addEventListener('click', () => editStep('insert-wait-seconds', 'after'));
+    document.getElementById('mark-secret').addEventListener('click', () => editStep('mark-secret'));
+    document.getElementById('toggle-enabled').addEventListener('click', () => editStep('toggle-enabled'));
+    document.getElementById('move-up').addEventListener('click', () => editStep('move-up'));
+    document.getElementById('move-down').addEventListener('click', () => editStep('move-down'));
     refresh();
   </script>
 </body>
@@ -512,6 +664,7 @@ async function startStudioServer(port = 8879) {
       if (req.method === "POST" && url.pathname === "/api/run") { const body = await readBody(req); sendJson(res, await runSteps(body.fromIndex || 0)); return; }
       if (req.method === "POST" && url.pathname === "/api/stop-run") { running = false; sendJson(res, { status: "stopping" }); return; }
       if (req.method === "POST" && url.pathname === "/api/highlight") { const body = await readBody(req); sendJson(res, await highlightStep(body.index)); return; }
+      if (req.method === "POST" && url.pathname === "/api/edit-step") { const body = await readBody(req); sendJson(res, editStep(body)); return; }
       if (req.method === "POST" && url.pathname === "/api/save") { sendJson(res, saveWorkflow()); return; }
       if (req.method === "POST" && url.pathname === "/api/clear") { actions = []; logs = []; sendJson(res, { status: "cleared" }); return; }
       res.writeHead(404); res.end();
@@ -571,6 +724,72 @@ async function runSmoke() {
   }
 }
 
+async function runPm16Smoke() {
+  const server = await startStudioServer(0);
+  const demoUrl = `http://127.0.0.1:${server.address().port}/demo/index.html`;
+  const rawSecretText = "PM16 text that must be removed";
+  try {
+    await launchBrowser({ url: demoUrl, headed: true });
+    await startRecording();
+    await page.click("#pm15-message");
+    await page.keyboard.type(rawSecretText);
+    await page.click("#pm15-reference");
+    await page.click("#pm15-submit");
+    await stopRecording();
+
+    if (!actions.some((action) => action.type === "Type" && action.selector === "#pm15-message")) throw new Error("Sample Type action was not recorded");
+    if (!actions.some((action) => action.type === "Click" && action.selector === "#pm15-submit")) throw new Error("Sample Click action was not recorded");
+
+    const referenceIndex = actions.findIndex((action) => action.type === "Click" && action.selector === "#pm15-reference");
+    editStep({ operation: "delete", index: referenceIndex });
+    if (actions.some((action) => action.selector === "#pm15-reference")) throw new Error("Delete step did not remove reference input action");
+
+    const typeIndex = actions.findIndex((action) => action.type === "Type" && action.selector === "#pm15-message");
+    editStep({ operation: "insert-wait-selector", index: typeIndex, position: "before" });
+    const waitSelectorIndex = actions.findIndex((action) => action.type === "Wait for Selector" && action.selector === "#pm15-message");
+    if (waitSelectorIndex < 0 || actions[waitSelectorIndex].timeout !== 10 || actions[waitSelectorIndex].enabled !== true) throw new Error("Wait for Selector insert failed");
+
+    editStep({ operation: "insert-wait-seconds", index: waitSelectorIndex, position: "after" });
+    const waitSecondsIndex = actions.findIndex((action) => action.type === "Wait Seconds");
+    if (waitSecondsIndex < 0 || actions[waitSecondsIndex].seconds !== 1 || actions[waitSecondsIndex].enabled !== true) throw new Error("Wait Seconds insert failed");
+
+    const beforeMoveOrder = actions.map((action) => action.type).join("|");
+    editStep({ operation: "move-down", index: waitSecondsIndex });
+    const afterMoveOrder = actions.map((action) => action.type).join("|");
+    if (beforeMoveOrder === afterMoveOrder) throw new Error("Move Down did not change execution order");
+
+    const clickIndex = actions.findIndex((action) => action.type === "Click" && action.selector === "#pm15-message");
+    editStep({ operation: "toggle-enabled", index: clickIndex });
+    if (actions[clickIndex].enabled !== false) throw new Error("Toggle enabled did not disable selected step");
+
+    const typeIndexAfterMove = actions.findIndex((action) => action.type === "Type" && action.selector === "#pm15-message");
+    editStep({ operation: "mark-secret", index: typeIndexAfterMove });
+    const secretAction = actions.find((action) => action.type === "TypeSecret" && action.selector === "#pm15-message");
+    if (!secretAction || !secretAction.secret_ref || JSON.stringify(secretAction).includes(rawSecretText)) throw new Error("Mark secret did not redact raw text");
+
+    const runResult = await runSteps(0);
+    if (runResult.status !== "pass") throw new Error("Edited workflow replay failed: " + JSON.stringify(runResult));
+    if (!runResult.run_log.some((entry) => entry.status === "skipped" && entry.message === "Step disabled in edited workflow.")) throw new Error("Disabled step was not skipped in run log");
+    if (!runResult.run_log.some((entry) => entry.action === "TypeSecret" && entry.status === "skipped")) throw new Error("Secret step did not produce clear skipped replay log");
+
+    const highlight = await highlightStep(waitSelectorIndex);
+    if (highlight.status !== "highlighted") throw new Error("Highlight after editing failed: " + JSON.stringify(highlight));
+
+    const saved = saveWorkflow();
+    const savedWorkflow = JSON.parse(fs.readFileSync(saved.workflow_json, "utf8"));
+    const serialized = JSON.stringify(savedWorkflow);
+    if (serialized.includes(rawSecretText)) throw new Error("Saved edited workflow leaked raw secret text");
+    if (!savedWorkflow.actions.some((action) => action.enabled === false)) throw new Error("Saved workflow did not retain disabled step");
+    if (!savedWorkflow.actions.some((action) => action.type === "Wait for Selector")) throw new Error("Saved workflow missing Wait for Selector");
+    if (!savedWorkflow.actions.some((action) => action.type === "Wait Seconds")) throw new Error("Saved workflow missing Wait Seconds");
+
+    return { status: "pass", headed: true, workflow_json: saved.workflow_json, artifacts: saved.artifacts, actions: savedWorkflow.actions, run_log: runResult.run_log, highlight };
+  } finally {
+    await closeBrowser();
+    await new Promise((resolve) => server.close(resolve));
+  }
+}
+
 async function main() {
   const command = process.argv[2] || "serve";
   if (command === "serve") {
@@ -584,6 +803,12 @@ async function main() {
     const result = await runSmoke();
     if (process.argv.includes("--json")) console.log(JSON.stringify(result, null, 2));
     else console.log("DEV_SMOKE_OK: production_milestone_15");
+    return;
+  }
+  if (command === "run-pm16-smoke") {
+    const result = await runPm16Smoke();
+    if (process.argv.includes("--json")) console.log(JSON.stringify(result, null, 2));
+    else console.log("DEV_SMOKE_OK: production_milestone_16");
     return;
   }
   throw new Error(`Unknown command: ${command}`);
