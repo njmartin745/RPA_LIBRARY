@@ -59,6 +59,30 @@ dependency. Local users should install Node.js and Playwright locally or set
 10. Click `Start Recording` again and add more steps.
 11. Click `Save Workflow JSON`.
 
+## Injection Status And External Pages
+
+PM15 recording depends on successful Playwright script injection into the active
+page. Studio reports recorder injection state explicitly:
+
+- `not injected`
+- `injected`
+- `recording active`
+- `page changed, reinjection needed`
+- `injection failed`
+
+When recording is active and the page changes, Studio attempts recorder
+reinjection. If navigation fails, for example with a browser error such as
+`net::ERR_CONNECTION_RESET`, or if script injection is blocked, Studio should
+show a clear failure in the UI and Live Log instead of pretending recording
+succeeded.
+
+The `Inject Recorder / Reattach` control can be used to manually retry
+injection on the active controlled-browser page.
+
+Some sites may block navigation or script injection. GameStop and GUDID are not
+guaranteed or proven by PM15 unless manually validated in a specific environment.
+Production use requires later selector hardening and site-specific validation.
+
 ## What Is Visibly Demoable Now
 
 - Real headed Edge/Chromium browser launch through Playwright.
@@ -75,6 +99,7 @@ dependency. Local users should install Node.js and Playwright locally or set
 
 - Production readiness.
 - Universal external website support.
+- Guaranteed GameStop or GUDID recording support.
 - CAPTCHA, anti-bot, login challenge, or security restriction bypass.
 - Credential vault.
 - Downloads.

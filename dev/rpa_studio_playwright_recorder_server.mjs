@@ -19,6 +19,8 @@ let recording = false;
 let running = false;
 let actions = [];
 let logs = [];
+let injectionStatus = "not injected";
+let injectionMessage = "Recorder has not been injected.";
 
 function nowMs() {
   return Date.now();
@@ -28,6 +30,13 @@ function log(message, extra = {}) {
   const row = { timestamp_ms: nowMs(), message, ...extra };
   logs.push(row);
   return row;
+}
+
+function setInjectionStatus(status, message = "") {
+  injectionStatus = status;
+  injectionMessage = message || status;
+  log("recorder injection status", { injection_status: injectionStatus, message: injectionMessage });
+  return { injection_status: injectionStatus, injection_message: injectionMessage };
 }
 
 function uniqueRunDir() {
@@ -123,9 +132,16 @@ const RECORDER_INIT_SCRIPT = `
 
 async function installRecorder(targetPage = page) {
   if (!targetPage) throw new Error("No controlled browser page is open.");
-  await targetPage.exposeFunction("__rpaPwRecord", (action) => appendAction(action)).catch(() => {});
-  await targetPage.addInitScript(RECORDER_INIT_SCRIPT);
-  await targetPage.evaluate(RECORDER_INIT_SCRIPT);
+  try {
+    await targetPage.exposeFunction("__rpaPwRecord", (action) => appendAction(action)).catch(() => {});
+    await targetPage.addInitScript(RECORDER_INIT_SCRIPT);
+    await targetPage.evaluate(RECORDER_INIT_SCRIPT);
+    return setInjectionStatus(recording ? "recording active" : "injected", "Recorder injected into the active page.");
+  } catch (error) {
+    recording = false;
+    setInjectionStatus("injection failed", `Recorder injection failed: ${String(error)}`);
+    throw error;
+  }
 }
 
 async function launchBrowser({ url, headed = true } = {}) {
@@ -141,33 +157,51 @@ async function launchBrowser({ url, headed = true } = {}) {
   if (!page || page.isClosed()) {
     page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
     page.on("framenavigated", async (frame) => {
+      if (frame === page.mainFrame()) {
+        setInjectionStatus("page changed, reinjection needed", "Page changed; recorder must be reinjected for this page.");
+      }
       if (frame === page.mainFrame() && recording) {
         appendAction({ type: "Navigate", url: page.url(), label: "Navigate" });
         try {
           await installRecorder(page);
         } catch (error) {
-          log("recorder injection failed after navigation", { error: String(error) });
+          recording = false;
+          setInjectionStatus("injection failed", `Recorder injection failed after navigation: ${String(error)}`);
         }
       }
     });
   }
   if (url) {
-    await page.goto(url);
+    try {
+      await page.goto(url);
+      if (!recording) {
+        setInjectionStatus("not injected", "Page loaded. Recorder has not been injected yet.");
+      }
+    } catch (error) {
+      recording = false;
+      setInjectionStatus("injection failed", `Navigation failed before recorder injection: ${String(error)}`);
+      throw error;
+    }
   }
   return { status: "launched", url: page.url(), headed, browser: "edge-or-chromium" };
 }
 
 async function startRecording() {
   await launchBrowser({});
+  recording = false;
   await installRecorder(page);
   recording = true;
+  setInjectionStatus("recording active", "Recorder injected and recording is active.");
   appendAction({ type: "Navigate", url: page.url(), label: "Current page" });
-  return { status: "recording", url: page.url(), action_count: actions.length };
+  return { status: "recording", url: page.url(), action_count: actions.length, injection_status: injectionStatus, injection_message: injectionMessage };
 }
 
 async function stopRecording() {
   recording = false;
-  return { status: "stopped", browser_open: Boolean(browser && browser.isConnected()), page_open: Boolean(page && !page.isClosed()), action_count: actions.length };
+  if (injectionStatus === "recording active") {
+    setInjectionStatus("injected", "Recorder remains injected; recording is stopped.");
+  }
+  return { status: "stopped", browser_open: Boolean(browser && browser.isConnected()), page_open: Boolean(page && !page.isClosed()), action_count: actions.length, injection_status: injectionStatus, injection_message: injectionMessage };
 }
 
 async function runSteps(fromIndex = 0) {
@@ -226,6 +260,7 @@ async function closeBrowser() {
   if (browser) await browser.close();
   browser = null;
   page = null;
+  setInjectionStatus("not injected", "Controlled browser closed.");
   return { status: "closed" };
 }
 
@@ -264,6 +299,7 @@ function htmlPage(demoUrl) {
       <label for="target-url">URL</label>
       <input id="target-url" value="${demoUrl}">
       <button id="start">Start Recording</button>
+      <button id="inject" class="secondary">Inject Recorder / Reattach</button>
       <button id="stop" class="secondary">Stop Recording</button>
       <button id="run-all">Run All</button>
       <button id="run-from">Run From Selected Step</button>
@@ -271,6 +307,7 @@ function htmlPage(demoUrl) {
       <button id="save">Save Workflow JSON</button>
       <button id="clear" class="danger">Clear Actions</button>
       <p id="browser-status">Browser not launched.</p>
+      <p id="injection-status">Recorder injection: not injected.</p>
       <p id="current-url">Current URL: none</p>
       <h3>Recorded Actions</h3>
       <ol id="actions" class="actions"></ol>
@@ -292,6 +329,7 @@ function htmlPage(demoUrl) {
     const logEl = document.getElementById('live-log');
     const evidenceEl = document.getElementById('evidence');
     const browserStatusEl = document.getElementById('browser-status');
+    const injectionStatusEl = document.getElementById('injection-status');
     const currentUrlEl = document.getElementById('current-url');
     function log(line) { logEl.textContent += '\\n' + new Date().toISOString() + ' ' + line; logEl.scrollTop = logEl.scrollHeight; }
     function render() {
@@ -314,6 +352,7 @@ function htmlPage(demoUrl) {
       const data = await (await fetch('/api/state')).json();
       actions = data.actions || [];
       browserStatusEl.textContent = 'Browser status: ' + data.browser_status;
+      injectionStatusEl.textContent = 'Recorder injection: ' + data.injection_status + (data.injection_message ? ' - ' + data.injection_message : '');
       currentUrlEl.textContent = 'Current URL: ' + (data.current_url || 'none');
       render();
     }
@@ -323,6 +362,7 @@ function htmlPage(demoUrl) {
       const data = await res.json(); log('start: ' + JSON.stringify(data)); await refresh();
     });
     document.getElementById('stop').addEventListener('click', async () => { const data = await (await fetch('/api/stop-recording', { method: 'POST' })).json(); log('stop: ' + JSON.stringify(data)); await refresh(); });
+    document.getElementById('inject').addEventListener('click', async () => { const res = await fetch('/api/inject-recorder', { method: 'POST' }); const data = await res.json(); log('inject: ' + JSON.stringify(data)); evidenceEl.textContent = JSON.stringify(data, null, 2); await refresh(); });
     document.getElementById('run-all').addEventListener('click', async () => { const data = await (await fetch('/api/run', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ fromIndex: 0 }) })).json(); evidenceEl.textContent = JSON.stringify(data, null, 2); log('run all: ' + data.status); await refresh(); });
     document.getElementById('run-from').addEventListener('click', async () => { const data = await (await fetch('/api/run', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ fromIndex: selected }) })).json(); evidenceEl.textContent = JSON.stringify(data, null, 2); log('run from: ' + data.status); await refresh(); });
     document.getElementById('stop-run').addEventListener('click', async () => { const data = await (await fetch('/api/stop-run', { method: 'POST' })).json(); log('stop run: ' + JSON.stringify(data)); });
@@ -367,10 +407,11 @@ async function startStudioServer(port = 8879) {
         return;
       }
       if (req.method === "GET" && url.pathname === "/api/state") {
-        sendJson(res, { actions, browser_status: browser && browser.isConnected() ? "open" : "closed", current_url: page && !page.isClosed() ? page.url() : "" });
+        sendJson(res, { actions, browser_status: browser && browser.isConnected() ? "open" : "closed", current_url: page && !page.isClosed() ? page.url() : "", injection_status: injectionStatus, injection_message: injectionMessage });
         return;
       }
       if (req.method === "POST" && url.pathname === "/api/start-recording") { const body = await readBody(req); await launchBrowser({ url: body.url, headed: true }); const out = await startRecording(); sendJson(res, out); return; }
+      if (req.method === "POST" && url.pathname === "/api/inject-recorder") { sendJson(res, await installRecorder(page)); return; }
       if (req.method === "POST" && url.pathname === "/api/stop-recording") { sendJson(res, await stopRecording()); return; }
       if (req.method === "POST" && url.pathname === "/api/run") { const body = await readBody(req); sendJson(res, await runSteps(body.fromIndex || 0)); return; }
       if (req.method === "POST" && url.pathname === "/api/stop-run") { running = false; sendJson(res, { status: "stopping" }); return; }
@@ -392,6 +433,7 @@ async function runSmoke() {
   try {
     await launchBrowser({ url: demoUrl, headed: true });
     await startRecording();
+    if (injectionStatus !== "recording active") throw new Error("Recorder injection did not become recording active");
     await page.click("#pm15-message");
     await page.keyboard.type("Hello");
     await page.keyboard.type(" from PM15");
@@ -419,7 +461,7 @@ async function runSmoke() {
     await stopRecording();
     if (actions.length <= actionSnapshot.length) throw new Error("Continuation recording did not append steps");
     const saved = saveWorkflow();
-    return { status: "pass", headed: true, browser_open: browser.isConnected(), workflow_json: saved.workflow_json, artifacts: saved.artifacts, actions };
+    return { status: "pass", headed: true, browser_open: browser.isConnected(), workflow_json: saved.workflow_json, artifacts: saved.artifacts, actions, injection_status: injectionStatus };
   } finally {
     await closeBrowser();
     await new Promise((resolve) => server.close(resolve));

@@ -49,6 +49,7 @@ def _assert_workflow(result: dict[str, object]) -> None:
     assert result.get("status") == "pass", result
     assert result.get("headed") is True, result
     assert result.get("browser_open") is True, result
+    assert result.get("injection_status") in {"injected", "recording active"}, result
     workflow_path = Path(str(result.get("workflow_json")))
     assert workflow_path.exists() and workflow_path.stat().st_size > 0, workflow_path
     workflow = json.loads(workflow_path.read_text(encoding="utf-8"))
@@ -118,6 +119,12 @@ def dev_smoke() -> None:
             "Run From Selected Step",
             "Save Workflow JSON",
             "highlightStep",
+            "injectionStatus",
+            "Inject Recorder / Reattach",
+            "page changed, reinjection needed",
+            "injection failed",
+            "recording active",
+            "Recorder injection failed",
             "TypeSecret",
             "secret_ref",
             "headless: !headed",
@@ -132,6 +139,9 @@ def dev_smoke() -> None:
             "Run From Selected Step",
             "TypeSecret",
             "secret_ref",
+            "script injection",
+            "GameStop",
+            "GUDID",
             "Universal external website support",
             "CAPTCHA",
             "anti-bot",
