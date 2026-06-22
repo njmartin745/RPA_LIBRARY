@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PM15 Playwright Recorder Demo</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 32px; color: #182534; }
+      main { max-width: 760px; }
+      label { display: block; font-weight: 700; margin-top: 16px; }
+      input { box-sizing: border-box; display: block; font-size: 16px; margin-top: 6px; padding: 10px; width: 100%; }
+      button { background: #1769aa; border: 0; border-radius: 6px; color: white; cursor: pointer; font-weight: 700; margin-top: 16px; padding: 10px 14px; }
+      #pm15-result { background: #f0f7ff; border: 1px solid #bfd6ef; border-radius: 6px; margin-top: 20px; padding: 12px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>PM15 Playwright Recorder Target</h1>
+      <p>This deterministic local page is used for Playwright controlled-browser recording and replay.</p>
+
+      <label for="pm15-message">Message</label>
+      <input id="pm15-message" name="message" data-testid="pm15-message" aria-label="PM15 message" placeholder="Type a message">
+
+      <label for="pm15-reference">Reference input</label>
+      <input id="pm15-reference" name="reference" data-testid="pm15-reference" aria-label="PM15 reference" placeholder="Second input proves selectors are not generic">
+
+      <label for="pm15-secret">Password safety field</label>
+      <input id="pm15-secret" name="secret_demo" type="password" data-testid="pm15-secret" placeholder="Password value must not be saved">
+
+      <button id="pm15-submit" data-testid="pm15-submit" type="button">Submit PM15 message</button>
+      <div id="pm15-result" data-testid="pm15-result" aria-live="polite">No message submitted yet.</div>
+    </main>
+    <script>
+      document.getElementById("pm15-submit").addEventListener("click", () => {
+        const message = document.getElementById("pm15-message").value;
+        const result = document.getElementById("pm15-result");
+        result.textContent = "Submitted PM15 message: " + message;
+        result.setAttribute("data-result-ready", "true");
+      });
+    </script>
+  </body>
+</html>

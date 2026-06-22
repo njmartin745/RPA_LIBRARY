@@ -1,0 +1,151 @@
+# Production Milestone 15: Playwright Controlled Browser Recorder
+
+## What PM15 Adds
+
+Production Milestone 15 adds an experimental Playwright-powered controlled
+browser recorder for RPA Studio. It launches a real headed Edge or Chromium
+browser, captures Click and Type actions, keeps the browser open after stopping
+recording, replays recorded steps, supports replay from a selected step, allows
+recording continuation after replay, saves workflow JSON, and can highlight the
+element for a selected recorded step.
+
+This is not production-ready. It is a controlled browser recorder spike.
+
+## How To Launch
+
+```powershell
+python dev/rpa_studio_playwright_recorder.py serve
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8879/
+```
+
+## Local Setup Notes
+
+Node.js is required for the PM15 Playwright recorder. Playwright must be
+available to the Node process through normal local Node module resolution or
+through an explicit `RPA_STUDIO_NODE_PATH`.
+
+Lookup order:
+
+1. `RPA_STUDIO_NODE_EXE`, if set.
+2. `node` from `PATH`.
+3. Codex runtime Node, only if present.
+
+Module path behavior:
+
+1. `RPA_STUDIO_NODE_PATH`, if set.
+2. Normal Node module resolution.
+3. Codex runtime `node_modules`, only if present.
+
+The Codex runtime fallback is a development fallback, not a stable user
+dependency. Local users should install Node.js and Playwright locally or set
+`RPA_STUDIO_NODE_EXE` / `RPA_STUDIO_NODE_PATH` explicitly.
+
+## Manual Demo Steps
+
+1. Launch `python dev/rpa_studio_playwright_recorder.py serve`.
+2. Open the Studio URL.
+3. Click `Start Recording`; Studio opens a headed Edge/Chromium browser if needed.
+4. Navigate or use the prefilled local demo page.
+5. Type and click in the controlled browser.
+6. Click `Stop Recording`; the browser remains open.
+7. Click `Run All` to replay recorded steps.
+8. Select a recorded step and click `Run From Selected Step`.
+9. Click a recorded step to highlight the target element in the browser.
+10. Click `Start Recording` again and add more steps.
+11. Click `Save Workflow JSON`.
+
+## Injection Status And External Pages
+
+PM15 recording depends on successful Playwright script injection into the active
+page. Studio reports recorder injection state explicitly:
+
+- `not injected`
+- `injected`
+- `recording active`
+- `page changed, reinjection needed`
+- `injection failed`
+
+When recording is active and the page changes, Studio attempts recorder
+reinjection. If navigation fails, for example with a browser error such as
+`net::ERR_CONNECTION_RESET`, or if script injection is blocked, Studio should
+show a clear failure in the UI and Live Log instead of pretending recording
+succeeded.
+
+The `Inject Recorder / Reattach` control can be used to manually retry
+injection on the active controlled-browser page.
+
+Some sites may block navigation or script injection. GameStop and GUDID are not
+guaranteed or proven by PM15 unless manually validated in a specific environment.
+Production use requires later selector hardening and site-specific validation.
+
+## Selector Strategy
+
+PM15 records selector metadata for Click, Type, and TypeSecret actions. Click
+and Type capture use the same selector selection path so that clicking into a
+text field and typing into that same field should produce the same stable
+selector.
+
+Selector priority is:
+
+1. `id`
+2. `data-testid`
+3. `name`
+4. `aria-label`
+5. `placeholder`
+6. tag plus safe attributes such as submit/button `type` and label `value`
+7. `nth-of-type` path as a last-resort fragile selector
+
+Recorded actions include `selector_quality` and `selector_candidates`. Selector
+quality can be `strong`, `usable`, `fragile`, or `ambiguous`. PM15 avoids bare
+generic selectors such as `input`, `button`, `div`, or `span`. If replay sees an
+ambiguous selector, it fails with a clear message: `Selector is ambiguous;
+refine selector before replay.`
+
+## What Is Visibly Demoable Now
+
+- Real headed Edge/Chromium browser launch through Playwright.
+- Navigate, Click, Type, and TypeSecret/redacted capture.
+- Type capture collapsed to one final Type action per field interaction.
+- Browser remains open after Stop Recording and replay.
+- Run all steps.
+- Run from selected step.
+- Append more recording after replay.
+- Highlight selected step target element.
+- Workflow JSON preview and saved workflow artifacts.
+
+## What Remains Deferred
+
+- Production readiness.
+- Universal external website support.
+- Guaranteed GameStop or GUDID recording support.
+- CAPTCHA, anti-bot, login challenge, or security restriction bypass.
+- Credential vault.
+- Downloads.
+- Retry/resume orchestration.
+- Scheduling.
+- Multi-agent execution.
+- Production RUN/PIPE/ACT execution of recorded Playwright actions.
+
+## Safety
+
+PM15 does not capture cookies, tokens, localStorage, sessionStorage, hidden input
+values, raw page HTML, or raw password values. Password fields are recorded as
+`TypeSecret` actions with a placeholder `secret_ref`.
+
+## Artifacts
+
+Generated artifacts are written under ignored directories:
+
+```text
+dev/_smoke_artifacts/rpa_studio_playwright_recorder/run_<time_ns>_<pid>/
+```
+
+Artifacts include:
+
+- `workflow/recorded_workflow.json`
+- `logs/run.jsonl`
