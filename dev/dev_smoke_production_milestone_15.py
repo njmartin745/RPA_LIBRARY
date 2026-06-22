@@ -123,6 +123,7 @@ def dev_smoke() -> None:
             "Inject Recorder / Reattach",
             "page changed, reinjection needed",
             "injection failed",
+            "Browser loaded an error page",
             "recording active",
             "Recorder injection failed",
             "TypeSecret",

@@ -39,6 +39,10 @@ function setInjectionStatus(status, message = "") {
   return { injection_status: injectionStatus, injection_message: injectionMessage };
 }
 
+function isBrowserErrorUrl(url = "") {
+  return String(url).startsWith("chrome-error://");
+}
+
 function uniqueRunDir() {
   fs.mkdirSync(OUT_ROOT, { recursive: true });
   const dir = path.join(OUT_ROOT, `run_${process.hrtime.bigint()}_${process.pid}`);
@@ -157,11 +161,17 @@ async function launchBrowser({ url, headed = true } = {}) {
   if (!page || page.isClosed()) {
     page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
     page.on("framenavigated", async (frame) => {
+      const currentUrl = page.url();
       if (frame === page.mainFrame()) {
+        if (isBrowserErrorUrl(currentUrl)) {
+          recording = false;
+          setInjectionStatus("injection failed", "Browser loaded an error page; navigation or recorder injection is unavailable for this URL.");
+          return;
+        }
         setInjectionStatus("page changed, reinjection needed", "Page changed; recorder must be reinjected for this page.");
       }
       if (frame === page.mainFrame() && recording) {
-        appendAction({ type: "Navigate", url: page.url(), label: "Navigate" });
+        appendAction({ type: "Navigate", url: currentUrl, label: "Navigate" });
         try {
           await installRecorder(page);
         } catch (error) {
