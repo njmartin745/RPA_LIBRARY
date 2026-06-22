@@ -85,6 +85,8 @@ def _assert_viewer_file_scope() -> None:
     assert "REGISTRY/action_registry.json" not in text
     assert "_smoke_artifacts" in text and "DEFAULT_OUTPUT_ROOT" in text
     lowered_ui = text.lower()
+    assert "RPA Studio Lite — PM13" in text
+    assert "PM13 · Local Sample Runner" in text
     assert "run controlled local sample" in lowered_ui
     assert "edited workflow json can be saved but is not executed" in lowered_ui
     assert "current pm13 behavior" in lowered_ui

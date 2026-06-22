@@ -129,6 +129,11 @@ def dev_smoke() -> None:
         RECORDER_JS,
         [
             "RPA Studio Playwright Recorder",
+            "RPA Studio Playwright Recorder — PM15",
+            "PM15 · Playwright Controlled Browser Recorder",
+            "Recorder mode: Playwright controlled browser",
+            "Replay mode: Playwright recorder replay",
+            "Status: experimental / not production-ready",
             "Start Recording",
             "Run All",
             "Run From Selected Step",

@@ -354,7 +354,7 @@ function htmlPage(demoUrl) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPA Studio Playwright Recorder</title>
+  <title>RPA Studio Playwright Recorder — PM15</title>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #eef2f6; color: #182534; }
     header { background: #123b5d; color: #fff; padding: 18px 22px; }
@@ -363,6 +363,9 @@ function htmlPage(demoUrl) {
     button { border: 0; border-radius: 6px; background: #1769aa; color: white; cursor: pointer; font-weight: 700; margin: 5px 4px 5px 0; padding: 8px 10px; }
     button.secondary { background: #586677; }
     button.danger { background: #9b2d30; }
+    .badge { display: inline-block; background: #dbeafe; border: 1px solid #93c5fd; border-radius: 999px; color: #123b5d; font-weight: 700; margin-bottom: 8px; padding: 5px 10px; }
+    .mode-details { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .mode-details span { background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.32); border-radius: 6px; padding: 5px 8px; }
     input { box-sizing: border-box; border: 1px solid #aab6c5; border-radius: 6px; padding: 8px; width: 100%; }
     textarea, pre { box-sizing: border-box; width: 100%; min-height: 220px; overflow: auto; white-space: pre-wrap; background: #f8fafc; border: 1px solid #d6dee8; border-radius: 6px; padding: 10px; }
     .notice { background: #fff7d6; border: 1px solid #dec35f; border-radius: 6px; padding: 9px; }
@@ -374,8 +377,14 @@ function htmlPage(demoUrl) {
 </head>
 <body>
   <header>
-    <h1>RPA Studio Playwright Recorder</h1>
+    <div class="badge">PM15 · Playwright Controlled Browser Recorder</div>
+    <h1>RPA Studio Playwright Recorder — PM15</h1>
     <p>Experimental controlled browser recorder. Not production-ready.</p>
+    <div class="mode-details">
+      <span>Recorder mode: Playwright controlled browser</span>
+      <span>Replay mode: Playwright recorder replay</span>
+      <span>Status: experimental / not production-ready</span>
+    </div>
   </header>
   <main>
     <section>

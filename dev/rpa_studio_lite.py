@@ -505,7 +505,7 @@ def _html_page() -> str:
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>RPA Studio Lite</title>
+    <title>RPA Studio Lite — PM13</title>
     <style>
       body {{ margin: 0; font-family: Arial, sans-serif; background: #f4f6f8; color: #17202a; }}
       header {{ background: #123b5d; color: white; padding: 22px 28px; }}
@@ -516,6 +516,7 @@ def _html_page() -> str:
       textarea {{ min-height: 340px; font-family: Consolas, monospace; font-size: 13px; }}
       button {{ border: 0; border-radius: 6px; background: #1261a6; color: white; cursor: pointer; font-weight: 700; margin: 10px 8px 0 0; padding: 9px 12px; }}
       button.secondary {{ background: #4f5d6b; }}
+      .badge {{ display: inline-block; background: #dbeafe; border: 1px solid #93c5fd; border-radius: 999px; color: #123b5d; font-weight: 700; margin-bottom: 8px; padding: 5px 10px; }}
       .notice {{ background: #fff7dd; border: 1px solid #e2c35d; border-radius: 6px; padding: 10px; }}
       .result {{ background: #f9fbfd; border: 1px solid #d8dee8; border-radius: 6px; margin-top: 12px; padding: 12px; white-space: pre-wrap; }}
       .actions {{ margin-top: 12px; padding-left: 18px; }}
@@ -524,7 +525,8 @@ def _html_page() -> str:
   </head>
   <body>
     <header>
-      <h1>RPA Studio Lite</h1>
+      <div class="badge">PM13 · Local Sample Runner</div>
+      <h1>RPA Studio Lite — PM13</h1>
       <p>Build and run a controlled local automation proof.</p>
     </header>
     <main>

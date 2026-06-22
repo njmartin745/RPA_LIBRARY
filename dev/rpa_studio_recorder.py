@@ -225,7 +225,7 @@ def _studio_html(host: str, port: int) -> str:
   <head>
     <meta charset=\"utf-8\">
     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
-    <title>RPA Studio Recorder MVP</title>
+    <title>RPA Studio Recorder MVP — PM14</title>
     <style>
       body {{ margin: 0; font-family: Arial, sans-serif; background: #eef2f6; color: #182534; }}
       header {{ background: #123b5d; color: #fff; padding: 18px 22px; }}
@@ -234,6 +234,7 @@ def _studio_html(host: str, port: int) -> str:
       button {{ border: 0; border-radius: 6px; background: #1769aa; color: white; cursor: pointer; font-weight: 700; margin: 5px 4px 5px 0; padding: 8px 10px; }}
       button.secondary {{ background: #586677; }}
       button.danger {{ background: #9b2d30; }}
+      .badge {{ display: inline-block; background: #dbeafe; border: 1px solid #93c5fd; border-radius: 999px; color: #123b5d; font-weight: 700; margin-bottom: 8px; padding: 5px 10px; }}
       input {{ box-sizing: border-box; border: 1px solid #aab6c5; border-radius: 6px; padding: 8px; width: 100%; }}
       iframe {{ width: 100%; min-height: 650px; height: calc(100vh - 260px); border: 1px solid #aab6c5; border-radius: 8px; background: #fff; }}
       textarea, pre {{ box-sizing: border-box; width: 100%; min-height: 180px; overflow: auto; white-space: pre-wrap; background: #f8fafc; border: 1px solid #d6dee8; border-radius: 6px; padding: 10px; }}
@@ -250,7 +251,8 @@ def _studio_html(host: str, port: int) -> str:
   </head>
   <body>
     <header>
-      <h1>RPA Studio Recorder MVP</h1>
+      <div class=\"badge\">PM14 · Embedded Local Recorder</div>
+      <h1>RPA Studio Recorder MVP — PM14</h1>
       <p>Embedded browser recorder for a controlled local/static demo page.</p>
     </header>
     <main>
