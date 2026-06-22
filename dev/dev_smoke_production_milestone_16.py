@@ -54,6 +54,16 @@ def _assert_pm16_result(result: dict[str, object]) -> None:
     assert any(action.get("type") == "Wait Seconds" and action.get("seconds") == 1 and action.get("enabled") is True for action in actions), actions
     assert any(action.get("enabled") is False for action in actions), actions
     assert any(action.get("type") == "TypeSecret" and action.get("secret_ref") for action in actions), actions
+    anchor_clicks = [action for action in actions if action.get("type") == "Click" and action.get("selector") == "#anch_49"]
+    assert anchor_clicks and anchor_clicks[0].get("selector_quality") == "strong", actions
+    assert "#anch_49 > h3:nth-of-type" not in json.dumps(workflow), workflow
+    assert not any(
+        action.get("type") == "Navigate"
+        and index > 0
+        and actions[index - 1].get("type") == "Navigate"
+        and actions[index - 1].get("url") == action.get("url")
+        for index, action in enumerate(actions)
+    ), actions
     assert "PM16 text that must be removed" not in json.dumps(workflow), workflow
 
     type_secret_index = next(index for index, action in enumerate(actions) if action.get("type") == "TypeSecret")
@@ -62,6 +72,7 @@ def _assert_pm16_result(result: dict[str, object]) -> None:
 
     run_log = result.get("run_log")
     assert isinstance(run_log, list) and run_log, result
+    assert any(entry.get("action") == "Click" and entry.get("wait_before", {}).get("selector") for entry in run_log), run_log
     assert any(entry.get("status") == "skipped" and entry.get("message") == "Step disabled in edited workflow." for entry in run_log), run_log
     assert any(entry.get("action") == "TypeSecret" and entry.get("status") == "skipped" and "credential vault" in entry.get("message", "") for entry in run_log), run_log
 
@@ -106,7 +117,8 @@ def dev_smoke() -> None:
             "RPA Studio Step Editor &mdash; PM16",
             "PM16 &middot; Recorder Step Editing MVP",
             "Delete Step",
-            "Add Wait for this element",
+            "Replay automatically waits for each action's target element before interacting",
+            "Add Explicit Wait for Selected Element",
             "Add Wait Seconds",
             "Mark Type as Secret / Password",
             "Enable / Disable Step",
@@ -115,6 +127,8 @@ def dev_smoke() -> None:
             "/api/edit-step",
             "Step disabled in edited workflow",
             "Secret value unavailable; no credential vault configured.",
+            "coalesced duplicate Navigate",
+            "isClickableCandidate",
             "run-pm16-smoke",
         ],
     )
@@ -127,6 +141,9 @@ def dev_smoke() -> None:
             "Wait Seconds",
             "TypeSecret",
             "credential vault",
+            "default readiness wait",
+            "clickable ancestors",
+            "deduped",
             "Generated artifacts remain under ignored",
         ],
     )

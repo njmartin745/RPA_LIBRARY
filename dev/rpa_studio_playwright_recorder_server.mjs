@@ -82,11 +82,22 @@ function appendAction(action) {
     timestamp_ms: nowMs(),
     source_url: page ? page.url() : action.source_url || "",
   };
+  const previous = actions[actions.length - 1];
+  if (next.type === "Navigate" && previous && previous.type === "Navigate" && previous.url === next.url) {
+    previous.timestamp_ms = next.timestamp_ms;
+    previous.source_url = next.source_url;
+    previous.label = next.label || previous.label;
+    if (next.caused_by_step) previous.caused_by_step = next.caused_by_step;
+    log("coalesced duplicate Navigate", { url: next.url });
+    return;
+  }
   if (next.selector && !next.selector_quality) {
     next.selector_quality = isBareGenericSelector(next.selector) ? "ambiguous" : "usable";
   }
+  if (["Click", "Type", "TypeSecret", "Wait for Selector"].includes(next.type) && next.selector && !next.wait_before) {
+    next.wait_before = { type: "selector", selector: next.selector, state: "visible", timeout: 10 };
+  }
   if (next.type === "Type" || next.type === "TypeSecret") {
-    const previous = actions[actions.length - 1];
     if (previous && previous.type === next.type && previous.selector === next.selector) {
       next.order = previous.order;
       actions[actions.length - 1] = next;
@@ -143,6 +154,7 @@ function editStep({ operation, index = 0, position = "after" } = {}) {
       selector_candidates: current.action.selector_candidates || [],
       timeout: 10,
       enabled: true,
+      wait_before: { type: "selector", selector: current.action.selector, state: "visible", timeout: 10 },
       label: "Wait for selected element",
       timestamp_ms: nowMs(),
       source_url: page ? page.url() : current.action.source_url || "",
@@ -222,6 +234,19 @@ const RECORDER_INIT_SCRIPT = `
   function attrEscape(value) {
     return String(value).replace(/\\\\/g, "\\\\\\\\").replace(/'/g, "\\\\'");
   }
+  function isClickableCandidate(el) {
+    if (!el || !el.tagName) return false;
+    const tag = el.tagName.toLowerCase();
+    const role = (el.getAttribute("role") || "").toLowerCase();
+    const type = (el.getAttribute("type") || "").toLowerCase();
+    return tag === "a"
+      || tag === "button"
+      || role === "button"
+      || role === "link"
+      || role === "menuitem"
+      || role === "tab"
+      || (tag === "input" && ["button", "submit", "reset", "checkbox", "radio"].includes(type));
+  }
   function addCandidate(candidates, selector, quality, reason) {
     if (!selector || candidates.some((candidate) => candidate.selector === selector)) return;
     let count = 0;
@@ -248,7 +273,7 @@ const RECORDER_INIT_SCRIPT = `
     }
     return parts.join(" > ");
   }
-  function selectorFor(el) {
+  function selectorForElement(el) {
     if (!el || !el.tagName) return { selector: "", selector_quality: "ambiguous", selector_candidates: [] };
     const tag = el.tagName.toLowerCase();
     const type = (el.getAttribute("type") || "").toLowerCase();
@@ -276,13 +301,25 @@ const RECORDER_INIT_SCRIPT = `
       selector_candidates: candidates.slice(0, 8),
     };
   }
+  function selectorFor(el, options = {}) {
+    if (!options.preferClickableAncestor) return selectorForElement(el);
+    let node = el;
+    while (node && node !== document.documentElement) {
+      if (isClickableCandidate(node)) {
+        const candidate = selectorForElement(node);
+        if (candidate.selector_quality === "strong" || candidate.selector_quality === "usable") return candidate;
+      }
+      node = node.parentElement;
+    }
+    return selectorForElement(el);
+  }
   function labelFor(el) {
     return ((el && (el.getAttribute("aria-label") || el.getAttribute("placeholder") || el.innerText || el.value)) || "").toString().slice(0, 80);
   }
   document.addEventListener("click", (event) => {
     const el = event.target;
     if (!el || el.type === "hidden" || el.type === "password") return;
-    window.__rpaPwRecord({ type: "Click", ...selectorFor(el), label: labelFor(el) });
+    window.__rpaPwRecord({ type: "Click", ...selectorFor(el, { preferClickableAncestor: true }), label: labelFor(el) });
   }, true);
   document.addEventListener("input", (event) => {
     const el = event.target;
@@ -388,6 +425,22 @@ async function locatorForAction(action) {
   return locator;
 }
 
+async function waitBeforeAction(action) {
+  if (!["Click", "Type", "TypeSecret", "Wait for Selector"].includes(action.type) || !action.selector) return { waited: false };
+  const waitBefore = action.wait_before && action.wait_before.type === "selector"
+    ? action.wait_before
+    : { type: "selector", selector: action.selector, state: "visible", timeout: 10 };
+  const selector = waitBefore.selector || action.selector;
+  const timeoutMs = (Number(waitBefore.timeout) || 10) * 1000;
+  const locator = page.locator(selector);
+  await locator.waitFor({ state: waitBefore.state || "visible", timeout: timeoutMs });
+  if (action.type === "Type" || action.type === "TypeSecret") {
+    const editableCount = await locator.count();
+    if (editableCount === 1) await locator.waitFor({ state: "visible", timeout: timeoutMs });
+  }
+  return { waited: true, selector, state: waitBefore.state || "visible", timeout: Number(waitBefore.timeout) || 10 };
+}
+
 async function runSteps(fromIndex = 0) {
   if (!page || page.isClosed()) throw new Error("No controlled browser page is open.");
   running = true;
@@ -401,6 +454,7 @@ async function runSteps(fromIndex = 0) {
         continue;
       }
       if (action.type === "Navigate") await page.goto(action.url);
+      const waitInfo = await waitBeforeAction(action);
       if (action.type === "Click") await (await locatorForAction(action)).click({ timeout: 4000 });
       if (action.type === "Type") await (await locatorForAction(action)).fill(action.text || "", { timeout: 4000 });
       if (action.type === "TypeSecret") {
@@ -411,7 +465,7 @@ async function runSteps(fromIndex = 0) {
       }
       if (action.type === "Wait for Selector") await (await locatorForAction(action)).waitFor({ timeout: (Number(action.timeout) || 10) * 1000 });
       if (action.type === "Wait Seconds") await page.waitForTimeout((Number(action.seconds) || 1) * 1000);
-      runLog.push({ step_index: i, status: "ok", action: action.type, selector: action.selector || "", url: action.url || "" });
+      runLog.push({ step_index: i, status: "ok", action: action.type, selector: action.selector || "", url: action.url || "", wait_before: waitInfo.waited ? waitInfo : undefined });
     } catch (error) {
       running = false;
       const failed = { step_index: i, status: "error", action: action.type, selector: action.selector || "", error: String(error) };
@@ -523,10 +577,11 @@ function htmlPage(demoUrl) {
       <p id="current-url">Current URL: none</p>
       <div class="editor-panel">
         <h3>Step Editing</h3>
+        <p>Replay automatically waits for each action's target element before interacting. Use explicit waits for unusual pacing or custom readiness.</p>
         <p>Selected step: <span id="selected-step">0</span></p>
         <button id="delete-step" class="danger">Delete Step</button>
-        <button id="wait-selector-before" class="secondary">Add Wait for this element before</button>
-        <button id="wait-selector-after" class="secondary">Add Wait for this element after</button>
+        <button id="wait-selector-before" class="secondary">Add Explicit Wait for Selected Element before</button>
+        <button id="wait-selector-after" class="secondary">Add Explicit Wait for Selected Element after</button>
         <button id="wait-seconds-before" class="secondary">Add Wait Seconds before</button>
         <button id="wait-seconds-after" class="secondary">Add Wait Seconds after</button>
         <button id="mark-secret" class="secondary">Mark Type as Secret / Password</button>
@@ -689,6 +744,7 @@ async function runSmoke() {
     await page.click("#pm15-secret");
     await page.keyboard.type("NeverStoreMe123!");
     await page.click("#pm15-submit");
+    await page.click("#anch_49 h3");
     await stopRecording();
     const actionSnapshot = actions.map((action) => ({ ...action }));
     const genericSelector = actionSnapshot.find((action) => ["input", "button", "div", "span"].includes(String(action.selector || "").toLowerCase()));
@@ -702,8 +758,14 @@ async function runSmoke() {
     if (!Array.isArray(typeActions[0].selector_candidates) || !typeActions[0].selector_candidates.length) throw new Error("Type selector candidates were not captured");
     const secretActions = actionSnapshot.filter((action) => action.type === "TypeSecret");
     if (!secretActions.length || JSON.stringify(actionSnapshot).includes("NeverStoreMe")) throw new Error("Password value was captured");
+    const anchorClick = actionSnapshot.find((action) => action.type === "Click" && action.selector === "#anch_49");
+    if (!anchorClick || anchorClick.selector_quality !== "strong" || anchorClick.label !== "Device Characteristics") throw new Error("Clickable ancestor selector was not preferred: " + JSON.stringify(actionSnapshot));
+    if (JSON.stringify(actionSnapshot).includes("#anch_49 > h3:nth-of-type")) throw new Error("Fragile child selector was recorded for clickable ancestor");
+    const adjacentDuplicateNavigate = actionSnapshot.some((action, index) => index > 0 && action.type === "Navigate" && actionSnapshot[index - 1].type === "Navigate" && action.url === actionSnapshot[index - 1].url);
+    if (adjacentDuplicateNavigate) throw new Error("Adjacent duplicate Navigate actions were not deduped: " + JSON.stringify(actionSnapshot));
     const allRun = await runSteps(0);
     if (allRun.status !== "pass") throw new Error("Replay all failed: " + JSON.stringify(allRun));
+    if (!allRun.run_log.some((entry) => entry.action === "Click" && entry.selector === "#pm15-submit" && entry.wait_before && entry.wait_before.selector === "#pm15-submit")) throw new Error("Default readiness wait was not logged before click replay: " + JSON.stringify(allRun));
     const fromIndex = actions.findIndex((action) => action.type === "Click" && action.selector === "#pm15-submit");
     const fromRun = await runSteps(fromIndex);
     if (fromRun.status !== "pass") throw new Error("Replay from selected step failed: " + JSON.stringify(fromRun));
@@ -734,11 +796,18 @@ async function runPm16Smoke() {
     await page.click("#pm15-message");
     await page.keyboard.type(rawSecretText);
     await page.click("#pm15-reference");
+    await page.click("#anch_49 h3");
     await page.click("#pm15-submit");
     await stopRecording();
 
     if (!actions.some((action) => action.type === "Type" && action.selector === "#pm15-message")) throw new Error("Sample Type action was not recorded");
     if (!actions.some((action) => action.type === "Click" && action.selector === "#pm15-submit")) throw new Error("Sample Click action was not recorded");
+    const anchorClick = actions.find((action) => action.type === "Click" && action.selector === "#anch_49");
+    if (!anchorClick || anchorClick.selector_quality !== "strong") throw new Error("Clickable ancestor selector was not recorded for PM16 smoke: " + JSON.stringify(actions));
+    if (JSON.stringify(actions).includes("#anch_49 > h3:nth-of-type")) throw new Error("Fragile child selector was recorded in PM16 smoke");
+    appendAction({ type: "Navigate", url: page.url(), label: "Duplicate navigation test" });
+    const adjacentDuplicateNavigate = actions.some((action, index) => index > 0 && action.type === "Navigate" && actions[index - 1].type === "Navigate" && action.url === actions[index - 1].url);
+    if (adjacentDuplicateNavigate) throw new Error("Adjacent duplicate Navigate actions were not deduped in PM16 smoke");
 
     const referenceIndex = actions.findIndex((action) => action.type === "Click" && action.selector === "#pm15-reference");
     editStep({ operation: "delete", index: referenceIndex });
@@ -769,6 +838,7 @@ async function runPm16Smoke() {
 
     const runResult = await runSteps(0);
     if (runResult.status !== "pass") throw new Error("Edited workflow replay failed: " + JSON.stringify(runResult));
+    if (!runResult.run_log.some((entry) => entry.action === "Click" && entry.wait_before && entry.wait_before.selector)) throw new Error("Default readiness wait was not applied before replay interaction");
     if (!runResult.run_log.some((entry) => entry.status === "skipped" && entry.message === "Step disabled in edited workflow.")) throw new Error("Disabled step was not skipped in run log");
     if (!runResult.run_log.some((entry) => entry.action === "TypeSecret" && entry.status === "skipped")) throw new Error("Secret step did not produce clear skipped replay log");
 

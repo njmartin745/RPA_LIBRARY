@@ -10,7 +10,7 @@ The UI now shows:
 - `RPA Studio Step Editor - PM16`
 - `PM16 - Recorder Step Editing MVP`
 - delete selected step
-- insert `Wait for Selector` before or after the selected step
+- insert explicit/custom `Wait for Selector` before or after the selected step
 - insert `Wait Seconds` before or after the selected step
 - mark a Type step as Secret / Password
 - enable or disable a step
@@ -49,7 +49,10 @@ http://127.0.0.1:8879/
 
 - Recorded workflows can be edited before replay.
 - Disabled steps remain in workflow JSON with `enabled: false`.
-- `Wait for Selector` and `Wait Seconds` steps are honored by replay.
+- Replay applies a default readiness wait before target interactions.
+- Explicit `Wait for Selector` and `Wait Seconds` steps are honored by replay.
+- Adjacent duplicate `Navigate` actions to the same URL are deduped.
+- Click capture prefers stable clickable ancestors over fragile child selectors.
 - Type steps can be converted to redacted `TypeSecret` steps.
 - Saved edited workflow JSON omits raw secret text.
 - Selected steps can still highlight target elements where selectors resolve.
@@ -72,3 +75,40 @@ the raw `text` field is removed, `TypeSecret` is used, and a placeholder
 vault exists yet.
 
 Generated artifacts remain under ignored `dev/_smoke_artifacts/` paths.
+
+## Replay Readiness And Explicit Waits
+
+Replay automatically waits for each target element before normal interaction
+steps. For Click, Type, TypeSecret, and Wait for Selector actions, the recorder
+uses a default readiness wait equivalent to:
+
+```json
+{
+  "wait_before": {
+    "type": "selector",
+    "selector": "the action selector",
+    "state": "visible",
+    "timeout": 10
+  }
+}
+```
+
+Explicit waits remain available for unusual pacing or custom readiness, but they
+are no longer the default way to make every normal interaction safe.
+
+## Selector And Navigation Behavior
+
+Click recording prefers stable clickable ancestors. If a user clicks a child
+element inside a stable anchor, button, or role-clickable parent, the recorder
+uses the parent selector when it is strong or usable. For example, clicking:
+
+```html
+<a id="anch_49"><h3>Device Characteristics</h3></a>
+```
+
+should record `#anch_49` with a strong selector instead of a fragile
+`#anch_49 > h3:nth-of-type(1)` child selector.
+
+Navigate actions remain useful page-transition checkpoints. Adjacent duplicate
+Navigate actions to the same URL are coalesced so they do not clutter the edited
+workflow.
