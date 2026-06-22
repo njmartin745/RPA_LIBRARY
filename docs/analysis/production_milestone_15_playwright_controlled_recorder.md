@@ -83,6 +83,29 @@ Some sites may block navigation or script injection. GameStop and GUDID are not
 guaranteed or proven by PM15 unless manually validated in a specific environment.
 Production use requires later selector hardening and site-specific validation.
 
+## Selector Strategy
+
+PM15 records selector metadata for Click, Type, and TypeSecret actions. Click
+and Type capture use the same selector selection path so that clicking into a
+text field and typing into that same field should produce the same stable
+selector.
+
+Selector priority is:
+
+1. `id`
+2. `data-testid`
+3. `name`
+4. `aria-label`
+5. `placeholder`
+6. tag plus safe attributes such as submit/button `type` and label `value`
+7. `nth-of-type` path as a last-resort fragile selector
+
+Recorded actions include `selector_quality` and `selector_candidates`. Selector
+quality can be `strong`, `usable`, `fragile`, or `ambiguous`. PM15 avoids bare
+generic selectors such as `input`, `button`, `div`, or `span`. If replay sees an
+ambiguous selector, it fails with a clear message: `Selector is ambiguous;
+refine selector before replay.`
+
 ## What Is Visibly Demoable Now
 
 - Real headed Edge/Chromium browser launch through Playwright.

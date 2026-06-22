@@ -70,6 +70,10 @@ function workflowFromActions(inputActions = actions) {
   };
 }
 
+function isBareGenericSelector(selector = "") {
+  return ["input", "button", "div", "span"].includes(String(selector).trim().toLowerCase());
+}
+
 function appendAction(action) {
   if (!recording) return;
   const next = {
@@ -78,12 +82,15 @@ function appendAction(action) {
     timestamp_ms: nowMs(),
     source_url: page ? page.url() : action.source_url || "",
   };
-  if (next.type === "Type") {
+  if (next.selector && !next.selector_quality) {
+    next.selector_quality = isBareGenericSelector(next.selector) ? "ambiguous" : "usable";
+  }
+  if (next.type === "Type" || next.type === "TypeSecret") {
     const previous = actions[actions.length - 1];
-    if (previous && previous.type === "Type" && previous.selector === next.selector) {
+    if (previous && previous.type === next.type && previous.selector === next.selector) {
       next.order = previous.order;
       actions[actions.length - 1] = next;
-      log("updated Type", { selector: next.selector });
+      log(`updated ${next.type}`, { selector: next.selector });
       return;
     }
   }
@@ -105,14 +112,66 @@ const RECORDER_INIT_SCRIPT = `
 (() => {
   if (window.__rpaPwRecorderInstalled) return;
   window.__rpaPwRecorderInstalled = true;
+  const GENERIC_SELECTORS = new Set(["input", "button", "div", "span"]);
+  function cssEscape(value) {
+    return window.CSS && CSS.escape ? CSS.escape(String(value)) : String(value).replace(/[^a-zA-Z0-9_-]/g, "\\\\$&");
+  }
+  function attrEscape(value) {
+    return String(value).replace(/\\\\/g, "\\\\\\\\").replace(/'/g, "\\\\'");
+  }
+  function addCandidate(candidates, selector, quality, reason) {
+    if (!selector || candidates.some((candidate) => candidate.selector === selector)) return;
+    let count = 0;
+    try { count = document.querySelectorAll(selector).length; } catch (_error) { return; }
+    candidates.push({ selector, quality: count === 1 ? quality : "ambiguous", count, reason });
+  }
+  function nthPath(el) {
+    const parts = [];
+    let node = el;
+    while (node && node.nodeType === 1 && node !== document.documentElement) {
+      const tag = node.tagName.toLowerCase();
+      if (node.id) {
+        parts.unshift("#" + cssEscape(node.id));
+        break;
+      }
+      const siblings = Array.from(node.parentElement ? node.parentElement.children : []).filter((sibling) => sibling.tagName === node.tagName);
+      const index = siblings.indexOf(node) + 1;
+      parts.unshift(tag + ":nth-of-type(" + index + ")");
+      node = node.parentElement;
+      if (node === document.body) {
+        parts.unshift("body");
+        break;
+      }
+    }
+    return parts.join(" > ");
+  }
   function selectorFor(el) {
-    if (!el || !el.tagName) return "";
-    if (el.id) return "#" + CSS.escape(el.id);
-    if (el.getAttribute("name")) return el.tagName.toLowerCase() + "[name='" + CSS.escape(el.getAttribute("name")) + "']";
-    if (el.getAttribute("data-testid")) return "[data-testid='" + CSS.escape(el.getAttribute("data-testid")) + "']";
-    if (el.getAttribute("aria-label")) return el.tagName.toLowerCase() + "[aria-label='" + CSS.escape(el.getAttribute("aria-label")) + "']";
-    if (el.getAttribute("placeholder")) return el.tagName.toLowerCase() + "[placeholder='" + CSS.escape(el.getAttribute("placeholder")) + "']";
-    return el.tagName.toLowerCase();
+    if (!el || !el.tagName) return { selector: "", selector_quality: "ambiguous", selector_candidates: [] };
+    const tag = el.tagName.toLowerCase();
+    const type = (el.getAttribute("type") || "").toLowerCase();
+    const candidates = [];
+    if (el.id) addCandidate(candidates, "#" + cssEscape(el.id), "strong", "id");
+    if (el.getAttribute("data-testid")) addCandidate(candidates, "[data-testid='" + attrEscape(el.getAttribute("data-testid")) + "']", "strong", "data-testid");
+    if (el.getAttribute("name")) addCandidate(candidates, tag + "[name='" + attrEscape(el.getAttribute("name")) + "']", "strong", "name");
+    if (el.getAttribute("aria-label")) addCandidate(candidates, tag + "[aria-label='" + attrEscape(el.getAttribute("aria-label")) + "']", "usable", "aria-label");
+    if (el.getAttribute("placeholder")) addCandidate(candidates, tag + "[placeholder='" + attrEscape(el.getAttribute("placeholder")) + "']", "usable", "placeholder");
+    if (type && ["button", "submit", "reset"].includes(type) && el.getAttribute("value")) {
+      addCandidate(candidates, tag + "[type='" + attrEscape(type) + "'][value='" + attrEscape(el.getAttribute("value")) + "']", "usable", "button-value");
+    }
+    if (type) addCandidate(candidates, tag + "[type='" + attrEscape(type) + "']", "usable", "type");
+    addCandidate(candidates, nthPath(el), "fragile", "nth-of-type");
+    let chosen = candidates.find((candidate) => candidate.count === 1 && candidate.quality === "strong")
+      || candidates.find((candidate) => candidate.count === 1 && candidate.quality === "usable")
+      || candidates.find((candidate) => candidate.count === 1)
+      || candidates[0]
+      || { selector: tag, quality: "ambiguous", count: 0, reason: "fallback" };
+    let selector_quality = chosen.count === 1 ? chosen.quality : "ambiguous";
+    if (GENERIC_SELECTORS.has(chosen.selector)) selector_quality = "ambiguous";
+    return {
+      selector: chosen.selector,
+      selector_quality,
+      selector_candidates: candidates.slice(0, 8),
+    };
   }
   function labelFor(el) {
     return ((el && (el.getAttribute("aria-label") || el.getAttribute("placeholder") || el.innerText || el.value)) || "").toString().slice(0, 80);
@@ -120,16 +179,16 @@ const RECORDER_INIT_SCRIPT = `
   document.addEventListener("click", (event) => {
     const el = event.target;
     if (!el || el.type === "hidden" || el.type === "password") return;
-    window.__rpaPwRecord({ type: "Click", selector: selectorFor(el), label: labelFor(el) });
+    window.__rpaPwRecord({ type: "Click", ...selectorFor(el), label: labelFor(el) });
   }, true);
   document.addEventListener("input", (event) => {
     const el = event.target;
     if (!el || el.type === "hidden") return;
     if (el.type === "password") {
-      window.__rpaPwRecord({ type: "TypeSecret", selector: selectorFor(el), secret_ref: "secret://pm15-redacted", redacted: true, label: "password field redacted" });
+      window.__rpaPwRecord({ type: "TypeSecret", ...selectorFor(el), secret_ref: "secret://pm15-redacted", redacted: true, label: "password field redacted" });
       return;
     }
-    window.__rpaPwRecord({ type: "Type", selector: selectorFor(el), text: String(el.value || ""), label: labelFor(el), redacted: false });
+    window.__rpaPwRecord({ type: "Type", ...selectorFor(el), text: String(el.value || ""), label: labelFor(el), redacted: false });
   }, true);
 })();
 `;
@@ -214,6 +273,18 @@ async function stopRecording() {
   return { status: "stopped", browser_open: Boolean(browser && browser.isConnected()), page_open: Boolean(page && !page.isClosed()), action_count: actions.length, injection_status: injectionStatus, injection_message: injectionMessage };
 }
 
+async function locatorForAction(action) {
+  if (!action.selector) throw new Error(`Step has no selector: ${action.type}`);
+  if (action.selector_quality === "ambiguous" || isBareGenericSelector(action.selector)) {
+    throw new Error(`Selector is ambiguous; refine selector before replay. Selector: ${action.selector}`);
+  }
+  const locator = page.locator(action.selector);
+  const count = await locator.count();
+  if (count > 1) throw new Error(`Selector is ambiguous; refine selector before replay. Selector: ${action.selector} matched ${count} elements.`);
+  if (count < 1) throw new Error(`Selector not found before replay. Selector: ${action.selector}`);
+  return locator;
+}
+
 async function runSteps(fromIndex = 0) {
   if (!page || page.isClosed()) throw new Error("No controlled browser page is open.");
   running = true;
@@ -223,10 +294,10 @@ async function runSteps(fromIndex = 0) {
     try {
       if (!running) throw new Error("Run stopped");
       if (action.type === "Navigate") await page.goto(action.url);
-      if (action.type === "Click") await page.locator(action.selector).click({ timeout: 4000 });
-      if (action.type === "Type") await page.locator(action.selector).fill(action.text || "", { timeout: 4000 });
+      if (action.type === "Click") await (await locatorForAction(action)).click({ timeout: 4000 });
+      if (action.type === "Type") await (await locatorForAction(action)).fill(action.text || "", { timeout: 4000 });
       if (action.type === "TypeSecret") log("skipped redacted secret replay", { selector: action.selector });
-      if (action.type === "Wait for Selector") await page.locator(action.selector).waitFor({ timeout: 4000 });
+      if (action.type === "Wait for Selector") await (await locatorForAction(action)).waitFor({ timeout: 4000 });
       runLog.push({ step_index: i, status: "ok", action: action.type, selector: action.selector || "", url: action.url || "" });
     } catch (error) {
       running = false;
@@ -244,6 +315,9 @@ async function highlightStep(index) {
   const action = actions[Number(index)];
   if (!action || !action.selector) return { status: "missing", message: "Selected step has no selector." };
   const found = await page.locator(action.selector).count();
+  if (found > 1 || action.selector_quality === "ambiguous" || isBareGenericSelector(action.selector)) {
+    return { status: "ambiguous", message: "Selector is ambiguous; refine selector before replay.", selector: action.selector, matches: found };
+  }
   if (!found) return { status: "missing", message: `Element not found: ${action.selector}` };
   await page.locator(action.selector).evaluate((el) => {
     const previous = el.getAttribute("data-rpa-old-outline") || "";
@@ -294,6 +368,7 @@ function htmlPage(demoUrl) {
     .notice { background: #fff7d6; border: 1px solid #dec35f; border-radius: 6px; padding: 9px; }
     .actions { padding-left: 20px; }
     .actions li { margin-bottom: 8px; cursor: pointer; }
+    .actions li.selector-warning { color: #9b5c00; }
     .selected { background: #dbeafe; }
   </style>
 </head>
@@ -346,8 +421,10 @@ function htmlPage(demoUrl) {
       actionsEl.innerHTML = '';
       actions.forEach((action, index) => {
         const li = document.createElement('li');
-        li.className = index === selected ? 'selected' : '';
-        li.textContent = index + ': ' + action.type + ' ' + (action.selector || action.url || '') + (action.text ? ' = ' + action.text : action.secret_ref ? ' = [secret_ref]' : '');
+        const quality = action.selector_quality ? ' [' + action.selector_quality + ']' : '';
+        const warning = action.selector_quality === 'ambiguous' || action.selector_quality === 'fragile';
+        li.className = (index === selected ? 'selected ' : '') + (warning ? 'selector-warning' : '');
+        li.textContent = index + ': ' + action.type + ' ' + (action.selector || action.url || '') + quality + (action.text ? ' = ' + action.text : action.secret_ref ? ' = [secret_ref]' : '');
         li.addEventListener('click', async () => {
           selected = index;
           render();
@@ -452,8 +529,15 @@ async function runSmoke() {
     await page.click("#pm15-submit");
     await stopRecording();
     const actionSnapshot = actions.map((action) => ({ ...action }));
+    const genericSelector = actionSnapshot.find((action) => ["input", "button", "div", "span"].includes(String(action.selector || "").toLowerCase()));
+    if (genericSelector) throw new Error("Recorder emitted a bare generic selector: " + JSON.stringify(genericSelector));
+    const messageClickActions = actionSnapshot.filter((action) => action.type === "Click" && action.selector === "#pm15-message");
+    if (messageClickActions.length !== 1) throw new Error("Message input click did not use stable selector: " + JSON.stringify(actionSnapshot));
+    if (messageClickActions[0].selector_quality !== "strong") throw new Error("Message input click selector was not strong: " + JSON.stringify(messageClickActions[0]));
     const typeActions = actionSnapshot.filter((action) => action.type === "Type" && action.selector === "#pm15-message");
     if (typeActions.length !== 1 || typeActions[0].text !== "Hello from PM15") throw new Error("Type action was not collapsed");
+    if (typeActions[0].selector_quality !== "strong") throw new Error("Type selector was not strong: " + JSON.stringify(typeActions[0]));
+    if (!Array.isArray(typeActions[0].selector_candidates) || !typeActions[0].selector_candidates.length) throw new Error("Type selector candidates were not captured");
     const secretActions = actionSnapshot.filter((action) => action.type === "TypeSecret");
     if (!secretActions.length || JSON.stringify(actionSnapshot).includes("NeverStoreMe")) throw new Error("Password value was captured");
     const allRun = await runSteps(0);

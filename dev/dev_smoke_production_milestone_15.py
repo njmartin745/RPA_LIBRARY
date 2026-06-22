@@ -57,10 +57,25 @@ def _assert_workflow(result: dict[str, object]) -> None:
     actions = workflow["actions"]
     assert any(action.get("type") == "Navigate" for action in actions), actions
     assert any(action.get("type") == "Click" for action in actions), actions
+    bare_generic = [
+        action
+        for action in actions
+        if str(action.get("selector", "")).lower() in {"input", "button", "div", "span"}
+    ]
+    assert not bare_generic, bare_generic
+    message_click_actions = [
+        action
+        for action in actions
+        if action.get("type") == "Click" and action.get("selector") == "#pm15-message"
+    ]
+    assert message_click_actions, actions
+    assert message_click_actions[0].get("selector_quality") == "strong", message_click_actions
     type_actions = [action for action in actions if action.get("type") == "Type" and action.get("selector") == "#pm15-message"]
     assert len(type_actions) >= 2, actions
     assert type_actions[0].get("text") == "Hello from PM15", actions
     assert type_actions[-1].get("text") == "Hello again", actions
+    assert type_actions[0].get("selector_quality") == "strong", type_actions
+    assert isinstance(type_actions[0].get("selector_candidates"), list) and type_actions[0]["selector_candidates"], type_actions
     secret_actions = [action for action in actions if action.get("type") == "TypeSecret"]
     assert secret_actions, actions
     assert all(action.get("secret_ref") for action in secret_actions), actions
@@ -126,12 +141,16 @@ def dev_smoke() -> None:
             "Browser loaded an error page",
             "recording active",
             "Recorder injection failed",
+            "Selector is ambiguous; refine selector before replay",
+            "selector_quality",
+            "selector_candidates",
+            "selector-warning",
             "TypeSecret",
             "secret_ref",
             "headless: !headed",
         ],
     )
-    _assert_contains(PAGE_PATH, ["pm15-message", "pm15-secret", "pm15-submit", "type=\"password\""])
+    _assert_contains(PAGE_PATH, ["pm15-message", "pm15-reference", "pm15-secret", "pm15-submit", "type=\"password\""])
     _assert_contains(
         DOC_PATH,
         [
