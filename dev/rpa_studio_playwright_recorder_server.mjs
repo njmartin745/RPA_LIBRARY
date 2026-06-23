@@ -116,6 +116,20 @@ function appendAction(action) {
   log(`captured ${next.type}`, { selector: next.selector || "", url: next.url || "" });
 }
 
+function annotateClickDrivenNavigation(resultingUrl = "") {
+  if (!recording || !resultingUrl || isBrowserErrorUrl(resultingUrl)) return false;
+  const previous = actions[actions.length - 1];
+  if (!previous || previous.type !== "Click") {
+    log("navigation detected without click action", { resulting_url: resultingUrl });
+    return false;
+  }
+  previous.navigation_detected = true;
+  previous.resulting_url = resultingUrl;
+  previous.resulting_url_timestamp_ms = nowMs();
+  log("annotated click navigation", { selector: previous.selector || "", resulting_url: resultingUrl });
+  return true;
+}
+
 function reindexActions() {
   actions = actions.map((action, index) => ({ ...action, order: index + 1 }));
   return actions;
@@ -377,7 +391,8 @@ async function reattachRecorder() {
       : "Recorder injected. Click Start Recording to capture actions.";
     setInjectionStatus(active ? "recording active" : "injected", message);
     log("recorder injected", { injection_status: injectionStatus, current_url: page.url(), recording_state: recordingState });
-    if (!active) log("recorder injected but recording idle", { current_url: page.url() });
+    if (active) log("recorder injected and recording active", { current_url: page.url() });
+    else log("recorder injected but recording stopped", { current_url: page.url() });
     return {
       status: active ? "recording active" : "injected",
       message,
@@ -428,7 +443,7 @@ async function launchBrowser({ url, headed = true } = {}) {
         setInjectionStatus("page changed, reinjection needed", "Page changed; recorder must be reinjected for this page.");
       }
       if (frame === page.mainFrame() && recording) {
-        appendAction({ type: "Navigate", url: currentUrl, label: "Navigate" });
+        annotateClickDrivenNavigation(currentUrl);
         try {
           await installRecorder(page);
         } catch (error) {
@@ -455,7 +470,7 @@ async function launchBrowser({ url, headed = true } = {}) {
   return { status: "launched", url: page.url(), headed, browser: "edge-or-chromium" };
 }
 
-async function startRecording() {
+async function startRecording({ recordStartingNavigate } = {}) {
   await launchBrowser({});
   recording = false;
   try {
@@ -469,7 +484,10 @@ async function startRecording() {
   setRecordingState("recording", "Recording started.");
   setInjectionStatus("recording active", "Recorder injected and recording is active.");
   log("recording started", { current_url: page.url() });
-  appendAction({ type: "Navigate", url: page.url(), label: "Current page" });
+  const shouldRecordStartingNavigate = typeof recordStartingNavigate === "boolean" ? recordStartingNavigate : actions.length === 0;
+  if (shouldRecordStartingNavigate) {
+    appendAction({ type: "Navigate", url: page.url(), label: "Current page" });
+  }
   return { status: "recording", url: page.url(), action_count: actions.length, injection_status: injectionStatus, injection_message: injectionMessage, recording_state: recordingState };
 }
 
@@ -525,7 +543,12 @@ async function runSteps(fromIndex = 0) {
       }
       if (action.type === "Navigate") await page.goto(action.url);
       const waitInfo = await waitBeforeAction(action);
-      if (action.type === "Click") await (await locatorForAction(action)).click({ timeout: 4000 });
+      if (action.type === "Click") {
+        await (await locatorForAction(action)).click({ timeout: 4000 });
+        if (action.navigation_detected && action.resulting_url) {
+          await page.waitForURL(action.resulting_url, { timeout: 10000 });
+        }
+      }
       if (action.type === "Type") await (await locatorForAction(action)).fill(action.text || "", { timeout: 4000 });
       if (action.type === "TypeSecret") {
         const message = "Secret value unavailable; no credential vault configured.";
@@ -697,7 +720,8 @@ function htmlPage(demoUrl) {
         const warning = action.selector_quality === 'ambiguous' || action.selector_quality === 'fragile';
         const disabled = action.enabled === false;
         li.className = (index === selected ? 'selected ' : '') + (warning ? 'selector-warning ' : '') + (disabled ? 'disabled-step' : '');
-        li.textContent = index + ': ' + action.type + ' ' + (action.selector || action.url || '') + quality + (disabled ? ' [disabled]' : '') + (action.text ? ' = ' + action.text : action.secret_ref ? ' = [secret_ref]' : action.seconds ? ' = ' + action.seconds + 's' : '');
+        const resultUrl = action.resulting_url ? ' -> ' + action.resulting_url : '';
+        li.textContent = index + ': ' + action.type + ' ' + (action.selector || action.url || '') + quality + resultUrl + (disabled ? ' [disabled]' : '') + (action.text ? ' = ' + action.text : action.secret_ref ? ' = [secret_ref]' : action.seconds ? ' = ' + action.seconds + 's' : '');
         li.addEventListener('click', async () => {
           selected = index;
           render();
@@ -736,7 +760,7 @@ function htmlPage(demoUrl) {
       const res = await fetch('/api/inject-recorder', { method: 'POST' });
       const data = await res.json();
       if (data.status === 'fail') log('injection failed: ' + (data.message || data.injection_message || 'unknown error'));
-      else log('recorder injected: ' + (data.injection_status || data.status));
+      else log((data.message || data.injection_message || 'recorder injected') + ' [' + (data.recording_state || 'unknown') + ']');
       evidenceEl.textContent = JSON.stringify(data, null, 2);
       await refresh();
     });
@@ -796,7 +820,16 @@ async function startStudioServer(port = 8879) {
         sendJson(res, { actions, browser_status: browser && browser.isConnected() ? "open" : "closed", current_url: page && !page.isClosed() ? page.url() : "", injection_status: injectionStatus, injection_message: injectionMessage, recording_state: recordingState });
         return;
       }
-      if (req.method === "POST" && url.pathname === "/api/start-recording") { const body = await readBody(req); await launchBrowser({ url: body.url, headed: true }); const out = await startRecording(); sendJson(res, out); return; }
+      if (req.method === "POST" && url.pathname === "/api/start-recording") {
+        const body = await readBody(req);
+        const beforeUrl = page && !page.isClosed() ? page.url() : "";
+        await launchBrowser({ url: body.url, headed: true });
+        const requestedUrl = String(body.url || "");
+        const recordStartingNavigate = actions.length === 0 || Boolean(requestedUrl && requestedUrl !== beforeUrl);
+        const out = await startRecording({ recordStartingNavigate });
+        sendJson(res, out);
+        return;
+      }
       if (req.method === "POST" && url.pathname === "/api/inject-recorder") { sendJson(res, await reattachRecorder()); return; }
       if (req.method === "POST" && url.pathname === "/api/stop-recording") { sendJson(res, await stopRecording()); return; }
       if (req.method === "POST" && url.pathname === "/api/run") { const body = await readBody(req); sendJson(res, await runSteps(body.fromIndex || 0)); return; }
@@ -828,8 +861,11 @@ async function runSmoke() {
     await page.keyboard.type("NeverStoreMe123!");
     await page.click("#pm15-submit");
     await page.click("#anch_49 h3");
+    await page.waitForURL(/#device-characteristics$/, { timeout: 2000 }).catch(() => {});
     await stopRecording();
     const actionSnapshot = actions.map((action) => ({ ...action }));
+    const navigateActions = actionSnapshot.filter((action) => action.type === "Navigate");
+    if (navigateActions.length !== 1) throw new Error("Initial recording should contain exactly one Navigate action: " + JSON.stringify(actionSnapshot));
     const genericSelector = actionSnapshot.find((action) => ["input", "button", "div", "span"].includes(String(action.selector || "").toLowerCase()));
     if (genericSelector) throw new Error("Recorder emitted a bare generic selector: " + JSON.stringify(genericSelector));
     const messageClickActions = actionSnapshot.filter((action) => action.type === "Click" && action.selector === "#pm15-message");
@@ -843,6 +879,9 @@ async function runSmoke() {
     if (!secretActions.length || JSON.stringify(actionSnapshot).includes("NeverStoreMe")) throw new Error("Password value was captured");
     const anchorClick = actionSnapshot.find((action) => action.type === "Click" && action.selector === "#anch_49");
     if (!anchorClick || anchorClick.selector_quality !== "strong" || anchorClick.label !== "Device Characteristics") throw new Error("Clickable ancestor selector was not preferred: " + JSON.stringify(actionSnapshot));
+    if (anchorClick.navigation_detected !== true || !String(anchorClick.resulting_url || "").includes("#device-characteristics")) {
+      throw new Error("Click-driven navigation was not stored as Click metadata: " + JSON.stringify(anchorClick));
+    }
     if (JSON.stringify(actionSnapshot).includes("#anch_49 > h3:nth-of-type")) throw new Error("Fragile child selector was recorded for clickable ancestor");
     const adjacentDuplicateNavigate = actionSnapshot.some((action, index) => index > 0 && action.type === "Navigate" && actionSnapshot[index - 1].type === "Navigate" && action.url === actionSnapshot[index - 1].url);
     if (adjacentDuplicateNavigate) throw new Error("Adjacent duplicate Navigate actions were not deduped: " + JSON.stringify(actionSnapshot));
@@ -862,7 +901,7 @@ async function runSmoke() {
     await stopRecording();
     if (actions.length <= actionSnapshot.length) throw new Error("Continuation recording did not append steps");
     const saved = saveWorkflow();
-    return { status: "pass", headed: true, browser_open: browser.isConnected(), workflow_json: saved.workflow_json, artifacts: saved.artifacts, actions, injection_status: injectionStatus };
+    return { status: "pass", headed: true, browser_open: browser.isConnected(), workflow_json: saved.workflow_json, artifacts: saved.artifacts, actions, initial_actions: actionSnapshot, injection_status: injectionStatus };
   } finally {
     await closeBrowser();
     await new Promise((resolve) => server.close(resolve));
@@ -883,9 +922,19 @@ async function runPm16Smoke() {
     await page.click("#pm15-message");
     await page.keyboard.type(rawSecretText);
     await page.click("#anch_49 h3");
+    await page.waitForURL(/#device-characteristics$/, { timeout: 2000 }).catch(() => {});
     await page.click("#pm15-reference");
     await page.click("#pm15-submit");
     await stopRecording();
+    const firstRecordingSnapshot = actions.map((action) => ({ ...action }));
+    const firstRecordingNavigateActions = firstRecordingSnapshot.filter((action) => action.type === "Navigate");
+    if (firstRecordingNavigateActions.length !== 1) {
+      throw new Error("First PM16 recording should contain exactly one initial Navigate action: " + JSON.stringify(firstRecordingSnapshot));
+    }
+    const firstRecordingAnchorClick = firstRecordingSnapshot.find((action) => action.type === "Click" && action.selector === "#anch_49");
+    if (!firstRecordingAnchorClick || firstRecordingAnchorClick.navigation_detected !== true || !String(firstRecordingAnchorClick.resulting_url || "").includes("#device-characteristics")) {
+      throw new Error("PM16 click-driven navigation was not stored on the Click action: " + JSON.stringify(firstRecordingAnchorClick));
+    }
     const actionCountBeforeReattach = actions.length;
     const idleReattach = await reattachRecorder();
     if (idleReattach.status !== "injected" || idleReattach.injection_status !== "injected" || idleReattach.recording_state !== "stopped") {
@@ -915,7 +964,7 @@ async function runPm16Smoke() {
     if (!logs.some((entry) => entry.message === "recorder injected")) throw new Error("Recorder injection success was not logged");
     if (!logs.some((entry) => entry.message === "recording started")) throw new Error("Recording start was not logged");
     if (!logs.some((entry) => entry.message === "recording stopped")) throw new Error("Recording stop was not logged");
-    if (!logs.some((entry) => entry.message === "recorder injected but recording idle")) throw new Error("Idle injection was not logged distinctly");
+    if (!logs.some((entry) => entry.message === "recorder injected but recording stopped")) throw new Error("Stopped injection was not logged distinctly");
     if (!logs.some((entry) => entry.message === "injection failed" && String(entry.reason || "").includes("No active browser page"))) {
       throw new Error("No-page reattach failure was not logged clearly");
     }
@@ -987,13 +1036,14 @@ async function runPm16Smoke() {
         after_reload_reattach: afterReloadReattach,
         active_reattach: activeReattach,
       },
+      first_recording_actions: firstRecordingSnapshot,
       lifecycle_logs: logs.filter((entry) => [
         "reattach requested",
         "recorder injected",
         "recording started",
         "recording stopped",
         "injection failed",
-        "recorder injected but recording idle",
+        "recorder injected but recording stopped",
       ].includes(entry.message)),
     };
   } finally {

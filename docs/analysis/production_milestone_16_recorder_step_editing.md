@@ -65,12 +65,19 @@ recording does not start and the UI/log show the failure reason. Reattach is
 primarily for page reloads, page navigation, or cases where capture stops and
 the current page needs the recorder script installed again.
 
+`Inject Recorder / Reattach` is a repair tool, not the normal way to start
+capture. In ordinary use, Start Recording opens or reuses the controlled browser
+and auto-injects the recorder when possible.
+
 ## What Is Demoable Now
 
 - Recorded workflows can be edited before replay.
 - Disabled steps remain in workflow JSON with `enabled: false`.
 - Replay applies a default readiness wait before target interactions.
 - Explicit `Wait for Selector` and `Wait Seconds` steps are honored by replay.
+- The recorder keeps the initial `Navigate` step as the starting checkpoint.
+- Later click-driven URL changes are stored as metadata on the Click step using
+  `navigation_detected: true` and `resulting_url`.
 - Adjacent duplicate `Navigate` actions to the same URL are deduped.
 - Click capture prefers stable clickable ancestors over fragile child selectors.
 - Type steps can be converted to redacted `TypeSecret` steps.
@@ -129,6 +136,9 @@ uses the parent selector when it is strong or usable. For example, clicking:
 should record `#anch_49` with a strong selector instead of a fragile
 `#anch_49 > h3:nth-of-type(1)` child selector.
 
-Navigate actions remain useful page-transition checkpoints. Adjacent duplicate
-Navigate actions to the same URL are coalesced so they do not clutter the edited
-workflow.
+Navigate actions remain useful starting checkpoints. By default, PM16 records
+the initial page navigation and stores later click-driven URL transitions on the
+Click action that caused them. This keeps the workflow readable while preserving
+transition evidence through `resulting_url` and `navigation_detected` metadata.
+Adjacent duplicate Navigate actions to the same URL are coalesced so they do not
+clutter the edited workflow.

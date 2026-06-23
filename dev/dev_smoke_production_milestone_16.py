@@ -56,6 +56,7 @@ def _assert_pm16_result(result: dict[str, object]) -> None:
     assert any(action.get("type") == "TypeSecret" and action.get("secret_ref") for action in actions), actions
     anchor_clicks = [action for action in actions if action.get("type") == "Click" and action.get("selector") == "#anch_49"]
     assert anchor_clicks and anchor_clicks[0].get("selector_quality") == "strong", actions
+    assert any(action.get("navigation_detected") is True and "#device-characteristics" in str(action.get("resulting_url", "")) for action in anchor_clicks), anchor_clicks
     assert "#anch_49 > h3:nth-of-type" not in json.dumps(workflow), workflow
     assert not any(
         action.get("type") == "Navigate"
@@ -95,6 +96,14 @@ def _assert_pm16_result(result: dict[str, object]) -> None:
     assert isinstance(active, dict) and active.get("status") == "recording active", lifecycle
     assert active.get("recording_state") == "recording", active
 
+    first_recording_actions = result.get("first_recording_actions")
+    assert isinstance(first_recording_actions, list) and first_recording_actions, result
+    first_recording_navigates = [action for action in first_recording_actions if action.get("type") == "Navigate"]
+    assert len(first_recording_navigates) == 1, first_recording_actions
+    first_recording_anchor_clicks = [action for action in first_recording_actions if action.get("type") == "Click" and action.get("selector") == "#anch_49"]
+    assert first_recording_anchor_clicks and first_recording_anchor_clicks[0].get("navigation_detected") is True, first_recording_actions
+    assert "#device-characteristics" in str(first_recording_anchor_clicks[0].get("resulting_url", "")), first_recording_anchor_clicks
+
     lifecycle_logs = result.get("lifecycle_logs")
     assert isinstance(lifecycle_logs, list) and lifecycle_logs, result
     lifecycle_messages = {str(entry.get("message")) for entry in lifecycle_logs if isinstance(entry, dict)}
@@ -104,7 +113,7 @@ def _assert_pm16_result(result: dict[str, object]) -> None:
         "recording started",
         "recording stopped",
         "injection failed",
-        "recorder injected but recording idle",
+        "recorder injected but recording stopped",
     }:
         assert expected in lifecycle_messages, lifecycle_logs
 
@@ -164,7 +173,10 @@ def dev_smoke() -> None:
             "No active browser page. Start Recording or open a browser first.",
             "Recording state:",
             "Reattach prepares the current page for recording. Click Start Recording to capture new actions.",
-            "recorder injected but recording idle",
+            "recorder injected but recording stopped",
+            "navigation_detected",
+            "resulting_url",
+            "annotated click navigation",
         ],
     )
     _assert_contains(
@@ -181,6 +193,7 @@ def dev_smoke() -> None:
             "deduped",
             "Injection is not the same as active recording",
             "auto-injects the recorder",
+            "click-driven URL changes are stored as metadata",
             "Generated artifacts remain under ignored",
         ],
     )
