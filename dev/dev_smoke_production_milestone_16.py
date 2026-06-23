@@ -130,6 +130,9 @@ def dev_smoke() -> None:
             "coalesced duplicate Navigate",
             "isClickableCandidate",
             "run-pm16-smoke",
+            "reattach requested",
+            "recorder injected",
+            "No active browser page. Start Recording or open a browser first.",
         ],
     )
     _assert_contains(

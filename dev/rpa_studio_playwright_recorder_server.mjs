@@ -347,6 +347,47 @@ async function installRecorder(targetPage = page) {
   }
 }
 
+async function reattachRecorder() {
+  log("reattach requested");
+  if (!browser || !browser.isConnected() || !page || page.isClosed()) {
+    const message = "No active browser page. Start Recording or open a browser first.";
+    setInjectionStatus("not injected", message);
+    log("injection failed", { reason: message });
+    return {
+      status: "fail",
+      message,
+      injection_status: injectionStatus,
+      injection_message: injectionMessage,
+      action_count: actions.length,
+    };
+  }
+  try {
+    const injection = await installRecorder(page);
+    log("recorder injected", { injection_status: injection.injection_status, current_url: page.url() });
+    return {
+      status: injection.injection_status === "recording active" ? "recording active" : "injected",
+      message: injection.injection_message,
+      current_url: page.url(),
+      injection_status: injection.injection_status,
+      injection_message: injection.injection_message,
+      action_count: actions.length,
+      recording,
+    };
+  } catch (error) {
+    const message = `Recorder injection failed: ${String(error)}`;
+    log("injection failed", { reason: message });
+    return {
+      status: "fail",
+      message,
+      current_url: page && !page.isClosed() ? page.url() : "",
+      injection_status: injectionStatus,
+      injection_message: injectionMessage,
+      action_count: actions.length,
+      recording,
+    };
+  }
+}
+
 async function launchBrowser({ url, headed = true } = {}) {
   if (!browser) {
     try {
@@ -656,7 +697,15 @@ function htmlPage(demoUrl) {
       const data = await res.json(); log('start: ' + JSON.stringify(data)); await refresh();
     });
     document.getElementById('stop').addEventListener('click', async () => { const data = await (await fetch('/api/stop-recording', { method: 'POST' })).json(); log('stop: ' + JSON.stringify(data)); await refresh(); });
-    document.getElementById('inject').addEventListener('click', async () => { const res = await fetch('/api/inject-recorder', { method: 'POST' }); const data = await res.json(); log('inject: ' + JSON.stringify(data)); evidenceEl.textContent = JSON.stringify(data, null, 2); await refresh(); });
+    document.getElementById('inject').addEventListener('click', async () => {
+      log('reattach requested');
+      const res = await fetch('/api/inject-recorder', { method: 'POST' });
+      const data = await res.json();
+      if (data.status === 'fail') log('injection failed: ' + (data.message || data.injection_message || 'unknown error'));
+      else log('recorder injected: ' + (data.injection_status || data.status));
+      evidenceEl.textContent = JSON.stringify(data, null, 2);
+      await refresh();
+    });
     document.getElementById('run-all').addEventListener('click', async () => { const data = await (await fetch('/api/run', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ fromIndex: 0 }) })).json(); evidenceEl.textContent = JSON.stringify(data, null, 2); log('run all: ' + data.status); await refresh(); });
     document.getElementById('run-from').addEventListener('click', async () => { const data = await (await fetch('/api/run', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ fromIndex: selected }) })).json(); evidenceEl.textContent = JSON.stringify(data, null, 2); log('run from: ' + data.status); await refresh(); });
     document.getElementById('stop-run').addEventListener('click', async () => { const data = await (await fetch('/api/stop-run', { method: 'POST' })).json(); log('stop run: ' + JSON.stringify(data)); });
@@ -714,7 +763,7 @@ async function startStudioServer(port = 8879) {
         return;
       }
       if (req.method === "POST" && url.pathname === "/api/start-recording") { const body = await readBody(req); await launchBrowser({ url: body.url, headed: true }); const out = await startRecording(); sendJson(res, out); return; }
-      if (req.method === "POST" && url.pathname === "/api/inject-recorder") { sendJson(res, await installRecorder(page)); return; }
+      if (req.method === "POST" && url.pathname === "/api/inject-recorder") { sendJson(res, await reattachRecorder()); return; }
       if (req.method === "POST" && url.pathname === "/api/stop-recording") { sendJson(res, await stopRecording()); return; }
       if (req.method === "POST" && url.pathname === "/api/run") { const body = await readBody(req); sendJson(res, await runSteps(body.fromIndex || 0)); return; }
       if (req.method === "POST" && url.pathname === "/api/stop-run") { running = false; sendJson(res, { status: "stopping" }); return; }
@@ -791,6 +840,10 @@ async function runPm16Smoke() {
   const demoUrl = `http://127.0.0.1:${server.address().port}/demo/index.html`;
   const rawSecretText = "PM16 text that must be removed";
   try {
+    const noPageReattach = await reattachRecorder();
+    if (noPageReattach.status !== "fail" || !String(noPageReattach.message || "").includes("No active browser page")) {
+      throw new Error("Reattach without an active page did not report a clear failure: " + JSON.stringify(noPageReattach));
+    }
     await launchBrowser({ url: demoUrl, headed: true });
     await startRecording();
     await page.click("#pm15-message");
@@ -799,6 +852,23 @@ async function runPm16Smoke() {
     await page.click("#anch_49 h3");
     await page.click("#pm15-submit");
     await stopRecording();
+    const actionCountBeforeReattach = actions.length;
+    const idleReattach = await reattachRecorder();
+    if (idleReattach.status !== "injected" || idleReattach.injection_status !== "injected") {
+      throw new Error("Idle reattach did not inject recorder: " + JSON.stringify(idleReattach));
+    }
+    if (actions.length !== actionCountBeforeReattach) throw new Error("Idle reattach changed recorded actions");
+    await page.reload({ waitUntil: "domcontentloaded" });
+    const afterReloadReattach = await reattachRecorder();
+    if (afterReloadReattach.status !== "injected" || afterReloadReattach.injection_status !== "injected") {
+      throw new Error("Reattach after navigation did not inject recorder: " + JSON.stringify(afterReloadReattach));
+    }
+    if (actions.length !== actionCountBeforeReattach) throw new Error("Reattach after navigation changed recorded actions");
+    if (!logs.some((entry) => entry.message === "reattach requested")) throw new Error("Reattach request was not logged");
+    if (!logs.some((entry) => entry.message === "recorder injected")) throw new Error("Recorder injection success was not logged");
+    if (!logs.some((entry) => entry.message === "injection failed" && String(entry.reason || "").includes("No active browser page"))) {
+      throw new Error("No-page reattach failure was not logged clearly");
+    }
 
     if (!actions.some((action) => action.type === "Type" && action.selector === "#pm15-message")) throw new Error("Sample Type action was not recorded");
     if (!actions.some((action) => action.type === "Click" && action.selector === "#pm15-submit")) throw new Error("Sample Click action was not recorded");
