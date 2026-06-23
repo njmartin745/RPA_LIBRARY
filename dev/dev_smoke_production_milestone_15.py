@@ -161,7 +161,7 @@ def dev_smoke() -> None:
             "Save Workflow JSON",
             "highlightStep",
             "injectionStatus",
-            "Inject Recorder / Reattach",
+            "Reattach / Resume Recording",
             "page changed, reinjection needed",
             "injection failed",
             "Browser loaded an error page",

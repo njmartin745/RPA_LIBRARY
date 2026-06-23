@@ -85,13 +85,14 @@ def _assert_pm16_result(result: dict[str, object]) -> None:
     no_page = lifecycle.get("no_page_reattach")
     assert isinstance(no_page, dict) and no_page.get("status") == "fail", lifecycle
     assert "No active browser page" in str(no_page.get("message", "")), no_page
-    idle = lifecycle.get("idle_reattach")
-    assert isinstance(idle, dict) and idle.get("status") == "injected", lifecycle
-    assert idle.get("recording_state") == "stopped", idle
-    assert "Click Start Recording to capture actions" in str(idle.get("message", "")), idle
+    assert no_page.get("recording_state") == "stopped", no_page
+    resumed = lifecycle.get("resumed_reattach")
+    assert isinstance(resumed, dict) and resumed.get("status") == "recording active", lifecycle
+    assert resumed.get("recording_state") == "recording", resumed
+    assert "Recorder reattached and recording resumed" in str(resumed.get("message", "")), resumed
     after_reload = lifecycle.get("after_reload_reattach")
-    assert isinstance(after_reload, dict) and after_reload.get("status") == "injected", lifecycle
-    assert after_reload.get("recording_state") == "stopped", after_reload
+    assert isinstance(after_reload, dict) and after_reload.get("status") == "recording active", lifecycle
+    assert after_reload.get("recording_state") == "recording", after_reload
     active = lifecycle.get("active_reattach")
     assert isinstance(active, dict) and active.get("status") == "recording active", lifecycle
     assert active.get("recording_state") == "recording", active
@@ -112,8 +113,9 @@ def _assert_pm16_result(result: dict[str, object]) -> None:
         "recorder injected",
         "recording started",
         "recording stopped",
+        "recording resumed",
         "injection failed",
-        "recorder injected but recording stopped",
+        "recorder injected and recording active",
     }:
         assert expected in lifecycle_messages, lifecycle_logs
 
@@ -172,8 +174,12 @@ def dev_smoke() -> None:
             "recorder injected",
             "No active browser page. Start Recording or open a browser first.",
             "Recording state:",
-            "Reattach prepares the current page for recording. Click Start Recording to capture new actions.",
-            "recorder injected but recording stopped",
+            "Reattach / Resume Recording",
+            "Use Reattach / Resume Recording after page navigation or reload if capture stops.",
+            "Recorder reattached and recording resumed",
+            "Recorder reattached; recording remains active.",
+            "recording resumed",
+            "recorder injected and recording active",
             "navigation_detected",
             "resulting_url",
             "annotated click navigation",
@@ -192,6 +198,7 @@ def dev_smoke() -> None:
             "clickable ancestors",
             "deduped",
             "Injection is not the same as active recording",
+            "Reattach / Resume Recording",
             "auto-injects the recorder",
             "click-driven URL changes are stored as metadata",
             "Generated artifacts remain under ignored",

@@ -54,20 +54,17 @@ The UI separates browser, recorder injection, and recording state:
   installed.
 - Recording state shows whether new actions are actively being captured.
 
-Injection is not the same as active recording. `Inject Recorder / Reattach`
-prepares the current page for recording, but user actions are captured only
-while Recording state is `recording`. If reattach succeeds while recording is
-idle or stopped, the UI reports: `Recorder injected. Click Start Recording to
-capture actions.`
+Injection is not the same as active recording. `Start Recording` starts capture
+and auto-injects the recorder when possible. If injection fails, recording does
+not start and the UI/log show the failure reason.
 
-`Start Recording` auto-injects the recorder when possible. If injection fails,
-recording does not start and the UI/log show the failure reason. Reattach is
-primarily for page reloads, page navigation, or cases where capture stops and
-the current page needs the recorder script installed again.
-
-`Inject Recorder / Reattach` is a repair tool, not the normal way to start
-capture. In ordinary use, Start Recording opens or reuses the controlled browser
-and auto-injects the recorder when possible.
+`Reattach / Resume Recording` repairs capture after page reloads, page
+navigation, or cases where capture stops. If a controlled browser page is open
+and recorder injection succeeds, it resumes recording and reports: `Recorder
+reattached and recording resumed.` If recording is already active, it keeps
+recording active and reports: `Recorder reattached; recording remains active.`
+If no controlled page is open, it reports: `No active browser page. Start
+Recording or open a browser first.`
 
 ## What Is Demoable Now
 

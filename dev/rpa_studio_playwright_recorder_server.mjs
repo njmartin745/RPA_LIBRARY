@@ -373,6 +373,8 @@ async function reattachRecorder() {
   log("reattach requested");
   if (!browser || !browser.isConnected() || !page || page.isClosed()) {
     const message = "No active browser page. Start Recording or open a browser first.";
+    recording = false;
+    setRecordingState("stopped", "Recording remains stopped because no active browser page is open.");
     setInjectionStatus("not injected", message);
     log("injection failed", { reason: message });
     return {
@@ -380,21 +382,24 @@ async function reattachRecorder() {
       message,
       injection_status: injectionStatus,
       injection_message: injectionMessage,
+      recording_state: recordingState,
       action_count: actions.length,
     };
   }
   try {
-    const injection = await installRecorder(page);
-    const active = recording && injection.injection_status === "recording active";
-    const message = active
-      ? "Recorder reattached and recording remains active."
-      : "Recorder injected. Click Start Recording to capture actions.";
-    setInjectionStatus(active ? "recording active" : "injected", message);
+    const wasRecording = recording;
+    await installRecorder(page);
+    recording = true;
+    const message = wasRecording
+      ? "Recorder reattached; recording remains active."
+      : "Recorder reattached and recording resumed.";
+    setRecordingState("recording", wasRecording ? "Recording remains active after reattach." : "Recording resumed.");
+    setInjectionStatus("recording active", message);
     log("recorder injected", { injection_status: injectionStatus, current_url: page.url(), recording_state: recordingState });
-    if (active) log("recorder injected and recording active", { current_url: page.url() });
-    else log("recorder injected but recording stopped", { current_url: page.url() });
+    log("recorder injected and recording active", { current_url: page.url() });
+    if (!wasRecording) log("recording resumed", { current_url: page.url(), action_count: actions.length });
     return {
-      status: active ? "recording active" : "injected",
+      status: "recording active",
       message,
       current_url: page.url(),
       injection_status: injectionStatus,
@@ -405,6 +410,8 @@ async function reattachRecorder() {
     };
   } catch (error) {
     const message = `Recorder injection failed: ${String(error)}`;
+    recording = false;
+    setRecordingState("stopped", "Recording did not resume because recorder injection failed.");
     log("injection failed", { reason: message });
     return {
       status: "fail",
@@ -659,9 +666,9 @@ function htmlPage(demoUrl) {
       <label for="target-url">URL</label>
       <input id="target-url" value="${demoUrl}">
       <button id="start">Start Recording</button>
-      <button id="inject" class="secondary">Inject Recorder / Reattach</button>
+      <button id="inject" class="secondary">Reattach / Resume Recording</button>
       <button id="stop" class="secondary">Stop Recording</button>
-      <p class="notice">Reattach prepares the current page for recording. Click Start Recording to capture new actions.</p>
+      <p class="notice">Use Reattach / Resume Recording after page navigation or reload if capture stops.</p>
       <button id="run-all">Run All</button>
       <button id="run-from">Run From Selected Step</button>
       <button id="stop-run" class="secondary">Stop Run</button>
@@ -936,35 +943,34 @@ async function runPm16Smoke() {
       throw new Error("PM16 click-driven navigation was not stored on the Click action: " + JSON.stringify(firstRecordingAnchorClick));
     }
     const actionCountBeforeReattach = actions.length;
-    const idleReattach = await reattachRecorder();
-    if (idleReattach.status !== "injected" || idleReattach.injection_status !== "injected" || idleReattach.recording_state !== "stopped") {
-      throw new Error("Idle reattach did not inject recorder: " + JSON.stringify(idleReattach));
+    const resumedReattach = await reattachRecorder();
+    if (resumedReattach.status !== "recording active" || resumedReattach.injection_status !== "recording active" || resumedReattach.recording_state !== "recording") {
+      throw new Error("Stopped reattach did not resume recording: " + JSON.stringify(resumedReattach));
     }
-    if (!String(idleReattach.message || "").includes("Click Start Recording to capture actions")) {
-      throw new Error("Idle reattach did not explain that recording is not active: " + JSON.stringify(idleReattach));
+    if (!String(resumedReattach.message || "").includes("Recorder reattached and recording resumed")) {
+      throw new Error("Stopped reattach did not report recording resumed: " + JSON.stringify(resumedReattach));
     }
-    if (actions.length !== actionCountBeforeReattach) throw new Error("Idle reattach changed recorded actions");
+    if (actions.length !== actionCountBeforeReattach) throw new Error("Stopped reattach changed recorded actions before user input");
+    await page.click("#anch_49 h3");
+    if (actions.length <= actionCountBeforeReattach) throw new Error("Reattach / Resume Recording did not capture new actions");
+    const actionCountAfterResumeCapture = actions.length;
     await page.reload({ waitUntil: "domcontentloaded" });
     const afterReloadReattach = await reattachRecorder();
-    if (afterReloadReattach.status !== "injected" || afterReloadReattach.injection_status !== "injected" || afterReloadReattach.recording_state !== "stopped") {
-      throw new Error("Reattach after navigation did not inject recorder: " + JSON.stringify(afterReloadReattach));
+    if (afterReloadReattach.status !== "recording active" || afterReloadReattach.injection_status !== "recording active" || afterReloadReattach.recording_state !== "recording") {
+      throw new Error("Reattach after navigation did not keep recording active: " + JSON.stringify(afterReloadReattach));
     }
-    if (actions.length !== actionCountBeforeReattach) throw new Error("Reattach after navigation changed recorded actions");
-    await startRecording();
-    const actionCountAfterRestart = actions.length;
     const activeReattach = await reattachRecorder();
     if (activeReattach.status !== "recording active" || activeReattach.injection_status !== "recording active" || activeReattach.recording_state !== "recording") {
       throw new Error("Active reattach did not preserve recording state: " + JSON.stringify(activeReattach));
     }
-    if (actions.length !== actionCountAfterRestart) throw new Error("Active reattach changed recorded actions");
-    await page.click("#anch_49 h3");
-    if (actions.length <= actionCountAfterRestart) throw new Error("Start Recording after idle reattach did not capture new actions");
+    if (actions.length !== actionCountAfterResumeCapture) throw new Error("Active reattach changed recorded actions");
     await stopRecording();
     if (!logs.some((entry) => entry.message === "reattach requested")) throw new Error("Reattach request was not logged");
     if (!logs.some((entry) => entry.message === "recorder injected")) throw new Error("Recorder injection success was not logged");
     if (!logs.some((entry) => entry.message === "recording started")) throw new Error("Recording start was not logged");
     if (!logs.some((entry) => entry.message === "recording stopped")) throw new Error("Recording stop was not logged");
-    if (!logs.some((entry) => entry.message === "recorder injected but recording stopped")) throw new Error("Stopped injection was not logged distinctly");
+    if (!logs.some((entry) => entry.message === "recording resumed")) throw new Error("Recording resume was not logged");
+    if (!logs.some((entry) => entry.message === "recorder injected and recording active")) throw new Error("Active recorder injection was not logged distinctly");
     if (!logs.some((entry) => entry.message === "injection failed" && String(entry.reason || "").includes("No active browser page"))) {
       throw new Error("No-page reattach failure was not logged clearly");
     }
@@ -1032,7 +1038,7 @@ async function runPm16Smoke() {
       highlight,
       lifecycle: {
         no_page_reattach: noPageReattach,
-        idle_reattach: idleReattach,
+        resumed_reattach: resumedReattach,
         after_reload_reattach: afterReloadReattach,
         active_reattach: activeReattach,
       },
@@ -1042,8 +1048,9 @@ async function runPm16Smoke() {
         "recorder injected",
         "recording started",
         "recording stopped",
+        "recording resumed",
         "injection failed",
-        "recorder injected but recording stopped",
+        "recorder injected and recording active",
       ].includes(entry.message)),
     };
   } finally {
