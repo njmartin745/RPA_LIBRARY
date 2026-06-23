@@ -43,7 +43,8 @@ http://127.0.0.1:8879/
 9. Move one step up or down.
 10. Save workflow JSON.
 11. Run the edited workflow.
-12. Confirm run evidence and logs reflect skipped disabled/secret steps.
+12. Confirm run evidence and logs reflect skipped disabled steps and
+    in-memory TypeSecret replay.
 
 ## Recorder Lifecycle
 
@@ -83,8 +84,7 @@ Recording or open a browser first.`
 
 ## What Remains Deferred
 
-- Credential vault support.
-- Replaying real secret values.
+- Production credential vault support.
 - Downloads.
 - Retry or resume orchestration.
 - Multi-agent execution.
@@ -95,8 +95,17 @@ Recording or open a browser first.`
 
 PM16 does not store raw password values. When a user marks a Type step as secret,
 the raw `text` field is removed, `TypeSecret` is used, and a placeholder
-`secret_ref` is stored. Replay logs a clear skip message because no credential
-vault exists yet.
+`secret_ref` is stored.
+
+PM16 supports local, in-memory secret values for replay only. The UI shows a
+`Secrets for Replay` section for required `secret_ref` values. Secret values are
+held in memory for the current local Studio session and are not written to
+workflow JSON, logs, reports, run evidence, or artifacts. If a `TypeSecret` step
+has no in-memory value, replay stops with `Missing secret value for
+<secret_ref>.`
+
+This is not a credential vault, cloud secret store, or production credential
+management feature.
 
 Generated artifacts remain under ignored `dev/_smoke_artifacts/` paths.
 

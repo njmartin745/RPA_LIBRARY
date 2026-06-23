@@ -22,6 +22,7 @@ let logs = [];
 let injectionStatus = "not injected";
 let injectionMessage = "Recorder has not been injected.";
 let recordingState = "idle";
+let secretValues = new Map();
 
 function nowMs() {
   return Date.now();
@@ -75,6 +76,29 @@ function workflowFromActions(inputActions = actions) {
     runtime_scope: "experimental_playwright_controlled_browser",
     actions: inputActions.map((action) => ({ ...action })),
   };
+}
+
+function requiredSecretRefs(inputActions = actions) {
+  return Array.from(new Set(
+    inputActions
+      .filter((action) => action.type === "TypeSecret" && action.secret_ref)
+      .map((action) => action.secret_ref)
+  ));
+}
+
+function secretStatusPayload() {
+  return requiredSecretRefs().map((secretRef) => ({
+    secret_ref: secretRef,
+    has_value: secretValues.has(secretRef),
+  }));
+}
+
+function setSecretForReplay({ secret_ref: secretRef, value } = {}) {
+  if (!secretRef) throw new Error("secret_ref is required.");
+  if (typeof value !== "string" || value.length < 1) throw new Error(`Secret value for ${secretRef} is empty.`);
+  secretValues.set(secretRef, value);
+  log("secret set for replay", { secret_ref: secretRef });
+  return { status: "ok", secret_ref: secretRef, has_value: true };
 }
 
 function isBareGenericSelector(selector = "") {
@@ -558,14 +582,21 @@ async function runSteps(fromIndex = 0) {
       }
       if (action.type === "Type") await (await locatorForAction(action)).fill(action.text || "", { timeout: 4000 });
       if (action.type === "TypeSecret") {
-        const message = "Secret value unavailable; no credential vault configured.";
-        log("skipped redacted secret replay", { selector: action.selector, message });
-        runLog.push({ step_index: i, status: "skipped", action: action.type, selector: action.selector || "", message });
-        continue;
+        const secretRef = action.secret_ref || "";
+        if (!secretRef || !secretValues.has(secretRef)) {
+          const message = `Missing secret value for ${secretRef || "secret_ref"}.`;
+          log("missing secret value for TypeSecret", { selector: action.selector, secret_ref: secretRef || "secret_ref" });
+          const failed = { step_index: i, status: "error", action: action.type, selector: action.selector || "", secret_ref: secretRef, error: message };
+          runLog.push(failed);
+          running = false;
+          return { status: "fail", failed_step: failed, run_log: runLog, browser_open: Boolean(browser && browser.isConnected()) };
+        }
+        await (await locatorForAction(action)).fill(secretValues.get(secretRef), { timeout: 4000 });
+        log("TypeSecret applied for secret_ref", { selector: action.selector, secret_ref: secretRef });
       }
       if (action.type === "Wait for Selector") await (await locatorForAction(action)).waitFor({ timeout: (Number(action.timeout) || 10) * 1000 });
       if (action.type === "Wait Seconds") await page.waitForTimeout((Number(action.seconds) || 1) * 1000);
-      runLog.push({ step_index: i, status: "ok", action: action.type, selector: action.selector || "", url: action.url || "", wait_before: waitInfo.waited ? waitInfo : undefined });
+      runLog.push({ step_index: i, status: "ok", action: action.type, selector: action.selector || "", secret_ref: action.type === "TypeSecret" ? action.secret_ref || "" : undefined, url: action.url || "", wait_before: waitInfo.waited ? waitInfo : undefined });
     } catch (error) {
       running = false;
       const failed = { step_index: i, status: "error", action: action.type, selector: action.selector || "", error: String(error) };
@@ -679,6 +710,12 @@ function htmlPage(demoUrl) {
       <p id="recording-state">Recording state: idle.</p>
       <p id="current-url">Current URL: none</p>
       <div class="editor-panel">
+        <h3>Secrets for Replay</h3>
+        <p>Secret values stay in memory for this local Studio session only. They are not saved to workflow JSON or run artifacts.</p>
+        <div id="secrets">No TypeSecret steps recorded yet.</div>
+        <button id="set-secrets" class="secondary">Set Secrets for Replay</button>
+      </div>
+      <div class="editor-panel">
         <h3>Step Editing</h3>
         <p>Replay automatically waits for each action's target element before interacting. Use explicit waits for unusual pacing or custom readiness.</p>
         <p>Selected step: <span id="selected-step">0</span></p>
@@ -716,7 +753,52 @@ function htmlPage(demoUrl) {
     const recordingStateEl = document.getElementById('recording-state');
     const currentUrlEl = document.getElementById('current-url');
     const selectedStepEl = document.getElementById('selected-step');
+    const secretsEl = document.getElementById('secrets');
+    const pendingSecrets = {};
     function log(line) { logEl.textContent += '\\n' + new Date().toISOString() + ' ' + line; logEl.scrollTop = logEl.scrollHeight; }
+    function renderSecrets(requiredSecrets) {
+      secretsEl.innerHTML = '';
+      if (!requiredSecrets || !requiredSecrets.length) {
+        secretsEl.textContent = 'No TypeSecret steps recorded yet.';
+        return;
+      }
+      requiredSecrets.forEach((item) => {
+        const row = document.createElement('div');
+        row.style.marginBottom = '8px';
+        const label = document.createElement('label');
+        label.textContent = item.secret_ref + (item.has_value ? ' (set in memory)' : ' (missing)');
+        const input = document.createElement('input');
+        input.type = 'password';
+        input.autocomplete = 'off';
+        input.placeholder = 'Enter local replay secret';
+        input.dataset.secretRef = item.secret_ref;
+        input.value = pendingSecrets[item.secret_ref] || '';
+        input.addEventListener('input', () => { pendingSecrets[item.secret_ref] = input.value; });
+        row.appendChild(label);
+        row.appendChild(input);
+        secretsEl.appendChild(row);
+      });
+    }
+    async function setSecretsFromInputs(silent) {
+      const inputs = Array.from(secretsEl.querySelectorAll('input[data-secret-ref]'));
+      const results = [];
+      for (const input of inputs) {
+        if (!input.value) continue;
+        const body = { secret_ref: input.dataset.secretRef, value: input.value };
+        const data = await (await fetch('/api/set-secret', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) })).json();
+        results.push(data);
+        if (data.status === 'ok') {
+          log('secret set for replay: ' + data.secret_ref);
+          pendingSecrets[data.secret_ref] = '';
+          input.value = '';
+        } else {
+          log('secret setup failed: ' + (data.message || data.secret_ref || 'unknown error'));
+        }
+      }
+      if (!silent && results.length) evidenceEl.textContent = JSON.stringify(results, null, 2);
+      await refresh();
+      return results;
+    }
     function render() {
       if (selected >= actions.length) selected = Math.max(actions.length - 1, 0);
       selectedStepEl.textContent = String(selected);
@@ -754,6 +836,7 @@ function htmlPage(demoUrl) {
       injectionStatusEl.textContent = 'Recorder injection: ' + data.injection_status + (data.injection_message ? ' - ' + data.injection_message : '');
       recordingStateEl.textContent = 'Recording state: ' + (data.recording_state || 'idle');
       currentUrlEl.textContent = 'Current URL: ' + (data.current_url || 'none');
+      renderSecrets(data.required_secrets || []);
       render();
     }
     setInterval(refresh, 1000);
@@ -771,11 +854,12 @@ function htmlPage(demoUrl) {
       evidenceEl.textContent = JSON.stringify(data, null, 2);
       await refresh();
     });
-    document.getElementById('run-all').addEventListener('click', async () => { const data = await (await fetch('/api/run', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ fromIndex: 0 }) })).json(); evidenceEl.textContent = JSON.stringify(data, null, 2); log('run all: ' + data.status); await refresh(); });
-    document.getElementById('run-from').addEventListener('click', async () => { const data = await (await fetch('/api/run', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ fromIndex: selected }) })).json(); evidenceEl.textContent = JSON.stringify(data, null, 2); log('run from: ' + data.status); await refresh(); });
+    document.getElementById('run-all').addEventListener('click', async () => { await setSecretsFromInputs(true); const data = await (await fetch('/api/run', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ fromIndex: 0 }) })).json(); evidenceEl.textContent = JSON.stringify(data, null, 2); log('run all: ' + data.status); await refresh(); });
+    document.getElementById('run-from').addEventListener('click', async () => { await setSecretsFromInputs(true); const data = await (await fetch('/api/run', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ fromIndex: selected }) })).json(); evidenceEl.textContent = JSON.stringify(data, null, 2); log('run from: ' + data.status); await refresh(); });
     document.getElementById('stop-run').addEventListener('click', async () => { const data = await (await fetch('/api/stop-run', { method: 'POST' })).json(); log('stop run: ' + JSON.stringify(data)); });
     document.getElementById('save').addEventListener('click', async () => { const data = await (await fetch('/api/save', { method: 'POST' })).json(); evidenceEl.textContent = JSON.stringify(data, null, 2); log('save: ' + data.workflow_json); });
     document.getElementById('clear').addEventListener('click', async () => { const data = await (await fetch('/api/clear', { method: 'POST' })).json(); log('clear: ' + JSON.stringify(data)); await refresh(); });
+    document.getElementById('set-secrets').addEventListener('click', () => setSecretsFromInputs(false));
     document.getElementById('delete-step').addEventListener('click', () => editStep('delete'));
     document.getElementById('wait-selector-before').addEventListener('click', () => editStep('insert-wait-selector', 'before'));
     document.getElementById('wait-selector-after').addEventListener('click', () => editStep('insert-wait-selector', 'after'));
@@ -824,7 +908,7 @@ async function startStudioServer(port = 8879) {
         return;
       }
       if (req.method === "GET" && url.pathname === "/api/state") {
-        sendJson(res, { actions, browser_status: browser && browser.isConnected() ? "open" : "closed", current_url: page && !page.isClosed() ? page.url() : "", injection_status: injectionStatus, injection_message: injectionMessage, recording_state: recordingState });
+        sendJson(res, { actions, browser_status: browser && browser.isConnected() ? "open" : "closed", current_url: page && !page.isClosed() ? page.url() : "", injection_status: injectionStatus, injection_message: injectionMessage, recording_state: recordingState, required_secrets: secretStatusPayload() });
         return;
       }
       if (req.method === "POST" && url.pathname === "/api/start-recording") {
@@ -841,10 +925,11 @@ async function startStudioServer(port = 8879) {
       if (req.method === "POST" && url.pathname === "/api/stop-recording") { sendJson(res, await stopRecording()); return; }
       if (req.method === "POST" && url.pathname === "/api/run") { const body = await readBody(req); sendJson(res, await runSteps(body.fromIndex || 0)); return; }
       if (req.method === "POST" && url.pathname === "/api/stop-run") { running = false; sendJson(res, { status: "stopping" }); return; }
+      if (req.method === "POST" && url.pathname === "/api/set-secret") { const body = await readBody(req); sendJson(res, setSecretForReplay(body)); return; }
       if (req.method === "POST" && url.pathname === "/api/highlight") { const body = await readBody(req); sendJson(res, await highlightStep(body.index)); return; }
       if (req.method === "POST" && url.pathname === "/api/edit-step") { const body = await readBody(req); sendJson(res, editStep(body)); return; }
       if (req.method === "POST" && url.pathname === "/api/save") { sendJson(res, saveWorkflow()); return; }
-      if (req.method === "POST" && url.pathname === "/api/clear") { actions = []; logs = []; sendJson(res, { status: "cleared" }); return; }
+      if (req.method === "POST" && url.pathname === "/api/clear") { actions = []; logs = []; secretValues.clear(); sendJson(res, { status: "cleared" }); return; }
       res.writeHead(404); res.end();
     } catch (error) {
       sendJson(res, { status: "fail", message: String(error) }, 500);
@@ -884,6 +969,8 @@ async function runSmoke() {
     if (!Array.isArray(typeActions[0].selector_candidates) || !typeActions[0].selector_candidates.length) throw new Error("Type selector candidates were not captured");
     const secretActions = actionSnapshot.filter((action) => action.type === "TypeSecret");
     if (!secretActions.length || JSON.stringify(actionSnapshot).includes("NeverStoreMe")) throw new Error("Password value was captured");
+    const pm15ReplaySecret = "PM15 replay secret must not leak";
+    secretValues.set(secretActions[0].secret_ref, pm15ReplaySecret);
     const anchorClick = actionSnapshot.find((action) => action.type === "Click" && action.selector === "#anch_49");
     if (!anchorClick || anchorClick.selector_quality !== "strong" || anchorClick.label !== "Device Characteristics") throw new Error("Clickable ancestor selector was not preferred: " + JSON.stringify(actionSnapshot));
     if (anchorClick.navigation_detected !== true || !String(anchorClick.resulting_url || "").includes("#device-characteristics")) {
@@ -908,6 +995,9 @@ async function runSmoke() {
     await stopRecording();
     if (actions.length <= actionSnapshot.length) throw new Error("Continuation recording did not append steps");
     const saved = saveWorkflow();
+    for (const artifact of saved.artifacts) {
+      if (fs.readFileSync(artifact, "utf8").includes(pm15ReplaySecret)) throw new Error("PM15 replay secret leaked into artifact: " + artifact);
+    }
     return { status: "pass", headed: true, browser_open: browser.isConnected(), workflow_json: saved.workflow_json, artifacts: saved.artifacts, actions, initial_actions: actionSnapshot, injection_status: injectionStatus };
   } finally {
     await closeBrowser();
@@ -1011,11 +1101,18 @@ async function runPm16Smoke() {
     const secretAction = actions.find((action) => action.type === "TypeSecret" && action.selector === "#pm15-message");
     if (!secretAction || !secretAction.secret_ref || JSON.stringify(secretAction).includes(rawSecretText)) throw new Error("Mark secret did not redact raw text");
 
+    const missingSecretResult = await runSteps(0);
+    if (missingSecretResult.status !== "fail" || !String(missingSecretResult.failed_step && missingSecretResult.failed_step.error || "").includes(`Missing secret value for ${secretAction.secret_ref}.`)) {
+      throw new Error("Missing TypeSecret value did not fail clearly: " + JSON.stringify(missingSecretResult));
+    }
+    const replaySecret = "PM16 replay secret that must stay memory only";
+    setSecretForReplay({ secret_ref: secretAction.secret_ref, value: replaySecret });
     const runResult = await runSteps(0);
     if (runResult.status !== "pass") throw new Error("Edited workflow replay failed: " + JSON.stringify(runResult));
     if (!runResult.run_log.some((entry) => entry.action === "Click" && entry.wait_before && entry.wait_before.selector)) throw new Error("Default readiness wait was not applied before replay interaction");
     if (!runResult.run_log.some((entry) => entry.status === "skipped" && entry.message === "Step disabled in edited workflow.")) throw new Error("Disabled step was not skipped in run log");
-    if (!runResult.run_log.some((entry) => entry.action === "TypeSecret" && entry.status === "skipped")) throw new Error("Secret step did not produce clear skipped replay log");
+    if (!runResult.run_log.some((entry) => entry.action === "TypeSecret" && entry.status === "ok" && entry.secret_ref === secretAction.secret_ref)) throw new Error("Secret step did not replay with in-memory secret: " + JSON.stringify(runResult));
+    if (JSON.stringify(runResult).includes(replaySecret)) throw new Error("Replay result leaked raw secret");
 
     const highlight = await highlightStep(waitSelectorIndex);
     if (highlight.status !== "highlighted") throw new Error("Highlight after editing failed: " + JSON.stringify(highlight));
@@ -1024,9 +1121,13 @@ async function runPm16Smoke() {
     const savedWorkflow = JSON.parse(fs.readFileSync(saved.workflow_json, "utf8"));
     const serialized = JSON.stringify(savedWorkflow);
     if (serialized.includes(rawSecretText)) throw new Error("Saved edited workflow leaked raw secret text");
+    if (serialized.includes(replaySecret)) throw new Error("Saved edited workflow leaked replay secret");
     if (!savedWorkflow.actions.some((action) => action.enabled === false)) throw new Error("Saved workflow did not retain disabled step");
     if (!savedWorkflow.actions.some((action) => action.type === "Wait for Selector")) throw new Error("Saved workflow missing Wait for Selector");
     if (!savedWorkflow.actions.some((action) => action.type === "Wait Seconds")) throw new Error("Saved workflow missing Wait Seconds");
+    for (const artifact of saved.artifacts) {
+      if (fs.readFileSync(artifact, "utf8").includes(replaySecret)) throw new Error("PM16 replay secret leaked into artifact: " + artifact);
+    }
 
     return {
       status: "pass",
@@ -1035,6 +1136,7 @@ async function runPm16Smoke() {
       artifacts: saved.artifacts,
       actions: savedWorkflow.actions,
       run_log: runResult.run_log,
+      missing_secret_run: missingSecretResult,
       highlight,
       lifecycle: {
         no_page_reattach: noPageReattach,

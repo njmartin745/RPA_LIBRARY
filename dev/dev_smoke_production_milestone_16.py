@@ -75,7 +75,12 @@ def _assert_pm16_result(result: dict[str, object]) -> None:
     assert isinstance(run_log, list) and run_log, result
     assert any(entry.get("action") == "Click" and entry.get("wait_before", {}).get("selector") for entry in run_log), run_log
     assert any(entry.get("status") == "skipped" and entry.get("message") == "Step disabled in edited workflow." for entry in run_log), run_log
-    assert any(entry.get("action") == "TypeSecret" and entry.get("status") == "skipped" and "credential vault" in entry.get("message", "") for entry in run_log), run_log
+    assert any(entry.get("action") == "TypeSecret" and entry.get("status") == "ok" and entry.get("secret_ref") for entry in run_log), run_log
+    missing_secret_run = result.get("missing_secret_run")
+    assert isinstance(missing_secret_run, dict) and missing_secret_run.get("status") == "fail", missing_secret_run
+    failed_step = missing_secret_run.get("failed_step")
+    assert isinstance(failed_step, dict) and "Missing secret value for" in str(failed_step.get("error", "")), missing_secret_run
+    assert "PM16 replay secret" not in json.dumps(result), result
 
     highlight = result.get("highlight")
     assert isinstance(highlight, dict) and highlight.get("status") == "highlighted", highlight
@@ -166,7 +171,12 @@ def dev_smoke() -> None:
             "Move Down",
             "/api/edit-step",
             "Step disabled in edited workflow",
-            "Secret value unavailable; no credential vault configured.",
+            "Secrets for Replay",
+            "/api/set-secret",
+            "Missing secret value for",
+            "TypeSecret applied for secret_ref",
+            "secret set for replay",
+            "Secret values stay in memory for this local Studio session only",
             "coalesced duplicate Navigate",
             "isClickableCandidate",
             "run-pm16-smoke",
@@ -194,6 +204,8 @@ def dev_smoke() -> None:
             "Wait Seconds",
             "TypeSecret",
             "credential vault",
+            "in-memory secret",
+            "Missing secret value",
             "default readiness wait",
             "clickable ancestors",
             "deduped",
