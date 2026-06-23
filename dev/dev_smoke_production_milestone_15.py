@@ -76,6 +76,19 @@ def _assert_workflow(result: dict[str, object]) -> None:
     assert type_actions[-1].get("text") == "Hello again", actions
     assert type_actions[0].get("selector_quality") == "strong", type_actions
     assert isinstance(type_actions[0].get("selector_candidates"), list) and type_actions[0]["selector_candidates"], type_actions
+    anchor_clicks = [action for action in actions if action.get("type") == "Click" and action.get("selector") == "#anch_49"]
+    assert anchor_clicks and anchor_clicks[0].get("selector_quality") == "strong", actions
+    assert "Device Characteristics" in anchor_clicks[0].get("label", ""), anchor_clicks
+    assert any(action.get("navigation_detected") is True and "#device-characteristics" in str(action.get("resulting_url", "")) for action in anchor_clicks), anchor_clicks
+    assert "#anch_49 > h3:nth-of-type" not in json.dumps(workflow), workflow
+    assert not any(
+        action.get("type") == "Navigate"
+        and index > 0
+        and actions[index - 1].get("type") == "Navigate"
+        and actions[index - 1].get("url") == action.get("url")
+        for index, action in enumerate(actions)
+    ), actions
+    assert any(action.get("wait_before", {}).get("selector") == "#pm15-message" for action in type_actions), type_actions
     secret_actions = [action for action in actions if action.get("type") == "TypeSecret"]
     assert secret_actions, actions
     assert all(action.get("secret_ref") for action in secret_actions), actions
@@ -91,6 +104,14 @@ def _assert_workflow(result: dict[str, object]) -> None:
         path = Path(str(artifact))
         assert path.exists() and path.stat().st_size > 0, path
         assert "_smoke_artifacts" in path.parts, path
+
+    initial_actions = result.get("initial_actions")
+    assert isinstance(initial_actions, list) and initial_actions, result
+    initial_navigates = [action for action in initial_actions if action.get("type") == "Navigate"]
+    assert len(initial_navigates) == 1, initial_actions
+    initial_anchor_clicks = [action for action in initial_actions if action.get("type") == "Click" and action.get("selector") == "#anch_49"]
+    assert initial_anchor_clicks and initial_anchor_clicks[0].get("navigation_detected") is True, initial_actions
+    assert "#device-characteristics" in str(initial_anchor_clicks[0].get("resulting_url", "")), initial_anchor_clicks
 
 
 def _assert_git_status_clean_or_only_allowed() -> None:
@@ -140,13 +161,19 @@ def dev_smoke() -> None:
             "Save Workflow JSON",
             "highlightStep",
             "injectionStatus",
-            "Inject Recorder / Reattach",
+            "Reattach / Resume Recording",
             "page changed, reinjection needed",
             "injection failed",
             "Browser loaded an error page",
             "recording active",
             "Recorder injection failed",
             "Selector is ambiguous; refine selector before replay",
+            "Replay automatically waits for each action's target element before interacting",
+            "coalesced duplicate Navigate",
+            "annotated click navigation",
+            "navigation_detected",
+            "resulting_url",
+            "isClickableCandidate",
             "selector_quality",
             "selector_candidates",
             "selector-warning",
@@ -155,7 +182,7 @@ def dev_smoke() -> None:
             "headless: !headed",
         ],
     )
-    _assert_contains(PAGE_PATH, ["pm15-message", "pm15-reference", "pm15-secret", "pm15-submit", "type=\"password\""])
+    _assert_contains(PAGE_PATH, ["pm15-message", "pm15-reference", "pm15-secret", "pm15-submit", "anch_49", "Device Characteristics", "type=\"password\""])
     _assert_contains(
         DOC_PATH,
         [
