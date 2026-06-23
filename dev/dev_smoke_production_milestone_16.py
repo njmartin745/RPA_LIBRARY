@@ -79,6 +79,35 @@ def _assert_pm16_result(result: dict[str, object]) -> None:
     highlight = result.get("highlight")
     assert isinstance(highlight, dict) and highlight.get("status") == "highlighted", highlight
 
+    lifecycle = result.get("lifecycle")
+    assert isinstance(lifecycle, dict), result
+    no_page = lifecycle.get("no_page_reattach")
+    assert isinstance(no_page, dict) and no_page.get("status") == "fail", lifecycle
+    assert "No active browser page" in str(no_page.get("message", "")), no_page
+    idle = lifecycle.get("idle_reattach")
+    assert isinstance(idle, dict) and idle.get("status") == "injected", lifecycle
+    assert idle.get("recording_state") == "stopped", idle
+    assert "Click Start Recording to capture actions" in str(idle.get("message", "")), idle
+    after_reload = lifecycle.get("after_reload_reattach")
+    assert isinstance(after_reload, dict) and after_reload.get("status") == "injected", lifecycle
+    assert after_reload.get("recording_state") == "stopped", after_reload
+    active = lifecycle.get("active_reattach")
+    assert isinstance(active, dict) and active.get("status") == "recording active", lifecycle
+    assert active.get("recording_state") == "recording", active
+
+    lifecycle_logs = result.get("lifecycle_logs")
+    assert isinstance(lifecycle_logs, list) and lifecycle_logs, result
+    lifecycle_messages = {str(entry.get("message")) for entry in lifecycle_logs if isinstance(entry, dict)}
+    for expected in {
+        "reattach requested",
+        "recorder injected",
+        "recording started",
+        "recording stopped",
+        "injection failed",
+        "recorder injected but recording idle",
+    }:
+        assert expected in lifecycle_messages, lifecycle_logs
+
     artifacts = result.get("artifacts")
     assert isinstance(artifacts, list) and artifacts, result
     for artifact in artifacts:
@@ -133,6 +162,9 @@ def dev_smoke() -> None:
             "reattach requested",
             "recorder injected",
             "No active browser page. Start Recording or open a browser first.",
+            "Recording state:",
+            "Reattach prepares the current page for recording. Click Start Recording to capture new actions.",
+            "recorder injected but recording idle",
         ],
     )
     _assert_contains(
@@ -147,6 +179,8 @@ def dev_smoke() -> None:
             "default readiness wait",
             "clickable ancestors",
             "deduped",
+            "Injection is not the same as active recording",
+            "auto-injects the recorder",
             "Generated artifacts remain under ignored",
         ],
     )

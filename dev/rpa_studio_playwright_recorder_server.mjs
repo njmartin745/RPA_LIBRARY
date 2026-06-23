@@ -21,6 +21,7 @@ let actions = [];
 let logs = [];
 let injectionStatus = "not injected";
 let injectionMessage = "Recorder has not been injected.";
+let recordingState = "idle";
 
 function nowMs() {
   return Date.now();
@@ -37,6 +38,12 @@ function setInjectionStatus(status, message = "") {
   injectionMessage = message || status;
   log("recorder injection status", { injection_status: injectionStatus, message: injectionMessage });
   return { injection_status: injectionStatus, injection_message: injectionMessage };
+}
+
+function setRecordingState(state, message = "") {
+  recordingState = state;
+  log(`recording ${state}`, { recording_state: recordingState, message: message || state });
+  return { recording_state: recordingState };
 }
 
 function isBrowserErrorUrl(url = "") {
@@ -342,6 +349,7 @@ async function installRecorder(targetPage = page) {
     return setInjectionStatus(recording ? "recording active" : "injected", "Recorder injected into the active page.");
   } catch (error) {
     recording = false;
+    setRecordingState("stopped", "Recording stopped because recorder injection failed.");
     setInjectionStatus("injection failed", `Recorder injection failed: ${String(error)}`);
     throw error;
   }
@@ -363,13 +371,20 @@ async function reattachRecorder() {
   }
   try {
     const injection = await installRecorder(page);
-    log("recorder injected", { injection_status: injection.injection_status, current_url: page.url() });
+    const active = recording && injection.injection_status === "recording active";
+    const message = active
+      ? "Recorder reattached and recording remains active."
+      : "Recorder injected. Click Start Recording to capture actions.";
+    setInjectionStatus(active ? "recording active" : "injected", message);
+    log("recorder injected", { injection_status: injectionStatus, current_url: page.url(), recording_state: recordingState });
+    if (!active) log("recorder injected but recording idle", { current_url: page.url() });
     return {
-      status: injection.injection_status === "recording active" ? "recording active" : "injected",
-      message: injection.injection_message,
+      status: active ? "recording active" : "injected",
+      message,
       current_url: page.url(),
-      injection_status: injection.injection_status,
-      injection_message: injection.injection_message,
+      injection_status: injectionStatus,
+      injection_message: injectionMessage,
+      recording_state: recordingState,
       action_count: actions.length,
       recording,
     };
@@ -382,6 +397,7 @@ async function reattachRecorder() {
       current_url: page && !page.isClosed() ? page.url() : "",
       injection_status: injectionStatus,
       injection_message: injectionMessage,
+      recording_state: recordingState,
       action_count: actions.length,
       recording,
     };
@@ -405,6 +421,7 @@ async function launchBrowser({ url, headed = true } = {}) {
       if (frame === page.mainFrame()) {
         if (isBrowserErrorUrl(currentUrl)) {
           recording = false;
+          setRecordingState("stopped", "Recording stopped because the browser loaded an error page.");
           setInjectionStatus("injection failed", "Browser loaded an error page; navigation or recorder injection is unavailable for this URL.");
           return;
         }
@@ -416,6 +433,7 @@ async function launchBrowser({ url, headed = true } = {}) {
           await installRecorder(page);
         } catch (error) {
           recording = false;
+          setRecordingState("stopped", "Recording stopped because recorder reinjection failed after navigation.");
           setInjectionStatus("injection failed", `Recorder injection failed after navigation: ${String(error)}`);
         }
       }
@@ -429,6 +447,7 @@ async function launchBrowser({ url, headed = true } = {}) {
       }
     } catch (error) {
       recording = false;
+      setRecordingState("stopped", "Recording stopped because navigation failed.");
       setInjectionStatus("injection failed", `Navigation failed before recorder injection: ${String(error)}`);
       throw error;
     }
@@ -439,19 +458,29 @@ async function launchBrowser({ url, headed = true } = {}) {
 async function startRecording() {
   await launchBrowser({});
   recording = false;
-  await installRecorder(page);
+  try {
+    await installRecorder(page);
+  } catch (error) {
+    recording = false;
+    setRecordingState("stopped", "Recording did not start because recorder injection failed.");
+    throw error;
+  }
   recording = true;
+  setRecordingState("recording", "Recording started.");
   setInjectionStatus("recording active", "Recorder injected and recording is active.");
+  log("recording started", { current_url: page.url() });
   appendAction({ type: "Navigate", url: page.url(), label: "Current page" });
-  return { status: "recording", url: page.url(), action_count: actions.length, injection_status: injectionStatus, injection_message: injectionMessage };
+  return { status: "recording", url: page.url(), action_count: actions.length, injection_status: injectionStatus, injection_message: injectionMessage, recording_state: recordingState };
 }
 
 async function stopRecording() {
   recording = false;
+  setRecordingState("stopped", "Recording stopped.");
+  log("recording stopped", { action_count: actions.length });
   if (injectionStatus === "recording active") {
     setInjectionStatus("injected", "Recorder remains injected; recording is stopped.");
   }
-  return { status: "stopped", browser_open: Boolean(browser && browser.isConnected()), page_open: Boolean(page && !page.isClosed()), action_count: actions.length, injection_status: injectionStatus, injection_message: injectionMessage };
+  return { status: "stopped", browser_open: Boolean(browser && browser.isConnected()), page_open: Boolean(page && !page.isClosed()), action_count: actions.length, injection_status: injectionStatus, injection_message: injectionMessage, recording_state: recordingState };
 }
 
 async function locatorForAction(action) {
@@ -552,6 +581,7 @@ async function closeBrowser() {
   if (browser) await browser.close();
   browser = null;
   page = null;
+  setRecordingState("idle", "Recording is idle because the controlled browser closed.");
   setInjectionStatus("not injected", "Controlled browser closed.");
   return { status: "closed" };
 }
@@ -608,6 +638,7 @@ function htmlPage(demoUrl) {
       <button id="start">Start Recording</button>
       <button id="inject" class="secondary">Inject Recorder / Reattach</button>
       <button id="stop" class="secondary">Stop Recording</button>
+      <p class="notice">Reattach prepares the current page for recording. Click Start Recording to capture new actions.</p>
       <button id="run-all">Run All</button>
       <button id="run-from">Run From Selected Step</button>
       <button id="stop-run" class="secondary">Stop Run</button>
@@ -615,6 +646,7 @@ function htmlPage(demoUrl) {
       <button id="clear" class="danger">Clear Actions</button>
       <p id="browser-status">Browser not launched.</p>
       <p id="injection-status">Recorder injection: not injected.</p>
+      <p id="recording-state">Recording state: idle.</p>
       <p id="current-url">Current URL: none</p>
       <div class="editor-panel">
         <h3>Step Editing</h3>
@@ -651,6 +683,7 @@ function htmlPage(demoUrl) {
     const evidenceEl = document.getElementById('evidence');
     const browserStatusEl = document.getElementById('browser-status');
     const injectionStatusEl = document.getElementById('injection-status');
+    const recordingStateEl = document.getElementById('recording-state');
     const currentUrlEl = document.getElementById('current-url');
     const selectedStepEl = document.getElementById('selected-step');
     function log(line) { logEl.textContent += '\\n' + new Date().toISOString() + ' ' + line; logEl.scrollTop = logEl.scrollHeight; }
@@ -688,6 +721,7 @@ function htmlPage(demoUrl) {
       actions = data.actions || [];
       browserStatusEl.textContent = 'Browser status: ' + data.browser_status;
       injectionStatusEl.textContent = 'Recorder injection: ' + data.injection_status + (data.injection_message ? ' - ' + data.injection_message : '');
+      recordingStateEl.textContent = 'Recording state: ' + (data.recording_state || 'idle');
       currentUrlEl.textContent = 'Current URL: ' + (data.current_url || 'none');
       render();
     }
@@ -759,7 +793,7 @@ async function startStudioServer(port = 8879) {
         return;
       }
       if (req.method === "GET" && url.pathname === "/api/state") {
-        sendJson(res, { actions, browser_status: browser && browser.isConnected() ? "open" : "closed", current_url: page && !page.isClosed() ? page.url() : "", injection_status: injectionStatus, injection_message: injectionMessage });
+        sendJson(res, { actions, browser_status: browser && browser.isConnected() ? "open" : "closed", current_url: page && !page.isClosed() ? page.url() : "", injection_status: injectionStatus, injection_message: injectionMessage, recording_state: recordingState });
         return;
       }
       if (req.method === "POST" && url.pathname === "/api/start-recording") { const body = await readBody(req); await launchBrowser({ url: body.url, headed: true }); const out = await startRecording(); sendJson(res, out); return; }
@@ -848,24 +882,40 @@ async function runPm16Smoke() {
     await startRecording();
     await page.click("#pm15-message");
     await page.keyboard.type(rawSecretText);
-    await page.click("#pm15-reference");
     await page.click("#anch_49 h3");
+    await page.click("#pm15-reference");
     await page.click("#pm15-submit");
     await stopRecording();
     const actionCountBeforeReattach = actions.length;
     const idleReattach = await reattachRecorder();
-    if (idleReattach.status !== "injected" || idleReattach.injection_status !== "injected") {
+    if (idleReattach.status !== "injected" || idleReattach.injection_status !== "injected" || idleReattach.recording_state !== "stopped") {
       throw new Error("Idle reattach did not inject recorder: " + JSON.stringify(idleReattach));
+    }
+    if (!String(idleReattach.message || "").includes("Click Start Recording to capture actions")) {
+      throw new Error("Idle reattach did not explain that recording is not active: " + JSON.stringify(idleReattach));
     }
     if (actions.length !== actionCountBeforeReattach) throw new Error("Idle reattach changed recorded actions");
     await page.reload({ waitUntil: "domcontentloaded" });
     const afterReloadReattach = await reattachRecorder();
-    if (afterReloadReattach.status !== "injected" || afterReloadReattach.injection_status !== "injected") {
+    if (afterReloadReattach.status !== "injected" || afterReloadReattach.injection_status !== "injected" || afterReloadReattach.recording_state !== "stopped") {
       throw new Error("Reattach after navigation did not inject recorder: " + JSON.stringify(afterReloadReattach));
     }
     if (actions.length !== actionCountBeforeReattach) throw new Error("Reattach after navigation changed recorded actions");
+    await startRecording();
+    const actionCountAfterRestart = actions.length;
+    const activeReattach = await reattachRecorder();
+    if (activeReattach.status !== "recording active" || activeReattach.injection_status !== "recording active" || activeReattach.recording_state !== "recording") {
+      throw new Error("Active reattach did not preserve recording state: " + JSON.stringify(activeReattach));
+    }
+    if (actions.length !== actionCountAfterRestart) throw new Error("Active reattach changed recorded actions");
+    await page.click("#anch_49 h3");
+    if (actions.length <= actionCountAfterRestart) throw new Error("Start Recording after idle reattach did not capture new actions");
+    await stopRecording();
     if (!logs.some((entry) => entry.message === "reattach requested")) throw new Error("Reattach request was not logged");
     if (!logs.some((entry) => entry.message === "recorder injected")) throw new Error("Recorder injection success was not logged");
+    if (!logs.some((entry) => entry.message === "recording started")) throw new Error("Recording start was not logged");
+    if (!logs.some((entry) => entry.message === "recording stopped")) throw new Error("Recording stop was not logged");
+    if (!logs.some((entry) => entry.message === "recorder injected but recording idle")) throw new Error("Idle injection was not logged distinctly");
     if (!logs.some((entry) => entry.message === "injection failed" && String(entry.reason || "").includes("No active browser page"))) {
       throw new Error("No-page reattach failure was not logged clearly");
     }
@@ -923,7 +973,29 @@ async function runPm16Smoke() {
     if (!savedWorkflow.actions.some((action) => action.type === "Wait for Selector")) throw new Error("Saved workflow missing Wait for Selector");
     if (!savedWorkflow.actions.some((action) => action.type === "Wait Seconds")) throw new Error("Saved workflow missing Wait Seconds");
 
-    return { status: "pass", headed: true, workflow_json: saved.workflow_json, artifacts: saved.artifacts, actions: savedWorkflow.actions, run_log: runResult.run_log, highlight };
+    return {
+      status: "pass",
+      headed: true,
+      workflow_json: saved.workflow_json,
+      artifacts: saved.artifacts,
+      actions: savedWorkflow.actions,
+      run_log: runResult.run_log,
+      highlight,
+      lifecycle: {
+        no_page_reattach: noPageReattach,
+        idle_reattach: idleReattach,
+        after_reload_reattach: afterReloadReattach,
+        active_reattach: activeReattach,
+      },
+      lifecycle_logs: logs.filter((entry) => [
+        "reattach requested",
+        "recorder injected",
+        "recording started",
+        "recording stopped",
+        "injection failed",
+        "recorder injected but recording idle",
+      ].includes(entry.message)),
+    };
   } finally {
     await closeBrowser();
     await new Promise((resolve) => server.close(resolve));

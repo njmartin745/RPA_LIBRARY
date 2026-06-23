@@ -45,6 +45,26 @@ http://127.0.0.1:8879/
 11. Run the edited workflow.
 12. Confirm run evidence and logs reflect skipped disabled/secret steps.
 
+## Recorder Lifecycle
+
+The UI separates browser, recorder injection, and recording state:
+
+- Browser status shows whether the controlled Playwright browser is open.
+- Recorder injection shows whether the active page has the recorder script
+  installed.
+- Recording state shows whether new actions are actively being captured.
+
+Injection is not the same as active recording. `Inject Recorder / Reattach`
+prepares the current page for recording, but user actions are captured only
+while Recording state is `recording`. If reattach succeeds while recording is
+idle or stopped, the UI reports: `Recorder injected. Click Start Recording to
+capture actions.`
+
+`Start Recording` auto-injects the recorder when possible. If injection fails,
+recording does not start and the UI/log show the failure reason. Reattach is
+primarily for page reloads, page navigation, or cases where capture stops and
+the current page needs the recorder script installed again.
+
 ## What Is Demoable Now
 
 - Recorded workflows can be edited before replay.
